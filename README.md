@@ -1,1 +1,1 @@
-# Hololands Ui for controling drone
+# Ui for controling drone for hololens 2
