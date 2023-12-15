@@ -65,6 +65,30 @@ public class DroneManager : Singleton<DroneManager>
         AddDrone(flightData);
     }
 
+    public void HandleReceivedDroneData(DroneFlightDataNew flyData)
+    {
+        DroneFlightData flightData = new DroneFlightData(flyData);
+
+        if (double.IsNaN(flightData.Latitude) || double.IsNaN(flightData.Longitude))
+        {
+            var mapboxLatLong = Map.CenterLatitudeLongitude;
+            flightData.Longitude = mapboxLatLong.y;
+            flightData.Latitude = mapboxLatLong.x;
+        }
+
+        foreach (Drone drone in Drones)
+        {
+            // Drone is already present and instaciated, we found it, just update position
+            if (drone.FlightData.DroneId == flightData.DroneId)
+            {
+                drone.UpdateDroneFlightData(flightData);
+                return;
+            }
+        }
+        // Drone is new one in the system, we need to instanciate it
+        AddDrone(flightData);
+    }
+
     public Drone GetDroneByID(string droneID)
     {
         foreach (Drone drone in Drones)
@@ -131,6 +155,19 @@ public class DroneFlightData
         Yaw = 0;
         Compass = 0;
     }
+
+    public DroneFlightData(DroneFlightDataNew newFormat):this()
+    {
+        DroneId = newFormat.client_id;
+        Altitude = newFormat.altitude;
+        Latitude = newFormat.gps.latitude;
+        Longitude = newFormat.gps.longitude;
+        Pitch = newFormat.aircraft_orientation.pitch;
+        Roll = newFormat.aircraft_orientation.roll;
+        Yaw = newFormat.aircraft_orientation.yaw;
+        Compass = newFormat.aircraft_orientation.compass;
+    }
+
 
     public void SetData(double height, double latitude, double longitute, double pitch, double roll, double yaw, double compass)
     {

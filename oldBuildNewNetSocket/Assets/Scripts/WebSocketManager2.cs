@@ -4,10 +4,12 @@ using UnityEngine;
 using NativeWebSocket;
 using System;
 using System.Text;
+using UnityEditor.Experimental.GraphView;
 
-public class WebSocketManager2 : MonoBehaviour
+public class WebSocketManager2 : Singleton<WebSocketManager>
 {
-
+    public string ServerHostname = "localhost";
+    public int Port = 5555;
     private string APIDomainWS = "";
     /// <summary>
     /// Websocket context
@@ -39,7 +41,13 @@ public class WebSocketManager2 : MonoBehaviour
             websocket.DispatchMessageQueue();
     }
 
-    public async void ConnectToServer(string domain, int port)
+    private void Start()
+    {
+        ConnectToServer(ServerHostname, Port);
+    }
+
+
+    public async void ConnectToServer(string domain = "pcbambusek.fit.vutbr.cz", int port = 5555)
     {
         ClosePreviousConnection();
 
@@ -133,8 +141,8 @@ public class WebSocketManager2 : MonoBehaviour
         }
         else if (handshake_done && msg.type == "data_broadcast")
         {
-            Response<DroneFlightData> dsfdr = JsonUtility.FromJson<Response<DroneFlightData>>(msgstr);
-            //DroneManager.Instance.HandleReceivedDroneData(dsfdr.data);
+            Response<DroneFlightDataNew> dsfdr = JsonUtility.FromJson<Response<DroneFlightDataNew>>(msgstr);
+            DroneManager.Instance.HandleReceivedDroneData(dsfdr.data);
         }
         else if (handshake_done && msg.type == "vehicle_detection_rects")
         {
@@ -185,6 +193,12 @@ public class WebSocketManager2 : MonoBehaviour
     private async void OnApplicationQuit()
     {
         await websocket.Close();
+    }
+
+    //new methods:
+    public bool IsConnected()
+    {
+        return websocket!=null ? websocket.State == WebSocketState.Open : false;
     }
 
 }

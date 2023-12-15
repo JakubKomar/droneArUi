@@ -7,17 +7,17 @@
 public class HandMenuManager : Singleton<HandMenuManager> {
 
     public void ConnectToServer() {
-        WebSocketManager.Instance.ConnectToServer(WebSocketManager.Instance.ServerHostname, WebSocketManager.Instance.Port);
+        WebSocketManager2.Instance.ConnectToServer(WebSocketManager.Instance.ServerHostname, WebSocketManager.Instance.Port);
     }
 
     public void SetGPS() {
-        if (WebSocketManager.Instance.IsConnected()) {
+        if (WebSocketManager2.Instance.IsConnected()) {
             GPSManager.Instance.SetGPS();
         }
     }
 
     public void ReconnectToServer() {
-        WebSocketManager.Instance.ReconnectToServer(WebSocketManager.Instance.ServerHostname, WebSocketManager.Instance.Port);
+        WebSocketManager2.Instance.ReconnectToServer(WebSocketManager2.Instance.ServerHostname, WebSocketManager2.Instance.Port);
     }
 
 }
