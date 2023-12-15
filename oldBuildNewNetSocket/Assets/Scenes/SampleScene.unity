@@ -606,6 +606,49 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!1 &213798298
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 213798299}
+  - component: {fileID: 213798300}
+  m_Layer: 0
+  m_Name: WebSocketManager2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &213798299
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213798298}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 371222191}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &213798300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 213798298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d206e8d10e237e046a8718f94eaf751e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &235684506
 GameObject:
   m_ObjectHideFlags: 0
@@ -862,8 +905,8 @@ Transform:
   - {fileID: 1732974295}
   - {fileID: 1658783743}
   - {fileID: 2121608265}
-  - {fileID: 1155763671}
   - {fileID: 1625922833}
+  - {fileID: 213798299}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3139,79 +3182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68d14b5622bbc2446b5b6a5c3f17175f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1155763670
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1155763671}
-  - component: {fileID: 1155763673}
-  - component: {fileID: 1155763672}
-  m_Layer: 0
-  m_Name: GStreamVideoManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1155763671
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155763670}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 371222191}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1155763672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155763670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab2ae4c1116ce2446993760ea0c4f6f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  BlittedImage: {fileID: 0}
-  TargetMaterial: {fileID: 2100000, guid: 56b55489c9086f64badd3b38e9768518, type: 2}
-  pipeline: udpsrc port=1338 ! application/x-rtp ! rtpjitterbuffer ! rtph264depay
-    ! decodebin
-  BlitRect:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
-  position: 0
-  duration: 0
---- !u!114 &1155763673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1155763670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12f47a03a48502248b37b02fa56fb056, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FlipX: 1
-  m_FlipY: 1
-  m_Texture: []
-  m_InitializeOnStart: 1
-  Pipeline: 
 --- !u!1 &1185282036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3720,7 +3690,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 371222191}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1625922834
 MonoBehaviour:
