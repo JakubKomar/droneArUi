@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d206e8d10e237e046a8718f94eaf751e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ServerHostname: localhost
+  ServerHostname: 127.0.0.1
   Port: 5555
 --- !u!1 &235684506
 GameObject:
