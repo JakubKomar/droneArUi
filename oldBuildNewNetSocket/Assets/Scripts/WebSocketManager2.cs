@@ -6,7 +6,7 @@ using System;
 using System.Text;
 //using UnityEditor.Experimental.GraphView;
 
-public class WebSocketManager2 : Singleton<WebSocketManager>
+public class WebSocketManager2 : Singleton<WebSocketManager2>
 {
     public string ServerHostname = "localhost";
     public int Port = 5555;

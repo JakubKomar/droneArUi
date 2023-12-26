@@ -228,13 +228,13 @@ namespace DroneSimulator
         }
 
         private void RotateWaypointIndicator()
-        {
+        {/*
             var currentWaypoint = MissionManager.Instance.CurrentTarget;
             speedIndicator.gameObject.SetActive(currentWaypoint != null);
             if (currentWaypoint == null) return;
 
             speedIndicator.rotation = Quaternion.LookRotation(currentWaypoint.WaypointGameObject.transform.position - drone.position);
-
+            */
             //if (speedVelocity < 0.2f)
             //{
             //    speedIndicator.gameObject.SetActive(false);
