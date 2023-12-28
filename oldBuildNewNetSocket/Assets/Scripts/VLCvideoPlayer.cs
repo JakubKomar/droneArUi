@@ -67,7 +67,9 @@ public class VLCvideoPlayer : MonoBehaviour
 	{
 		//Dispose of mediaPlayer, or it will stay in nemory and keep playing audio
 		DestroyMediaPlayer();
-	}
+        libVLC.Dispose();
+
+    }
 
 	void Update()
 	{
@@ -193,7 +195,11 @@ public class VLCvideoPlayer : MonoBehaviour
 	void DestroyMediaPlayer()
 	{
 		Log("VLCPlayerExample DestroyMediaPlayer");
-		mediaPlayer?.Stop();
+        mediaPlayer?.Stop();
+
+        _vlcTexture = null;
+        texture = null;
+
 		mediaPlayer?.Dispose();
 		mediaPlayer = null;
 	}
