@@ -15,6 +15,7 @@ namespace DroneSimulator
     public class SceneManager : MonoBehaviour
     {
 
+        public DroneSimulator Simulator;
         public HeadUpDisplay HeadUpDisplay;
         public GameObject cameraFrame;
         public GameObject canvas;
@@ -26,16 +27,21 @@ namespace DroneSimulator
         public float pitch;
         public float roll;
 
+        public InputController inputController;
+
 
         private void Start()
         {
             Debug.Log("Begin Sim- START");
+            inputController.CustomAwake(this);
+            Simulator.CustomStart(this);
             HeadUpDisplay.CustomStart();
             //TryDisplayUI(true);
         }
 
         private void Update()
         {
+            inputController.GetFlightCommmands();
             
             //RunFrame();
         }
@@ -51,6 +57,7 @@ namespace DroneSimulator
         public void Reset()
         {
             Debug.Log("Reset");
+            Simulator.ResetSimulator();
 
         }
 
@@ -104,7 +111,9 @@ namespace DroneSimulator
 
         public void RunFrame()
         {
+            var inputs = inputController.CheckFlightInputs();
 
+            finalInputs = CalulateFinalInputs(inputs.x, inputs.y, inputs.z, inputs.w);
             yaw = finalInputs.x;
             elv = finalInputs.y;
             roll = finalInputs.z;
@@ -116,6 +125,10 @@ namespace DroneSimulator
        
         Quaternion CalulateFinalInputs(float yaw, float elv, float roll, float pitch)
         {
+            elv *= inputController.speed;
+            roll *= inputController.speed;
+            pitch *= inputController.speed;
+            yaw *= inputController.speed;
             return new Quaternion(yaw, elv, roll, pitch);
         }
 

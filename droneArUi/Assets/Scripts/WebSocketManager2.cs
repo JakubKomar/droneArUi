@@ -4,7 +4,7 @@ using UnityEngine;
 using NativeWebSocket;
 using System;
 using System.Text;
-using UnityEditor.Experimental.GraphView;
+//using UnityEditor.Experimental.GraphView;
 
 public class WebSocketManager2 : Singleton<WebSocketManager2>
 {

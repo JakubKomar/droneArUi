@@ -6,8 +6,8 @@
  * 
  */
 
-//using Microsoft.MixedReality.Toolkit;
-//using Microsoft.MixedReality.Toolkit.SpatialAwareness;
+using Microsoft.MixedReality.Toolkit;
+using Microsoft.MixedReality.Toolkit.SpatialAwareness;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -228,13 +228,13 @@ namespace DroneSimulator
         }
 
         private void RotateWaypointIndicator()
-        {
-            //var currentWaypoint = MissionManager.Instance.CurrentTarget;
-            //speedIndicator.gameObject.SetActive(currentWaypoint != null);
-            //if (currentWaypoint == null) return;
+        {/*
+            var currentWaypoint = MissionManager.Instance.CurrentTarget;
+            speedIndicator.gameObject.SetActive(currentWaypoint != null);
+            if (currentWaypoint == null) return;
 
-            //speedIndicator.rotation = Quaternion.LookRotation(currentWaypoint.WaypointGameObject.transform.position - drone.position);
-
+            speedIndicator.rotation = Quaternion.LookRotation(currentWaypoint.WaypointGameObject.transform.position - drone.position);
+            */
             //if (speedVelocity < 0.2f)
             //{
             //    speedIndicator.gameObject.SetActive(false);

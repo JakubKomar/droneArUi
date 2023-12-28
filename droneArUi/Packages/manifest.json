@@ -1,19 +1,17 @@
 {
-  "scopedRegistries": [
-    {
-      "name": "OpenUPM",
-      "url": "https://package.openupm.com",
-      "scopes": [
-        "com.atteneder"
-      ]
-    }
-  ],
   "dependencies": {
-    "com.atteneder.ktx": "2.2.3",
     "com.endel.nativewebsocket": "https://github.com/endel/NativeWebSocket.git#upm",
     "com.microsoft.mixedreality.openxr": "file:MixedReality/com.microsoft.mixedreality.openxr-1.10.0.tgz",
-    "com.microsoft.mrtk.graphicstools.unity": "file:MixedReality/com.microsoft.mrtk.graphicstools.unity-0.6.5.tgz",
-    "com.microsoft.mrtk.tts.windows": "file:MixedReality/com.microsoft.mrtk.tts.windows-1.0.2.tgz",
+    "com.microsoft.mixedreality.toolkit.examples": "file:MixedReality/com.microsoft.mixedreality.toolkit.examples-2.8.3.tgz",
+    "com.microsoft.mixedreality.toolkit.extensions": "file:MixedReality/com.microsoft.mixedreality.toolkit.extensions-2.8.3.tgz",
+    "com.microsoft.mixedreality.toolkit.figmabridge": "file:MixedReality/com.microsoft.mixedreality.toolkit.figmabridge-0.1.1.tgz",
+    "com.microsoft.mixedreality.toolkit.foundation": "file:MixedReality/com.microsoft.mixedreality.toolkit.foundation-2.8.3.tgz",
+    "com.microsoft.mixedreality.toolkit.gpustats": "file:MixedReality/com.microsoft.mixedreality.toolkit.gpustats-1.0.3.tgz",
+    "com.microsoft.mixedreality.toolkit.micstream": "file:MixedReality/com.microsoft.mixedreality.toolkit.micstream-1.0.0.tgz",
+    "com.microsoft.mixedreality.toolkit.planefinding": "file:MixedReality/com.microsoft.mixedreality.toolkit.planefinding-1.0.0.tgz",
+    "com.microsoft.mixedreality.toolkit.standardassets": "file:MixedReality/com.microsoft.mixedreality.toolkit.standardassets-2.8.3.tgz",
+    "com.microsoft.mixedreality.toolkit.testutilities": "file:MixedReality/com.microsoft.mixedreality.toolkit.testutilities-2.8.3.tgz",
+    "com.microsoft.mixedreality.toolkit.tools": "file:MixedReality/com.microsoft.mixedreality.toolkit.tools-2.8.3.tgz",
     "com.microsoft.spatialaudio.spatializer.unity": "file:MixedReality/com.microsoft.spatialaudio.spatializer.unity-2.0.47.tgz",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.feature.development": "1.0.1",
@@ -21,20 +19,7 @@
     "com.unity.timeline": "1.7.5",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.0",
-    "com.unity.xr.openxr": "1.8.2",
-    "org.mixedrealitytoolkit.accessibility": "file:MixedReality/org.mixedrealitytoolkit.accessibility-1.0.0-pre.18.tgz",
-    "org.mixedrealitytoolkit.audio": "file:MixedReality/org.mixedrealitytoolkit.audio-3.0.0.tgz",
-    "org.mixedrealitytoolkit.core": "file:MixedReality/org.mixedrealitytoolkit.core-3.0.1.tgz",
-    "org.mixedrealitytoolkit.diagnostics": "file:MixedReality/org.mixedrealitytoolkit.diagnostics-3.0.0.tgz",
-    "org.mixedrealitytoolkit.extendedassets": "file:MixedReality/org.mixedrealitytoolkit.extendedassets-3.0.0.tgz",
-    "org.mixedrealitytoolkit.input": "file:MixedReality/org.mixedrealitytoolkit.input-3.0.0.tgz",
-    "org.mixedrealitytoolkit.spatialmanipulation": "file:MixedReality/org.mixedrealitytoolkit.spatialmanipulation-3.0.0.tgz",
-    "org.mixedrealitytoolkit.standardassets": "file:MixedReality/org.mixedrealitytoolkit.standardassets-3.0.0.tgz",
-    "org.mixedrealitytoolkit.tools": "file:MixedReality/org.mixedrealitytoolkit.tools-3.0.0.tgz",
-    "org.mixedrealitytoolkit.uxcomponents": "file:MixedReality/org.mixedrealitytoolkit.uxcomponents-3.1.0.tgz",
-    "org.mixedrealitytoolkit.uxcomponents.noncanvas": "file:MixedReality/org.mixedrealitytoolkit.uxcomponents.noncanvas-3.1.0.tgz",
-    "org.mixedrealitytoolkit.uxcore": "file:MixedReality/org.mixedrealitytoolkit.uxcore-3.1.0.tgz",
-    "org.mixedrealitytoolkit.windowsspeech": "file:MixedReality/org.mixedrealitytoolkit.windowsspeech-3.0.0.tgz",
+    "com.unity.xr.openxr": "1.9.1",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",

@@ -5,11 +5,14 @@ PluginImporter:
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
+  defineConstraints: []
   isPreloaded: 0
   isOverridable: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 1
   platformData:
   - first:
-      '': Any
+      : Any
     second:
       enabled: 0
       settings:
@@ -23,6 +26,7 @@ PluginImporter:
         Exclude Win: 1
         Exclude Win64: 1
         Exclude WindowsStoreApps: 0
+        Exclude iOS: 1
   - first:
       Android: Android
     second:
@@ -97,9 +101,18 @@ PluginImporter:
       settings:
         CPU: AnyCPU
         DontProcess: false
-        PlaceholderPath: Assets/Mapbox/Core/Plugins/Mapbox/vector-tile-cs/net46/Mapbox.VectorTile.Geometry.dll
+        PlaceholderPath: 
         SDK: AnySDK
-        ScriptingBackend: AnyScriptingBackend
+        ScriptingBackend: Il2Cpp
+  - first:
+      iPhone: iOS
+    second:
+      enabled: 0
+      settings:
+        AddToEmbeddedBinaries: false
+        CPU: AnyCPU
+        CompileFlags: 
+        FrameworkDependencies: 
   userData: 
   assetBundleName: 
   assetBundleVariant: 

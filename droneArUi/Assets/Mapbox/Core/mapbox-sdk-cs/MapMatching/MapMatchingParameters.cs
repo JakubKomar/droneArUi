@@ -12,13 +12,13 @@ namespace Mapbox.MapMatching
 	/// <summary>Directions profile id</summary>
 	public enum Profile
 	{
-		[Description("mapbox/driving")]
+		//[Description("mapbox/driving")]
 		MapboxDriving,
-		[Description("mapbox/driving-traffic")]
+		//[Description("mapbox/driving-traffic")]
 		MapboxDrivingTraffic,
-		[Description("mapbox/walking")]
+		//[Description("mapbox/walking")]
 		MapboxWalking,
-		[Description("mapbox/cycling")]
+		//[Description("mapbox/cycling")]
 		MapboxCycling
 	}
 
@@ -27,13 +27,13 @@ namespace Mapbox.MapMatching
 	public enum Geometries
 	{
 		/// <summary>Default, precision 5.</summary>
-		[Description("polyline")]
+		//[Description("polyline")]
 		Polyline,
 		/// <summary>Precision 6.</summary>
-		[Description("polyline6")]
+		//[Description("polyline6")]
 		Polyline6,
 		/// <summary>Geojson.</summary>
-		[Description("geojson")]
+		//[Description("geojson")]
 		GeoJson
 	}
 
@@ -42,13 +42,13 @@ namespace Mapbox.MapMatching
 	public enum Overview
 	{
 		/// <summary>The most detailed geometry available </summary>
-		[Description("full")]
+		//[Description("full")]
 		Full,
 		/// <summary>A simplified version of the full geometry</summary>
-		[Description("simplified")]
+		//[Description("simplified")]
 		Simplified,
 		/// <summary>No overview geometry </summary>
-		[Description("false")]
+		//[Description("false")]
 		None
 	}
 
@@ -57,13 +57,13 @@ namespace Mapbox.MapMatching
 	[System.Flags]
 	public enum Annotations
 	{
-		[Description("duration")]
+		//[Description("duration")]
 		Duration,
-		[Description("distance")]
+		//[Description("distance")]
 		Distance,
-		[Description("speed")]
+		//[Description("speed")]
 		Speed,
-		[Description("congestion")]
+		//[Description("congestion")]
 		Congestion
 	}
 
@@ -73,41 +73,41 @@ namespace Mapbox.MapMatching
 	/// </summary>
 	public enum InstructionLanguages
 	{
-		[Description("de")]
+		//[Description("de")]
 		German,
-		[Description("en")]
+		//[Description("en")]
 		English,
-		[Description("eo")]
+		//[Description("eo")]
 		Esperanto,
-		[Description("es")]
+		//[Description("es")]
 		Spanish,
-		[Description("es-ES")]
+		//[Description("es-ES")]
 		SpanishSpain,
-		[Description("fr")]
+		//[Description("fr")]
 		French,
-		[Description("id")]
+		//[Description("id")]
 		Indonesian,
-		[Description("it")]
+		//[Description("it")]
 		Italian,
-		[Description("nl")]
+		//[Description("nl")]
 		Dutch,
-		[Description("pl")]
+		//[Description("pl")]
 		Polish,
-		[Description("pt-BR")]
+		//[Description("pt-BR")]
 		PortugueseBrazil,
-		[Description("ro")]
+		//[Description("ro")]
 		Romanian,
-		[Description("ru")]
+		//[Description("ru")]
 		Russian,
-		[Description("sv")]
+		//[Description("sv")]
 		Swedish,
-		[Description("tr")]
+		//[Description("tr")]
 		Turkish,
-		[Description("uk")]
+		//[Description("uk")]
 		Ukrainian,
-		[Description("vi")]
+		//[Description("vi")]
 		Vietnamese,
-		[Description("zh-Hans")]
+		//[Description("zh-Hans")]
 		ChineseSimplified
 	}
 

@@ -166,6 +166,9 @@ public class DroneFlightData
         Roll = newFormat.aircraft_orientation.roll;
         Yaw = newFormat.aircraft_orientation.yaw;
         Compass = newFormat.aircraft_orientation.compass;
+        VelocityX = newFormat.aircraft_velocity.velocity_x;
+        VelocityY = newFormat.aircraft_velocity.velocity_y;
+        VelocityZ = newFormat.aircraft_velocity.velocity_z;
     }
 
 
