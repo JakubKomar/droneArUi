@@ -58,7 +58,7 @@ public class HeadUpDisplay : MonoBehaviour
 
         nextUpdate = GPSManager.droneUpdateInterval;
 
-        ToggleHeadUpDisplayElements(false);
+        //ToggleHeadUpDisplayElements(false);
         CheckIfDroneConnected();
     }
 
@@ -156,7 +156,7 @@ public class HeadUpDisplay : MonoBehaviour
         navigationArrow.gameObject.SetActive(active);
         lineRenderer.gameObject.SetActive(active);
         lineRenderer.positionCount = 3;
-        this.gameObject.GetComponent<Image>().enabled = active;
+        //this.gameObject.GetComponent<Image>().enabled = active;
     }
 
     // Update is called once per frame
@@ -187,7 +187,7 @@ public class HeadUpDisplay : MonoBehaviour
         }
 
         //set altitudeText transform next to a bar
-        altitudeTextTransform.localPosition = new Vector3(altitudeTextTransform.localPosition.x, AltitudeTextOffset + (altitude * AltitudeValueToTransformMultiplier) / 2, altitudeTextTransform.localPosition.z);
+        //altitudeTextTransform.localPosition = new Vector3(altitudeTextTransform.localPosition.x, AltitudeTextOffset + (altitude * AltitudeValueToTransformMultiplier) / 2, altitudeTextTransform.localPosition.z);
 
         //changing color of bar based on altitude
         if (altitude < 0.5f)
@@ -203,8 +203,8 @@ public class HeadUpDisplay : MonoBehaviour
             altitutudeRenderer.material.SetColor("_Color", Color.green);
         }
 
-        batteryIndicator.gameObject.SetActive(false);
-        batteryText.gameObject.SetActive(false);
+        //batteryIndicator.gameObject.SetActive(false);
+        //batteryText.gameObject.SetActive(false);
 
 
         //visibility of TARGET, showing navigation arrow

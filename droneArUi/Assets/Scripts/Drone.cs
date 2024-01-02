@@ -41,10 +41,9 @@ public class Drone {
     public float RelativeAltitude {
         get
         {
-            if (this.DronesWithZeroAltitude.Contains(FlightData.DroneId))
-            {
-                return (float)FlightData.Altitude;
-            }
+
+            return (float)FlightData.Altitude;
+            
 
             var latlong = new Vector2d(FlightData.Latitude, FlightData.Longitude);
             var groundAltitude = DroneManager.Instance.Map.QueryElevationInUnityUnitsAt(latlong);

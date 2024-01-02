@@ -39,11 +39,13 @@
      inkscape:label="Vrstva 1"
      inkscape:groupmode="layer"
      id="layer1">
-    <circle
-       style="fill:#0000b7;stroke-width:4;stroke-linejoin:bevel;stroke-opacity:1;fill-opacity:0.33014354;stroke:#00ff00;stroke-dasharray:none"
-       id="path788"
-       cx="504.96991"
-       cy="499.50485"
-       r="460.15659" />
+    <rect
+       style="fill:none;fill-opacity:0;stroke:#00ff00;stroke-width:5.99812;stroke-linejoin:bevel;stroke-dasharray:none;stroke-opacity:1;stroke-linecap:butt"
+       id="rect2407"
+       width="696.70868"
+       height="696.70868"
+       x="-346.80856"
+       y="358.05222"
+       transform="rotate(-45)" />
   </g>
 </svg>

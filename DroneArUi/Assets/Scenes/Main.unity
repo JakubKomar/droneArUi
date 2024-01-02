@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AspectMode: 0
-  m_AspectRatio: 2.7358983
+  m_AspectRatio: 2.9927368
 --- !u!222 &3755296
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -205,10 +205,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 494098409}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 469.9}
-  m_SizeDelta: {x: 0, y: -420.87546}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 2, y: -134}
+  m_SizeDelta: {x: 566, y: 189.12454}
   m_Pivot: {x: 0, y: 0}
 --- !u!4 &13926164 stripped
 Transform:
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 19061667}
   - component: {fileID: 19061668}
   m_Layer: 5
-  m_Name: Square
+  m_Name: DroneFrame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -241,7 +241,7 @@ RectTransform:
   m_GameObject: {fileID: 19061666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 40, y: 40, z: 1}
+  m_LocalScale: {x: 25, y: 25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 586577278}
@@ -1431,7 +1431,6 @@ GameObject:
   m_Component:
   - component: {fileID: 586577278}
   - component: {fileID: 586577280}
-  - component: {fileID: 586577279}
   - component: {fileID: 586577281}
   - component: {fileID: 586577282}
   m_Layer: 5
@@ -1466,36 +1465,6 @@ RectTransform:
   m_AnchoredPosition: {x: 6.999939, y: 12}
   m_SizeDelta: {x: 248.99994, y: 199}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &586577279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 586577277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.8490566, g: 0.108134575, b: 0.108134575, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ad869e8709e2b5047a85519ab5d898bc, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &586577280
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1793,7 +1762,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716282279}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.000042915344}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1801,8 +1770,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -377.1, y: -64}
-  m_SizeDelta: {x: 400, y: 100}
+  m_AnchoredPosition: {x: 451.5, y: 0}
+  m_SizeDelta: {x: 550, y: 140}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &716282281
 MonoBehaviour:
@@ -1831,7 +1800,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 93
-    m_Alignment: 5
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -2242,11 +2211,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7459330427298165376, guid: 65de389d4bf865445bf386d8ddb44482, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -314
+      value: -20.8
       objectReference: {fileID: 0}
     - target: {fileID: -7459330427298165376, guid: 65de389d4bf865445bf386d8ddb44482, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 21.1
       objectReference: {fileID: 0}
     - target: {fileID: -7459330427298165376, guid: 65de389d4bf865445bf386d8ddb44482, type: 3}
       propertyPath: m_LocalPosition.z
