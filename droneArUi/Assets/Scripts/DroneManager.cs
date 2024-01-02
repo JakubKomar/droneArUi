@@ -118,6 +118,7 @@ public class DroneManager : Singleton<DroneManager>
                 drone.DroneGameObject.Destroy();
                 drone.DroneGameObject = ControlledDroneGameObject;
                 droneFound = true;
+                RTMPstreamPlayer.Instance.OnDroneConnected(drone.FlightData.DroneId);
             }
             else
             {

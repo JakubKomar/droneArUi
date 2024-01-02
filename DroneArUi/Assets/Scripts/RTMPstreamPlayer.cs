@@ -21,9 +21,10 @@ using System.Collections.Generic;
 ///LibVLC parameters: https://wiki.videolan.org/VLC_command-line_help/
 ///Report a bug: https://code.videolan.org/videolan/vlc-unity/-/issues
 
-public class VLCvideoPlayer : MonoBehaviour
+public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 {
-	public static LibVLC libVLC; //The LibVLC class is mainly used for making MediaPlayer and Media objects. You should only have one LibVLC instance.
+
+    public static LibVLC libVLC; //The LibVLC class is mainly used for making MediaPlayer and Media objects. You should only have one LibVLC instance.
 	public MediaPlayer mediaPlayer; //MediaPlayer is the main class we use to interact with VLC
 
 	//Screens
@@ -36,11 +37,12 @@ public class VLCvideoPlayer : MonoBehaviour
 	public string ip= "127.0.0.1";
     public string port= "1935";
 	public string dronId = "6ab6be76";
+	public bool manualId = false;
+
 	private string fullPath;
     // when copying native Texture2D textures to Unity RenderTextures, the orientation mapping is incorrect on Android, so we flip it over.
     public bool flipTextureX = true;
 	public bool flipTextureY = true;
-	public bool playOnAwake = true; //Open path and Play during Awake
 
 	public bool logToConsole = false; //Log function calls and LibVLC logs to Unity console
 
@@ -57,10 +59,13 @@ public class VLCvideoPlayer : MonoBehaviour
 			screen = GetComponent<Renderer>();
 		if (canvasScreen == null)
 			canvasScreen = GetComponent<RawImage>();
-		this.fullPath = "rtmp://" + ip + ":" + port + "/live/" + dronId;
+		this.fullPath = "rtmp://" + ip + ":" + port + "/live/";
 
         CreateMediaPlayer();
-		Open();
+		if (manualId) {
+			Open(fullPath + dronId);
+		}
+			
 	}
 
 	void OnDestroy()
@@ -105,20 +110,14 @@ public class VLCvideoPlayer : MonoBehaviour
 	#region vlc
 	public void Open(string path)
 	{
-        Log("VLCPlayerExample Open " + fullPath);
-		Open();
-	}
+        Log("VLCPlayerExample Open " + path);
+        if (mediaPlayer.Media != null)
+            mediaPlayer.Media.Dispose();
 
-	public void Open()
-	{
-		Log("VLCPlayerExample Open");
-		if (mediaPlayer.Media != null)
-			mediaPlayer.Media.Dispose();
-
-		var trimmedPath = fullPath.Trim(new char[]{'"'});//Windows likes to copy paths with quotes but Uri does not like to open them
-		mediaPlayer.Media = new Media(new Uri(trimmedPath));
+        var trimmedPath = path.Trim(new char[] { '"' });//Windows likes to copy paths with quotes but Uri does not like to open them
+        mediaPlayer.Media = new Media(new Uri(trimmedPath));
         Play();
-	}
+    }
 
 	public void Play()
 	{
@@ -126,6 +125,12 @@ public class VLCvideoPlayer : MonoBehaviour
 
 		mediaPlayer.Play();
 	}
+
+	public void OnDroneConnected(string conectedDroneId){
+		if (manualId)
+			return;
+        Open(fullPath + conectedDroneId);
+    }
 	
 
 	//This returns the video orientation for the currently playing video, if there is one

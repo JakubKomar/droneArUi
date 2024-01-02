@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿// implemented by Jakub Komárek
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using NativeWebSocket;
