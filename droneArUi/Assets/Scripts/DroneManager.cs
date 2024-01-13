@@ -2,6 +2,7 @@
  * DroneManager - parse message recieved from server and set drone params according its content
  * 
  * Author : Martin Kyjac (xkyjac00)
+ *          Jakub Komárek
  */
 
 using System;
