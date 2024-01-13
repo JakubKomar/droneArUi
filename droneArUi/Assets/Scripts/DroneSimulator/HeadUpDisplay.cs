@@ -156,7 +156,7 @@ public class HeadUpDisplay : MonoBehaviour
         navigationArrow.gameObject.SetActive(active);
         lineRenderer.gameObject.SetActive(active);
         lineRenderer.positionCount = 3;
-        this.gameObject.GetComponent<Image>().enabled = active;
+        //this.gameObject.GetComponent<Image>().enabled = active;
     }
 
     // Update is called once per frame
