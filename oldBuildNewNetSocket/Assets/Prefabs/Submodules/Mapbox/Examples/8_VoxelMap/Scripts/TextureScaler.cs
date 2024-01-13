@@ -116,7 +116,7 @@ namespace Mapbox.Examples.Voxels
 			}
 #endif
 
-			tex.Reinitialize(newWidth, newHeight);
+			tex.Resize(newWidth, newHeight);
 			tex.SetPixels(newColors);
 			tex.Apply();
 
