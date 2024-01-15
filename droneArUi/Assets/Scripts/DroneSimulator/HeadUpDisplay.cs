@@ -58,7 +58,7 @@ public class HeadUpDisplay : MonoBehaviour
 
         nextUpdate = GPSManager.droneUpdateInterval;
 
-        ToggleHeadUpDisplayElements(false);
+        ToggleHeadUpDisplayElements(true);
         CheckIfDroneConnected();
     }
 

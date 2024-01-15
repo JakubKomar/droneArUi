@@ -136,10 +136,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 0.1
-  preloadedAssets:
-  - {fileID: 5256845905389096635, guid: fc39f52942d6974419f639026fd75afb, type: 2}
-  - {fileID: 11400000, guid: fd50954ff125f5c42999752df2d48523, type: 2}
-  - {fileID: 8387102496871607885, guid: 6b2e5e99a21fcf8469ee65d17383c856, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -680,7 +677,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: DroneArUi
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
   metroCertificateSubject: DefaultCompany
@@ -688,7 +685,7 @@ PlayerSettings:
   metroCertificateNotAfter: 00521ed8cc58db01
   metroApplicationDescription: DroneArUi
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: DroneArUi
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
