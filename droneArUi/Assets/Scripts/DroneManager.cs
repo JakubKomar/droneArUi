@@ -25,7 +25,7 @@ public class DroneManager : Singleton<DroneManager>
         Mapbox.Utils.Vector2d mapboxPosition = new Mapbox.Utils.Vector2d(flightData.Latitude, flightData.Longitude);
         Vector3 position3d = Map.GeoToWorldPosition(mapboxPosition, false);
         //float groundAltitude = MapController.Instance.Map.QueryElevationInUnityUnitsAt(MapController.Instance.Map.WorldToGeoPosition(position3d));
-        position3d.y = (float)flightData.Altitude+20;
+        position3d.y = (float)flightData.Altitude;
 
         GameObject BBox = Instantiate(DroneBoundingBox, position3d, Quaternion.identity);
         BBox.name = flightData.DroneId;
@@ -111,8 +111,7 @@ public class DroneManager : Singleton<DroneManager>
         bool droneFound = false;
         foreach (var drone in Drones)
         {
-            if ((!droneFound) ||
-                (drone.FlightData.DroneId != "HoloLens2_Pilot"))
+            if ((!droneFound) && drone.FlightData.DroneId != "HoloLens2_Pilot")
             {
                 drone.IsControlled = true;
                 ControlledDrone = drone;
@@ -120,6 +119,7 @@ public class DroneManager : Singleton<DroneManager>
                 drone.DroneGameObject = ControlledDroneGameObject;
                 droneFound = true;
                 RTMPstreamPlayer.Instance.OnDroneConnected(drone.FlightData.DroneId);
+                Debug.Log("Controled drone selected:" + drone.FlightData.DroneId);
             }
             else
             {

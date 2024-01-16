@@ -45,6 +45,7 @@ public class HeadUpDisplay : MonoBehaviour
     private Transform NavigationLineAnchor;
     private float nextUpdate;
 
+
     // Start is called before the first frame update
     public void CustomStart()
     {
@@ -137,6 +138,7 @@ public class HeadUpDisplay : MonoBehaviour
 
         if (controlledDroneFound && !previouslyFound)
         {
+            
             ToggleHeadUpDisplayElements(true);
         }
         else if (!controlledDroneFound && previouslyFound)
@@ -186,25 +188,6 @@ public class HeadUpDisplay : MonoBehaviour
             altitudeIndicator.localPosition = new Vector3(altitudeIndicator.localPosition.x, altititudeIndicatorPositionY, altitudeIndicator.localPosition.z);
         }
 
-        //set altitudeText transform next to a bar
-        //altitudeTextTransform.localPosition = new Vector3(altitudeTextTransform.localPosition.x, AltitudeTextOffset + (altitude * AltitudeValueToTransformMultiplier) / 2, altitudeTextTransform.localPosition.z);
-
-        //changing color of bar based on altitude
-        if (altitude < 0.5f)
-        {
-            altitutudeRenderer.material.SetColor("_Color", Color.red);
-        }
-        else if (altitude < 1.0f)
-        {
-            altitutudeRenderer.material.SetColor("_Color", Color.yellow);
-        }
-        else
-        {
-            altitutudeRenderer.material.SetColor("_Color", Color.green);
-        }
-
-        //batteryIndicator.gameObject.SetActive(false);
-        //batteryText.gameObject.SetActive(false);
 
 
         //visibility of TARGET, showing navigation arrow
