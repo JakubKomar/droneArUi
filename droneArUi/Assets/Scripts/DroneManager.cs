@@ -25,7 +25,7 @@ public class DroneManager : Singleton<DroneManager>
         Mapbox.Utils.Vector2d mapboxPosition = new Mapbox.Utils.Vector2d(flightData.Latitude, flightData.Longitude);
         Vector3 position3d = Map.GeoToWorldPosition(mapboxPosition, false);
         //float groundAltitude = MapController.Instance.Map.QueryElevationInUnityUnitsAt(MapController.Instance.Map.WorldToGeoPosition(position3d));
-        position3d.y = (float)flightData.Altitude;
+        position3d.y = (float)flightData.Altitude+20;
 
         GameObject BBox = Instantiate(DroneBoundingBox, position3d, Quaternion.identity);
         BBox.name = flightData.DroneId;
@@ -90,7 +90,7 @@ public class DroneManager : Singleton<DroneManager>
         AddDrone(flightData);
     }
 
-    public Drone GetDroneByID(string droneID)
+    /*public Drone GetDroneByID(string droneID)
     {
         foreach (Drone drone in Drones)
         {
@@ -100,7 +100,7 @@ public class DroneManager : Singleton<DroneManager>
             }
         }
         return null;
-    }
+    }*/
 
     /// <summary>
     /// Checks for drone by droneID and sets it as controlled drone
@@ -111,7 +111,7 @@ public class DroneManager : Singleton<DroneManager>
         bool droneFound = false;
         foreach (var drone in Drones)
         {
-            if ((!droneFound && drone.FlightData.DroneId.StartsWith(droneID)) ||
+            if ((!droneFound) ||
                 (drone.FlightData.DroneId != "HoloLens2_Pilot"))
             {
                 drone.IsControlled = true;
