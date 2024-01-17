@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -23,13 +24,17 @@ public class DebugTextConsole : MonoBehaviour
         Application.logMessageReceived -= LogMessage;
     }
 
+
     public void LogMessage(string message, string stackTrace, LogType type)
     {
-        if(type== LogType.Error||type==LogType.Log) {
-            textMesh.text += message + "\n";
+        string typ="O";
+        if (type == LogType.Error) { typ = "E"; }
+        else if (type == LogType.Warning) { typ = "W"; }
+        else if (type == LogType.Log) { typ = "L"; }
+
+        if (type== LogType.Error||type==LogType.Log) {
+            textMesh.text += String.Format("{0,4}", lineCount) +" |"+typ+": "+ message + "\n";
             lineCount++;
         }
-            
-        
     }
 }

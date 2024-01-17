@@ -71,6 +71,11 @@
 \csdoublequotesoff
 
 \usepackage{url}
+\usepackage[inkscapelatex=false]{svg}
+\usepackage{comment}
+\usepackage{listings}
+\usepackage{subcaption}
+\usepackage{lipsum}
 
 % =======================================================================
 % balíček "hyperref" vytváří klikací odkazy v pdf, pokud tedy použijeme pdflatex
@@ -122,7 +127,7 @@
   year={2023},             % rok odevzdání / year of submission
   date=\today,             % datum odevzdání / submission date
   %Nazev prace / thesis title
-  title.cs={Vizualizační nástroj pro pilota dronu v Microsoft HoloLens 2},  % název práce v češtině či slovenštině (dle zadání) / thesis title in czech language (according to assignment)
+  title.cs={Vizualizační nástroj pro pilota dronu \\v Microsoft HoloLens 2},  % název práce v češtině či slovenštině (dle zadání) / thesis title in czech language (according to assignment)
   title.en={Visualization Tool for a Drone Pilot in Microsoft HoloLens 2}, % název práce v angličtině / thesis title in english
   %title.length={14.5cm}, % nastavení délky bloku s titulkem pro úpravu zalomení řádku (lze definovat zde nebo níže) / setting the length of a block with a thesis title for adjusting a line break (can be defined here or below)
   %sectitle.length={14.5cm}, % nastavení délky bloku s druhým titulkem pro úpravu zalomení řádku (lze definovat zde nebo níže) / setting the length of a block with a second thesis title for adjusting a line break (can be defined here or below)
@@ -141,11 +146,11 @@
   %supervisor.title.a={},    %titul za jménem (nepovinné) / title after the name (optional)
   % Klíčová slova / keywords
   keywords.cs={Microsoft HoloLens 2, Unity, C\#, Dron, Rozšířená realita, DJI drony, Vizualizace letových veličin, návrh UI }, % klíčová slova v českém či slovenském jazyce / keywords in czech or slovak language
-  keywords.en={}, % klíčová slova v anglickém jazyce / keywords in english
+  keywords.en={\todo{To do: překlad }}, % klíčová slova v anglickém jazyce / keywords in english
   %keywords.en={Here, individual keywords separated by commas will be written in English.},
   % Abstrakt / Abstract
-  abstract.cs={Práce se zaobírá návrhem, implementací a testováním uživatelského rozhraní v prostředí rozšířené reality. Zvolenou platformou jsou brýle HoloLens 2. Toto rozhraní má za úkol usnadnění pilotáže dronu. Hlavní náplní práce je analýza dopadů použití tohoto rozhraní a zodpovězení hypotézy, zdali rozšířená realita v reálném prostředí opravdu usnadní pilotáž a v jaké míře. }, % abstrakt v českém či slovenském jazyce / abstract in czech or slovak language
-  abstract.en={}, % abstrakt v anglickém jazyce / abstract in english
+  abstract.cs={Práce se zaobírá návrhem, implementací a testováním uživatelského rozhraní v prostředí rozšířené reality na platformě HoloLens 2. Toto rozhraní má za úkol usnadnění pilotáže dronu. Hlavní náplní práce je analýza dopadů použití tohoto rozhraní a zodpovězení hypotézy, zda-li rozšířená realita v reálném prostředí opravdu usnadní pilotáž a v jaké míře. }, % abstrakt v českém či slovenském jazyce / abstract in czech or slovak language
+  abstract.en={\todo{To do: překlad }}, % abstrakt v anglickém jazyce / abstract in english
   %abstract.en={An abstract of the work in English will be written in this paragraph.},
   % Prohlášení (u anglicky psané práce anglicky, u slovensky psané práce slovensky; u projektové praxe lze zakomentovat) / Declaration (for thesis in english should be in english; for project practice can be commented out)
   declaration={Prohlašuji, že jsem tuto bakalářskou práci vypracoval samostatně pod vedením pana Ing. Daniela Bambuška.
@@ -209,42 +214,83 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
     \chapter*{Seznam Zkratek}
     \bgroup
     \def\arraystretch{1.6}
-    \begin{tabular}{ p{6.5em} p{5.9cm}  p{5.9cm} }
+    \begin{tabular}{ >{\bfseries}p{6.5em} p{5.9cm}  p{5.9cm} }
     \bfseries{Zkratka} & \bfseries{Význam} & \bfseries{Překlad} \\ 
     \hline
-    \bfseries{ FMS} & Flight Management System & Systém řízení letu\\ 
-    \bfseries{GPS} & Global Positioning System & Globální polohový systém\\ 
-    \bfseries{HUD} & Head Up Display & Průhledový displej\\ 
-    \bfseries{LAN }& Local Area Network & Lokální síť\\ 
-    \bfseries{LCD} & Liquid Crystal Display & Displej tekutých krystalů\\ 
-    \bfseries{MFD} & Multi-Functional Display & Multifunkční displej\\ 
-    \bfseries{ MVC} & Model View Controler & \\ 
-    \bfseries{NASA} & National Aeronautics and Space Administration & Národní úřad pro letectví a vesmír \\ 
-    \bfseries{NASA-TLX} & NASA-Task Load Index  \\  
-    \bfseries{PFD} &  Primary Flight Display & Primární letový displej\\ 
-    \bfseries{RGB} & Red Green Blue & Červená, zelená a modrá \\ 
-    \bfseries{UDP} & User Datagram Protocol& \\ 
-    \bfseries{UI} & User Interface & Uživatelské rozhraní \\ 
-    \bfseries{UTC} & Coordinated Universal Time & Koordinovaný světový čas\\ 
+    GPS & Global Positioning System & Globální polohový systém\\ 
+    HUD& Head Up Display & Průhledový displej\\ 
+    LAN & Local Area Network & Lokální síť\\ 
+    NASA & National Aeronautics and Space Administration & Národní úřad pro letectví a vesmír \\ 
+    NASA-TLX & NASA-Task Load Index  \\  
+    RGB & Red Green Blue & Červená, zelená a modrá \\ 
+    UDP & User Datagram Protocol& \\ 
+    TCP&Transmission Control Protocol& \\ 
+    Wi-Fi &Wireless Fidelity& \\ 
+    UI & User Interface & Uživatelské rozhraní \\ 
+    JSON &JavaScript Object Notation &  \\ 
+    RTMP & Real-Time Messaging Protocol &  \\ 
+    UAV&Unmanned Aerial Vehicle & Bezpilotní létající zařízení\\ 
+    RC &Remote Control/Radio Control & Vzdálené ovládání\\ 
+    AR &Augmented Reality & Rozšířená realita\\ 
+    VR &Virtual Reality & Virtuální realita\\ 
+    VLC &VideoLAN Client &\\ 
+    IMU &Inertial Measurement Unit &  jednotka inerciálních měření\\ 
+    AESA&European Union Aviation Safety Agency&\\
+    ÚCL &Úřad civiního letectví&\\
+    FPV &First Person View&Pohled z první osoby\\
     \end{tabular}
     \egroup
+    
+     \chapter*{}
+    \bgroup
+    \def\arraystretch{1.6}
+    \begin{tabular}{ >{\bfseries}p{6.5em} p{5.9cm}  p{5.9cm} }
+    \bfseries{Zkratka} & \bfseries{Význam} & \bfseries{Překlad} \\ 
+    \hline
+    PC &Personal Computer &osobní počítač\\
+    UWP&Univerzal Windows Platform& Univerzální Windows Platforma \\
+    \end{tabular}
+    \egroup
+
+    
     \chapter*{Slovník}
     \bgroup
     \def\arraystretch{1.6}
-    \begin{tabular}{ p{6.5em} p{11.8cm}   }
+    \begin{tabular}{>{\bfseries}p{6.5em} p{11.8cm}   }
     \bfseries{Termín} & \bfseries{Význam} \\ 
     \hline
-    \bfseries{Adobe XD} &Vektorový program  pro tvorbu návrhu uživatelských rozhraní.  \\ 
-    \bfseries{CheckList} & V letectví se jedná o seznam úkonů, které je nutné provést v jednotlivých fázích letu.\\ 
-    \bfseries{Float} &   Datový typ v počítači, který je určen pro ukládání reálných čísel.\\ 
-    \bfseries{Master caution} &  Centrální signalizace upozorňující na nestandardní činnost systémů letadla. \\ 
-    \bfseries{MVC} &   Softwarová architektura, která rozděluje model aplikace do tří komponent.\\ 
-    \bfseries{NASA-TLX} & Formulář pro subjektivní posouzení pracovní zátěže.  \\ 
-    \bfseries{Python} & Vysokoúrovňový interpretovaný programovací jazyk. \\ 
-    \bfseries{RGB} &   Barevný model pro míchání barev ze tří základních složek.\\ 
+    CheckList & V letectví se jedná o seznam úkonů, které je nutné provést v jednotlivých fázích letu.\\ 
+    Float &   Datový typ v počítači, který je určen pro ukládání reálných čísel.\\ 
+    NASA-TLX & Formulář pro subjektivní posouzení pracovní zátěže.  \\ 
+    RGB &   Barevný model pro míchání barev ze tří základních složek.\\ 
+    JSON &  Datově nenáročný formát používaný pro výměnu strukturovaných informací, založený na syntaxu JavaScriptu.\\ 
+    RTMP& Síťový protokol používaný pro přenos audia, videa a dat v reálném čase přes internet. \\ 
+    TCP &Základní protokol síťové vrstvy, který zajišťuje spolehlivý a řízený přenos dat mezi zařízeními v počítačové síti. \\ 
+    UDP &Základní protokol síťové vrstvy bez zajišťování spolehlivosti nebo řízení spojení. \\ 
+    Dron& Označení pro bezpilotní letoun \\ 
+    DJI& Technologická firma specializující se na vývoj a výrobu bezpilotních létajících zařízení \\ 
+    Unity& Platforma na vývoj aplikací ve 2D, 3D.  \\ 
+    C\#& Vysokoúrovňový skriptovací jazyk vyvinutý Microsoftem užívaný  v Unity.  \\ 
+    Microsoft& Americká nadnárodní společnost zabývající se vývojem, výrobou, licencováním a podporou široké škály produktů a služeb, které jsou spjaté především s počítači. \\ 
+    Hololens 2& Brýle pro rozšířenou realitu\\
+    VLC &otevřený multimediální přehrávač\\ 
     
     \end{tabular}
+    \chapter*{}
+    \bgroup
+    \def\arraystretch{1.6}
+    \begin{tabular}{>{\bfseries}p{6.5em} p{11.8cm}   }
+    \bfseries{Termín} & \bfseries{Význam} \\ 
+    \hline
+    Waypoint & Navigační bod například v naplánované trase \\
+    UWP&Platformu od společnosti Microsoft. UWP je navržena tak, aby umožnila vývoj aplikací, které mohou být spuštěny na různých zařízeních s operačním systémem Windows 10 a to nezávisle na architektuře procesoru.\\
+    ARM&Architektura procesorů navržená pro efektivní zpracování instrukcí s důrazem na nízkou spotřebu energie. Používá redukovanou instrukční sadu (RISC) a je běžná v mobilních zařízeních, IoT, a vestavěných systémech.\\
+    X86& Tradiční architektura pro PC. Používá rozsáhlou instrukční sadu CISC. Tyto procesory jsou běžné v desktopových a laptopových počítačích, serverech a některých vestavěných systémech.
+    \end{tabular}
     \egroup
+
+
+    
   % Seznam obrazku a tabulek (pokud prace obsahuje velke mnozstvi obrazku, tak se to hodi)
   % List of figures and list of tables (if the thesis contains a lot of pictures, it is good)
   \ifczech
@@ -341,7 +387,7 @@ Uvedl jsem všechny literární prameny, publikace a další zdroje, ze kterých
   \begin{flushleft}
   \bibliography{projekt-20-literatura-bibliography}
   \end{flushleft}
-
+  
   % vynechani stranky v oboustrannem rezimu
   % Skip the page in the two-sided mode
   \iftwoside
