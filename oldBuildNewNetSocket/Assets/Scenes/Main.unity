@@ -463,51 +463,6 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
---- !u!1 &213798298
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 213798299}
-  - component: {fileID: 213798300}
-  m_Layer: 0
-  m_Name: WebSocketManager2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &213798299
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213798298}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 371222191}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &213798300
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 213798298}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d206e8d10e237e046a8718f94eaf751e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ServerHostname: 127.0.0.1
-  Port: 5555
 --- !u!1 &235684506
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,6 +694,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 371222191}
+  - component: {fileID: 371222196}
+  - component: {fileID: 371222195}
+  - component: {fileID: 371222194}
+  - component: {fileID: 371222193}
+  - component: {fileID: 371222192}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -756,15 +716,85 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.12732229, y: -0.6729288, z: 2.265722}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1098191861}
-  - {fileID: 1418689608}
-  - {fileID: 1732974295}
-  - {fileID: 2121608265}
-  - {fileID: 213798299}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &371222192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371222190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68d14b5622bbc2446b5b6a5c3f17175f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &371222193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371222190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 644850047c25f4543a77a33242016bf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Map: {fileID: 920805014}
+  Camera: {fileID: 963194228}
+--- !u!114 &371222194
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371222190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9874df6ae50b5d47a60ab6d2f963c56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Map: {fileID: 920805014}
+  DroneBoundingBox: {fileID: 919132149155446097, guid: 1ebdf308b55e8824b86341087edaef32,
+    type: 3}
+  ControlledDroneGameObject: {fileID: 91264316}
+--- !u!114 &371222195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371222190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0751fd413f79f5347b1dd1d9dd86b29b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Height: 1.75
+  DroneName: MAVIC_MINI
+  Username: test
+  TresholdSetting: {fileID: 1042356953}
+  TrackingType: 1
+  TrackingTypeText: {fileID: 7457904603277045083}
+  DisplayControlledDrone: 1
+--- !u!114 &371222196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 371222190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d206e8d10e237e046a8718f94eaf751e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ServerHostname: 127.0.0.1
+  Port: 5555
 --- !u!1 &375339464
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,7 +1550,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1098191862}
+      objectReference: {fileID: 0}
     - target: {fileID: 8094438044867781004, guid: 97695b06a18149845bf8c2619070acb2,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1530,7 +1560,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1098191862}
+      objectReference: {fileID: 0}
     - target: {fileID: 8094438045122105262, guid: 97695b06a18149845bf8c2619070acb2,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -1540,7 +1570,7 @@ PrefabInstance:
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1098191862}
+      objectReference: {fileID: 0}
     - target: {fileID: 8094438046484024182, guid: 97695b06a18149845bf8c2619070acb2,
         type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
@@ -2963,49 +2993,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ac3cfbbed814444ea284fcd58acea1b, type: 3}
---- !u!1 &1098191860
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1098191861}
-  - component: {fileID: 1098191862}
-  m_Layer: 0
-  m_Name: HandMenuManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1098191861
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098191860}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 371222191}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1098191862
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1098191860}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68d14b5622bbc2446b5b6a5c3f17175f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1185282036
 GameObject:
   m_ObjectHideFlags: 0
@@ -3341,51 +3328,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1418689607
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1418689608}
-  - component: {fileID: 1418689609}
-  m_Layer: 0
-  m_Name: GPSManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1418689608
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418689607}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 371222191}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1418689609
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1418689607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 644850047c25f4543a77a33242016bf0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Map: {fileID: 920805014}
-  Camera: {fileID: 963194228}
 --- !u!4 &1546602741 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7459330427298165376, guid: 65de389d4bf865445bf386d8ddb44482,
@@ -3614,53 +3556,6 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!1 &1732974294
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1732974295}
-  - component: {fileID: 1732974296}
-  m_Layer: 0
-  m_Name: DroneManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1732974295
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732974294}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 371222191}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1732974296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1732974294}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9874df6ae50b5d47a60ab6d2f963c56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Map: {fileID: 920805014}
-  DroneBoundingBox: {fileID: 919132149155446097, guid: 1ebdf308b55e8824b86341087edaef32,
-    type: 3}
-  ControlledDroneGameObject: {fileID: 91264316}
 --- !u!1 &1757954434
 GameObject:
   m_ObjectHideFlags: 0
@@ -4626,56 +4521,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2118698169}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2121608264
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2121608265}
-  - component: {fileID: 2121608266}
-  m_Layer: 0
-  m_Name: UserProfileManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2121608265
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121608264}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 371222191}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2121608266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2121608264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0751fd413f79f5347b1dd1d9dd86b29b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Height: 1.75
-  DroneName: MAVIC_MINI
-  Username: test
-  TresholdSetting: {fileID: 1042356953}
-  TrackingType: 1
-  TrackingTypeText: {fileID: 7457904603277045083}
-  DisplayControlledDrone: 1
 --- !u!114 &17104228183970312
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4711,7 +4556,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2121608266}
+      - m_Target: {fileID: 0}
         m_MethodName: ToggleTrackingType
         m_Mode: 1
         m_Arguments:
@@ -6043,7 +5888,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2121608266}
+      - m_Target: {fileID: 0}
         m_MethodName: ToggleDroneModel
         m_Mode: 1
         m_Arguments:
@@ -7779,7 +7624,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2121608266}
+      - m_Target: {fileID: 0}
         m_MethodName: DecreaseTreshold
         m_Mode: 1
         m_Arguments:
@@ -11047,7 +10892,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2121608266}
+      - m_Target: {fileID: 0}
         m_MethodName: IncreaseTreshold
         m_Mode: 1
         m_Arguments:

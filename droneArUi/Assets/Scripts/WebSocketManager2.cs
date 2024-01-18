@@ -49,7 +49,7 @@ public class WebSocketManager2 : Singleton<WebSocketManager2>
     }
 
 
-    public async void ConnectToServer(string domain = "pcbambusek.fit.vutbr.cz", int port = 5555)
+    public async void ConnectToServer(string domain, int port)
     {
         ClosePreviousConnection();
 

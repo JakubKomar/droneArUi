@@ -2,6 +2,7 @@
  * DroneManager - parse message recieved from server and set drone params according its content
  * 
  * Author : Martin Kyjac (xkyjac00)
+ *          Jakub Komárek
  */
 
 using System;
@@ -89,7 +90,7 @@ public class DroneManager : Singleton<DroneManager>
         AddDrone(flightData);
     }
 
-    public Drone GetDroneByID(string droneID)
+    /*public Drone GetDroneByID(string droneID)
     {
         foreach (Drone drone in Drones)
         {
@@ -99,7 +100,7 @@ public class DroneManager : Singleton<DroneManager>
             }
         }
         return null;
-    }
+    }*/
 
     /// <summary>
     /// Checks for drone by droneID and sets it as controlled drone
@@ -110,8 +111,7 @@ public class DroneManager : Singleton<DroneManager>
         bool droneFound = false;
         foreach (var drone in Drones)
         {
-            if ((!droneFound && drone.FlightData.DroneId.StartsWith(droneID)) ||
-                (drone.FlightData.DroneId != "HoloLens2_Pilot"))
+            if ((!droneFound) && drone.FlightData.DroneId != "HoloLens2_Pilot")
             {
                 drone.IsControlled = true;
                 ControlledDrone = drone;
@@ -119,6 +119,7 @@ public class DroneManager : Singleton<DroneManager>
                 drone.DroneGameObject = ControlledDroneGameObject;
                 droneFound = true;
                 RTMPstreamPlayer.Instance.OnDroneConnected(drone.FlightData.DroneId);
+                Debug.Log("Controled drone selected:" + drone.FlightData.DroneId);
             }
             else
             {

@@ -176,7 +176,7 @@ public class HeadUpDisplay : MonoBehaviour
         distanceText.text = Mathf.Round(distanceToUser * 100.0f) * 0.01f + "m"; //Rounding
 
         altitude = droneManager.ControlledDrone.RelativeAltitude;
-        altitudeText.text = Mathf.Round(altitude * 100.0f) * 0.01f + "m";//Rounding
+        altitudeText.text = Mathf.Round(altitude ) + "m";//Rounding
 
         //size of altitude bar based on altitude value, resize only in between 0-8m
         if (altitude >= 0 && altitude <= 8)
@@ -187,7 +187,7 @@ public class HeadUpDisplay : MonoBehaviour
         }
 
         //set altitudeText transform next to a bar
-        altitudeTextTransform.localPosition = new Vector3(altitudeTextTransform.localPosition.x, AltitudeTextOffset + (altitude * AltitudeValueToTransformMultiplier) / 2, altitudeTextTransform.localPosition.z);
+        //altitudeTextTransform.localPosition = new Vector3(altitudeTextTransform.localPosition.x, AltitudeTextOffset + (altitude * AltitudeValueToTransformMultiplier) / 2, altitudeTextTransform.localPosition.z);
 
         //changing color of bar based on altitude
         if (altitude < 0.5f)

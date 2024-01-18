@@ -41,6 +41,7 @@ public class Drone {
     public float RelativeAltitude {
         get
         {
+            return (float)FlightData.Altitude;
             if (this.DronesWithZeroAltitude.Contains(FlightData.DroneId))
             {
                 return (float)FlightData.Altitude;
@@ -187,7 +188,10 @@ public class Drone {
     /// <returns></returns>
     private float GetRelativeAltitude()
     {
-        float alt = 0f;
+        //float alt = 0f;
+        return (float)FlightData.Altitude;
+
+        /*
         if (DronesWithZeroAltitude.Contains(FlightData.DroneId))
         {
             alt = (float)FlightData.Altitude;
@@ -199,6 +203,6 @@ public class Drone {
             alt = (float)FlightData.Altitude - groundAltitude;
         }
 
-        return alt - UserProfileManager.Instance.Height;
+        return alt - UserProfileManager.Instance.Height;*/
     }
 }

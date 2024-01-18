@@ -2,6 +2,7 @@
  * Drone - class to store all drone data necessary to rendering
  * 
  * Author : Martin Kyjac (xkyjac00)
+ *          Jakub Komárek
  */
 
 using Mapbox.Unity.Map;
@@ -186,6 +187,8 @@ public class Drone {
     /// <returns></returns>
     private float GetRelativeAltitude()
     {
+        return (float)FlightData.Altitude;
+        /*
         float alt = 0f;
         if (DronesWithZeroAltitude.Contains(FlightData.DroneId))
         {
@@ -198,6 +201,6 @@ public class Drone {
             alt = (float)FlightData.Altitude - groundAltitude;
         }
 
-        return alt - UserProfileManager.Instance.Height;
+        return alt - UserProfileManager.Instance.Height;*/
     }
 }
