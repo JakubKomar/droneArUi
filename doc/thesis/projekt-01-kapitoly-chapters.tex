@@ -2,15 +2,11 @@
 \chapter{Úvod}
 Bezpilotní letadla neboli drony, které se vyvíjeli dlouhá léta pro vojenské účely se staly poměrně novým trendem na poli civilního letectví. Drony se čím dál častěji používají v oblasti profesní činnosti, která často zahrnuje operace poblíž zástavby a lidí. S touto činností se pojí rizika, která se mají minimalizovat za pomocí předpisů a legislativ. Dodržovaní těchto předpisů a zásad však mnohdy není přímočaré. Proto se tato práce zabývá experimentální metodou vizualizace letových dat dronu v prostředí rozšířené virtuální reality, která má za úkol poskytnout prostředky pro zvýšení bezpečnosti, usnadnění pilotáže a zpříjemnění používání dronů. 
 
-Práce má experimentální charakter a začíná kapitolou o rozšířené realitě, kde bude tento pojem představen. V rámci kapitoly budou popsány brýle Hololens 2, které byly vybrány jako cílová platforma práce. Popis zahrnuje popis silných a slabších stránek brýlí, které byly vzaty v potaz ve vývojové fázi rozhraní.
-
-V další kapitole dojde k obeznámení s drony a to včetně prostředků k jejich ovládání. kapitola je zaměřená také na legislativní stránku provozování dronů spolu se zásadami pro bezpečné užívání dronů. 
+Práce má experimentální charakter a začíná kapitolou o rozšířené realitě, kde bude tento pojem představen. V rámci kapitoly budou popsány brýle Hololens 2, které byly vybrány jako cílová platforma práce. Popis zahrnuje popis silných a slabších stránek brýlí, které byly vzaty v potaz ve vývojové fázi rozhraní. V další kapitole dojde k obeznámení s drony a to včetně prostředků k jejich ovládání. kapitola je zaměřená také na legislativní stránku provozování dronů spolu se zásadami pro bezpečné užívání dronů. 
 
 Poté již započne vývojová fáze práce, počínající návrhovou částí. V té se provede analýza počátečního stavu řešení na kterém se bude dále navazovat. Poté proběhne soupis požadavků implementovaného rozhraní v rámci kterých bude udán směr vývoje. Kapitolu zakončuje sada drátových modelů rozhraní, které mají za úkol vizualizovat prvotní rysy řešení. Odladěné modely poté budou přetvořeny v grafickém modelu, které se více soustředí na estetickou část řešení.
 
-Vývojová část dále pokračuje samotnou implementací. Vstup do kapitoly tvoří popis celé architektury v které projekt figuruje. Součástí popisu architektury je zdokumentování komunikace v rámci ní. Pokračuje se představením softwarových nástrojů pro tvorbu programu. Zbytek kapitoly je věnován samotnému popisu implementačnímu procesu, který je rozdělen dle jednotlivých komponent programu.
-
-Zde je semestrální projekt zakončen souhrnem práce a nastíněním dalšího postupu v práci.
+Vývojová část dále pokračuje samotnou implementací. Vstup do kapitoly tvoří popis celé architektury v které projekt figuruje. Součástí popisu architektury je zdokumentování komunikace v rámci ní. Pokračuje se představením softwarových nástrojů pro tvorbu programu. Zbytek kapitoly je věnován samotnému popisu implementačnímu procesu, který je rozdělen dle jednotlivých komponent programu. Zde je semestrální projekt zakončen souhrnem práce a nastíněním dalšího postupu v práci.
 
 \chapter{Rozšířená realita}
 Rozšířená realita (augmented reality zkráceně AR) na rozdíl od virtuální reality (zkráceně VR), která umístí uživatel do plně vygenerovaného prostředí, má za cíl promítat informace do skutečného fyzického prostředí okolo uživatele. Tím vyplňuje mezeru mezi světem skutečným a světem virtuálním  \cite{Kniha2SchmalstiegDieter2016Ar:p}.
@@ -53,28 +49,28 @@ I když jsou brýle napěchované elektronickými zařízeními, váží pouze 5
 \subsubsection{Modalita/vstup od uživatele}
 S rozhraním v brýlích se dá interagovat několika způsoby. Autor je seřadil podle obvyklé frekvence užití v aplikacích.
 \begin{enumerate}
-    \item Gesta a pohyb rukou - Jedná se o hlavní cestu pro interakci s prostředím. Brýle dokáží rozpoznat přesný pohyb rukou včetně pohybu prstů. Díky tomu lze provádět různá gesta v prostoru a tím interagovat s okolím. Ovládání je velmi intuitivní, protože můžete na jednotlivé objekty "fyzicky sahat". Pokud má aplikace engine na fyziku, můžete z objekty i házet či jinak užívat fyzické vlastnosti objektů. Ukázka funkcionality je na obrázku \ref{pic:hololens2Demo}.
-   \item Pohyb v prostoru a pohyb hlavy - Rozhraní lze naprogramovat, aby interakce s prostředím probíhala díky pohybu uživatele v prostoru. Lze tedy implementovat, aby jednotlivé objekty reagovaly například po pohledu na objekt. 
-    \item Hlasové ovládání - Díky integrovaným mikrofonům a jednotce pro rozpoznávání řeči lze brýle ovládat hlasovými příkazy. Syntezátor hlasu naopak může k uživateli promlouvat díky integrovaným reproduktorům v zadní části brýlí.
-    \item Pohyb očí - Díky snímání pohybu očí může například rozhraní reagovat při pohledu na určitý objekt. Při testování autor shledal, že je pohyb očí zaznamenán poměrně přesně. Pro jemnou interakci však nestačí.
+    \item Gesta a pohyb rukou -- Jedná se o hlavní cestu pro interakci s prostředím. Brýle dokáží rozpoznat přesný pohyb rukou včetně pohybu prstů. Díky tomu lze provádět různá gesta v prostoru a tím interagovat s okolím. Ovládání je velmi intuitivní, protože můžete na jednotlivé objekty "fyzicky sahat". Pokud má aplikace engine na fyziku, můžete z objekty i házet či jinak užívat fyzické vlastnosti objektů. Ukázka funkcionality je na obrázku \ref{pic:hololens2Demo}.
+   \item Pohyb v prostoru a pohyb hlavy -- Rozhraní lze naprogramovat, aby interakce s prostředím probíhala díky pohybu uživatele v prostoru. Lze tedy implementovat, aby jednotlivé objekty reagovaly například po pohledu na objekt. 
+    \item Hlasové ovládání -- Díky integrovaným mikrofonům a jednotce pro rozpoznávání řeči lze brýle ovládat hlasovými příkazy. Syntezátor hlasu naopak může k uživateli promlouvat díky integrovaným reproduktorům v zadní části brýlí.
+    \item Pohyb očí -- Díky snímání pohybu očí může například rozhraní reagovat při pohledu na určitý objekt. Při testování autor shledal, že je pohyb očí zaznamenán poměrně přesně. Pro jemnou interakci však nestačí.
  
-    \item Externí zařízení - I když brýle lze užívat pouze za pomocí výše zmíněného, uživatel má možnost si pomocí Bluetooth a Wi-Fi připojit vlastní periferie, jako je klávesnice, myš nebo třeba gamepad. 
+    \item Externí zařízení -- I když brýle lze užívat pouze za pomocí výše zmíněného, uživatel má možnost si pomocí Bluetooth a Wi-Fi připojit vlastní periferie, jako je klávesnice, myš nebo třeba gamepad. 
 \end{enumerate}
 \begin{figure}[ht] 
 	\centering
 	\includegraphics[width=0.95\textwidth]{obrazky-figures/ar/hololensDemo.png}
-	\caption{Ukázka ovládání scény za pomocí gest. Převzato z video dema \cite{hololens2videoDemo}}
+	\caption{Ukázka ovládání scény za pomocí gest. Převzato z video dema \cite{hololens2videoDemo}.}
 	\label{pic:hololens2Demo}
 \end{figure}
 
 \subsubsection{Souhrn technických limitací brýlí}
 I když jsou brýle napěchované moderními technologiemi a autorovy přijdou jako "malý technický zázrak", mají své limitace. Proto je zde uveden souhrn limitací, které autor bral v potaz při tvorbě práce. 
 \begin{itemize}
-    \item Malé zorné pole - I když byl rozsah zorného pole vylepšen, je pořád velmi malý - 52°.  Zdroj \cite{HumanEye} uvádí, že je člověk schopen vnímat až 190° v horizontálním rozsahu a 100° vertikálním rozsahu. Z toho plyne že je nutné rozhraní nutné smrštit co ke středu pomyslné zorné linie. Užít vizualizace v periferní vidění je tedy proto nemyslitelné. Vizualizace omezení je na obrázku \ref{pic:hololens2Fov}.
-    \item Nepřítomnost GPS modulu - Brýle nemají žádnou jednotku pro lokalizaci uživatele. Při spuštění brýlí je uživatel umístěn na nulové souřadnice. Z toho vyplývá, že brýle využívají vlastní souřadnicový systém. Vizualizace pro zobrazení drona se s tímto faktorem musí vyrovnat.
+    \item Malé zorné pole -- I když byl rozsah zorného pole vylepšen, je pořád velmi malý - 52°.  Zdroj \cite{HumanEye} uvádí, že je člověk schopen vnímat až 190° v horizontálním rozsahu a 100° vertikálním rozsahu. Z toho plyne, že je nutné rozhraní nutné smrštit co ke středu pomyslné zorné linie. Užít vizualizace v periferní vidění je tedy proto nemyslitelné. Vizualizace omezení je na obrázku \ref{pic:hololens2Fov}.
+    \item Nepřítomnost GPS modulu -- Brýle nemají žádnou jednotku pro lokalizaci uživatele. Při spuštění brýlí je uživatel umístěn na nulové souřadnice. Z toho vyplývá, že brýle využívají vlastní souřadnicový systém. Vizualizace pro zobrazení drona se s tímto faktorem musí vyrovnat.
     \item ARM architektura - Protože brýle běží na architektuře ARM je nutné užít implementační platformu UWP (Univerzal Windows Platform). Proto je nutné používat při vývoji pouze knihovny podporující tuto platformu. Integrace ostaních knihoven není možná.
-    \item Mapování prostoru - Brýle neobsahují žádnou databázi o podobě okolí. Okolí si brýle modelují za pomocí kamer a to pouze ve velmi blízkém okolí (cca rádius 10m od uživatele). Toto okolí nemusí být vytvořeno dokonale a tudíš se na něj nelze spolehnout. Pro využití v kontextu vizualizace drona je velmi limitující.
-    \item Konektivita - brýle mají integrovaný Wi-Fi a Bluetooth modul. Pouze za pomocí těchto technologií lze brýle připojit k dalším zařízením. Použití Bluetooth komunikace by v práci vedla na velkou implementační náročnost, které neodpovídá povaha projektu, proto bude komunikace přes Wi-Fi modul preferována. Wi-Fi na více podporuje lepší přenosové rychlosti a lepší variabilitu. 
+    \item Mapování prostoru -- Brýle neobsahují žádnou databázi o podobě okolí. Okolí si brýle modelují za pomocí kamer a to pouze ve velmi blízkém okolí (cca rádius 10m od uživatele). Toto okolí nemusí být vytvořeno dokonale a tudíš se na něj nelze spolehnout. Pro využití v kontextu vizualizace drona je velmi limitující.
+    \item Konektivita -- brýle mají integrovaný Wi-Fi a Bluetooth modul. Pouze za pomocí těchto technologií lze brýle připojit k dalším zařízením. Použití Bluetooth komunikace by v práci vedla na velkou implementační náročnost, které neodpovídá povaha projektu, proto bude komunikace přes Wi-Fi modul preferována. Wi-Fi na více podporuje lepší přenosové rychlosti a lepší variabilitu. 
     
     Wi-Fi modul nelze užít jako přístupový bod (zkratka AP), což brýle odsuzuje k závislosti na externím Wi-Fi AP. Při vývoji proto bude nutné počítat s přítomností tohoto hotspotu. 
 \end{itemize}
@@ -188,9 +184,7 @@ Ovladač často obklopují pomocné ovládací prvky, na ovladači drona použit
 \end{figure}
 \newpage
 \section{Legislativa a pravidla pro civilní létání z drony}
-V průběhu posledních let, zvláště od období masivního rozšíření dronů mezi širokou veřejnost došlo k značným úpravám v legislativě pro provoz dronů. Tyto nová nařízení měli zajistit bezpečnější provoz dronů ve veřejném vzdušném provozu a zajistit respektování občanského soužití. Tyto pravidla se musí při létání striktně dodržovat, aby se předešlo zbytečným nehodám a incidentům. Proto autor uznal za vhodné tyto pravidla nastudovat a rozebrat nejzásadnější body. Tento rozbor bude dále využit při návrhu aplikace.
-
-Rozbor je aktuální k začátku roku 2024.
+V průběhu posledních let, zvláště od období masivního rozšíření dronů mezi širokou veřejnost došlo k značným úpravám v legislativě pro provoz dronů. Tyto nová nařízení měli zajistit bezpečnější provoz dronů ve veřejném vzdušném provozu a zajistit respektování občanského soužití. Tyto pravidla se musí při létání striktně dodržovat, aby se předešlo zbytečným nehodám a incidentům. Proto autor uznal za vhodné tyto pravidla nastudovat a rozebrat nejzásadnější body. Tento rozbor bude dále využit při návrhu aplikace. Rozbor je aktuální k začátku roku 2024.
 
 \subsection{Kategorie dronů}
 Provozování drona se dle účelu použití dělí na 3 hlavní kategorie: Open, Specific a Certified. Tyto kategorie se liší hlavně rizikem použití. Nejvíce pozornosti bude věnováno kategorii Open, protože je nejvíce relativní k povaze práce.
@@ -202,7 +196,7 @@ Pro tuto kategorii byly vytvořeny dva standardní scénáře užití, které ne
     
 
 \subsubsection{Certified} 
-Kategorie zahrnuje vysoce rizikové použiti dronů. Do kategorie například patří provoz bezpilotních nákladních letadel, doručovací drony nebo vzdušné taxi. Jak název napovídá, všechny tyto aktivity musí být certifikovány od EASA\cite{EASA:CertifiedCategory}.
+Kategorie zahrnuje vysoce rizikové použiti dronů. Do kategorie například patří provoz bezpilotních nákladních letadel, doručovací drony nebo vzdušné taxi. Jak název napovídá, všechny tyto aktivity musí být certifikovány od EASA \cite{EASA:CertifiedCategory}.
 
 \subsubsection{Open} 
 Tato sekce vzešla ze zdrojů \cite{EASA:openSouhrn2024,AlzaDronyKategorie,DroneKatogorySouhrn}. Kategorie Open je dostupná pro širokou veřejnost, určena je pro operace s nízkým rizikem. Na provoz drona v této kategorii nepotřebujete povolení od organizace AESA. Kategorie Open se dále dělí na podkategorie A1, A2 a A3. Pro pilotáž dronů v kategorii A1/A3 se musíte registrovat na webu ÚCL (úřad civilního letectví) a absolvovat online školení. Pro kategorii A2 na více musíte mít certifikaci. V kategorii A2/A3 musíte mít sjednané povinné ručení dle podmínek kategorie.
@@ -214,20 +208,20 @@ Kategorizace slouží k minimalizování rizika střetu s osobami. Nad lidmi a v
 
 \paragraph{Jednotlivé podkategorie Open:}
 \begin{itemize}
-    \item A1 - s dronem se smí létat nad lidmi, ale nesmíte létat nad skupinami lidí. Do této kategorie spadají třídy C0 a C1. Pro pilotáž dronů v této kategorii se budete muset zaregistrovat na webu ÚCL a složit online test. Vyjmou jsou dětské hračky nevybavené kamerou. Tyto drony můžete provozovat také v kategorii A3.
+    \item A1 -- s dronem se smí létat nad lidmi, ale nesmíte létat nad skupinami lidí. Do této kategorie spadají třídy C0 a C1. Pro pilotáž dronů v této kategorii se budete muset zaregistrovat na webu ÚCL a složit online test. Vyjmou jsou dětské hračky nevybavené kamerou. Tyto drony můžete provozovat také v kategorii A3.
 
-    \item A2 - s těmito drony nesmíte letět blízko lidí. Do této kategorie spadá třída dronů C2. Na tuto kategorii musíte absolvovat školení spolu s certifikačním procesem pro získání licence A2. Tato skupina je určená pro létání v zástavbě s těžšími drony.
-    \item A3 - do této kategorie automaticky patří všechny drony třídy C3 a výše (hmotnost do 25 kg), dále pak drony soukromě postavené a drony neoštítkované prodané před rokem 2024 s letovou hmotností nad 250g. S těmito drony musíte létat daleko od lidí a zástavby.
+    \item A2 -- s těmito drony nesmíte letět blízko lidí. Do této kategorie spadá třída dronů C2. Na tuto kategorii musíte absolvovat školení spolu s certifikačním procesem pro získání licence A2. Tato skupina je určená pro létání v zástavbě s těžšími drony.
+    \item A3 -- do této kategorie automaticky patří všechny drony třídy C3 a výše (hmotnost do 25 kg), dále pak drony soukromě postavené a drony neoštítkované prodané před rokem 2024 s letovou hmotností nad 250g. S těmito drony musíte létat daleko od lidí a zástavby.
 \end{itemize}
 
 \paragraph{Jednotlivé třídy dronů:}
 \begin{itemize}
-    \item C0 - Nejmenší drony (hmotnost do 250g) s maximální rychlostí do 68 km/h a napájením do 24V. Příkladem může být dron Mavic Mini 2 který byl použit pro vývoj. 
-    \item C1 - Drony vážící do 900g s maximální rychlostí do 68 km/h, napájením do 24V. Obsahují více bezpečnostních prvků než kategorie C0 a hluk je limitován 85 dB.
-    \item C2 - Drony vážící do 4 Kg, stejné povinné bezpečnostní prvky jako u C2, na více musí ale obsahovat Low Speed mode (3m/s), aby se mohl pohybovat v blízkostí lidí. Hlučnost je omezena do 97 dB a pohon je limitován 48 V.
-    \item C3 - Drony do 25 Kg a musejí se vejít do rozměru 3m. Pohon do 48 V.
-    \item C4 - Je určena pro modely letadel, stahuje se na ní pouze váhové omezení (<25Kg) a je zde zakázán autonomní režim. 
-    \item C5/C6 - Podobné C3 s přidanými bezpečnostními prvky.
+    \item C0 -- Nejmenší drony (hmotnost do 250g) s maximální rychlostí do 68 km/h a napájením do 24V. Příkladem může být dron Mavic Mini 2 který byl použit pro vývoj. 
+    \item C1 -- Drony vážící do 900g s maximální rychlostí do 68 km/h, napájením do 24V. Obsahují více bezpečnostních prvků než kategorie C0 a hluk je limitován 85 dB.
+    \item C2 -- Drony vážící do 4 Kg, stejné povinné bezpečnostní prvky jako u C2, na více musí ale obsahovat Low Speed mode (3m/s), aby se mohl pohybovat v blízkostí lidí. Hlučnost je omezena do 97 dB a pohon je limitován 48 V.
+    \item C3 -- Drony do 25 Kg a musejí se vejít do rozměru 3m. Pohon do 48 V.
+    \item C4 -- Je určena pro modely letadel, stahuje se na ní pouze váhové omezení (<25Kg) a je zde zakázán autonomní režim. 
+    \item C5/C6 -- Podobné C3 s přidanými bezpečnostními prvky.
 \end{itemize}
 
 
@@ -239,7 +233,7 @@ Kategorizace slouží k minimalizování rizika střetu s osobami. Nad lidmi a v
 \end{figure}
 
 
-\paragraph{Předstartovní procedura typického dronu}
+\subsection{Předstartovní procedura typického dronu}
 Vývoj v oblasti dronů značně zjednodušil užívání dronů a proto pro mnohé uživatele navodil falešný pocit robustnosti dronů. Drony jsou i přes veškerá zjednodušení pořád velmi sofistikovaná a křehká zařízení, které je potřeba provozovat s respektem. Proto autor sepsal několikabodový checklist, který by zodpovědný operátor drona měl dodržovat.  Procedura je psaná pro dron DJI Mavic Mini 2, ale není problém ho aplikovat na jiné typy dronů. Procedura vychází ze zdrojů \cite{PreflightChecklistPdf,PreflightChecklistSaftyCulture}, manuálu \cite{PreflightChecklistDJI} a zkušeností autora. 
 \begin{enumerate}
     \item Ještě před vyražením do terénu aktualizujte veškerý firmware a letové databáze. Mějte v pořádku všechny legislativní dokumentace a dron mějte zaregistrovaný a oštítkovaný.
@@ -305,64 +299,187 @@ Jak již bylo řečeno, původní řešení podporovalo připojení jednoho dron
 Program byl vyvíjen v Unity verze 2019. Využíval knihovny MRTK ve verzi 2.4 a doplněk MapBox. Autor si v této vývojové fázi myslel, že bude vhodné na práci navázat a využít tak postup zde dosaženého.
 
 % to do - proč to sakra nejde roztájnout
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.77\textwidth]{obrazky-figures/navrh/prevUiDesign.pdf}
+	\includegraphics[width=0.87\textwidth]{obrazky-figures/navrh/prevUiDesign.pdf}
 	\caption{Původní implementace vizualizace letových veličin. Převzato z práce \cite{KyjacMartin2022Vnpp}.}
 	\label{pic:prevUiDesign}
 \end{figure}
 
 
-\begin{figure}[ht]
+\begin{figure}[H]
 	\centering
-	\includegraphics[width=0.76\textwidth]{obrazky-figures/navrh/prevMisionObject.pdf}
+	\includegraphics[width=0.87\textwidth]{obrazky-figures/navrh/prevMisionObject.pdf}
 	\caption{Původní implementace objektů mise. Převzato z práce \cite{KyjacMartin2022Vnpp}.}
 	\label{pic:prevMisionObject}
 \end{figure}
 
-\section{Požadavky nového řešení}
-Sekce je zaměřena na shrnutí cílů a požadavků na novou implementaci rozhraní. Nejdříve budou shrnuty obecné požadavky a jak je plánované jejich docílení. 
+\section{Požadavky nového rozhraní}
+Sekce je zaměřena na shrnutí požadavků a cílů  nového uživatelského řešení. Tyto požadavky autor definoval s minimálním ohledem na implementační stránku řešeného problému. Tato praktika  má za cíl objevit nová nestandardní řešení, která mohou být zatracena, pokud jsou cíle "ohybány" pomocí implementačních detailů. 
 
 \begin{itemize}
-    \item Bezpečnost a soulad z legislativou - cílem nového řešení je usnadnit pilotovi pilotáž 
+    \item Bezpečnost a soulad z legislativou - cílem nového řešení je usnadnit pilotovi pilotáž.
     
-    \item Minimalizace přepínání kontextu - rozhraní by mělo nahradit telefon v ovladači, aby se nemusel často měnit pozornost pilota
+    \item Minimalizace přepínání kontextu - rozhraní by mělo nahradit telefon v ovladači, aby se nemusel často měnit pozornost pilota.
 
-    \item Větší imerze do letu
+    \item Větší imerze (vžití) do letu.
     
-    \item Využití konceptů užitých v aktuálních leteckých přístrojích 
+    \item Využití konceptů užitých v moderních leteckých přístrojích .
     
-    \item Zvýšení povědomosti o okolí drona
+    \item Zvýšení povědomosti o okolí drona.
     
-    \item Implementace přenosu z kamery dronu.
+    \item Implementace přenosu videa z kamery dronu.
     
-    \item Předletová příprava a plánování mise 
+    \item Asistence při předletové přípravě a při plánování mise 
     
-    \item Intuitivnost rozhraní
+    \item Intuitivnost rozhraní.
 
-    
+    \item Vyčištění okolí drona, které vede na zlepšení povědomí pilota o překážkách v okolí drona.
     
     \item Využití 3D prostoru a lepší orientace v prostoru
     
 \end{itemize}
 
-\section{Drátové modely} % to do: přepsat kvůli autoplagiátorství
+\section{Využité prostředky pro návrh rozhraní}
+Autor při návrhu rozhraní využil dva typy modelů -- drátové a grafické. Tyto modely sloužily k vyjasnění konceptů, které následně byly integrované v implementační části práce.
+\subsection{Drátové modely} % to do: přepsat kvůli autoplagiátorství
 Drátové modely obvykle slouží pro vyjasnění polohy jednotlivých prvků rozhraní a~ne  pro vyobrazení grafické reprezentace, jak by mohlo na první pohled budit dojem. Drátové modely mají různé úrovně propracovanosti tak, aby mohly splnit účel, pro který jsou vytvořené.
 
 Základní modely se obvykle skládají z~čar jedné barvy a~text má pouze umělecký charakter. Tyto modely jsou vhodné pro vyjasnění rozmístění jednotlivých prvků a sjednocení přístupů jednotlivých vývojářů. Vzhledem k~trivialitě těchto modelů se případné změny v~nich dají provést velmi snadno.
 
-Propracovanější modely mohou mít stejný obsah, jako bude v~konečné reprezentaci rozhraní. Tento obsah může mít i~propracovanější rysy podobné jako u konečného produktu. Uvedené modely se často vytváří jako proklikávací (modely mají implementovanou základní funkčnost). Díky poslední zmíněné vlastnosti se s~uživateli dá provádět testování už v~návrhové části projektu a~získat tím cennou zpětnou vazbu ještě před dokončením skutečného prototypu~\cite{Wireframing,KomárekJakub2022Nzps}.
-
-Vzhledem k~povaze projektu byl zvolen model odlehčenějšího charakteru. Autor vytvořil několik základních konceptů, které poté porovnal a~vybral nejlepší adepty pro další analýzu. Uvedené koncepty byly vytvořeny v~papírové podobě.
+Propracovanější modely mohou mít stejný obsah, jako bude v~konečné reprezentaci rozhraní. Tento obsah může mít i~propracovanější rysy podobné jako u konečného produktu. Uvedené modely se často vytváří jako proklikávací (modely mají implementovanou základní funkčnost). Díky poslední zmíněné vlastnosti se s~uživateli dá provádět testování už v~návrhové části projektu a~získat tím cennou zpětnou vazbu ještě před dokončením skutečného prototypu~\cite{Wireframing,KomárekJakub2022Nzps}. Vzhledem k~povaze projektu byl zvolen model odlehčenějšího charakteru. Autor vytvořil několik základních konceptů, které poté porovnal a~vybral nejlepší adepty pro další analýzu. Uvedené koncepty byly vytvořeny v~papírové podobě a ukázky jsou dostupné na obrázcích \ref{fig:wire1} a \ref{fig:wire2}. 
 
 
-\todo{Jednotlivé wireframové návrhy}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/navrh/allWired.png}
+    \caption{Prvotní drátový návrh použitý pro účely konzultace a diskuze. }
+    \label{fig:wire1}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \begin{subfigure}[t]{0.46\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{obrazky-figures/navrh/staticHudWired.png}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}[t]{0.53\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{obrazky-figures/navrh/staticHud2Wired.jpg}
+    \end{subfigure}
+    \caption{Různé variaece návrhů statického HUDu demonstrující, že byly vyzkoušeny různé kombinace vizualizačních prvků.}
+    \label{fig:wire2}
+\end{figure}
+
 \newpage
-\section{Grafické modely}
-Grafický návrh se naopak od drátového modelu soustředí na vizuální stránku rozhraní. V~této fázi návrhu je důležité vyjasnit fundamentální barevné kombinace a motivy v rozhraní \cite{KomárekJakub2022Nzps}. 
+\subsection{Grafické modely} % to do: přepsat kvůli autoplagiátorství - pouze úvodní odstavec
+Grafický návrh se naopak od drátového modelu soustředí na vizuální stránku rozhraní. V~této fázi návrhu je důležité vyjasnit fundamentální barevné kombinace a motivy v rozhraní \cite{KomárekJakub2022Nzps}. K tvorbě těchto modelů přispěly následující nástroje:
 
-Pro tento účel byl použit nástroj Microsoft Paint 3D. Tento nástroj poskytuje jednoduché prostředí  pro tvorbu 3D objektů a jejich zasazení do scény. Zároveň ale podporuje jednoduché vkládání 2D objektů. Toho bylo využito při návrhu vizualizace letových veličin.
-\todo{Jednotlivé grafické návrhy}
+\subsubsection{Microsoft Paint 3D}
+Pro tento účel byl použit nástroj Microsoft Paint 3D. Tento nástroj poskytuje jednoduché prostředí  pro tvorbu 3D objektů a jejich zasazení do scény. Zároveň ale podporuje jednoduché vkládání 2D objektů. Toho bylo využito při návrhu vizualizace letových veličin. Obrázek \ref{pic:experimentOhraniceni} byl vytvořen tímto nástrojem.
+\subsubsection{InkScape} \label{PAR:InkScape}
+Pro tvorbu 2D vektorové grafiky autor využil program InkScape.  Program je zdarma a je dostupný pro širokou komunitu. Poskytuje nástroje pro kreslení, editaci a manipulaci s vektorovými obrázky. Program primárně pracuje s obrázky ve formátu SVG. 
+
+Soubory SVG jsou vytvářeny serializací v značkovacím jazyce XML. Modifikací atributů tohoto XML u lze tvořit i interaktivní prvky v SVG. Toho však nebylo možné využít dále v implementační fázi, protože SVG podpora Unity je omezená a  neumožňuje interakci s SVG formáty. Proto byl program užit pouze na statické objekty. Omezujícím faktorem ze strany Unity se také stala nemožnost zobrazení textových objektů.
+
+Program dokáže jednotlivé vektorové objekty na plátně shlukovat do vrstev. Nové objekty jsou vytvářeny za pomocí cest, které jsou složeny z eliptických křivek. Obrázek \ref{pic:graphicHudNavrh} byl vytvořen tímto nástrojem.
+
+\subsubsection{Adobe Photoshop}
+Propagační materiály, více propracovanější koncepty a návrhy ve kterých bylo nutné nasimulovat okolí byly vytvořeny programem Adobe Photoshop. Jedná se o komplexní nástroj pro 2D rastrovou grafiku. Stejně jako InkScape využívá systém vrstev. Pro jednoduší práci s výřezy zavádí i takzvané masky, které lze jednoduše přetvářet aniž by byly informace z vrstvy vymazány. Masky lze využít i na další činnosti, jako jsou například efekty. Obrázky \ref{pic:graphicHudNavrh} a \ref{pic:ShowcaseNavrhBackView} byly vytvořeny tímto nástrojem.
+
+    
+\begin{figure}[h]
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{obrazky-figures/navrh/photoshop.png}
+    \caption{Ukázka: Adobe Photoshop} 
+    \label{pic:50}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.5\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{obrazky-figures/navrh/malovani3d.png}
+    \caption{Ukázka: Microsoft Paint 3D} 
+    \label{pic:2}
+  \end{minipage}
+\end{figure}
+\newpage
+\section{Navržené řešení}
+Nyní budou veškeré předešlé poznatky převedeny do návrhu nového rozhraní. Návrh je členěn do 2 skupin podle způsobu užití. V první zmíněné skupině bude veškerá vizualizace letových veličin. Druhá skupina slouží k vizualizaci navigačních dat, nebezpečných překážek a vizualizaci mise. Celistvý návrh je přítomný na obrázku \ref{pic:ShowcaseNavrhBackView}.
+\subsection{Návrh vizualizace letových veličin}
+Tato část rozhraní má za cíl vizualizovat pilotovy drona důležitá letová data, která mají pomoci při pilotáži drona. Aby byl splněn požadavek "vyčištění okolí drona", rozhodl se autor rozhraní rozdělit do dvou částí: statická a pohyblivá část. 
+\subsubsection{Statická část rozhraní}
+Statická část rozhraní se pilotovy v brýlích zobrazuje na stejném místě. Autor experimentálním procesem došel ke zjištění, že je potřebné středovou část rozhraní nechat prázdnou. Návrh rozhraní se tak musel vejít na strany pozorovatelného pole v brýlích. 
+
+Další experimenty odhalily fakt, že pokud se rozhraní promítne do prostoru, při pohledu do dálky (na drona, který je vzdálený více než 10m od pilota), tak jsou kvůli přeostření očí vizualizované údaje vidět rozdvojeně  a mírně rozmazaně. Z tohoto důvodu se autor rozhodl tyto statické údaje promítnout pouze do jednoho displeje brýlí  (do jednoho oka), jako je tomu například u brýlí Google Glass. Po experimentech s tímto promítnutím byly zmíněné problémy odstraněny. 
+
+Volba primární barvy rozhraní byl nelehký úkol. V Hololens aplikací je obvykle volena bílá barva pro vizualizaci textu na barevném podkladu. Tento přístup nebylo možné použít z důvodu přílišného zakrytí zorného pole pilota. Samotná bílá barva nešla užít z důvodu splynutí barvy s oblohu ve venkovních prostorách. Autor si tedy vyčlenil dvě barvy, které by mohl užít: sytě červenou (RGB: \#ff0000) a zelenou (RGB: \#00ff00). Experimentálním procesem byly obě varianty porovnány (viz. obrázek \ref{pic:experimentOhraniceni}). 
+
+Vítězem se stala zelená barva z mnoha důvodů. Hlavním důvodem byl fakt, že je na tuto barvu lidské oko nejvíce citlivé což prokázal i venkovní test (testovaná barva byla nejvíce "jasná"). Autor tuto barvu chtěl z počátku užít i z důvodu podobnosti s leteckými HUD displeji, ostatně  celá vizualizace letových veličin je silně inspirovaná systémy HUD (ukázka na obrázku \ref{pic:HUDdisplay}).   
+
+Následující popis prvotního návrhu rozhraní se vztahuje k obrázku \ref{pic:graphicHudNavrh}. V horním rohu se nachází sada méně důležitých údajů a to digitální hodiny, stav baterie a ukazatel vertikálního náklonu kamery. Pod touto skupinkou se nachází výškoměr. Tento výškoměr je navržen takzvaně "páskově", aby  prudká změna měřené veličiny a směr změny mohl být periferně vnímán i bez plného soustředění se na vizualizační prvek. Při změně výšky se celý "pásek" (to jest stupnice s malými čísly) pohybuje. To slouží ke kognitivní registraci rychlosti stoupání/klesání. Červenou zónou na pásce je znázorněna uživatelsky definovaná hranice nad kterou by pilot neměl létat (z důvodu legislativy, územního omezení, ...). Stejnou povahu má ukazatel natočení dronu v horní části, který ukazuje natočení ve stupních. Do tohoto pruhu je plánováno vnést ukazatele na prvky mise pro snazší navigaci.
+
+Pod výškoměrem se nachází experimentální rychloměr. Autor zjistil, že při pilotáži dle kamery špatně odhaduje rychlost drona z důvodu velmi dobré optické stabilizace kamery. Špatné vnímání rychlosti je ještě více umocněno při kruhovém pohybu drona (například při naplánovaném letu se spuštěným autopilotem). Odhadovaná rychlost dle vizuálního pohledu je zkreslena směrem letu. Proto je zde kruhový ukazatel rychlosti, který vizuálně ukazuje rychlost ve 2 osách (dopředu/dozadu a doleva/doprava). Aktuální rychlost a směr ukazuje oranžová kulička. Ve středu je digitální údaj v uživatelsky srozumitelné jednotce km/h. Povšimněte si čerchovaného kruhu v 1/3 od středu kruhu, ten slouží k vizualizaci rychlosti, které je omezená low-speed módem.
+
+Pod rychloměrem se nachází indikátor letového módu drona. Při srovnání mé implementace s implementací v leteckých systémech si můžete povšimnout výrazně širších a masivnějších čar a textů. Tento nekosmeticky líbivý krok byl nutný, protože tenké čáry ve venkovních prostorách nebyly vidět (okolní světlo je přesvítilo).
+
+
+\begin{figure}[h]
+  \begin{minipage}{0.45\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{obrazky-figures/navrh/statuckýHudPopisky.png}
+    \caption{Navržená statická část\\ vizualizace letových veličin.} 
+    \label{pic:graphicHudNavrh}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.55\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{obrazky-figures/navrh/AT-HUD-Product-Tile.png}
+    \caption{Ukázka leteckého HUD, kterým byl návrh inspirován.  Převzato z \cite{hudPic}.} 
+    \label{pic:HUDdisplay}
+  \end{minipage}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/navrh/sledovaniDronaNavrhyCut.png}
+    \caption{Provedený experiment s cílem najít nejlepší možné ohraničení drona.}
+    \label{pic:experimentOhraniceni}
+\end{figure}
+\subsubsection{Pohyblivá část rozhraní}
+Pohyblivá část rozhraní z pohledu pilota sleduje drona a ohraničuje ho. Tím má umožnit snadnější lokalizaci na obloze, pokud je dron v moc velké vzdálenosti od pilota. V rámci plenění cíle "minimalizace rozhraní" se autor rozhodl okolí drona nechat prázdné a nechat zde pouze textový údaj vzdálenosti drona od pilota.
+
+Obrysový tvar byl vybrán díky experimentu, který je znázorněn na obrázku \ref{pic:experimentOhraniceni}. Jak je na obrázku znázorněno, v tomto experimentu figurovali různé obrazce, které autor opět vybral na základě předlohy HUD displejů.  Tentokrát se autor inspiroval u bojových letounů, které těmito obrazci indikují potencionální cíle v jejich zorném poli.  Nahoře tohoto obrázku se nacházel původní obrazec. 
+
+Z důvodu, že zaměření drona v původním řešení mělo potíže hlavně s vertikální složkou pohybu se autor rozhodl pro kosočtvercový tvar. Tento tvar přišel autorovy taky nejvíce esteticky líbivý. Zvolená barva byla již probrána ve statické části.  Integrace je vidět na kompozičním obrázku \ref{pic:ShowcaseNavrhBackView}.
+
+
+\subsection{Návrh vizualizace navigačních údajů a prvků mise}
+Tato část rozhraní má v první řadě za úkol lepší orientaci v prostoru. Autor se o proti původnímu řešení, které bylo určené pro let ve velmi blízkém okolí, rozhodl rozhraní uzpůsobit vzdálenějším letům. Obecným problémem u vzdálených objektů je rozpoznání vzdálenosti. Ilustrační příklad: ve vzdálenosti 40 metrů od pilota je strom a drona máte poblíž, na první pohled nevíte jestli dron je před, za nebo vedle stromu. 
+
+Z tohoto důvodu se autor rozhodl překážky a body mise nevkládat do prostoru na jejich fyzické místo. Místo toho se autor rozhodl vytvořit miniaturu okolí pomocí zmenšené 3D mapy, která bude přítomna před pilotem. Návrh je na obrázku  \ref{pic:MapaNavrh}. V základu by mapa měla podporovat vytyčení bez letové zóny, ta je v návrhu označena červeným polo transparentním kvádrem (v obrázku je umístěn na silnicí, nad kterou je dle legislativy zakázáno létat). Oranžová zóna značí zónu s omezením nebo varováním (na příkladu je takto vyznačen dvůr, kde by se mohli nacházet skupiny lidí, nad kterými se nesmí létat, zároveň by větší drony v této zóně měli létat v low-speed módu, aby jste nemusely létat ve vzdálenosti od lidí rovné letové výšce).
+
+Dron je na obrázku vizualizován žlutě (pro odlišení od okolí žlutě). Nestandardním prvkem je přistávací zóna (modrá kulovitá plocha s nápisem "H"), která indikuje bod, na který se dron vrátí v případě výpadku signálu. Je zde i ilustrován uživatel.
+
+Prvky mise jsou tvoří základní waypointy, kterými by se mělo prolétnout. Waypointy jsou propojené spojnicemi, takže lze plánovat celou kompletní trasu dronu. Díky 3D prostředí jsou na více viditelné zjevné kolize s budovami. Tuto vlastnost považuje autor za velmi přínosnou od konvenčních řešení v telefonech/tabletech. Plánovaná je i úprava prvků mise a to za pomocí fyzického přetahování a umisťování prvků do této minimapy. V návrhu bylo počítáno, že by jednotlivé typy objektů byly na kraji mapy, odkud by se zanášely do minimapy. V simulovaném scénáři by si mohl uživatel na základně naplánovat v prostředí brýlích celou misi, kterou by pak pouze v terénu pouze provedl.
+
+Do prostoru je také umístěna obrazovka, která přehrává stream z kamery drona. Původně se autor snažil tuto obrazovky umístit do statické části rozhraní, později i do dynamické, nicméně experimentálně bylo zjištěno, že tento způsob navozoval pocit nevolnosti při používání. Tato obrazovka je vidět na kompozičním fotu \ref{pic:ShowcaseNavrhBackView}.
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/navrh/interaktiveMap.jpg}
+    \caption{Ukázka návrhu interaktivní mapy prostředí.}
+    \label{pic:MapaNavrh}
+\end{figure}
+
+\begin{figure}[!ht]
+    \centering
+    \includegraphics[width=\linewidth]{obrazky-figures/navrh/pohledZeZadu.png}
+    \caption{Ilustrační foto, které ukazuje kompozici všech zmíněných částí rozhraní.}
+    \label{pic:ShowcaseNavrhBackView}
+\end{figure}
+
 
 %\section{Zásady užité při návrhu}
 
@@ -376,20 +493,20 @@ V systému účinkuje 7 komponent: Brýle, vysílač DJI\texttrademark, chytrý 
 Celý systém je vizualizován na obrázku \ref{pic:ekosystem}.
 \paragraph{Popis jednotlivých komponent}
 \begin{itemize}
-    \item Brýle - Již představené brýle Hololens 2 pro rozšířenou realitu (viz. \ref{sec:Hololens}), které bude mít pilot po celou dobu pilotáže pilot nasazené. Brýle potřebují ke své funkci spojení s dvojicí serverů, od kterých jsou distribuovaná telemetrická data a video přenos. Přenos do brýlí probíhá za pomocí WI-FI přenosu z přístupového bodu. Právě zde bude nasazeno vyvíjené rozhraní. 
+    \item Brýle-- Již představené brýle Hololens 2 pro rozšířenou realitu (viz. \ref{sec:Hololens}), které bude mít pilot po celou dobu pilotáže pilot nasazené. Brýle potřebují ke své funkci spojení s dvojicí serverů, od kterých jsou distribuovaná telemetrická data a video přenos. Přenos do brýlí probíhá za pomocí WI-FI přenosu z přístupového bodu. Právě zde bude nasazeno vyvíjené rozhraní. 
    
-    \item Vysílač  DJI\texttrademark- Zajišťuje 3 hlavní funkce. První je bezdrátový přenos ovládacích instrukcí směrem k dronu a přenos telemetrických dat. K tomu využívá pásmo 2.4 GHz. Druhou funkcí je bezdrátový příjem video přenosu z kamery dronu. K tomu využívá pásmo 5 GHz. Oba zmíněné bezdrátové přenosy probíhají za pomocí proprietárních komunikačních technologií společnosti DJI\texttrademark. Třetí funkce ovladače je odesílání všech těchto dat do chytrého telefonu pomocí USB propoje. Více o vysílači viz. \ref{sec:ovladace}.
+    \item Vysílač  DJI\texttrademark-- Zajišťuje 3 hlavní funkce. První je bezdrátový přenos ovládacích instrukcí směrem k dronu a přenos telemetrických dat. K tomu využívá pásmo 2.4 GHz. Druhou funkcí je bezdrátový příjem video přenosu z kamery dronu. K tomu využívá pásmo 5 GHz. Oba zmíněné bezdrátové přenosy probíhají za pomocí proprietárních komunikačních technologií společnosti DJI\texttrademark. Třetí funkce ovladače je odesílání všech těchto dat do chytrého telefonu pomocí USB propoje. Více o vysílači viz. \ref{sec:ovladace}.
     
-    \item Chytrý mobilní telefon - Jedná se o libovolný mobilní telefon se systémem android kompatibilní s vysílačem, ke kterému je připojen pomocí USB. V tomto telefonu musí být nainstalována  aplikace Drone DJI Streamer\footnote{Odkaz na aplikaci Drone DJI Streamer: \href{https://github.com/robofit/drone\_dji\_streamer}{github.com/robofit/drone\_dji\_streamer}}. 
+    \item Chytrý mobilní telefon -- Jedná se o libovolný mobilní telefon se systémem android kompatibilní s vysílačem, ke kterému je připojen pomocí USB. V tomto telefonu musí být nainstalována  aplikace Drone DJI Streamer\footnote{Odkaz na aplikaci Drone DJI Streamer: \href{https://github.com/robofit/drone\_dji\_streamer}{github.com/robofit/drone\_dji\_streamer}}. 
 
     
     Jedná se o upravenou verze aplikace DJI Fly\footnote{Aplikace DJI Fly je oficiální aplikace pro pilotáž drona. Propojuje ovladač dronu s telefonem. Odkaz na aplikaci: \href{https://www.dji.com/cz/downloads/djiapp/dji-fly}{dji.com/cz/downloads/djiapp/dji-fly}  }, která je postavená na vydaném DJI SDK\footnote{SDK je soubor nástrojů, knihoven a dokumentace poskytovaných vývojářům pro snazší tvorbu aplikací. \\ Odkaz na DJI Android SDK: \href{https://developer.dji.com/mobile-sdk/downloads/}{developer.dji.com/mobile-sdk/downloads/}},  která zajistí distribuci telemetrických dat a video přenosu na patřičné servery. Uvažovaný způsob přenosu je pomocí technologie WI-FI přes přístupový bod. 
    
-    \item Dron DJI\texttrademark \space - Obyčejný, softwarově neupravený dron od firmy DJI\texttrademark, který komunikuje s vysílačem. V práci byl použit dron DJI Mavic 2 mini.
+    \item Dron DJI\texttrademark \space -- Obyčejný, softwarově neupravený dron od firmy DJI\texttrademark, který komunikuje s vysílačem. V práci byl použit dron DJI Mavic 2 mini.
    
-    \item Přístupový bod - Zajišťuje propojení většiny koncových zařízení pomocí technologie WI-FI.
+    \item Přístupový bod -- Zajišťuje propojení většiny koncových zařízení pomocí technologie WI-FI.
     
-    \item Video server - Zajišťuje příjem a distribuci RTMP streamů, které jsou vysílány z z aplikace mobilního telefonu. V práci je využita serverová aplikace MonaServer\footnote{Odkaz na open-source implementaci serverové aplikace pro streamování RTMP přenosů videa: \\ \href{https://github.com/MonaSolutions/MonaServer}{github.com/MonaSolutions/MonaServer}}, která podporuje řadu streamovacích protokolů, mezi kterými je i požadovaný RTMP protokol.
+    \item Video server -- Zajišťuje příjem a distribuci RTMP streamů, které jsou vysílány z z aplikace mobilního telefonu. V práci je využita serverová aplikace MonaServer\footnote{Odkaz na open-source implementaci serverové aplikace pro streamování RTMP přenosů videa: \\ \href{https://github.com/MonaSolutions/MonaServer}{github.com/MonaSolutions/MonaServer}}, která podporuje řadu streamovacích protokolů, mezi kterými je i požadovaný RTMP protokol.
    
     \item Telemetrický server - Zajišťuje příjem a distribuci telemetrických dat. V práci je využit již implementovaný DroCo server\footnote{Odkaz na DroCo server, který zajičtůje přenos telemetrických dat: \href{https://github.com/robofit/drone_server}{github.com/robofit/drone\_server}}. Tento server je určen na provoz v kontejnerovém prostředí Docker\footnote{Docker je open-source platforma pro balení a  spouštění aplikací v izolovaném prostředí pro zajištění konzistentní funkčnosti nehledě na konkrétní platformu systému.}.
 \end{itemize}
@@ -406,29 +523,29 @@ Celý systém je vizualizován na obrázku \ref{pic:ekosystem}.
 \paragraph{Telemetrická data} - Přenášejí se mezi komponentami systému ve formátu JSON. Přenášejí se pouze nejnutnější data pro určení polohy, rychlosti pohybu a data pro režiji komunikace. Ukázka JSON dat viz. výpis \ref{drone-data-json}.
 \paragraph{\textnormal{Popis jednotlivých údajů a veličin:}}
 \begin{itemize}
-    \item Client ID - Jedná se o jedinečný identifikátor v rámci jedné sítě. Jeden dron má právě přiřazen jeden tento identifikátor. Aplikace v telefonu si při registraci na server tento identifikátor vygeneruje. Jedná se o 8 znakový hexadecimální řetězec.
-    \item  Altitude - Relativní výška dronu. Při startu dron předpokládá, že je ve výšce 0m. Potom pomocí akcelerometrů a optického senzoru odvozuje výšku, ve které se nachází. Znamená to, že pokud dron letí nad budovou, výška se nezmění.
+    \item Client ID -- Jedná se o jedinečný identifikátor v rámci jedné sítě. Jeden dron má právě přiřazen jeden tento identifikátor. Aplikace v telefonu si při registraci na server tento identifikátor vygeneruje. Jedná se o 8 znakový hexadecimální řetězec.
+    \item  Altitude -- Relativní výška dronu. Při startu dron předpokládá, že je ve výšce 0m. Potom pomocí akcelerometrů a optického senzoru odvozuje výšku, ve které se nachází. Znamená to, že pokud dron letí nad budovou, výška se nezmění.
     \item GPS souřadnice
     \begin{itemize}
-        \item Latitude - Zeměpisná šířka ve stupních.
-        \item Longitude - Zeměpisná délka ve stupních.
+        \item Latitude -- Zeměpisná šířka ve stupních.
+        \item Longitude -- Zeměpisná délka ve stupních.
     \end{itemize}
 
-    \item Údaje z gyroskopu - Jsou posílány dvakrát. Ve formě čistých dat z hlavního gyroskopu dronu a z gimbalu kamery. \todo{Doopravdy?}
+    \item Údaje z gyroskopu - Jsou posílány dvakrát. Ve formě dat z hlavního gyroskopu dronu a jednou z natočení gimbalu kamery. % to do ověřit fakty
     \begin{itemize}
-        \item Pitch - Náklon kolem osy  ve stupních, která prochází zleva doprava středem dronu. Indikuje náklon dopředu/dozadu.
-        \item Roll -  Náklon kolem osy  ve stupních, která prochází zezadu do předu středem dronu. Indikuje náklon doleva/doprava.
-        \item Yew - Náklon kolem osy, která prochází z hora dolů  středem dronu. Indikuje otáčení dronu doleva/doprava.
+        \item Pitch -- Náklon kolem osy  ve stupních, která prochází zleva doprava středem dronu. Indikuje náklon dopředu/dozadu.
+        \item Roll --  Náklon kolem osy  ve stupních, která prochází zezadu do předu středem dronu. Indikuje náklon doleva/doprava.
+        \item Yew -- Náklon kolem osy, která prochází z hora dolů  středem dronu. Indikuje otáčení dronu doleva/doprava.
     \end{itemize}
-    \item Compass - Udává kurz dronu ve stupních. Měl by se shodovat s údajem Yew.
+    \item Compass -- Udává kurz dronu ve stupních. Měl by se shodovat s údajem Yew.
     \item Údaje z akcelerometů
     \begin{itemize}
-        \item Velocity X - Dopředná rychlost v m/s
-        \item Velocity Y - Horizontální rychlost (do leva/doprava) v m/s
-        \item Velocity Z - Vertikální rychlost v m/s.
+        \item Velocity X -- Dopředná rychlost v m/s
+        \item Velocity Y -- Horizontální rychlost (do leva/doprava) v m/s
+        \item Velocity Z -- Vertikální rychlost v m/s.
         %\item yaw_relative  - nevím co to je
      \end{itemize}
-     \item Timestamp - Časová značka pořízení dat.
+     \item Timestamp -- Časová značka pořízení dat.
 \end{itemize}
 
 \begin{figure}[ht]
@@ -487,29 +604,43 @@ Proto je uvažováno, že přístupový bod a obě serverové aplikace budou pra
 \paragraph{Vývojové prostředí architektury}\mbox{} \\
 V rámci vývoje byl  systém integrován na vývojovém notebooku, který zastal funkci jak serveru, tak přístupového bodu. K vývoji značně dopomáhal vizualizační nástroj  DroCo\footnote{Odkaz na aplikaci DroCo: \href{https://github.com/robofit/drone\_vstool}{github.com/robofit/drone\_vstool}}, který vizualizoval data z obou serverů.
 
-\section{Užité softwarové prostředky}
-Tato práce navazuje na předchozí práci \cite{KyjacMartin2022Vnpp} a proto se autor rozhodl pokračovat na již zavedených softwarových prostředích. Hlavním stavebním kamenem je engine/framework Unity. V tomto enginu je celý program vytvářen. Dále autor využil několika doplňků/knihoven do tohoto enginu. Hlavní doplňky a knihovny budou popsány dále v této kapitole viz. \ref{}. 
-
-Na tvorbu 3D objektů byl využit modelovací nástroj Blender. Ke tvorbě statické vektorové grafiky posloužil nástroj InkScape, který byl již popsán v návrhové části viz. \ref{}.  
+\section{Užité softwarové prostředky} 
+Tato práce navazuje na předchozí práci \cite{KyjacMartin2022Vnpp} a proto se autor rozhodl pokračovat na již zavedených softwarových prostředích. Hlavním stavebním kamenem je engine/framework Unity. V tomto enginu je celý program vytvářen. Dále autor využil několika doplňků/knihoven do tohoto enginu. Struktura programu, hlavní doplňky a knihovny budou popsány dále v kapitole viz. \ref{SEC:StrukturaProgramu}. 
+Na tvorbu 3D objektů byl využit modelovací nástroj Blender. Ke tvorbě statické vektorové grafiky posloužil nástroj InkScape viz. odstavec \ref{PAR:InkScape}.  
 \subsubsection{Unity}
 Unity je multiplatformní herní Engine, který byl představen roku 2005. Tento engine byl primárně vytvořen pro tvorbu 2D a 3D her. Postupným vylepšováním a rozšířením se z něho stal univerzální nástroj pro tvorbu programů využívajících funkcionalit jádra tohoto enginu . Integraci enginu tak můžete nalézt například v automotive průmyslu, architektuře a stavebnictví.  
 
-Jeho veliká výhoda spočívá ve snadné integraci aplikací na různé typy platforem. Standardně tak lze unity použít pro vývoj aplikací pro desktopy, mobilní telefony (Android + IOS), herní konzole, brýle pro VR/AR a nově i pro aplikace na Webu. Engine tak musí podporovat řadu architektur výpočetních systémů, což je v případě brýlý Hololens 2 potřeba (platforma ARM). 
+Jeho veliká výhoda spočívá ve snadné integraci aplikací na různé typy platforem. Standardně tak lze unity použít pro vývoj aplikací pro desktopy, mobilní telefony (Android + IOS), herní konzole, brýle pro VR/AR a nově i pro aplikace na Webu. Engine tak musí podporovat řadu architektur výpočetních systémů, což je v případě brýlý Hololens 2 potřeba (platforma ARM)  \cite{unity1,unity2}. 
 \paragraph{C\#}
-Tato platforma získala svou popularitu hlavně díky jednoduššímu a intuitivní stylu práce v tomto enginu. Jednoduché tvorbě dopomáhá jazyk C\#, který v enginu slouží pro psaní vnitřní logiky programu. Jedná se o vysokoúrovňový typovaný objektově orientovaný programovací jazyk. Tento jazyk lze mimo Unity nejčastěji nalézt v beckendové části Webových a formulářových aplikacích (.Net). 
+Platforma Unity získala svou popularitu hlavně díky jednoduššímu a intuitivní stylu práce v tomto enginu. Jednoduché tvorbě dopomáhá jazyk C\#, který v enginu slouží pro psaní vnitřní logiky programu. Jedná se o vysokoúrovňový typovaný objektově orientovaný programovací jazyk. Tento jazyk lze mimo Unity nejčastěji nalézt v beckendové části Webových a formulářových aplikacích (.Net) \cite{cSharp}. 
 \subsubsection{Blender}
-Blender je opensource softwearový nástroj pro modelování 3D objektů, tvorbu animací a efektů. V kontextu práce je využívá pro editaci a tvorbu 3D objektů, které následně jsou zaneseny do 3D scény v Unity. 
-\subsubsection{Git a Github}
+Blender je open-source softwarový nástroj pro modelování 3D objektů, tvorbu animací a efektů. Kombinace Blenderu a Unity umožňuje bezproblémový přenos 3D objektů do herního prostředí s minimálním úsilím, což usnadňuje vývojový proces. V práci se využívá pro editaci a tvorbu 3D objektů, které následně jsou zaneseny do 3D scény v Unity \cite{blenderUnity,blender}. 
 
-\newpage
-\section{Struktura programu}
+V Blendru se objekty nejčastěji modelují za pomocí mnoha propojených trojúhelníků v trojrozměrném prostoru. Trojúhelníky jsou základními stavebními bloky, které tvoří strukturu 3D modelů. Každý trojúhelník je definován třemi vrcholy, přičemž každý vrchol má své prostorové souřadnice. 
 
+Při tvorbě se musí dát pozor na orientaci trojúhelníků, protože Unity kvůli optimalizaci nevykresluje trojúhelníky, které jsou orientované ke směru kamery \cite{blenderUnity}.
+\subsubsection{Git a GitHub}
+Pro udržení vývoje byla využit webová verzovací systém GitHub, který využívá systém zprávy verzí Git. GitHub poskytuje nástroje pro sledování změn v kódu, evidenci problémů, správu úkolů, diskusi a další. Ve spojení s Git umožňuje vývojářům snadno verzovat svůj kód, zaznamenávat změny a spolupracovat na projektech. V případě havárie lze změny zvrátit a navrátit se k předchozí funkční verzi kódu \cite{gitGithub}. 
+
+\section{Inicializační práce}
 \newpage
+\section{Struktura programu}\label{SEC:StrukturaProgramu}
+Nyní bude probrán obecný způsob, kterým jsou uspořádány projekty v Unity. Po tomto popisu bude následovat již konkrétní popis jednotlivých komponent autorova řešení. 
+\subsection{Struktura Unity projektu}
+
+\subsubsection{Scéna}
+\subsection{Užité knihovny}
+\subsubsection{VLC}
+\subsubsection{Abstract websocket}
+\subsubsection{Balík SVG}
+\subsubsection{MRTK}
+
+\begin{comment}
 \section{Implementace jednotlivých části rozhraní}
 \subsubsection{Statická část - vizualizace hlavních letových veličin}
 \subsubsection{Dynamická část - sledování pozice dronu}
 \subsubsection{Interaktivní mapa}
-
+\end{comment}
 
 \chapter{Závěr semestrálního projektu}
 Začátek práce je tvořen obeznámením s rozšířenou realitou. Dále jsou představeny brýle Hololens 2. Popsány jsou zejména modality vstupu brýlí a technické limitace brýlí. Téma další kapitoly byl drony a jejich bezpečný provoz dle legislativy. Navázalo se návrhem rozhraní v rámci kterého byla provedena analýza původního řešení. Poté následoval soupis požadavků nového rozhraní a stanovení cílů rozhraní. Dále bylo rozhraní navrhnuto pomocí drátových modelů a detaily doladěny v grafickém modelu. 
@@ -535,3 +666,4 @@ Pokud to časový rozpočet dovolí, autor by chtěl na závěr vložit rozpravu
 \chapter{Závěr}
 
 \end{comment}
+
