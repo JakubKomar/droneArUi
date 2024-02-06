@@ -90,4 +90,6 @@ $RECYCLE.BIN/
 
 build*
 .build*
-servers*
+servers/droneServer
+servers/dronServerMonitor
+servers/videoServer
