@@ -41,29 +41,29 @@ namespace Mapbox.Unity.Utilities
 		/// </summary>
 		/// <returns>The lat/lon as Vector2d.</returns>
 		/// <param name="s">string.</param>
-		public static Vector2d StringToLatLon(string s)
+		public static Vector2d StringToLatLon(string s) // edit by jakub komárek
 		{
-			var latLonSplit = s.Split(',');
-			if (latLonSplit.Length != 2)
-			{
-				throw new ArgumentException("Wrong number of arguments");
-			}
+            var latLonSplit = s.Split(new string[] { ", " }, StringSplitOptions.None);
+            if (latLonSplit.Length != 2)
+            {
+                throw new ArgumentException("Wrong number of arguments: " + s);
+            }
 
-			double latitude = 0;
-			double longitude = 0;
+            double latitude = 0;
+            double longitude = 0;
 
-			if (!double.TryParse(latLonSplit[0], NumberStyles.Any, NumberFormatInfo.InvariantInfo, out latitude))
-			{
-				throw new Exception(string.Format("Could not convert latitude to double: {0}", latLonSplit[0]));
-			}
+            if (!double.TryParse(latLonSplit[0].Trim().Replace(",", "."), NumberStyles.Any, NumberFormatInfo.InvariantInfo, out latitude))
+            {
+                throw new Exception(string.Format("Could not convert latitude to double: {0}", latLonSplit[0].Trim().Replace(",", ".")));
+            }
 
-			if (!double.TryParse(latLonSplit[1], NumberStyles.Any, NumberFormatInfo.InvariantInfo, out longitude))
-			{
-				throw new Exception(string.Format("Could not convert longitude to double: {0}", latLonSplit[0]));
-			}
+            if (!double.TryParse(latLonSplit[1].Trim().Replace(",", "."), NumberStyles.Any, NumberFormatInfo.InvariantInfo, out longitude))
+            {
+                throw new Exception(string.Format("Could not convert longitude to double: {0}", latLonSplit[0].Trim().Replace(",", ".")));
+            }
 
-			return new Vector2d(latitude, longitude);
-		}
+            return new Vector2d(latitude, longitude);
+        }
 
 		/// <summary>
 		/// Converts WGS84 lat/lon to Spherical Mercator EPSG:900913 xy meters.
