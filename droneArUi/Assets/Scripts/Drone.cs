@@ -66,7 +66,7 @@ public class Drone {
     /// <param name="flightData"></param>
     public void UpdateDroneFlightData(DroneFlightData flightData) {
         var trackingType = UserProfileManager.Instance.TrackingType;
-
+        FlightData = flightData;
         if (trackingType == TrackingTypeEnum.GPS)
         {
             UpdatePositionByGPS(flightData);

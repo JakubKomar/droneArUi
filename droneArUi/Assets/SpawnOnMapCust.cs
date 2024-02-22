@@ -11,6 +11,9 @@ using Newtonsoft.Json;
 using System;
 using Unity.VisualScripting;
 using Mapbox.Examples;
+using System.Linq;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
+using System.Globalization;
 
 public class SpawnOnMap : MonoBehaviour
 {
@@ -18,10 +21,10 @@ public class SpawnOnMap : MonoBehaviour
     AbstractMap _map;
 
     [SerializeField]
-    MapCustumeObject[] _locationStrings;
-        
+    private List<MapObjectData> _wayPointsFromUnity;
 
-    Vector2d[] _locations;
+    public MapObjectData droneObj = null;
+
 
     [SerializeField]
     float _spawnScale = 100f;
@@ -29,88 +32,137 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     GameObject _markerPrefab;
 
-    List<GameObject> _spawnedObjects;
-
 
     public BoxCollider boxCollider = null;
 
+    public DroneManager droneManger = null;
+    ~SpawnOnMap()
+    {
+        foreach (var mapGameObject in _wayPointsFromUnity)
+        {
+            mapGameObject.spawnetGameObject=null;
+        }
+
+    }
     void Start()
     {
-        _locations = new Vector2d[_locationStrings.Length];
-        _spawnedObjects = new List<GameObject>();
-        for (int i = 0; i < _locationStrings.Length; i++)
+
+        foreach (var mapGameObject in _wayPointsFromUnity)
         {
-            var locationString = _locationStrings[i];
-            _locations[i] = Conversions.StringToLatLon(locationString.locationString);
-            GameObject instance = Instantiate(_markerPrefab);
-            instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
-            instance.transform.localPosition=new Vector3(instance.transform.localPosition.x, instance.transform.localPosition.y+locationString.relativeAltitude, instance.transform.localPosition.z);
-
-            instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-            LabelTextSetter labelTextSetter = instance.GetComponent<LabelTextSetter>();
-            labelTextSetter.Set(new Dictionary<String, object> {{ "name", locationString.name },} );
-            _spawnedObjects.Add(instance);
+            renderObject(mapGameObject);
         }
+
+        droneObj = new MapObjectData();
+        droneObj.locationString = "49.22743926623377, 16.596966877183366";
+        droneObj.relativeAltitude = 10;
+        droneObj.name = "dron";
+        droneObj.type = MapObjectData.ObjType.Drone;
+        _wayPointsFromUnity.Add(droneObj);
+        
+
+
+    }
+    private void renderObject(MapObjectData mapCustumeObject)
+    {
+        mapCustumeObject.vector2D = Conversions.StringToLatLon(mapCustumeObject.locationString);
+
+        Vector2d vector2D = mapCustumeObject.vector2D;
+        
+
+        if(mapCustumeObject.spawnetGameObject == null)
+            mapCustumeObject.spawnetGameObject = Instantiate(_markerPrefab);
+
+        GameObject instance = mapCustumeObject.spawnetGameObject;
+
+
+        instance.transform.localPosition = _map.GeoToWorldPosition(vector2D, true);
+
+        float calcHeight = calcScenePosition(instance.transform.localPosition.y, mapCustumeObject.relativeAltitude);
+        instance.transform.localPosition = new Vector3(instance.transform.localPosition.x, calcHeight, instance.transform.localPosition.z);
+        instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+        LabelTextSetter labelTextSetter = instance.GetComponent<LabelTextSetter>();
+        labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.name }, });
+
+
+
+
+        if (boxCollider.bounds.Contains(instance.transform.localPosition))
+        { // if obejct is in boundig box, show it
+            instance.SetActive(true);
+        }
+        else
+            instance.SetActive(false);
     }
 
     private void Update()
     {
-        int count = _spawnedObjects.Count;
-        for (int i = 0; i < count; i++)
+        if (droneManger.ControlledDrone!=null)
         {
-            var spawnedObject = _spawnedObjects[i];
-            var location = _locations[i];
-            var locationString = _locationStrings[i];
-            spawnedObject.transform.localPosition = _map.GeoToWorldPosition(location, true);
+            droneObj.locationString = string.Format("{0}, {1}",  droneManger.ControlledDrone.FlightData.Latitude.ToString(CultureInfo.InvariantCulture), 
+                droneManger.ControlledDrone.FlightData.Longitude.ToString(CultureInfo.InvariantCulture));
 
-
-            float scaleFactor = Mathf.Pow(2, _map.Zoom);
-
-            const float tiltScaleUnity = 0.115f;
-            const float defalutZoomLevel = 19;
-            const float aproximateConstant = 0.25f;
-            float calcHeight = spawnedObject.transform.localPosition.y + (locationString.relativeAltitude/ defalutZoomLevel) * tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant;
-
-            spawnedObject.transform.localPosition = new Vector3(spawnedObject.transform.localPosition.x, calcHeight, spawnedObject.transform.localPosition.z);
-            spawnedObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-            if (boxCollider.bounds.Contains(spawnedObject.transform.localPosition)){
-                spawnedObject.SetActive(true);
-            }
-            else
-                spawnedObject.SetActive(false);
+            droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
+            droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
         }
-    }
-}
 
-[Serializable]
-public class MapCustumeObject
-{
-    public enum ObjType
+        foreach (var mapGameObject in _wayPointsFromUnity)
+        {
+            renderObject(mapGameObject);
+        }
+
+
+    }
+
+
+    private float calcScenePosition(float groundYpos, float relativeAlt)
     {
-        Waypoint,
-        LandingPad,
-        Player,
-        Drone,
-        PowerLine,
-        Barier
+        const float tiltScaleUnity = 0.115f;
+        const float defalutZoomLevel = 19;
+        const float aproximateConstant = 0.25f;
+        return groundYpos + (relativeAlt / defalutZoomLevel) * tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant;
+
     }
 
-    [SerializeField]
-    [JsonProperty("locationStr")]
-    [Geocode]
-    public string locationString;
+    [Serializable]
+    public class MapObjectData
+    {
+        public enum ObjType
+        {
+            Waypoint,
+            LandingPad,
+            Player,
+            Drone,
+            PowerLine,
+            Barier
+        }
 
-    [JsonProperty("alt")]
-    [SerializeField]
-    public float relativeAltitude = 10f;
+        [SerializeField]
+        [JsonProperty("locationStr")]
+        [Geocode]
+        public string locationString;
 
-    [JsonProperty("name")]
-    public string name = "test";
+        [JsonProperty("alt")]
+        [SerializeField]
+        public float relativeAltitude = 10f;
 
-    [JsonProperty("type")]
-    [SerializeField]
-    public ObjType type = ObjType.Waypoint;
+        [JsonProperty("name")]
+        public string name = "test";
 
+        [JsonProperty("type")]
+        [SerializeField]
+        public ObjType type = ObjType.Waypoint;
+
+
+        [JsonIgnore]
+        [HideInInspector]
+        public GameObject spawnetGameObject = null;
+
+        [JsonIgnore]
+        [HideInInspector]
+        public Vector2d vector2D;
+
+    }
 }
+
+
