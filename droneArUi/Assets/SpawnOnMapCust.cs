@@ -21,9 +21,11 @@ public class SpawnOnMap : MonoBehaviour
     AbstractMap _map;
 
     [SerializeField]
-    private List<MapObjectData> _wayPointsFromUnity;
+    private List<MapObjectData> _wayPointsFromUnity = new List<MapObjectData>();
 
-    public MapObjectData droneObj = null;
+    private List<MapObjectData> allMapObjects = new List<MapObjectData>();
+
+    private MapObjectData droneObj = null;
 
 
     [SerializeField]
@@ -36,29 +38,30 @@ public class SpawnOnMap : MonoBehaviour
     public BoxCollider boxCollider = null;
 
     public DroneManager droneManger = null;
+    public void onSave()
+    {
+        SaveToJson();
+    }
     ~SpawnOnMap()
     {
-        foreach (var mapGameObject in _wayPointsFromUnity)
-        {
-            mapGameObject.spawnetGameObject=null;
-        }
-
     }
     void Start()
     {
+        //LoadFromJson();
 
-        foreach (var mapGameObject in _wayPointsFromUnity)
-        {
-            renderObject(mapGameObject);
-        }
+        allMapObjects.AddRange(_wayPointsFromUnity);
 
         droneObj = new MapObjectData();
         droneObj.locationString = "49.22743926623377, 16.596966877183366";
         droneObj.relativeAltitude = 10;
         droneObj.name = "dron";
         droneObj.type = MapObjectData.ObjType.Drone;
-        _wayPointsFromUnity.Add(droneObj);
+
         
+
+        allMapObjects.Add(droneObj);
+        UnityEditor.EditorUtility.SetDirty(this);
+
 
 
     }
@@ -106,14 +109,17 @@ public class SpawnOnMap : MonoBehaviour
             droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
         }
 
-        foreach (var mapGameObject in _wayPointsFromUnity)
+        foreach (var mapGameObject in allMapObjects)
         {
-            renderObject(mapGameObject);
+            try
+            {
+                renderObject(mapGameObject);
+            }
+            catch (Exception e)
+            {
+            }
         }
-
-
     }
-
 
     private float calcScenePosition(float groundYpos, float relativeAlt)
     {
@@ -122,6 +128,38 @@ public class SpawnOnMap : MonoBehaviour
         const float aproximateConstant = 0.25f;
         return groundYpos + (relativeAlt / defalutZoomLevel) * tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant;
 
+    }
+
+    public void SaveToJson()
+    {
+        // Convert the list to JSON string
+        string jsonString = JsonConvert.SerializeObject(allMapObjects, Formatting.Indented);
+
+        // Save the JSON string to a file (you can change the file path as needed)
+        System.IO.File.WriteAllText("mapObjectData.json", jsonString);
+
+        Debug.Log("List of MapObjectData saved to JSON successfully.");
+    }
+
+    public void LoadFromJson()
+    {
+        try
+        {
+            // Read the JSON file content
+            string jsonString = System.IO.File.ReadAllText("mapObjectData.json");
+
+            // Deserialize the JSON string to a List<MapObjectData>
+            List<MapObjectData> loadedData = JsonConvert.DeserializeObject<List<MapObjectData>>(jsonString);
+
+            // Update the _wayPointsFromUnity list
+            allMapObjects = loadedData;
+
+            Debug.Log("List of MapObjectData loaded from JSON successfully.");
+        }
+        catch (Exception ex)
+        {
+            Debug.Log($"Error loading data from JSON: {ex.Message}");
+        }
     }
 
     [Serializable]
@@ -137,20 +175,15 @@ public class SpawnOnMap : MonoBehaviour
             Barier
         }
 
-        [SerializeField]
-        [JsonProperty("locationStr")]
         [Geocode]
         public string locationString;
 
-        [JsonProperty("alt")]
-        [SerializeField]
+
         public float relativeAltitude = 10f;
 
-        [JsonProperty("name")]
         public string name = "test";
 
-        [JsonProperty("type")]
-        [SerializeField]
+
         public ObjType type = ObjType.Waypoint;
 
 
@@ -158,7 +191,7 @@ public class SpawnOnMap : MonoBehaviour
         [HideInInspector]
         public GameObject spawnetGameObject = null;
 
-        [JsonIgnore]
+        [JsonIgnore] 
         [HideInInspector]
         public Vector2d vector2D;
 
