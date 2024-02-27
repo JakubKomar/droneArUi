@@ -129,6 +129,7 @@ public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 	public void OnDroneConnected(string conectedDroneId){
 		if (manualId)
 			return;
+        this.fullPath = "rtmp://" + ip + ":" + port + "/live/";
         Open(fullPath + conectedDroneId);
     }
 	

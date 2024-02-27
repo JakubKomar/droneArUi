@@ -57,12 +57,7 @@ public class SpawnOnMap : MonoBehaviour
         droneObj.name = "dron";
         droneObj.type = MapObjectData.ObjType.Drone;
 
-        
-
         allMapObjects.Add(droneObj);
-        UnityEditor.EditorUtility.SetDirty(this);
-
-
 
     }
     private void renderObject(MapObjectData mapCustumeObject)
@@ -106,7 +101,14 @@ public class SpawnOnMap : MonoBehaviour
                 droneManger.ControlledDrone.FlightData.Longitude.ToString(CultureInfo.InvariantCulture));
 
             droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
-            droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
+            droneObj.relativeAltitude = 50;// (float)droneManger.ControlledDrone.FlightData.Altitude;
+            droneObj.spawnetGameObject.transform.rotation= new Quaternion(
+                (float)droneManger.ControlledDrone.FlightData.Roll,
+                (float)droneManger.ControlledDrone.FlightData.Yaw ,
+               
+                (float)droneManger.ControlledDrone.FlightData.Pitch,
+                1f
+            );
         }
 
         foreach (var mapGameObject in allMapObjects)

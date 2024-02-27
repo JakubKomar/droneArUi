@@ -45,7 +45,7 @@ public class WebSocketManager2 : Singleton<WebSocketManager2>
 
     private void Start()
     {
-        ConnectToServer(ServerHostname, Port);
+        //ConnectToServer(ServerHostname, Port);
     }
 
 
@@ -194,7 +194,8 @@ public class WebSocketManager2 : Singleton<WebSocketManager2>
 
     private async void OnApplicationQuit()
     {
-        await websocket.Close();
+        if(websocket!=null)
+            await websocket.Close();
     }
 
     //new methods:

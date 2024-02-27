@@ -35,11 +35,11 @@ MonoBehaviour:
   teleportSystemType:
     reference: Microsoft.MixedReality.Toolkit.Teleport.MixedRealityTeleportSystem,
       Microsoft.MixedReality.Toolkit.Services.TeleportSystem
-  enableSpatialAwarenessSystem: 1
+  enableSpatialAwarenessSystem: 0
   spatialAwarenessSystemType:
     reference: Microsoft.MixedReality.Toolkit.SpatialAwareness.MixedRealitySpatialAwarenessSystem,
       Microsoft.MixedReality.Toolkit.Services.SpatialAwarenessSystem
-  spatialAwarenessSystemProfile: {fileID: 11400000, guid: 3c2df4e2a8106344fa5be93e2e1463df, type: 2}
+  spatialAwarenessSystemProfile: {fileID: 11400000, guid: b40831be18b1dac4da6a1dd86f5858bf, type: 2}
   diagnosticsSystemProfile: {fileID: 11400000, guid: 3ca57b9b8ba872a4e9a8cf571392a868, type: 2}
   enableDiagnosticsSystem: 0
   diagnosticsSystemType:
