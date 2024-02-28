@@ -136,5 +136,5 @@ MonoBehaviour:
   speechCommandsProfile: {fileID: 11400000, guid: a19c37a6b44a576489d9705d6d62a9d8, type: 2}
   enableControllerMapping: 1
   controllerMappingProfile: {fileID: 11400000, guid: 39ded1fd0711a0c448413d0e1ec4f7f3, type: 2}
-  controllerVisualizationProfile: {fileID: 11400000, guid: ac2477ca3c42e514f86bc810089ba605, type: 2}
-  handTrackingProfile: {fileID: 11400000, guid: c6b38e012ccfbbb48b20644ee8ad4076, type: 2}
+  controllerVisualizationProfile: {fileID: 11400000, guid: 8ddfd46c141d802458cd485da4150c9d, type: 2}
+  handTrackingProfile: {fileID: 11400000, guid: 7fe60df5644d7dd4dbfaba4719debbbe, type: 2}

@@ -21681,7 +21681,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &977338132
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24509,7 +24509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_Text
-      value: ' 192.168.104.99'
+      value: 192.168.104.99
       objectReference: {fileID: 0}
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -32234,6 +32234,17 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1538955217 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1498574202115220327, guid: cdd2f47c652dfde46b23f817f1b9101b, type: 3}
+  m_PrefabInstance: {fileID: 1685647979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 594313cfeadc9f2448fac681916a8b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!21 &1542013446
 Material:
   serializedVersion: 8
@@ -35415,7 +35426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_Text
-      value: ' 192.168.104.99'
+      value: 192.168.104.99
       objectReference: {fileID: 0}
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
@@ -40513,7 +40524,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WebSocketManager: {fileID: 287178656}
-  rTMPstreamPlayer: {fileID: 0}
+  rTMPstreamPlayer: {fileID: 1538955217}
   ipTelemetry: {fileID: 1348454112}
   portTelemetry: {fileID: 2106380657}
   ipVideoServer: {fileID: 1587671006}
