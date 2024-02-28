@@ -7,7 +7,7 @@
 namespace Mapbox.MapMatching
 {
 	using Mapbox.Directions;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 
 	/// <summary>
 	/// A Match object from a Map Matching API call.

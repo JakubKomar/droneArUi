@@ -14,6 +14,7 @@ namespace Mapbox.Unity
 	using Mapbox.MapMatching;
 	using Mapbox.Tokens;
 	using Mapbox.Platform.TilesetTileJSON;
+	using  Newtonsoft.Json;
 
 	/// <summary>
 	/// Object for retrieving an API token and making http requests.
@@ -160,26 +161,16 @@ namespace Mapbox.Unity
 			var test = JsonUtility.FromJson<MapboxConfiguration>(ConfigurationJSON);
 			SetConfiguration(ConfigurationJSON == null ? null : test);
 #else
-			//SetConfiguration(ConfigurationJSON == null ? null : Mapbox.Json.JsonConvert.DeserializeObject<MapboxConfiguration>(ConfigurationJSON));
-            // TODO Nasty hack - hardcoded config
-            SetConfiguration(new MapboxConfiguration {
-                AccessToken = "pk.eyJ1IjoieGJhbWJ1c2VrZCIsImEiOiJja2V3b2hkMDYwMWt2MnJsYjcydHFudHduIn0.aJjReSvK8kQYmODbuzOc5w",
-                AutoRefreshCache = false,
-                DefaultTimeout = 30,
-                FileCacheSize = 3000,
-                MemoryCacheSize = 1000});
+			SetConfiguration(ConfigurationJSON == null ? null : Newtonsoft.Json.JsonConvert.DeserializeObject<MapboxConfiguration>(ConfigurationJSON));
 #endif
-        }
+		}
 
 
-        void ConfigureFileSource()
+		void ConfigureFileSource()
 		{
-			_fileSource = new CachingWebFileSource(_configuration.AccessToken, _configuration.GetMapsSkuToken, _configuration.AutoRefreshCache)
-				.AddCache(new MemoryCache(_configuration.MemoryCacheSize))
-#if !UNITY_WEBGL
-				.AddCache(new SQLiteCache(_configuration.FileCacheSize))
-#endif
-				;
+			_fileSource = new CachingWebFileSource(_configuration.AccessToken, _configuration.GetMapsSkuToken,
+					_configuration.AutoRefreshCache)
+				.AddCache(new MemoryCache(_configuration.MemoryCacheSize));
 		}
 
 

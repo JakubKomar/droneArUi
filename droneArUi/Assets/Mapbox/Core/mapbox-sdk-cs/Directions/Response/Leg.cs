@@ -7,7 +7,7 @@
 namespace Mapbox.Directions
 {
 	using System.Collections.Generic;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 
 
 	/// <summary>

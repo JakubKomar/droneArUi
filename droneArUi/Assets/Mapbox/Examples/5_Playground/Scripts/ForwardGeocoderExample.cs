@@ -8,7 +8,7 @@ namespace Mapbox.Examples.Playground
 {
 	using UnityEngine;
 	using UnityEngine.UI;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 	using Mapbox.Utils.JsonConverters;
 	using Mapbox.Geocoding;
 

@@ -7,7 +7,7 @@
 namespace Mapbox.Directions
 {
 	using System.Collections.Generic;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 
 	/// <summary>
 	/// <para>An annotations object contains additional details about each line segment along the route geometry.</para>

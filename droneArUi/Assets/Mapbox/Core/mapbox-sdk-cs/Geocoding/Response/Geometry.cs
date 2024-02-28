@@ -6,7 +6,7 @@
 
 namespace Mapbox.Geocoding {
     using System;
-    using Mapbox.Json;
+    using Newtonsoft.Json;
     using Mapbox.Utils;
     using Mapbox.Utils.JsonConverters;
 

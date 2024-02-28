@@ -1,6 +1,6 @@
 namespace Mapbox.Utils
 {
-    using Mapbox.Json;
+    using Newtonsoft.Json;
     using System;
 	using System.Globalization;
 

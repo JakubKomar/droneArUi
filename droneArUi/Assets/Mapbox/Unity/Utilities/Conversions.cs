@@ -35,44 +35,50 @@ namespace Mapbox.Unity.Utilities
 			return LatLonToMeters(v.x, v.y);
 		}
 
-		/// <summary>
-		/// Convert a simple string to a latitude longitude.
-		/// Expects format: latitude, longitude
-		/// </summary>
-		/// <returns>The lat/lon as Vector2d.</returns>
-		/// <param name="s">string.</param>
-		public static Vector2d StringToLatLon(string s) // edit by jakub komárek
-		{
-            var latLonSplit = s.Split(new string[] { ", " }, StringSplitOptions.None);
-            if (latLonSplit.Length != 2)
+        /// <summary>
+        /// Convert a simple string to a latitude longitude.
+        /// Expects format: latitude, longitude
+        /// </summary>
+        /// <returns>The lat/lon as Vector2d.</returns>
+        /// <param name="s">string.</param>
+        public static Vector2d StringToLatLon(string s)
+        {
+            var latLonSplit = s.Split(new string[] { "," }, StringSplitOptions.None);
+            // Case where the decimal separator is a comma
+            if (latLonSplit.Length == 4)
             {
-                throw new ArgumentException("Wrong number of arguments: " + s);
+                latLonSplit[0] = string.Join(",", latLonSplit[0], latLonSplit[1]);
+                latLonSplit[1] = string.Join(",", latLonSplit[2], latLonSplit[3]);
+            }
+            else if (latLonSplit.Length != 2)
+            {
+                throw new ArgumentException("Wrong number of arguments");
             }
 
             double latitude = 0;
             double longitude = 0;
 
-            if (!double.TryParse(latLonSplit[0].Trim().Replace(",", "."), NumberStyles.Any, NumberFormatInfo.InvariantInfo, out latitude))
+            if (!double.TryParse(latLonSplit[0], NumberStyles.Any, NumberFormatInfo.InvariantInfo, out latitude))
             {
-                throw new Exception(string.Format("Could not convert latitude to double: {0}", latLonSplit[0].Trim().Replace(",", ".")));
+                throw new Exception(string.Format("Could not convert latitude to double: {0}", latLonSplit[0]));
             }
 
-            if (!double.TryParse(latLonSplit[1].Trim().Replace(",", "."), NumberStyles.Any, NumberFormatInfo.InvariantInfo, out longitude))
+            if (!double.TryParse(latLonSplit[1], NumberStyles.Any, NumberFormatInfo.InvariantInfo, out longitude))
             {
-                throw new Exception(string.Format("Could not convert longitude to double: {0}", latLonSplit[0].Trim().Replace(",", ".")));
+                throw new Exception(string.Format("Could not convert longitude to double: {0}", latLonSplit[0]));
             }
 
             return new Vector2d(latitude, longitude);
         }
 
-		/// <summary>
-		/// Converts WGS84 lat/lon to Spherical Mercator EPSG:900913 xy meters.
-		/// SOURCE: http://stackoverflow.com/questions/12896139/geographic-coordinates-converter.
-		/// </summary>
-		/// <param name="lat"> The latitude. </param>
-		/// <param name="lon"> The longitude. </param>
-		/// <returns> A <see cref="T:UnityEngine.Vector2d"/> of xy meters. </returns>
-		public static Vector2d LatLonToMeters(double lat, double lon)
+        /// <summary>
+        /// Converts WGS84 lat/lon to Spherical Mercator EPSG:900913 xy meters.
+        /// SOURCE: http://stackoverflow.com/questions/12896139/geographic-coordinates-converter.
+        /// </summary>
+        /// <param name="lat"> The latitude. </param>
+        /// <param name="lon"> The longitude. </param>
+        /// <returns> A <see cref="T:UnityEngine.Vector2d"/> of xy meters. </returns>
+        public static Vector2d LatLonToMeters(double lat, double lon)
 		{
 			var posx = lon * OriginShift / 180;
 			var posy = Math.Log(Math.Tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);

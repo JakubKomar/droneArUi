@@ -9,24 +9,23 @@ namespace Mapbox.Tokens
 	using Mapbox.Platform;
 	using System;
 	using System.ComponentModel;
-	using Mapbox.VectorTile.Geometry;
 
 	public enum MapboxTokenStatus
 	{
 		/// <summary>The token is valid and active </summary>
-		//[Description("The token is valid and active")]
+		[Description("The token is valid and active")]
 		TokenValid,
 		/// <summary>the token can not be parsed </summary>
-		//[Description("the token can not be parsed")]
+		[Description("the token can not be parsed")]
 		TokenMalformed,
 		/// <summary>the signature for the token does not validate </summary>
-		//[Description("the signature for the token does not validate")]
+		[Description("the signature for the token does not validate")]
 		TokenInvalid,
 		/// <summary> the token was temporary and expired</summary>
-		//[Description("the token was temporary and expired")]
+		[Description("the token was temporary and expired")]
 		TokenExpired,
 		/// <summary>the token's authorization has been revoked </summary>
-		//[Description("the token's authorization has been revoked")]
+		[Description("the token's authorization has been revoked")]
 		TokenRevoked,
 		/// <summary>inital value </summary>
 		StatusNotYetSet

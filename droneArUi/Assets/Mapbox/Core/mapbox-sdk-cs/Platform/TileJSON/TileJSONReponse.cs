@@ -1,7 +1,7 @@
 ﻿namespace Mapbox.Platform.TilesetTileJSON
 {
 
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 	using Mapbox.Utils;
 	using System;
 

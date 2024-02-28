@@ -8,7 +8,7 @@ namespace Mapbox.Directions
 {
     using System;
     using System.Text;
-    using Mapbox.Json;
+    using Newtonsoft.Json;
     using Mapbox.Platform;
     using Mapbox.Utils.JsonConverters;
 

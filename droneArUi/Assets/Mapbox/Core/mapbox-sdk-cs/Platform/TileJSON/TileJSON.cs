@@ -1,8 +1,8 @@
-﻿using Mapbox.Json;
-using Mapbox.Utils;
+﻿using Mapbox.Utils;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace Mapbox.Platform.TilesetTileJSON
 {

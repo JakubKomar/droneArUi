@@ -2,7 +2,7 @@
 {
 	using System;
 	using System.Collections.Generic;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 
 	public class TileStats
 	{

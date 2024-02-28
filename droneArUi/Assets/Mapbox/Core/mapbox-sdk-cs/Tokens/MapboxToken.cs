@@ -2,7 +2,7 @@
 namespace Mapbox.Tokens
 {
 
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 	using System;
 	using System.Text;
 

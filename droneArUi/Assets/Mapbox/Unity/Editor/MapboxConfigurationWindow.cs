@@ -8,7 +8,7 @@ namespace Mapbox.Editor
 	using System.Collections;
 	using Mapbox.Unity;
 	using Mapbox.Tokens;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 	using Mapbox.Unity.Utilities;
 	using Mapbox.Unity.Utilities.DebugTools;
 	using UnityEditor.Callbacks;

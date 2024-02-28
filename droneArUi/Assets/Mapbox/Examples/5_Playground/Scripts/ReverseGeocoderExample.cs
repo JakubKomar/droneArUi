@@ -6,7 +6,7 @@
 
 namespace Mapbox.Examples.Playground
 {
-    using Mapbox.Json;
+    using Newtonsoft.Json;
     using Mapbox.Utils.JsonConverters;
     using UnityEngine;
     using UnityEngine.UI;

@@ -14,7 +14,7 @@ namespace Mapbox.CheapRulerCs.UnitTest
 	using System.Collections.Generic;
 	using UnityEngine;
 	using Mapbox.CheapRulerCs;
-	using Mapbox.Json.Linq;
+	using Newtonsoft.Json.Linq;
 
 	[TestFixture]
 	internal class CheapRulerCsTest

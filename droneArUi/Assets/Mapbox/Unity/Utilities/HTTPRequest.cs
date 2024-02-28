@@ -40,6 +40,7 @@ namespace Mapbox.Unity.Utilities
 		// https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest-timeout.html
 		public HTTPRequest(string url, Action<Response> callback, int timeout, HttpRequestType requestType = HttpRequestType.Get)
 		{
+			
 			IsCompleted = false;
 			_requestType = requestType;
 

@@ -4,7 +4,7 @@
 	using UnityEditor;
 	using System.Collections.Generic;
 	using Mapbox.Unity;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 	using Mapbox.Unity.Utilities;
 	using Mapbox.Unity.Map;
 	using System.Collections;

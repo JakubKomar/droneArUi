@@ -8,9 +8,9 @@ namespace Mapbox.Utils.JsonConverters
 {
 	using System;
 	using System.Collections.Generic;
-	using Mapbox.Json;
-	using Mapbox.Json.Converters;
-	using Mapbox.Json.Linq;
+	using Newtonsoft.Json.Converters;
+	using Newtonsoft.Json.Linq;
+	using Newtonsoft.Json;
 
 	/// <summary>
 	/// Bbox to geo coordinate bounds converter.

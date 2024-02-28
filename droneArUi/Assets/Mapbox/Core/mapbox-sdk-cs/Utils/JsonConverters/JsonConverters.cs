@@ -6,7 +6,7 @@
 
 namespace Mapbox.Utils.JsonConverters
 {
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 
 	/// <summary>
 	/// Custom json converters.

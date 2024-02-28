@@ -192,6 +192,13 @@ namespace Mapbox.Unity.MeshGeneration.Data
 			CurrentZoom = zoom;
 			scaleFactor = Mathf.Pow(2, (map.InitialZoom - zoom));
 			gameObject.transform.localScale = new Vector3(scaleFactor, scaleFactor, scaleFactor);
+
+			// Tile Objelerinin Layer larini, "Map" layer yapmak icin
+            if (gameObject.layer != 6)
+            {
+				gameObject.layer = 6;
+			}
+			
 			gameObject.SetActive(true);
 
 			IsRecycled = false;

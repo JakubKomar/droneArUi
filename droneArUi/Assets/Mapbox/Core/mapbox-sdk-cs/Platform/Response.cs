@@ -12,6 +12,7 @@ namespace Mapbox.Platform
 {
 
 	using System;
+	using System.Text;
 	using System.Collections.Generic;
 	using System.Collections.ObjectModel;
 	using System.IO;
@@ -26,10 +27,11 @@ namespace Mapbox.Platform
 #if UNITY
 	using UnityEngine.Networking;
 	using Mapbox.Unity.Utilities;
+    using UnityEngine;
 #endif
 
-	/// <summary> A response from a <see cref="IFileSource" /> request. </summary>
-	public class Response
+    /// <summary> A response from a <see cref="IFileSource" /> request. </summary>
+    public class Response
 	{
 
 
@@ -245,8 +247,7 @@ namespace Mapbox.Platform
 
 #if UNITY // within Unity or UWP build from Unity
 		public static Response FromWebResponse(IAsyncRequest request, UnityWebRequest apiResponse, Exception apiEx)
-		{
-
+		{	
 			Response response = new Response();
 			response.Request = request;
 
@@ -255,9 +256,9 @@ namespace Mapbox.Platform
 				response.AddException(apiEx);
 			}
 
-			// additional string.empty check for apiResponse.error:
-			// on UWP isNetworkError is sometimes set to true despite all being well
-			if (apiResponse.isNetworkError && !string.IsNullOrEmpty(apiResponse.error))
+            // additional string.empty check for apiResponse.error:
+            // on UWP isNetworkError is sometimes set to true despite all being well
+            if (apiResponse.isNetworkError && !string.IsNullOrEmpty(apiResponse.error))
 			{
 				response.AddException(new Exception(apiResponse.error));
 			}

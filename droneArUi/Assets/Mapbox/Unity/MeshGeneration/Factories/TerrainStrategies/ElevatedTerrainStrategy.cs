@@ -210,7 +210,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories.TerrainStrategies
 				}
 			}
 
-			FixStitches(tile.UnwrappedTileId, _verts, _normals);
+			FixStitches(tile.UnwrappedTileId, _verts, _normals, tile);
 
 			tile.MeshFilter.sharedMesh.vertices = _verts;
 			tile.MeshFilter.sharedMesh.RecalculateNormals();
@@ -265,7 +265,7 @@ namespace Mapbox.Unity.MeshGeneration.Factories.TerrainStrategies
 		/// </summary>
 		/// <param name="tileId">UnwrappedTileId of the tile being processed.</param>
 		/// <param name="mesh"></param>
-		private void FixStitches(UnwrappedTileId tileId, Vector3[] verts, Vector3[] normals)
+		private void FixStitches(UnwrappedTileId tileId, Vector3[] verts, Vector3[] normals, UnityTile tile)
 		{
 			var _sampleCount = _elevationOptions.modificationOptions.sampleCount;
 			var meshVertCount = verts.Length;

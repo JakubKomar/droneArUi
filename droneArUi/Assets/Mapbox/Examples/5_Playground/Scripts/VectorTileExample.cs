@@ -11,7 +11,7 @@ namespace Mapbox.Examples.Playground
 	using UnityEngine;
 	using UnityEngine.UI;
 	using Mapbox.Map;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 	using Mapbox.VectorTile.ExtensionMethods;
 	using Mapbox.Utils.JsonConverters;
 	using Mapbox.Geocoding;

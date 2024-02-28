@@ -27,7 +27,7 @@ namespace Mapbox.Unity.Map
 	{
 		#region Private Fields
 
-		[SerializeField] private MapOptions _options = new MapOptions();
+		[SerializeField] public MapOptions _options = new MapOptions();
 		[SerializeField] private bool _initializeOnStart = true;
 		[SerializeField] protected ImageryLayer _imagery = new ImageryLayer();
 		[SerializeField] protected TerrainLayer _terrain = new TerrainLayer();
@@ -386,13 +386,13 @@ namespace Mapbox.Unity.Map
 			xDelta = xDelta > 0 ? Mathd.Min(xDelta, Mapbox.Utils.Constants.LatitudeMax) : Mathd.Max(xDelta, -Mapbox.Utils.Constants.LatitudeMax);
 			zDelta = zDelta > 0 ? Mathd.Min(zDelta, Mapbox.Utils.Constants.LongitudeMax) : Mathd.Max(zDelta, -Mapbox.Utils.Constants.LongitudeMax);
 
-			//Set Center in Latitude Longitude and Mercator.
-			SetCenterLatitudeLongitude(new Vector2d(xDelta, zDelta));
-			Options.scalingOptions.scalingStrategy.SetUpScaling(this);
-			Options.placementOptions.placementStrategy.SetUpPlacement(this);
+            //Set Center in Latitude Longitude and Mercator.
+            SetCenterLatitudeLongitude(new Vector2d(xDelta, zDelta));
+            Options.scalingOptions.scalingStrategy.SetUpScaling(this);
+            Options.placementOptions.placementStrategy.SetUpPlacement(this);
 
-			//Scale the map accordingly.
-			if (Math.Abs(differenceInZoom) > Constants.EpsilonFloatingPoint || isAtInitialZoom)
+            //Scale the map accordingly.
+            if (Math.Abs(differenceInZoom) > Constants.EpsilonFloatingPoint || isAtInitialZoom)
 			{
 				_mapScaleFactor = Vector3.one * Mathf.Pow(2, differenceInZoom);
 				Root.localScale = _mapScaleFactor;
@@ -408,6 +408,7 @@ namespace Mapbox.Unity.Map
 			{
 				OnUpdated();
 			}
+
 		}
 
 		private void Reset()
@@ -465,7 +466,7 @@ namespace Mapbox.Unity.Map
 			tilesToProcess = new List<UnwrappedTileId>();
 			if (_options.tileMaterial == null)
 			{
-				_options.tileMaterial = new Material(Shader.Find("Standard"));
+				_options.tileMaterial = new Material(Shader.Find("Mixed Reality Toolkit/Standard"));
 			}
 
 			if (_options.loadingTexture == null)
@@ -1001,7 +1002,7 @@ namespace Mapbox.Unity.Map
 			OnMapRedrawn();
 		}
 
-		private void OnTileProviderChanged()
+		public void OnTileProviderChanged()
 		{
 			if (Application.isEditor && !Application.isPlaying && IsEditorPreviewEnabled == false)
 			{

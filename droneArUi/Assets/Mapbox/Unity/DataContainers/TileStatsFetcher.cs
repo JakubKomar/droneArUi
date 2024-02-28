@@ -4,7 +4,7 @@
 	using Mapbox.Unity.Map;
 	using UnityEngine;
 	using System.Text;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 
 	public class TileStatsFetcher
 	{

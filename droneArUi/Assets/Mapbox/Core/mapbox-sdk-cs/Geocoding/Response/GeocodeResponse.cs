@@ -7,7 +7,7 @@
 namespace Mapbox.Geocoding {
 	using System;
 	using System.Collections.Generic;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 
 	/// <summary> Base geocode response. </summary>
 #if !WINDOWS_UWP

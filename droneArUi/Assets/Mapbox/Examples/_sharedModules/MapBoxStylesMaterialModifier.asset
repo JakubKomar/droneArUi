@@ -3,8 +3,9 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -13,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Active: 1
   _options:
-    projectMapImagery: 0
+    style: 0
     texturingType: 3
     materials:
     - Materials:
@@ -21,4 +22,17 @@ MonoBehaviour:
     - Materials:
       - {fileID: 2100000, guid: 55cc6edead802446b9106b2998406844, type: 2}
     atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21, type: 2}
-    colorPallete: {fileID: 11400000, guid: e1b79d6caac0144adada0c548ef06705, type: 2}
+    lightStyleOpacity: 1
+    darkStyleOpacity: 1
+    colorStyleColor: {r: 1, g: 1, b: 1, a: 1}
+    samplePalettes: 0
+    colorPalette: {fileID: 0}
+    customStyleOptions:
+      texturingType: 0
+      materials:
+      - Materials:
+        - {fileID: 0}
+      - Materials:
+        - {fileID: 0}
+      atlasInfo: {fileID: 0}
+      colorPalette: {fileID: 0}

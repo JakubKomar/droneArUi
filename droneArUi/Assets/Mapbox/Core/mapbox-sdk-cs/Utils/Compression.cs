@@ -8,7 +8,7 @@ namespace Mapbox.Utils
 {
 
 	using System.IO;
-	using Mapbox.IO.Compression;
+	using System.IO.Compression;
 
 
 	/// <summary> Collection of constants used across the project. </summary>

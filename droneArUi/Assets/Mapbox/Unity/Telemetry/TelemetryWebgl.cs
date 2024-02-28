@@ -2,7 +2,7 @@
 {
 	using System.Collections.Generic;
 	using System.Collections;
-	using Mapbox.Json;
+	using Newtonsoft.Json;
 	using System;
 	using Mapbox.Unity.Utilities;
 	using UnityEngine;
