@@ -14,10 +14,14 @@ public class MapControler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        initCenter = abstractMap.CenterLatitudeLongitude;
-        //mapInitY = mapTransform.position.y;
+        setCurentCenter();
+
     }
 
+
+    public void setCurentCenter() {
+        initCenter = abstractMap.CenterLatitudeLongitude;
+    }
     // Update is called once per frame
     void Update()
     {
