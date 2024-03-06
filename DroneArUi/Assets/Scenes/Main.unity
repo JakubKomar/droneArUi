@@ -3092,7 +3092,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1886101916}
         m_TargetAssemblyTypeName: MapControler, Assembly-CSharp
         m_MethodName: center
         m_Mode: 1
@@ -11102,7 +11102,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1886101916}
         m_TargetAssemblyTypeName: MapControler, Assembly-CSharp
         m_MethodName: moveLeft
         m_Mode: 1
@@ -24731,14 +24731,14 @@ MonoBehaviour:
   tickMarks: {fileID: 852178366}
   thumbVisuals: {fileID: 1596316147}
   sliderAxis: 0
-  sliderStartDistance: -0.12554279
-  sliderEndDistance: 0.12552977
+  sliderStartDistance: -0.12556675
+  sliderEndDistance: 0.1255347
   OnValueUpdated:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1886101916}
         m_TargetAssemblyTypeName: MapControler, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: setZoom
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -32120,7 +32120,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Say "Close"
+  m_text: Say "Select"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
   m_sharedMaterial: {fileID: 21202819797275496, guid: 6a84f857bec7e7345843ae29404c57ce, type: 2}
@@ -36831,7 +36831,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1886101916}
         m_TargetAssemblyTypeName: MapControler, Assembly-CSharp
         m_MethodName: moveDown
         m_Mode: 1
@@ -42184,7 +42184,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1886101916}
         m_TargetAssemblyTypeName: MapControler, Assembly-CSharp
         m_MethodName: moveUp
         m_Mode: 1
@@ -43181,7 +43181,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1886101916}
         m_TargetAssemblyTypeName: MapControler, Assembly-CSharp
         m_MethodName: moveRight
         m_Mode: 1
