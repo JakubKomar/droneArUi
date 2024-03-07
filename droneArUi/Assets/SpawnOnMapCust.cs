@@ -85,7 +85,7 @@ public class SpawnOnMap : MonoBehaviour
 
 
 
-        if (boxCollider.bounds.Contains(instance.transform.localPosition))
+        if (boxCollider==null|| boxCollider.bounds.Contains(instance.transform.localPosition))
         { // if obejct is in boundig box, show it
             instance.SetActive(true);
         }

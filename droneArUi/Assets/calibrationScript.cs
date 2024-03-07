@@ -45,6 +45,12 @@ public class calibrationScript : MonoBehaviour
         {
             latitude = droneManager.ControlledDrone.FlightData.Latitude;
             longitude = droneManager.ControlledDrone.FlightData.Longitude;
+
+            //test purpeses
+            //latitude = 49.226978092949324;
+            //longitude = 16.59519006457966;
+
+
             compas = droneManager.ControlledDrone.FlightData.Compass;
         }
         float playeryRottation = playerCamera.rotation.eulerAngles.y;
