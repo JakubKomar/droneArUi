@@ -20,12 +20,10 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     AbstractMap _map;
 
-    [SerializeField]
-    private List<MapObjectData> _wayPointsFromUnity = new List<MapObjectData>();
 
     private List<MapObjectData> allMapObjects = new List<MapObjectData>();
 
-    private MapObjectData droneObj = null;
+    private MapData mapData = null;
 
 
     [SerializeField]
@@ -37,31 +35,16 @@ public class SpawnOnMap : MonoBehaviour
 
     public BoxCollider boxCollider = null;
 
-    public DroneManager droneManger = null;
-    public void onSave()
-    {
-        SaveToJson();
-    }
     ~SpawnOnMap()
     {
     }
     void Start()
     {
-        //LoadFromJson();
-
-        allMapObjects.AddRange(_wayPointsFromUnity);
-
-        droneObj = new MapObjectData();
-        droneObj.locationString = "49.22743926623377, 16.596966877183366";
-        droneObj.relativeAltitude = 10;
-        droneObj.name = "dron";
-        droneObj.type = MapObjectData.ObjType.Drone;
-
-        allMapObjects.Add(droneObj);
+        mapData= FindObjectOfType<MapData>();
 
     }
     private void renderObject(MapObjectData mapCustumeObject)
-    {
+    {/*
         mapCustumeObject.vector2D = Conversions.StringToLatLon(mapCustumeObject.locationString);
 
         Vector2d vector2D = mapCustumeObject.vector2D;
@@ -90,27 +73,11 @@ public class SpawnOnMap : MonoBehaviour
             instance.SetActive(true);
         }
         else
-            instance.SetActive(false);
+            instance.SetActive(false);+*/
     }
 
     private void Update()
-    {
-        if (droneManger.ControlledDrone!=null)
-        {
-            droneObj.locationString = string.Format("{0}, {1}",  droneManger.ControlledDrone.FlightData.Latitude.ToString(CultureInfo.InvariantCulture), 
-                droneManger.ControlledDrone.FlightData.Longitude.ToString(CultureInfo.InvariantCulture));
-
-            droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
-            droneObj.relativeAltitude = 50;// (float)droneManger.ControlledDrone.FlightData.Altitude;
-            droneObj.spawnetGameObject.transform.rotation= new Quaternion(
-                (float)droneManger.ControlledDrone.FlightData.Roll,
-                (float)droneManger.ControlledDrone.FlightData.Yaw ,
-               
-                (float)droneManger.ControlledDrone.FlightData.Pitch,
-                1f
-            );
-        }
-
+    {/*
         foreach (var mapGameObject in allMapObjects)
         {
             try
@@ -120,7 +87,7 @@ public class SpawnOnMap : MonoBehaviour
             catch (Exception e)
             {
             }
-        }
+        }*/
     }
 
     private float calcScenePosition(float groundYpos, float relativeAlt)
@@ -132,63 +99,11 @@ public class SpawnOnMap : MonoBehaviour
 
     }
 
-    public void SaveToJson()
-    {
-        // Convert the list to JSON string
-        string jsonString = JsonConvert.SerializeObject(allMapObjects, Formatting.Indented);
-
-        // Save the JSON string to a file (you can change the file path as needed)
-        System.IO.File.WriteAllText("mapObjectData.json", jsonString);
-
-        Debug.Log("List of MapObjectData saved to JSON successfully.");
-    }
-
-    public void LoadFromJson()
-    {
-        try
-        {
-            // Read the JSON file content
-            string jsonString = System.IO.File.ReadAllText("mapObjectData.json");
-
-            // Deserialize the JSON string to a List<MapObjectData>
-            List<MapObjectData> loadedData = JsonConvert.DeserializeObject<List<MapObjectData>>(jsonString);
-
-            // Update the _wayPointsFromUnity list
-            allMapObjects = loadedData;
-
-            Debug.Log("List of MapObjectData loaded from JSON successfully.");
-        }
-        catch (Exception ex)
-        {
-            Debug.Log($"Error loading data from JSON: {ex.Message}");
-        }
-    }
-
+    //data pro vykreslení
     [Serializable]
     public class MapObjectData
     {
-        public enum ObjType
-        {
-            Waypoint,
-            LandingPad,
-            Player,
-            Drone,
-            PowerLine,
-            Barier
-        }
-
-        [Geocode]
-        public string locationString;
-
-
-        public float relativeAltitude = 10f;
-
-        public string name = "test";
-
-
-        public ObjType type = ObjType.Waypoint;
-
-
+     
         [JsonIgnore]
         [HideInInspector]
         public GameObject spawnetGameObject = null;
@@ -196,6 +111,8 @@ public class SpawnOnMap : MonoBehaviour
         [JsonIgnore] 
         [HideInInspector]
         public Vector2d vector2D;
+
+        MapObject mapObject = null;
 
     }
 }
