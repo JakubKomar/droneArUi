@@ -29726,6 +29726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1340560129}
+  - component: {fileID: 1340560130}
   m_Layer: 0
   m_Name: sharedData
   m_TagString: Untagged
@@ -29748,6 +29749,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1340560130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1340560127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fa680ac0ef2c38468ac916e65ff961e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _planedRoute: []
+  _objOfInterest: []
+  _otherObjects: []
 --- !u!1 &1342223118
 GameObject:
   m_ObjectHideFlags: 0
@@ -36644,11 +36660,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 1886101915}
-  _wayPointsFromUnity: []
   _spawnScale: 0.03
   _markerPrefab: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   boxCollider: {fileID: 1482345398}
-  droneManger: {fileID: 135806242}
 --- !u!114 &1724171902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45548,43 +45562,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 114478717238887276}
-  _wayPointsFromUnity:
-  - locationString: 49.226860, 16.597287
-    relativeAltitude: 1
-    name: 1
-    type: 0
-    spawnetGameObject: {fileID: 0}
-    vector2D:
-      x: 0
-      y: 0
-  - locationString: 49.226879, 16.597354
-    relativeAltitude: 1
-    name: 2
-    type: 0
-    spawnetGameObject: {fileID: 0}
-    vector2D:
-      x: 0
-      y: 0
-  - locationString: 49.226920, 16.597327
-    relativeAltitude: 1
-    name: 3
-    type: 0
-    spawnetGameObject: {fileID: 0}
-    vector2D:
-      x: 0
-      y: 0
-  - locationString: 49.226905, 16.597257
-    relativeAltitude: 1
-    name: 3
-    type: 0
-    spawnetGameObject: {fileID: 0}
-    vector2D:
-      x: 0
-      y: 0
   _spawnScale: 0.5
   _markerPrefab: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   boxCollider: {fileID: 0}
-  droneManger: {fileID: 135806242}
 --- !u!4 &543450652692590242
 Transform:
   m_ObjectHideFlags: 0
@@ -45613,6 +45593,7 @@ GameObject:
   - component: {fileID: 919132148953412635}
   - component: {fileID: 919132148953412633}
   - component: {fileID: 919132148953412636}
+  - component: {fileID: 919132148953412637}
   m_Layer: 0
   m_Name: Minimap
   m_TagString: Untagged
@@ -45693,6 +45674,36 @@ MonoBehaviour:
   transformMap: {fileID: 543450652692590242}
   mainCameraTransform: {fileID: 1590441517}
   followMeTogle: {fileID: 919132148953412633}
+--- !u!114 &919132148953412637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148953412632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4684083f6dff4a1d8a790bccc354fcf4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateLinkedTransform: 0
+  moveLerpTime: 0.1
+  rotateLerpTime: 0.1
+  scaleLerpTime: 0
+  maintainScaleOnInitialization: 1
+  smoothing: 1
+  lifetime: 0
+  referenceDirection: 1
+  minDistance: 1
+  maxDistance: 2
+  minViewDegrees: 0
+  maxViewDegrees: 30
+  aspectV: 1
+  ignoreAngleClamp: 0
+  ignoreDistanceClamp: 0
+  useFixedVerticalPosition: 0
+  fixedVerticalPosition: -0.4
+  orientToReferenceDirection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

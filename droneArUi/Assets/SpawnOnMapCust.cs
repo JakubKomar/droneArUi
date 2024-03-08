@@ -43,6 +43,11 @@ public class SpawnOnMap : MonoBehaviour
         mapData= FindObjectOfType<MapData>();
 
     }
+
+    public void reCreateGameObjects() { 
+        
+    }
+
     private void renderObject(MapObjectData mapCustumeObject)
     {/*
         mapCustumeObject.vector2D = Conversions.StringToLatLon(mapCustumeObject.locationString);
@@ -103,7 +108,6 @@ public class SpawnOnMap : MonoBehaviour
     [Serializable]
     public class MapObjectData
     {
-     
         [JsonIgnore]
         [HideInInspector]
         public GameObject spawnetGameObject = null;
@@ -111,9 +115,6 @@ public class SpawnOnMap : MonoBehaviour
         [JsonIgnore] 
         [HideInInspector]
         public Vector2d vector2D;
-
-        MapObject mapObject = null;
-
     }
 }
 

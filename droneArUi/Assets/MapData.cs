@@ -127,5 +127,7 @@ public class MapObject
     public float relativeAltitude = 10f;
 
     public ObjType type = ObjType.Unspecified;
+
+
 }
 
