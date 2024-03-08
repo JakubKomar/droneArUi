@@ -3,6 +3,7 @@
 using JetBrains.Annotations;
 using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
+using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,33 +11,80 @@ using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
+using System.IO;
+
 using static SpawnOnMap;
 
 public class MapData : Singleton <MapData>
 {
     // Start is called before the first frame update
     // uložená trasa
-
+    [HideInInspector]
     public List<Waypoint> _planedRoute = new List<Waypoint>();
 
     // objekty zájmu - pokud jsou nìjaké
+    [HideInInspector]
+    private List<ObjOfInterest> _objOfInterest = new List<ObjOfInterest>();
+    [HideInInspector]
+    private List<MapObject> _otherObjects = new List<MapObject>();
 
-    public List<ObjOfInterest> _objOfInterest = new List<ObjOfInterest>();
-
-    public List<ObjOfInterest> _otherObjects = new List<ObjOfInterest>();
-
+    [SerializeField]
     public List<MapObjectSer> mapObjectSers = new List<MapObjectSer>();
 
-    public DroneManager droneManger = null;
+    [HideInInspector]
+    private DroneManager droneManger = null;
 
-    public DroneObject droneObj = new DroneObject();
+    [HideInInspector]
+    private DroneObject droneObj = new DroneObject();
 
-    //[HideInInspector]
+    [HideInInspector]
     public List<MapObject> allObjects = new List<MapObject>();
 
+    [HideInInspector]
     public List<SpawnOnMap> spawnOnMapScripts = new List<SpawnOnMap>();
 
-     
+    public string misionName="test";
+    public void saveMision()
+    {
+        JsonFileTdo jsonFileTdo = new JsonFileTdo();
+        jsonFileTdo.misionName = misionName;
+        jsonFileTdo._planedRoute = _planedRoute;
+        jsonFileTdo._objOfInterest = _objOfInterest;
+
+        jsonFileTdo._otherObjects= _otherObjects;
+        jsonFileTdo._otherObjects.AddRange(mapObjectSers);
+        jsonFileTdo.save();
+    }
+
+    public void loadMision(string name) {
+        string path="misions/"+name+".json";
+
+        try
+        {
+            if (File.Exists(path))
+            {
+                string jsonContent = File.ReadAllText(path);
+
+                JsonFileTdo jsonFileTdo = JsonConvert.DeserializeObject<JsonFileTdo>(jsonContent);
+
+                _planedRoute= jsonFileTdo._planedRoute;
+                _objOfInterest= jsonFileTdo._objOfInterest;
+                _otherObjects =jsonFileTdo._otherObjects;
+              
+                misionName = jsonFileTdo.misionName;
+                onObjectChanged();
+            }
+            else
+            {
+                Debug.LogWarning("File not found: " + path);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("Error reading or deserializing the file: " + ex.Message);
+        }
+    }
+
 
     void Start()
     {
@@ -93,7 +141,36 @@ public class MapData : Singleton <MapData>
 
 }
 
+[Serializable]
+public class JsonFileTdo : System.Object
+{
+    [JsonProperty("mision_name")]
+    public string misionName="";
 
+    [JsonProperty("dronePath")]
+    public List<Waypoint> _planedRoute = new List<Waypoint>();
+
+    [JsonProperty("objOfInterest")]
+    public List<ObjOfInterest> _objOfInterest = new List<ObjOfInterest>();
+
+    [JsonProperty("mashObjects")]
+    public List<MapObject> _otherObjects = new List<MapObject>();
+
+    public void save()
+    {
+        if (!Directory.Exists("misions/"))
+        {
+            // If not, create the directory
+            Directory.CreateDirectory("misions/");
+        }
+
+        string json = JsonConvert.SerializeObject(this);
+        File.WriteAllText("misions/"+ misionName+".json", json);
+    }
+
+}
+
+[Serializable]
 public class Waypoint : MapObject
 {
     Waypoint()
@@ -108,6 +185,7 @@ public class Waypoint : MapObject
 
 }
 
+[Serializable]
 public class ObjOfInterest : MapObject
 {
     public ObjOfInterest()
@@ -116,6 +194,7 @@ public class ObjOfInterest : MapObject
     }
 }
 
+[Serializable]
 public class DroneObject : MapObject
 {
     public DroneFlightData droneFlightData = null;
@@ -132,6 +211,8 @@ public class DroneObject : MapObject
 [Serializable]
 public class MapObjectSer: MapObject { }
 
+
+[Serializable]
 public class MapObject: System.Object
 {
     public enum ObjType
