@@ -12,8 +12,11 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using System.IO;
+using System.Text;
+
 
 using static SpawnOnMap;
+using Mapbox.Utils;
 
 public class MapData : Singleton <MapData>
 {
@@ -83,6 +86,19 @@ public class MapData : Singleton <MapData>
         {
             Debug.LogWarning("Error reading or deserializing the file: " + ex.Message);
         }
+    }
+
+    public void loadCsvMision(string name)
+    {
+        JsonFileTdo jsonFileTdo =new JsonFileTdo();
+        jsonFileTdo.loadCsv(name);
+        _planedRoute = jsonFileTdo._planedRoute;
+        _objOfInterest = jsonFileTdo._objOfInterest;
+        _otherObjects = jsonFileTdo._otherObjects;
+
+        misionName = jsonFileTdo.misionName;
+
+        onObjectChanged();
     }
 
 
@@ -158,22 +174,112 @@ public class JsonFileTdo : System.Object
 
     public void save()
     {
+        saveJson();
+        saveCsv();
+    }
+
+    private void checkDir()
+    {
         if (!Directory.Exists("misions/"))
         {
             // If not, create the directory
             Directory.CreateDirectory("misions/");
         }
-
-        string json = JsonConvert.SerializeObject(this);
-        File.WriteAllText("misions/"+ misionName+".json", json);
     }
 
+    public void saveJson() {
+        string path = "misions/" + misionName + ".csv";
+        try
+        {
+            checkDir();
+            string json = JsonConvert.SerializeObject(this);
+            File.WriteAllText(path, json);
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("Error saving CSV file: " + ex.Message);
+        }
+    }
+
+    public void saveCsv()
+    {
+        checkDir();
+        string path = "misions/" + misionName + ".csv";
+        try
+        {
+            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
+            {
+                // header
+                sw.WriteLine("latitude,longitude,altitude(m),heading(deg),curvesize(m),rotationdir,gimbalmode,gimbalpitchangle,actiontype1,actionparam1,actiontype2,actionparam2,actiontype3,actionparam3,actiontype4,actionparam4,actiontype5,actionparam5,actiontype6,actionparam6,actiontype7,actionparam7,actiontype8,actionparam8,actiontype9,actionparam9,actiontype10,actionparam10,actiontype11,actionparam11,actiontype12,actionparam12,actiontype13,actionparam13,actiontype14,actionparam14,actiontype15,actionparam15,altitudemode,speed(m/s),poi_latitude,poi_longitude,poi_altitude(m),poi_altitudemode,photo_timeinterval,photo_distinterval");
+
+                // jednotlivé waypointy
+                foreach (var waypoint in _planedRoute)
+                {
+                    Vector2d vector2D = Conversions.StringToLatLon(waypoint.locationString);
+
+                    sw.WriteLine($"{vector2D.x},{vector2D.y},{waypoint.relativeAltitude},0,3,0,0,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,0,0,0,0,0,0,-1,-1");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("Error saving CSV file: " + ex.Message);
+        }
+    }
+
+    public void loadCsv(string misionName)
+    {
+        
+        string path = "misions/" + misionName + ".csv";
+
+        // clean up
+        _planedRoute.Clear();
+        _objOfInterest.Clear();
+        _otherObjects.Clear();
+
+        try
+        {
+            if (File.Exists(path))
+            {
+                this.misionName = misionName;
+                string[] lines = File.ReadAllLines(path);
+
+                // Skip the header row (assuming the first row contains column names)
+                for (int i = 1; i < lines.Length; i++)
+                {
+                    string[] values = lines[i].Split(',');
+
+                    Waypoint waypoint = new Waypoint();
+                    waypoint.locationString = string.Format("{0}, {1}", values[0], values[1]);
+
+                    if (float.TryParse(values[2], out float result))
+                    {
+                        waypoint.relativeAltitude = result;
+                    }
+                    else
+                    {
+                        throw new Exception("converzion error");
+                    }
+                    this._planedRoute.Add(waypoint);
+                }
+            }
+            else
+            {
+                Debug.LogWarning("File not found: " + path);
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogWarning("Error reading CSV file: " + ex.Message);
+        }
+    }
+    
 }
 
 [Serializable]
 public class Waypoint : MapObject
 {
-    Waypoint()
+    public Waypoint()
     {
         type = ObjType.Waypoint;
     }
