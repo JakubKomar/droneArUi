@@ -49,7 +49,7 @@ public class MapData : Singleton <MapData>
         onObjectChanged();
     }
 
-    private void onObjectChanged()
+    public void onObjectChanged()
     {
         allObjects.Clear();
         allObjects.AddRange(_objOfInterest);
