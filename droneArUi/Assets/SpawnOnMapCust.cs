@@ -12,7 +12,6 @@ using System;
 using Unity.VisualScripting;
 using Mapbox.Examples;
 using System.Linq;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 using System.Globalization;
 
 public class SpawnOnMap : MonoBehaviour
@@ -22,6 +21,7 @@ public class SpawnOnMap : MonoBehaviour
 
 
     private List<MapObjectData> allMapObjects = new List<MapObjectData>();
+    private List<MapObjectData> planedRoute = new List<MapObjectData>();
 
     private MapData mapData = null;
 
@@ -33,7 +33,15 @@ public class SpawnOnMap : MonoBehaviour
     GameObject _markerPrefab;
 
 
-    public BoxCollider boxCollider = null;
+    [SerializeField]
+    BoxCollider boxCollider = null;
+
+
+    [SerializeField]
+    public GameObject prefabPointOfInterest = null;
+
+    [SerializeField]
+    public bool isMinimap = false;
 
     ~SpawnOnMap()
     {
@@ -41,48 +49,107 @@ public class SpawnOnMap : MonoBehaviour
     void Start()
     {
         mapData= FindObjectOfType<MapData>();
+        mapData.spawnOnMapScripts.Add(this);
+        reCreateGameObjects();
 
     }
 
-    public void reCreateGameObjects() { 
-        
+    public void reCreateGameObjects() {
+        allMapObjects.Clear();
+        foreach (var obj in mapData.allObjects){
+            allMapObjects.Add(new MapObjectData(obj));
+        }
+
+        planedRoute.Clear();
+        foreach (var obj in mapData._planedRoute)
+        {
+            planedRoute.Add(new MapObjectData(obj));
+        }
     }
 
     private void renderObject(MapObjectData mapCustumeObject)
-    {/*
-        mapCustumeObject.vector2D = Conversions.StringToLatLon(mapCustumeObject.locationString);
+    {
+        Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
 
-        Vector2d vector2D = mapCustumeObject.vector2D;
-        
+        GameObject gameObject = mapCustumeObject.spawnetGameObject;
 
-        if(mapCustumeObject.spawnetGameObject == null)
-            mapCustumeObject.spawnetGameObject = Instantiate(_markerPrefab);
-
-        GameObject instance = mapCustumeObject.spawnetGameObject;
-
-
-        instance.transform.localPosition = _map.GeoToWorldPosition(vector2D, true);
-
-        float calcHeight = calcScenePosition(instance.transform.localPosition.y, mapCustumeObject.relativeAltitude);
-        instance.transform.localPosition = new Vector3(instance.transform.localPosition.x, calcHeight, instance.transform.localPosition.z);
-        instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-        LabelTextSetter labelTextSetter = instance.GetComponent<LabelTextSetter>();
-        labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.name }, });
+        if (gameObject == null)
+        {
+            gameObject = Instantiate(_markerPrefab);
+            mapCustumeObject.spawnetGameObject = gameObject;
+            
+        }
 
 
+        gameObject.transform.localPosition = _map.GeoToWorldPosition(vector2D, true);
 
-
-        if (boxCollider==null|| boxCollider.bounds.Contains(instance.transform.localPosition))
-        { // if obejct is in boundig box, show it
-            instance.SetActive(true);
+        float calcHeight;
+        if (isMinimap)
+        {   // aproximaèní rovnice pro minimapu
+            calcHeight = calcScenePosition(gameObject.transform.localPosition.y, mapCustumeObject.mapObject.relativeAltitude);
         }
         else
-            instance.SetActive(false);+*/
+        {   // výška nepotøebuje pøepoèet
+            calcHeight = mapCustumeObject.mapObject.relativeAltitude;
+        }
+
+        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, calcHeight, gameObject.transform.localPosition.z);
+        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+        LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
+        if(labelTextSetter != null) {
+            labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
+        }
+       
+        if (boxCollider==null|| boxCollider.bounds.Contains(gameObject.transform.localPosition))
+        { // if obeject is in boundig box, show it
+            gameObject.SetActive(true);
+        }
+        else
+            gameObject.SetActive(false);
+    }
+
+    private void renderRoute(MapObjectData mapCustumeObject)
+    {
+        Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
+
+        GameObject gameObject = mapCustumeObject.spawnetGameObject;
+
+        if (gameObject == null)
+            gameObject = Instantiate(_markerPrefab);
+
+
+        gameObject.transform.localPosition = _map.GeoToWorldPosition(vector2D, true);
+
+        float calcHeight;
+        if (isMinimap)
+        {   // aproximaèní rovnice pro minimapu
+            calcHeight = calcScenePosition(gameObject.transform.localPosition.y, mapCustumeObject.mapObject.relativeAltitude);
+        }
+        else
+        {   // výška nepotøebuje pøepoèet
+            calcHeight = mapCustumeObject.mapObject.relativeAltitude;
+        }
+
+        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, calcHeight, gameObject.transform.localPosition.z);
+        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+
+        LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
+        if (labelTextSetter != null)
+        {
+            labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
+        }
+
+        if (boxCollider == null || boxCollider.bounds.Contains(gameObject.transform.localPosition))
+        { // if obeject is in boundig box, show it
+            gameObject.SetActive(true);
+        }
+        else
+            gameObject.SetActive(false);
     }
 
     private void Update()
-    {/*
+    {
         foreach (var mapGameObject in allMapObjects)
         {
             try
@@ -92,7 +159,18 @@ public class SpawnOnMap : MonoBehaviour
             catch (Exception e)
             {
             }
-        }*/
+        }
+
+        foreach (var mapGameObject in planedRoute)
+        {
+            try
+            {
+                renderRoute(mapGameObject);
+            }
+            catch (Exception e)
+            {
+            }
+        }
     }
 
     private float calcScenePosition(float groundYpos, float relativeAlt)
@@ -105,16 +183,17 @@ public class SpawnOnMap : MonoBehaviour
     }
 
     //data pro vykreslení
-    [Serializable]
     public class MapObjectData
     {
-        [JsonIgnore]
-        [HideInInspector]
         public GameObject spawnetGameObject = null;
 
-        [JsonIgnore] 
-        [HideInInspector]
-        public Vector2d vector2D;
+        public MapObject mapObject=null;
+
+        public MapObjectData(MapObject mapObject)
+        {
+            this.mapObject = mapObject;
+        }
+
     }
 }
 

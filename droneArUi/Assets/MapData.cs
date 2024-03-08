@@ -1,11 +1,13 @@
 // autor jakub komárek
 
 using JetBrains.Annotations;
+using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering;
 using static SpawnOnMap;
@@ -14,29 +16,51 @@ public class MapData : Singleton <MapData>
 {
     // Start is called before the first frame update
     // uložená trasa
-    [SerializeField]
+
     public List<Waypoint> _planedRoute = new List<Waypoint>();
 
     // objekty zájmu - pokud jsou nìjaké
-    [SerializeField]
+
     public List<ObjOfInterest> _objOfInterest = new List<ObjOfInterest>();
 
-    [SerializeField]
     public List<ObjOfInterest> _otherObjects = new List<ObjOfInterest>();
 
-    private DroneManager droneManger = null;
+    public List<MapObjectSer> mapObjectSers = new List<MapObjectSer>();
 
-    private DroneObject droneObj = null;
+    public DroneManager droneManger = null;
+
+    public DroneObject droneObj = new DroneObject();
+
+    //[HideInInspector]
+    public List<MapObject> allObjects = new List<MapObject>();
+
+    public List<SpawnOnMap> spawnOnMapScripts = new List<SpawnOnMap>();
+
+     
 
     void Start()
     {
         droneManger = FindObjectOfType<DroneManager>();
 
-        droneObj = new DroneObject();
-        droneObj.locationString = "49.22743926623377, 16.596966877183366";
+        droneObj.locationString = "49.22743926623377, 16.596966877183366"; //default vals
         droneObj.relativeAltitude = 10;
         droneObj.name = "dron";
         droneObj.type = MapObject.ObjType.Drone;
+        onObjectChanged();
+    }
+
+    private void onObjectChanged()
+    {
+        allObjects.Clear();
+        allObjects.AddRange(_objOfInterest);
+        allObjects.AddRange(_otherObjects);
+        allObjects.Add(droneObj);
+        allObjects.AddRange(mapObjectSers);
+
+        foreach (var spawnOnMapScript in spawnOnMapScripts)
+        {
+            spawnOnMapScript.reCreateGameObjects();
+        }
     }
 
     // Update is called once per frame
@@ -54,13 +78,14 @@ public class MapData : Singleton <MapData>
 
             droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
             droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
-            /*droneObj.spawnetGameObject.transform.rotation = new Quaternion(
+
+            droneObj.rotation = new Quaternion(
                 (float)droneManger.ControlledDrone.FlightData.Roll,
                 (float)droneManger.ControlledDrone.FlightData.Yaw,
 
                 (float)droneManger.ControlledDrone.FlightData.Pitch,
                 1f
-            );*/
+            );
         }
     }
 
@@ -68,7 +93,7 @@ public class MapData : Singleton <MapData>
 
 }
 
-[Serializable]
+
 public class Waypoint : MapObject
 {
     Waypoint()
@@ -83,7 +108,6 @@ public class Waypoint : MapObject
 
 }
 
-[Serializable]
 public class ObjOfInterest : MapObject
 {
     public ObjOfInterest()
@@ -92,10 +116,11 @@ public class ObjOfInterest : MapObject
     }
 }
 
-[Serializable]
 public class DroneObject : MapObject
 {
     public DroneFlightData droneFlightData = null;
+    public Quaternion rotation= Quaternion.identity;
+
     public DroneObject()
     {
         type = ObjType.Drone;
@@ -105,7 +130,9 @@ public class DroneObject : MapObject
 
 // data pro uložení 
 [Serializable]
-public class MapObject
+public class MapObjectSer: MapObject { }
+
+public class MapObject: System.Object
 {
     public enum ObjType
     {
@@ -127,7 +154,6 @@ public class MapObject
     public float relativeAltitude = 10f;
 
     public ObjType type = ObjType.Unspecified;
-
 
 }
 
