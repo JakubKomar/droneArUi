@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class calibrationScript : MonoBehaviour
+public class calibrationScript : Singleton<calibrationScript>
 {
     // Start is called before the first frame update
     public AbstractMap wordScaleMap = null;
@@ -16,6 +16,8 @@ public class calibrationScript : MonoBehaviour
     public Mapbox.Utils.Vector2d playerPosition;
 
     public MapControler mapControler = null;
+
+    private calibrationScript calibrationScript = null;
     void Start()
     {
          

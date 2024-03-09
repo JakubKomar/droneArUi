@@ -31,8 +31,22 @@ public class SpawnOnMap : MonoBehaviour
     float _spawnScale = 100f;
 
     [SerializeField]
-    GameObject _markerPrefab;
+    GameObject _defaultPrefab;
 
+    [SerializeField]
+    GameObject _waypointPrefab;
+
+    [SerializeField]
+    GameObject _homeLocationPrefab;
+
+    [SerializeField]
+    GameObject _playerPrefab;
+
+    [SerializeField]
+    GameObject _poiPrefab;
+
+    [SerializeField]
+    GameObject _dronePrefab;
 
     [SerializeField]
     BoxCollider boxCollider = null;
@@ -127,7 +141,8 @@ public class SpawnOnMap : MonoBehaviour
     {
         for (int i = 0; i < planedRoute.Count; i++)
         {
-            lineRenderer.SetPosition(i, planedRoute[i].spawnetGameObject.transform.position);
+            if(planedRoute[i].spawnetGameObject!=null)
+                lineRenderer.SetPosition(i, planedRoute[i].spawnetGameObject.transform.position);
         }
     }
 
@@ -142,9 +157,34 @@ public class SpawnOnMap : MonoBehaviour
         // pokud objekt nemá v mapì fyzickou reprezataci, udìlej novou
         if (gameObject == null) 
         {
-            gameObject = Instantiate(_markerPrefab);
+            switch (mapCustumeObject.mapObject.type)
+            {
+                case MapObject.ObjType.Player:
+                    if(_playerPrefab != null)
+                        gameObject = Instantiate(_playerPrefab);
+                    break;
+                case MapObject.ObjType.LandingPad:
+                    if (_homeLocationPrefab!=null)
+                        gameObject = Instantiate(_homeLocationPrefab);
+                    break;
+                case MapObject.ObjType.ObjOfInterest:
+                    if(_poiPrefab!=null)
+                        gameObject = Instantiate(_poiPrefab);
+                    break;
+                case MapObject.ObjType.Drone:
+                    if (_dronePrefab != null)
+                        gameObject = Instantiate(_dronePrefab);
+                    break;
+                default:
+                    if (_defaultPrefab != null)
+                        gameObject = Instantiate(_defaultPrefab);
+                    break;
+
+            }
             mapCustumeObject.spawnetGameObject = gameObject;
         }
+        if (gameObject == null)
+            return;
 
         // propsání zmìn po manipulaci
         if (mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
@@ -213,7 +253,9 @@ public class SpawnOnMap : MonoBehaviour
         // pokud objekt nemá v mapì fyzickou reprezataci, udìlej novou
         if (gameObject == null)
         {
-            gameObject = Instantiate(_markerPrefab);
+            if (_waypointPrefab == null)
+                return;
+            gameObject = Instantiate(_waypointPrefab);
             mapCustumeObject.spawnetGameObject = gameObject;
         }
 

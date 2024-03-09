@@ -41,6 +41,12 @@ public class MapData : Singleton <MapData>
     private DroneObject droneObj = new DroneObject();
 
     [HideInInspector]
+    private MapObject homeLocation = new MapObject();
+
+    [HideInInspector]
+    private MapObject player = new MapObject();
+
+    [HideInInspector]
     public List<MapObject> allObjects = new List<MapObject>();
 
     [HideInInspector]
@@ -75,7 +81,6 @@ public class MapData : Singleton <MapData>
                 _otherObjects =jsonFileTdo._otherObjects;
               
                 misionName = jsonFileTdo.misionName;
-                onObjectChanged();
             }
             else
             {
@@ -86,6 +91,7 @@ public class MapData : Singleton <MapData>
         {
             Debug.LogWarning("Error reading or deserializing the file: " + ex.Message);
         }
+        onObjectChanged();
     }
 
     public void loadCsvMision(string name)
@@ -118,12 +124,22 @@ public class MapData : Singleton <MapData>
         allObjects.Clear();
         allObjects.AddRange(_objOfInterest);
         allObjects.AddRange(_otherObjects);
+        allObjects.AddRange(mapObjectSers); // test purpeses - from unity editor
+
         allObjects.Add(droneObj);
-        allObjects.AddRange(mapObjectSers);
+        allObjects.Add(player);
+        allObjects.Add(homeLocation);
+
 
         foreach (var spawnOnMapScript in spawnOnMapScripts)
         {
-            spawnOnMapScript.reCreateGameObjects();
+            try
+            {
+                spawnOnMapScript.reCreateGameObjects();
+            }catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
     }
 
