@@ -29361,6 +29361,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _planedRoute: []
   mapObjectSers: []
+  homeLocation:
+    locationString: 
+    name: 
+    relativeAltitude: 10
+    type: 6
   allObjects: []
   spawnOnMapScripts: []
   misionName: test
@@ -44903,7 +44908,7 @@ Transform:
   m_GameObject: {fileID: 1257484843940812}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45492,7 +45497,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 114478716810624008}
   _spawnScale: 0.07
-  _markerPrefab: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
+  _defaultPrefab: {fileID: 0}
+  _waypointPrefab: {fileID: 1839187062704024, guid: 3b7ffd68035104a44bb22d55db8049ff, type: 3}
+  _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
+  _playerPrefab: {fileID: 1839187062704024, guid: 503a008dc18dc1a4f8856768211f6a00, type: 3}
+  _poiPrefab: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
+  _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
   boxCollider: {fileID: 1482345398}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 1
@@ -45635,7 +45645,7 @@ MonoBehaviour:
           disposeBuffer: 0
     placementOptions:
       placementType: 1
-      snapMapToZero: 1
+      snapMapToZero: 0
     scalingOptions:
       scalingType: 0
       unityTileSize: 100
@@ -45739,7 +45749,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 114478717238887276}
   _spawnScale: 1
-  _markerPrefab: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
+  _defaultPrefab: {fileID: 0}
+  _waypointPrefab: {fileID: 1839187062704024, guid: 3b7ffd68035104a44bb22d55db8049ff, type: 3}
+  _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
+  _playerPrefab: {fileID: 1839187062704024, guid: 503a008dc18dc1a4f8856768211f6a00, type: 3}
+  _poiPrefab: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
+  _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
   boxCollider: {fileID: 0}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 0

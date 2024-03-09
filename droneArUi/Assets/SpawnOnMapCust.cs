@@ -3,17 +3,11 @@
 using UnityEngine;
 using Mapbox.Utils;
 using Mapbox.Unity.Map;
-using Mapbox.Unity.MeshGeneration.Factories;
 using Mapbox.Unity.Utilities;
 using System.Collections.Generic;
-using Mapbox.Directions;
-using Newtonsoft.Json;
 using System;
-using Unity.VisualScripting;
 using Mapbox.Examples;
-using System.Linq;
 using System.Globalization;
-using UnityEditor;
 
 public class SpawnOnMap : MonoBehaviour
 {
@@ -222,7 +216,7 @@ public class SpawnOnMap : MonoBehaviour
         }
         else
         {   // výška nepotøebuje pøepoèet
-            calcHeight = mapCustumeObject.mapObject.relativeAltitude;
+            calcHeight = gameObject.transform.localPosition.y + mapCustumeObject.mapObject.relativeAltitude;
         }
 
         gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, calcHeight, gameObject.transform.localPosition.z);

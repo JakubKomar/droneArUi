@@ -1,10 +1,7 @@
+// autor: jakub komárek
+
 using Mapbox.Unity.Map;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class calibrationScript : Singleton<calibrationScript>
 {
@@ -68,7 +65,7 @@ public class calibrationScript : Singleton<calibrationScript>
         
         Quaternion targetRotation = Quaternion.Euler(0, playeryRottation-((float) compas), 0);
         wordScaleMap.transform.rotation = targetRotation;
-        wordScaleMap.transform.position = new Vector3(playerCamera.transform.position.x, 0, playerCamera.transform.position.z);
+        wordScaleMap.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y-1.8f, playerCamera.transform.position.z);
 
         miniMap.UpdateMap(actualCenter);
         mapControler.setCurentCenter();

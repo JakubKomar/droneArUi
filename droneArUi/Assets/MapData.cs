@@ -1,21 +1,14 @@
 // autor jakub komárek
 
-using JetBrains.Annotations;
-using Mapbox.Unity.Map;
 using Mapbox.Unity.Utilities;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Rendering;
 using System.IO;
 using System.Text;
 
-
-using static SpawnOnMap;
 using Mapbox.Utils;
 
 public class MapData : Singleton <MapData>
@@ -32,7 +25,7 @@ public class MapData : Singleton <MapData>
     private List<MapObject> _otherObjects = new List<MapObject>();
 
     [SerializeField]
-    public List<MapObjectSer> mapObjectSers = new List<MapObjectSer>();
+    public List<MapObject> mapObjectSers = new List<MapObject>();
 
     [HideInInspector]
     private DroneManager droneManger = null;
@@ -67,15 +60,15 @@ public class MapData : Singleton <MapData>
 
         calibrationScript = FindObjectOfType<calibrationScript>();
         homeLocation.name = "home";
+        homeLocation.relativeAltitude = 0;
         homeLocation.type = MapObject.ObjType.LandingPad;
         onObjectChanged();
-
     }
-
 
     // Update is called once per frame
     void Update()
     {
+        // update umístìní drona 
         if (droneManger.ControlledDrone != null)
         {
             if (droneObj.droneFlightData == null && droneManger.ControlledDrone != null)
@@ -88,7 +81,8 @@ public class MapData : Singleton <MapData>
 
             droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
             droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
-
+            
+            //nastavení rotace drona
             droneObj.rotation = new Quaternion(
                 (float)droneManger.ControlledDrone.FlightData.Roll,
                 (float)droneManger.ControlledDrone.FlightData.Yaw,
@@ -98,6 +92,7 @@ public class MapData : Singleton <MapData>
             );
         }
 
+        // update domovské pozice
         homeLocation.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerPosition.x, calibrationScript.playerPosition.y); 
 
     }
@@ -157,6 +152,11 @@ public class MapData : Singleton <MapData>
         _otherObjects = jsonFileTdo._otherObjects;
 
         misionName = jsonFileTdo.misionName;
+
+        if(_planedRoute == null && _planedRoute.Count < 0) // domov je nastaven pod první waypoint - informace v csv formátu chybí
+        {
+            calibrationScript.setHomeLocation(_planedRoute[0].locationString);
+        }
 
         onObjectChanged();
     }
@@ -220,7 +220,7 @@ public class JsonFileTdo : System.Object
         }
     }
 
-    public void saveJson() {
+    public void saveJson() { // internal format
         string path = "misions/" + misionName + ".json";
         try
         {
@@ -234,7 +234,7 @@ public class JsonFileTdo : System.Object
         }
     }
 
-    public void saveCsv()
+    public void saveCsv() //lichi kompatible format
     {
         checkDir();
         string path = "misions/" + misionName + ".csv";
@@ -263,7 +263,6 @@ public class JsonFileTdo : System.Object
 
     public void loadCsv(string misionName)
     {
-        
         string path = "misions/" + misionName + ".csv";
 
         // clean up
@@ -307,7 +306,6 @@ public class JsonFileTdo : System.Object
             Debug.LogWarning("Error reading CSV file: " + ex.Message);
         }
     }
-    
 }
 
 [Serializable]
@@ -347,14 +345,17 @@ public class DroneObject : MapObject
 }
 
 
-// data pro uložení 
-[Serializable]
-public class MapObjectSer: MapObject { }
-
-
 [Serializable]
 public class MapObject: System.Object
 {
+
+    [Geocode]
+    public string locationString; // gps pozice
+
+    public string name; // zobrazovaný název
+
+    public float relativeAltitude = 0f; // výška nad zemí 
+
     public enum ObjType
     {
         Waypoint,
@@ -366,14 +367,6 @@ public class MapObject: System.Object
         Unspecified,
         ObjOfInterest
     }
-
-    [Geocode]
-    public string locationString;
-
-    public string name;
-
-    public float relativeAltitude = 1f;
-
     public ObjType type = ObjType.Unspecified;
 
 }
