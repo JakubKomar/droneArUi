@@ -51,7 +51,6 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     BoxCollider boxCollider = null;
 
-
     [SerializeField]
     public GameObject prefabPointOfInterest = null;
 

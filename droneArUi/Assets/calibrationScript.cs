@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class calibrationScript : Singleton<calibrationScript>
 {
@@ -17,7 +18,6 @@ public class calibrationScript : Singleton<calibrationScript>
 
     public MapControler mapControler = null;
 
-    private calibrationScript calibrationScript = null;
     void Start()
     {
          
@@ -74,5 +74,16 @@ public class calibrationScript : Singleton<calibrationScript>
         mapControler.setCurentCenter();
 
 
+    }
+
+    public void setHomeLocation(string localizationString)
+    {
+        Mapbox.Utils.Vector2d actualCenter= Mapbox.Unity.Utilities.Conversions.StringToLatLon(localizationString);
+
+        playerPosition = actualCenter;
+
+        wordScaleMap.UpdateMap(actualCenter);
+        miniMap.UpdateMap(actualCenter);
+        mapControler.setCurentCenter();
     }
 }

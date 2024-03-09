@@ -40,8 +40,8 @@ public class MapData : Singleton <MapData>
     [HideInInspector]
     private DroneObject droneObj = new DroneObject();
 
-    [HideInInspector]
-    private MapObject homeLocation = new MapObject();
+
+    public MapObject homeLocation = new MapObject();
 
     [HideInInspector]
     private MapObject player = new MapObject();
@@ -53,6 +53,56 @@ public class MapData : Singleton <MapData>
     public List<SpawnOnMap> spawnOnMapScripts = new List<SpawnOnMap>();
 
     public string misionName="test";
+
+    private calibrationScript calibrationScript = null;
+
+    void Start()
+    {
+        droneManger = FindObjectOfType<DroneManager>();
+
+        droneObj.locationString = "49.22743926623377, 16.596966877183366"; //default vals
+        droneObj.relativeAltitude = 10;
+        droneObj.name = "dron";
+        droneObj.type = MapObject.ObjType.Drone;
+
+        calibrationScript = FindObjectOfType<calibrationScript>();
+        homeLocation.name = "home";
+        homeLocation.type = MapObject.ObjType.LandingPad;
+        onObjectChanged();
+
+    }
+
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (droneManger.ControlledDrone != null)
+        {
+            if (droneObj.droneFlightData == null && droneManger.ControlledDrone != null)
+            {
+                droneObj.droneFlightData = droneManger.ControlledDrone.FlightData;
+            }
+
+            droneObj.locationString = string.Format("{0}, {1}", droneManger.ControlledDrone.FlightData.Latitude.ToString(CultureInfo.InvariantCulture),
+                droneManger.ControlledDrone.FlightData.Longitude.ToString(CultureInfo.InvariantCulture));
+
+            droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
+            droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
+
+            droneObj.rotation = new Quaternion(
+                (float)droneManger.ControlledDrone.FlightData.Roll,
+                (float)droneManger.ControlledDrone.FlightData.Yaw,
+
+                (float)droneManger.ControlledDrone.FlightData.Pitch,
+                1f
+            );
+        }
+
+        homeLocation.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerPosition.x, calibrationScript.playerPosition.y); 
+
+    }
+
+
     public void saveMision()
     {
         JsonFileTdo jsonFileTdo = new JsonFileTdo();
@@ -62,6 +112,7 @@ public class MapData : Singleton <MapData>
 
         jsonFileTdo._otherObjects= _otherObjects;
         jsonFileTdo._otherObjects.AddRange(mapObjectSers);
+        jsonFileTdo.homeLocation= homeLocation;
         jsonFileTdo.save();
     }
 
@@ -79,7 +130,10 @@ public class MapData : Singleton <MapData>
                 _planedRoute= jsonFileTdo._planedRoute;
                 _objOfInterest= jsonFileTdo._objOfInterest;
                 _otherObjects =jsonFileTdo._otherObjects;
-              
+
+                if (jsonFileTdo.homeLocation != null)
+                    calibrationScript.setHomeLocation(jsonFileTdo.homeLocation.locationString);
+
                 misionName = jsonFileTdo.misionName;
             }
             else
@@ -108,17 +162,6 @@ public class MapData : Singleton <MapData>
     }
 
 
-    void Start()
-    {
-        droneManger = FindObjectOfType<DroneManager>();
-
-        droneObj.locationString = "49.22743926623377, 16.596966877183366"; //default vals
-        droneObj.relativeAltitude = 10;
-        droneObj.name = "dron";
-        droneObj.type = MapObject.ObjType.Drone;
-        onObjectChanged();
-    }
-
     public void onObjectChanged()
     {
         allObjects.Clear();
@@ -142,35 +185,6 @@ public class MapData : Singleton <MapData>
             }
         }
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (droneManger.ControlledDrone != null)
-        {
-            if(droneObj.droneFlightData==null&&droneManger.ControlledDrone!=null)
-            {
-                droneObj.droneFlightData=droneManger.ControlledDrone.FlightData;
-            }
-
-            droneObj.locationString = string.Format("{0}, {1}", droneManger.ControlledDrone.FlightData.Latitude.ToString(CultureInfo.InvariantCulture),
-                droneManger.ControlledDrone.FlightData.Longitude.ToString(CultureInfo.InvariantCulture));
-
-            droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
-            droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
-
-            droneObj.rotation = new Quaternion(
-                (float)droneManger.ControlledDrone.FlightData.Roll,
-                (float)droneManger.ControlledDrone.FlightData.Yaw,
-
-                (float)droneManger.ControlledDrone.FlightData.Pitch,
-                1f
-            );
-        }
-    }
-
-
-
 }
 
 [Serializable]
@@ -187,6 +201,9 @@ public class JsonFileTdo : System.Object
 
     [JsonProperty("mashObjects")]
     public List<MapObject> _otherObjects = new List<MapObject>();
+
+    [JsonProperty("homeLocation")]
+    public MapObject homeLocation =null;
 
     public void save()
     {
@@ -355,7 +372,7 @@ public class MapObject: System.Object
 
     public string name;
 
-    public float relativeAltitude = 10f;
+    public float relativeAltitude = 1f;
 
     public ObjType type = ObjType.Unspecified;
 
