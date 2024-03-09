@@ -44,6 +44,9 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     public bool isMinimap = false;
 
+    [SerializeField]
+    private LineRenderer lineRenderer = null;
+
     ~SpawnOnMap()
     {
     }
@@ -79,6 +82,10 @@ public class SpawnOnMap : MonoBehaviour
             {
             }
         }
+        if (lineRenderer != null)
+        {
+            updateLineRenderer();
+        }
     }
 
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
@@ -94,14 +101,33 @@ public class SpawnOnMap : MonoBehaviour
 
 
         allMapObjects.Clear();
-        foreach (var obj in mapData.allObjects){
+        foreach (var obj in mapData.allObjects) {
             allMapObjects.Add(new MapObjectData(obj));
         }
 
         planedRoute.Clear();
+        int index = 0;
         foreach (var obj in mapData._planedRoute)
         {
-            planedRoute.Add(new MapObjectData(obj));
+            MapObjectData mapObjectData = new MapObjectData(obj);
+            mapObjectData.mapObject.name = index.ToString();
+            planedRoute.Add(mapObjectData);
+            index++;
+        }
+
+        if (lineRenderer != null)
+        {
+            lineRenderer.positionCount = mapData._planedRoute.Count;
+            updateLineRenderer();
+        }
+
+    }
+
+    void updateLineRenderer()
+    {
+        for (int i = 0; i < planedRoute.Count; i++)
+        {
+            lineRenderer.SetPosition(i, planedRoute[i].spawnetGameObject.transform.position);
         }
     }
 
