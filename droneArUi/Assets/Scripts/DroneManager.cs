@@ -2,7 +2,7 @@
  * DroneManager - parse message recieved from server and set drone params according its content
  * 
  * Author : Martin Kyjac (xkyjac00)
- *          Jakub Komárek
+ *          Jakub Komï¿½rek
  */
 
 using System;
@@ -53,6 +53,7 @@ public class DroneManager : Singleton<DroneManager>
             flightData.Latitude = mapboxLatLong.x;
         }
 
+
         foreach (Drone drone in Drones)
         {
             // Drone is already present and instaciated, we found it, just update position
@@ -76,6 +77,10 @@ public class DroneManager : Singleton<DroneManager>
             flightData.Longitude = mapboxLatLong.y;
             flightData.Latitude = mapboxLatLong.x;
         }
+
+        //flightData.Latitude = 49.19003762516931;
+        //flightData.Longitude=14.699571367309487;
+
 
         foreach (Drone drone in Drones)
         {
@@ -146,6 +151,7 @@ public class DroneFlightData
     public double VelocityY;
     public double VelocityZ;
 
+    public GimbalOrientation gimbalOrientation;
     public DroneFlightData()
     {
         DroneId = "unset";
@@ -171,6 +177,7 @@ public class DroneFlightData
         VelocityX = newFormat.aircraft_velocity.velocity_x;
         VelocityY = newFormat.aircraft_velocity.velocity_y;
         VelocityZ = newFormat.aircraft_velocity.velocity_z;
+        gimbalOrientation = newFormat.gimbal_orientation;
     }
 
 

@@ -267,6 +267,14 @@ public class SpawnOnMap : MonoBehaviour
 
                 break;
             case MapObject.ObjType.Drone:
+                Vector3 elulerRot1;
+
+                if (!isMinimap)
+                {
+                    /*elulerRot1 = new Vector3(0, -this.transform.rotation.y, 0);
+                    gameObject.transform.eulerAngles = elulerRot1;
+                    */
+                }
 
                 break;
             default:

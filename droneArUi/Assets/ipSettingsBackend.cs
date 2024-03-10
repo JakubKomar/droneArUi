@@ -22,7 +22,7 @@ public class ipSettingsBackend : MonoBehaviour
     public PressableButtonHoloLens2 sameIpCheckBox = null;
     void Start()
     {
-        
+        onConnectetToServerPressed();
     }
 
     // Update is called once per frame

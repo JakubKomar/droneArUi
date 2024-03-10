@@ -22,9 +22,11 @@ public class bladeSpiner : MonoBehaviour
 
     [SerializeField]
     private float rotationSpeed = 1f;
+
+    private DroneManager droneManager = null;   
     void Start()
     {
-        
+        droneManager= FindObjectOfType<DroneManager>();
     }
 
     // Update is called once per frame
@@ -38,6 +40,12 @@ public class bladeSpiner : MonoBehaviour
             }
         }
 
-        gymbalPart.transform.localEulerAngles = new Vector3(gymbalTilt,0,0);
+        gymbalPart.transform.localEulerAngles = new Vector3(-this.transform.eulerAngles.x+ gymbalTilt,0, 0);
+
+        if (droneManager.ControlledDrone!=null&& droneManager.ControlledDrone.FlightData!=null) {
+            gymbalTilt= (float)(droneManager.ControlledDrone.FlightData.gimbalOrientation.pitch);
+ 
+            this.transform.localEulerAngles = new Vector3((float)droneManager.ControlledDrone.FlightData.Pitch, (float)droneManager.ControlledDrone.FlightData.Yaw, (float)droneManager.ControlledDrone.FlightData.Roll);
+        }
     }
 }
