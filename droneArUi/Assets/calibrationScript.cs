@@ -15,15 +15,19 @@ public class calibrationScript : Singleton<calibrationScript>
 
     public MapControler mapControler = null;
 
+    public Mapbox.Utils.Vector2d playerGps;
+    public float playerHading;
     void Start()
     {
-         
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        playerGps= wordScaleMap.WorldToGeoPosition(playerCamera.position);
+
+        float playerRottation = playerCamera.rotation.eulerAngles.y;
+        playerHading= playerRottation- wordScaleMap.transform.rotation.eulerAngles.y;
     }
 
     public void onCalibration()

@@ -37,7 +37,7 @@ public class MapData : Singleton <MapData>
     public MapObject homeLocation = new MapObject();
 
     [HideInInspector]
-    private MapObject player = new MapObject();
+    private Player player = new Player();
 
     [HideInInspector]
     public List<MapObject> allObjects = new List<MapObject>();
@@ -62,6 +62,7 @@ public class MapData : Singleton <MapData>
         homeLocation.name = "home";
         homeLocation.relativeAltitude = 0;
         homeLocation.type = MapObject.ObjType.LandingPad;
+
         onObjectChanged();
     }
 
@@ -93,7 +94,11 @@ public class MapData : Singleton <MapData>
         }
 
         // update domovské pozice
-        homeLocation.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerPosition.x, calibrationScript.playerPosition.y); 
+        homeLocation.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerPosition.x, calibrationScript.playerPosition.y);
+
+        // update pozice hráèe
+        player.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerGps.x, calibrationScript.playerGps.y);
+        player.heading = calibrationScript.playerHading;
 
     }
 
@@ -306,6 +311,18 @@ public class JsonFileTdo : System.Object
             Debug.LogWarning("Error reading CSV file: " + ex.Message);
         }
     }
+}
+
+
+[Serializable]
+public class Player : MapObject
+{
+    public Player()
+    {
+        type = ObjType.Player;
+    }
+
+    public float heading=0;
 }
 
 [Serializable]

@@ -76,6 +76,7 @@ public class SpawnOnMap : MonoBehaviour
             }
             catch (Exception e)
             {
+                Debug.LogException(e);
             }
         }
 
@@ -87,6 +88,7 @@ public class SpawnOnMap : MonoBehaviour
             }
             catch (Exception e)
             {
+                Debug.LogException(e);
             }
         }
         if (lineRenderer != null)
@@ -173,11 +175,15 @@ public class SpawnOnMap : MonoBehaviour
                         gameObject = Instantiate(_defaultPrefab);
                     break;
 
-            }
+            };
+
+            if (gameObject == null)
+                return;
+            gameObject.transform.parent = this.transform;
             mapCustumeObject.spawnetGameObject = gameObject;
+
         }
-        if (gameObject == null)
-            return;
+
 
         // propsání zmìn po manipulaci
         if (mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
@@ -204,22 +210,23 @@ public class SpawnOnMap : MonoBehaviour
 
 
         // logika výpoètu pozice
-        Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);  
+        Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
 
-        gameObject.transform.localPosition = _map.GeoToWorldPosition(vector2D, true);
+        gameObject.transform.localPosition = Vector3.zero;
+        gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
 
         float calcHeight;
         if (isMinimap)
         {   // aproximaèní rovnice pro minimapu
             //mapCustumeObject.mapObject.relativeAltitude = 100;
-            calcHeight = calcScenePosition(gameObject.transform.localPosition.y, mapCustumeObject.mapObject.relativeAltitude);
+            calcHeight = calcScenePosition(gameObject.transform.position.y, mapCustumeObject.mapObject.relativeAltitude);
         }
         else
         {   // výška nepotøebuje pøepoèet
-            calcHeight = gameObject.transform.localPosition.y + mapCustumeObject.mapObject.relativeAltitude;
+            calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
         }
 
-        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, calcHeight, gameObject.transform.localPosition.z);
+        gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
         gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 
         LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
@@ -227,12 +234,45 @@ public class SpawnOnMap : MonoBehaviour
             labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
         }
        
-        if (boxCollider==null|| boxCollider.bounds.Contains(gameObject.transform.localPosition))
-        { // if obeject is in boundig box, show it
+        // vykresluj v minimapì pouze objekty v bounding boxu
+        if (boxCollider==null|| boxCollider.bounds.Contains(gameObject.transform.position))
+        { 
             gameObject.SetActive(true);
         }
         else
             gameObject.SetActive(false);
+
+
+        //dodateèné zmìny pro urèité typy
+        switch (mapCustumeObject.mapObject.type)
+        {
+            case MapObject.ObjType.Player:
+                if (mapCustumeObject.mapObject is Player) // pøetypování
+                {
+                    Player player = (Player)mapCustumeObject.mapObject;
+                    Vector3 elulerRot;
+
+                    if (isMinimap)
+                        elulerRot = new Vector3(0, player.heading, 0);
+                    else 
+                        elulerRot = new Vector3(0, player.heading, 0);
+
+                    gameObject.transform.localEulerAngles = elulerRot;
+                }
+                break;
+            case MapObject.ObjType.LandingPad:
+
+                break;
+            case MapObject.ObjType.ObjOfInterest:
+
+                break;
+            case MapObject.ObjType.Drone:
+
+                break;
+            default:
+                break;
+
+        }
     }
 
     private void renderRoute(MapObjectData mapCustumeObject)

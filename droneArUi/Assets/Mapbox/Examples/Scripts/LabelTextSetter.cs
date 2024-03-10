@@ -11,6 +11,8 @@
 
 		public void Set(Dictionary<string, object> props)
 		{
+			if (_textMesh == null)
+				return;
 			_textMesh.text = "";
 
 			if (props.ContainsKey("name"))
