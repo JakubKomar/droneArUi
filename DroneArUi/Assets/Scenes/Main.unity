@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -37680,6 +37680,7 @@ MonoBehaviour:
   abstractMap: {fileID: 114478716810624008}
   pinchSlider: {fileID: 1165619312}
   mapTransform: {fileID: 4867832766217022}
+  tableTransform: {fileID: 627465202}
 --- !u!1 &1889154972
 GameObject:
   m_ObjectHideFlags: 0
@@ -43574,7 +43575,6 @@ MonoBehaviour:
       tileJsonData:
         tileJSONLoaded: 0
         LayerDisplayNames:
-        - 
         - admin
         - aeroway
         - airport_label
@@ -44299,7 +44299,7 @@ MonoBehaviour:
   _defaultPrefab: {fileID: 0}
   _waypointPrefab: {fileID: 1839187062704024, guid: 3b7ffd68035104a44bb22d55db8049ff, type: 3}
   _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
-  _playerPrefab: {fileID: 1839187062704024, guid: 503a008dc18dc1a4f8856768211f6a00, type: 3}
+  _playerPrefab: {fileID: 0}
   _poiPrefab: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
   _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
   boxCollider: {fileID: 0}
@@ -44438,7 +44438,6 @@ GameObject:
   - component: {fileID: 919132148953412635}
   - component: {fileID: 919132148953412633}
   - component: {fileID: 919132148953412636}
-  - component: {fileID: 919132148953412637}
   m_Layer: 0
   m_Name: Minimap
   m_TagString: Untagged
@@ -44519,36 +44518,6 @@ MonoBehaviour:
   transformMap: {fileID: 543450652692590242}
   mainCameraTransform: {fileID: 1590441517}
   followMeTogle: {fileID: 919132148953412633}
---- !u!114 &919132148953412637
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148953412632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4684083f6dff4a1d8a790bccc354fcf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateLinkedTransform: 0
-  moveLerpTime: 0.1
-  rotateLerpTime: 0.1
-  scaleLerpTime: 0
-  maintainScaleOnInitialization: 1
-  smoothing: 1
-  lifetime: 0
-  referenceDirection: 1
-  minDistance: 1
-  maxDistance: 2
-  minViewDegrees: 0
-  maxViewDegrees: 30
-  aspectV: 1
-  ignoreAngleClamp: 0
-  ignoreDistanceClamp: 0
-  useFixedVerticalPosition: 0
-  fixedVerticalPosition: -0.4
-  orientToReferenceDirection: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

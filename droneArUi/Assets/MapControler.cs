@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.UIElements;
 using Mapbox.Utils;
+using Mapbox.Map;
 
 public class MapControler : MonoBehaviour
 {
@@ -17,6 +18,16 @@ public class MapControler : MonoBehaviour
     {
         setCurentCenter();
 
+        abstractMap.OnMapRedrawn += onMapRedrawn;
+        abstractMap.OnUpdated += onMapLoaded;
+    }
+
+    private void onMapRedrawn()
+    {
+        isLoaded = false;
+    }
+    private void onMapLoaded() {
+        isLoaded=true;
     }
 
 
@@ -24,17 +35,18 @@ public class MapControler : MonoBehaviour
         initCenter = abstractMap.CenterLatitudeLongitude;
     }
     // Update is called once per frame
+
+    bool isLoaded=true;
     void Update()
     {
-
-
-        /*Mapbox.Utils.Vector2d actualCenter = abstractMap.CenterLatitudeLongitude;
-        Vector3 wordPos = abstractMap.GeoToWorldPosition(actualCenter, true);
-        Vector3 tablePos = tableTransform.position;
-        abstractMap.transform.position = new Vector3(abstractMap.transform.position.x, tablePos.y - wordPos.y, abstractMap.transform.position.z);*/
-
-        mapTransform.localPosition = new Vector3(0, mapInitY * mapTransform.localScale.y, 0);
-  
+        if (isLoaded) // dopozicování minimapy do úrovnì stolu
+        {
+            Mapbox.Utils.Vector2d actualCenter = abstractMap.CenterLatitudeLongitude; // referenèní bod je støed mapy
+            Vector3 wordPosOfCenter = abstractMap.GeoToWorldPosition(actualCenter, true);
+            Vector3 tablePos = tableTransform.position;
+            // rozdíl polohy stolu a mapy je odeèten on pozice
+            mapTransform.localPosition = new Vector3(0, mapTransform.localPosition.y + (tablePos.y - wordPosOfCenter.y), 0);
+        }
     }
 
     private Mapbox.Utils.Vector2d initCenter;

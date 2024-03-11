@@ -214,6 +214,7 @@ public class SpawnOnMap : MonoBehaviour
 
         gameObject.transform.localPosition = Vector3.zero;
         gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
+        gameObject.transform.rotation = _map.transform.rotation;
 
         float calcHeight;
         if (isMinimap)
@@ -267,14 +268,6 @@ public class SpawnOnMap : MonoBehaviour
 
                 break;
             case MapObject.ObjType.Drone:
-                Vector3 elulerRot1;
-
-                if (!isMinimap)
-                {
-                    /*elulerRot1 = new Vector3(0, -this.transform.rotation.y, 0);
-                    gameObject.transform.eulerAngles = elulerRot1;
-                    */
-                }
 
                 break;
             default:

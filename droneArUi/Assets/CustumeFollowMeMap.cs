@@ -10,13 +10,11 @@ using UnityEngine;
 public class CustumeFollowMeMap :  RadialView
 {
 
-    // Update is called once per frame
     public Transform transformMap=null;
     public Transform mainCameraTransform = null;
     public FollowMeToggle followMeTogle = null;
     void Update()
     {
-
         Vector3 goalPosition = base.GoalPosition;
         Quaternion goalRotation = base.GoalRotation;
 
@@ -31,6 +29,7 @@ public class CustumeFollowMeMap :  RadialView
     private bool anchored = false;
     public void onAchorClick() {
         followMeTogle.ToggleFollowMeBehavior();
+        
         anchored = !anchored;
     }
 }
