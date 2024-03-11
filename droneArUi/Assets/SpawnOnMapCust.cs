@@ -84,7 +84,7 @@ public class SpawnOnMap : MonoBehaviour
         {
             try
             {
-                renderRoute(mapGameObject);
+                renderObject(mapGameObject);
             }
             catch (Exception e)
             {
@@ -170,6 +170,12 @@ public class SpawnOnMap : MonoBehaviour
                     if (_dronePrefab != null)
                         gameObject = Instantiate(_dronePrefab);
                     break;
+                case MapObject.ObjType.Waypoint:
+                    if (_waypointPrefab == null)
+                        return;
+                    gameObject = Instantiate(_waypointPrefab);
+                    mapCustumeObject.spawnetGameObject = gameObject;
+                    break;
                 default:
                     if (_defaultPrefab != null)
                         gameObject = Instantiate(_defaultPrefab);
@@ -208,35 +214,38 @@ public class SpawnOnMap : MonoBehaviour
             mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
         }
 
+        if (!mapCustumeObject.underManipulation)
+        {
+            // logika výpoètu pozice
+            Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
 
-        // logika výpoètu pozice
-        Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
+            gameObject.transform.localPosition = Vector3.zero;
+            gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
+            gameObject.transform.rotation = _map.transform.rotation;
 
-        gameObject.transform.localPosition = Vector3.zero;
-        gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
-        gameObject.transform.rotation = _map.transform.rotation;
+            float calcHeight;
+            if (isMinimap)
+            {   // aproximaèní rovnice pro minimapu
+                //mapCustumeObject.mapObject.relativeAltitude = 100;
+                calcHeight = calcScenePosition(gameObject.transform.position.y, mapCustumeObject.mapObject.relativeAltitude);
+            }
+            else
+            {   // výška nepotøebuje pøepoèet
+                calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
+            }
 
-        float calcHeight;
-        if (isMinimap)
-        {   // aproximaèní rovnice pro minimapu
-            //mapCustumeObject.mapObject.relativeAltitude = 100;
-            calcHeight = calcScenePosition(gameObject.transform.position.y, mapCustumeObject.mapObject.relativeAltitude);
-        }
-        else
-        {   // výška nepotøebuje pøepoèet
-            calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
-        }
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
+            gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
 
-        gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
-        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-        LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
-        if(labelTextSetter != null) {
-            labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
+            LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
+            if (labelTextSetter != null)
+            {
+                labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
+            }
         }
        
         // vykresluj v minimapì pouze objekty v bounding boxu
-        if (boxCollider==null|| boxCollider.bounds.Contains(gameObject.transform.position))
+        if (boxCollider==null|| boxCollider.bounds.Contains(gameObject.transform.position)|| mapCustumeObject.underManipulation)
         { 
             gameObject.SetActive(true);
         }
@@ -275,81 +284,6 @@ public class SpawnOnMap : MonoBehaviour
 
         }
     }
-
-    private void renderRoute(MapObjectData mapCustumeObject)
-    {
-        if (mapCustumeObject.underManipulation)
-            return;
-
-        GameObject gameObject = mapCustumeObject.spawnetGameObject;
-
-
-        // pokud objekt nemá v mapì fyzickou reprezataci, udìlej novou
-        if (gameObject == null)
-        {
-            if (_waypointPrefab == null)
-                return;
-            gameObject = Instantiate(_waypointPrefab);
-            mapCustumeObject.spawnetGameObject = gameObject;
-        }
-
-        // propsání zmìn po manipulaci
-        if (mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
-        {
-            Vector2d vector2d = _map.WorldToGeoPosition(gameObject.transform.localPosition);
-
-            CultureInfo culture = new CultureInfo("en-US");
-            mapCustumeObject.mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); // .ToString(culture) protože podìlanej c#
-            if (isMinimap)
-            {
-                var newTransformation = _map.GeoToWorldPosition(vector2d, true);
-                float sceneHeight = newTransformation.y;//výška k zemi ve scénì
-                float deltaHeight = gameObject.transform.localPosition.y - sceneHeight;
-                float calculatedHeight = calcAbsoluteHeight(deltaHeight); // might be wrong
-                mapCustumeObject.mapObject.relativeAltitude = calculatedHeight;
-            }
-            else
-            {
-                mapCustumeObject.mapObject.relativeAltitude = gameObject.transform.localPosition.y;
-            }
-
-            mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
-        }
-
-
-        // logika výpoètu pozice
-        Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
-
-        gameObject.transform.localPosition = _map.GeoToWorldPosition(vector2D, true);
-
-        float calcHeight;
-        if (isMinimap)
-        {   // aproximaèní rovnice pro minimapu
-            //mapCustumeObject.mapObject.relativeAltitude = 100;
-            calcHeight = calcScenePosition(gameObject.transform.localPosition.y, mapCustumeObject.mapObject.relativeAltitude);
-        }
-        else
-        {   // výška nepotøebuje pøepoèet
-            calcHeight = mapCustumeObject.mapObject.relativeAltitude;
-        }
-
-        gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, calcHeight, gameObject.transform.localPosition.z);
-        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-        LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
-        if (labelTextSetter != null)
-        {
-            labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
-        }
-
-        if (boxCollider == null || boxCollider.bounds.Contains(gameObject.transform.localPosition))
-        { // if obeject is in boundig box, show it
-            gameObject.SetActive(true);
-        }
-        else
-            gameObject.SetActive(false);
-    }
-
 
     const float tiltScaleUnity = 0.115f;
     const float defalutZoomLevel = 19;
