@@ -8,6 +8,8 @@ using System.Collections.Generic;
 using System;
 using Mapbox.Examples;
 using System.Globalization;
+using Microsoft.MixedReality.Toolkit.UI;
+using UnityEngine.UIElements;
 
 public class SpawnOnMap : MonoBehaviour
 {
@@ -187,6 +189,16 @@ public class SpawnOnMap : MonoBehaviour
                 return;
             gameObject.transform.parent = this.transform;
             mapCustumeObject.spawnetGameObject = gameObject;
+            mapCustumeObject.manipulator = gameObject.GetComponent<ObjectManipulator>();
+            if (mapCustumeObject.manipulator != null)
+            {
+                ObjectManipulator objectManipulator = mapCustumeObject.manipulator;
+
+                objectManipulator.OnManipulationStarted.AddListener(mapCustumeObject.onManipultaionStart);
+                objectManipulator.OnManipulationEnded.AddListener(mapCustumeObject.onManipulationEnd);
+                objectManipulator.OnHoverEntered.AddListener(mapCustumeObject.onHoverStart);
+                objectManipulator.OnHoverExited.AddListener(mapCustumeObject.onHoverEnd);
+            }
 
         }
 
@@ -194,7 +206,7 @@ public class SpawnOnMap : MonoBehaviour
         // propsání zmìn po manipulaci
         if (mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
         {
-            Vector2d vector2d= _map.WorldToGeoPosition(gameObject.transform.localPosition);
+            Vector2d vector2d= _map.WorldToGeoPosition(gameObject.transform.position);
 
             CultureInfo culture = new CultureInfo("en-US");
             mapCustumeObject.mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); // .ToString(culture) protože podìlanej c#
@@ -202,7 +214,8 @@ public class SpawnOnMap : MonoBehaviour
             {
                 var newTransformation = _map.GeoToWorldPosition(vector2d, true);
                 float sceneHeight = newTransformation.y;//výška k zemi ve scénì
-                float deltaHeight = gameObject.transform.localPosition.y - sceneHeight;
+                float deltaHeight = gameObject.transform.position.y - sceneHeight;
+                Debug.Log(deltaHeight);
                 float calculatedHeight = calcAbsoluteHeight(deltaHeight); // might be wrong
                 mapCustumeObject.mapObject.relativeAltitude = calculatedHeight;
             }
@@ -297,7 +310,7 @@ public class SpawnOnMap : MonoBehaviour
 
     private float calcAbsoluteHeight(float deltaHeight)
     {
-        return defalutZoomLevel * tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant * deltaHeight;
+        return (deltaHeight * defalutZoomLevel) / (tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant);
     }
 
 
@@ -307,6 +320,8 @@ public class SpawnOnMap : MonoBehaviour
         public GameObject spawnetGameObject = null;
 
         public MapObject mapObject=null;
+
+        public ObjectManipulator manipulator = null;
 
         public bool underManipulation = false;
         public bool manipulationDirtyFlag = false;
@@ -320,6 +335,28 @@ public class SpawnOnMap : MonoBehaviour
             manipulationDirtyFlag=true;
             underManipulation=false;
         }
+
+        public void onHoverStart(ManipulationEventData eventData)
+        {
+            Debug.Log("hover start");
+        }
+
+        public void onHoverEnd(ManipulationEventData eventData)
+        {
+            Debug.Log("hover end");
+        }
+        public void onManipultaionStart(ManipulationEventData eventData)
+        {
+            this.underManipulation = true;
+            Debug.Log("manipulataion start");
+        }
+        public void onManipulationEnd(ManipulationEventData eventData)
+        {
+            this.underManipulation = false;
+            this.manipulationDirtyFlag = true;
+            Debug.Log("manipulataion ends");
+        }
+
     }
 }
 
