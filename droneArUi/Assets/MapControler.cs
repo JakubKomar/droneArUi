@@ -105,5 +105,30 @@ public class MapControler : MonoBehaviour
     public void center()
     {
         abstractMap.UpdateMap(initCenter, zoom);
+        reloadMap();
+    }
+
+    public void reloadMap()
+    {
+        //Debug.Log("dawdaw");
+        abstractMap.UpdateMap(14);
+        abstractMap.UpdateMap(zoom);
+    }
+
+    public void changeMapImage(int index)
+    {
+        switch (index)
+        {
+            default:
+            case 0:
+                abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxSatelliteStreet);
+                break; 
+            case 1:
+                abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxStreets);
+                break; 
+            case 2:
+                abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxDark);
+                break;
+        }
     }
 }

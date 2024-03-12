@@ -221,7 +221,10 @@ public class SpawnOnMap : MonoBehaviour
             }
             else
             {
-                mapCustumeObject.mapObject.relativeAltitude = gameObject.transform.localPosition.y;
+                var newTransformation = _map.GeoToWorldPosition(vector2d, true);
+                float sceneHeight = newTransformation.y;//výška k zemi ve scénì
+                float deltaHeight = gameObject.transform.position.y - sceneHeight;
+                mapCustumeObject.mapObject.relativeAltitude = deltaHeight;
             }
 
             mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány

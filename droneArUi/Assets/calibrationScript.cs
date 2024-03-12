@@ -2,6 +2,7 @@
 
 using Mapbox.Unity.Map;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class calibrationScript : Singleton<calibrationScript>
 {
@@ -17,6 +18,8 @@ public class calibrationScript : Singleton<calibrationScript>
 
     public Mapbox.Utils.Vector2d playerGps;
     public float playerHading;
+
+    public UnityEvent calibrationEvent = new UnityEvent();
     void Start()
     {
     }
@@ -36,7 +39,6 @@ public class calibrationScript : Singleton<calibrationScript>
         double longitude;
         double compas;
 
-        Debug.Log("Calibration");
         if (droneManager.ControlledDrone == null)
         {
             Debug.LogWarning("Nelze provést calibraci bez pøipojeného  drona");
@@ -73,6 +75,8 @@ public class calibrationScript : Singleton<calibrationScript>
 
         miniMap.UpdateMap(actualCenter);
         mapControler.setCurentCenter();
+
+        calibrationEvent.Invoke();
 
 
     }
