@@ -45,7 +45,7 @@ public class bladeSpiner : MonoBehaviour
         if (droneManager.ControlledDrone!=null&& droneManager.ControlledDrone.FlightData!=null) {
             gymbalTilt= (float)(droneManager.ControlledDrone.FlightData.gimbalOrientation.pitch);
  
-            this.transform.localEulerAngles = new Vector3((float)droneManager.ControlledDrone.FlightData.Pitch, (float)droneManager.ControlledDrone.FlightData.Yaw, (float)droneManager.ControlledDrone.FlightData.Roll);
+            this.transform.localEulerAngles = new Vector3((float)droneManager.ControlledDrone.FlightData.Pitch, (float)droneManager.ControlledDrone.FlightData.Yaw-180, (float)droneManager.ControlledDrone.FlightData.Roll);
         }
     }
 }

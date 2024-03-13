@@ -1,3 +1,4 @@
+// autor jakub komárek
 using Microsoft.MixedReality.Toolkit.Audio;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,16 +10,15 @@ public class TextToSpeechSyntetizer : MonoBehaviour
     private TextToSpeech textToSpeech;
     private calibrationScript calibrationScript;
 
-    public string toSay="";
     void Start()
     {
         textToSpeech=GetComponent<TextToSpeech>();
         calibrationScript=GetComponent<calibrationScript>();
-        calibrationScript.calibrationEvent.AddListener(onSay);
+        calibrationScript.calibrationEvent.AddListener(()=> { onSay("calibration finished"); });
     }
    
 
-    public void onSay()
+    public void onSay(string toSay)
     {
         Debug.Log("calibration say");
         if(toSay =="") { return; }

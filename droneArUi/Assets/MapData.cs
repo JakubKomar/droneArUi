@@ -190,6 +190,35 @@ public class MapData : Singleton <MapData>
             }
         }
     }
+
+    public void test()
+    {
+        _planedRoute.Clear();
+        _objOfInterest.Clear();
+        _otherObjects.Clear();
+
+        Waypoint waypoint1=new Waypoint();
+        waypoint1.locationString = "49.227654814174905, 16.597106088572705";
+        waypoint1.relativeAltitude = 10;
+        _planedRoute.Add(waypoint1);
+
+        Waypoint waypoint2=new Waypoint();
+        waypoint2.locationString = "49.22753381250514, 16.596691921462376";
+        waypoint2.relativeAltitude = 20;
+        _planedRoute.Add(waypoint2);
+
+        Waypoint waypoint3=new Waypoint();
+        waypoint3.locationString = "49.22714707969114, 16.596684655372727";
+        waypoint3.relativeAltitude = 30;
+        _planedRoute.Add(waypoint3);
+
+        Waypoint waypoint4=new Waypoint();
+        waypoint4.locationString = "49.2272752000998, 16.597385833024425";
+        waypoint4.relativeAltitude = 20;
+        _planedRoute.Add(waypoint4);
+        onObjectChanged();
+
+    }
 }
 
 [Serializable]
