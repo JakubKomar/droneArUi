@@ -226,6 +226,8 @@ public class SpawnOnMap : MonoBehaviour
                 float deltaHeight = gameObject.transform.position.y - sceneHeight;
                 mapCustumeObject.mapObject.relativeAltitude = deltaHeight;
             }
+            if (mapCustumeObject.mapObject.relativeAltitude < 0)
+                mapCustumeObject.mapObject.relativeAltitude = 0;
 
             mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
         }
