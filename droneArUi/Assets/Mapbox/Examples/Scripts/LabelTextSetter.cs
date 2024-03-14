@@ -2,30 +2,31 @@
 {
 	using Mapbox.Unity.MeshGeneration.Interfaces;
 	using System.Collections.Generic;
-	using UnityEngine;
+    using UnityEngine;
+    using TMPro;
 
-	public class LabelTextSetter : MonoBehaviour, IFeaturePropertySettable
+    public class LabelTextSetter : MonoBehaviour, IFeaturePropertySettable
 	{
 		[SerializeField]
-		TextMesh _textMesh; 
+        public TextMeshProUGUI textMeshProComponent;
 
-		public void Set(Dictionary<string, object> props)
+        public void Set(Dictionary<string, object> props)
 		{
-			if (_textMesh == null)
+			if (textMeshProComponent == null)
 				return;
-			_textMesh.text = "";
+            textMeshProComponent.text = "";
 
 			if (props.ContainsKey("name"))
 			{
-				_textMesh.text = props["name"].ToString();
+                textMeshProComponent.text = props["name"].ToString();
 			}
 			else if (props.ContainsKey("house_num"))
 			{
-				_textMesh.text = props["house_num"].ToString();
+                textMeshProComponent.text = props["house_num"].ToString();
 			}
 			else if (props.ContainsKey("type"))
 			{
-				_textMesh.text = props["type"].ToString();
+                textMeshProComponent.text = props["type"].ToString();
 			}
 		}
 	}

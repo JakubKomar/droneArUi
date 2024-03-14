@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Microsoft.MixedReality.Toolkit.Utilities;
+using static MissionSelector;
 
 public class MissionSelector : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class MissionSelector : MonoBehaviour
     List<menuItemTDO> saveFiles=new List<menuItemTDO>();
 
     List<GameObject> menuItems = new List<GameObject>();
+
+    MapData mapdata = null;
 
     [SerializeField]
     GridObjectCollection contentConteiner;
@@ -30,10 +33,19 @@ public class MissionSelector : MonoBehaviour
         Debug.Log(pathToDir);
         refreshMissionList();
 
-        if (contentConteiner != null) {
+        if (contentConteiner == null)
+        {
             Debug.LogError("Mission selector: ContentGridObjectCollection not found err");
         }
+        mapdata = FindObjectOfType<MapData>();
+        if (mapdata == null)
+        {
+            Debug.LogError("Mission selector: MapData mapdata  not found err");
+        }
+        mapdata.sevedFile.AddListener(refreshMissionList);
+        onClose();
     }
+ 
 
     public void refreshMissionList()
     {
@@ -73,6 +85,11 @@ public class MissionSelector : MonoBehaviour
             }
         }
         maxPageNum = saveFiles.Count / listLen;
+        if(saveFiles.Count% listLen != 0)
+        {
+            maxPageNum++;
+
+        }
 
         pageShow(curentPageNum);
     }
@@ -97,7 +114,7 @@ public class MissionSelector : MonoBehaviour
 
         int beginIndex = page * listLen;
 
-                        int counter = 0;
+        int counter = 0;
         for(int i = beginIndex; i < saveFiles.Count; i++) {
             if (counter >= listLen)
                 break;
@@ -116,10 +133,44 @@ public class MissionSelector : MonoBehaviour
             menuItems.Add(gameObject);
             counter++;
         }
-
-       
     }
 
+    public void onLoaded(menuItemTDO menuItemTDO)
+    {
+        if (menuItemTDO == null)
+        {
+            Debug.LogError("menuItemTDO == null");
+            return;
+        }
+        if (mapdata == null)
+        {
+            Debug.LogError("mapdata == null");
+            return;
+        }
+
+
+        if (menuItemTDO.format == ".json")
+        {
+            mapdata.loadMision(menuItemTDO.path);
+        }
+        else if (menuItemTDO.format == ".csv") {
+            mapdata.loadCsvMision(menuItemTDO.path);
+        }
+        else {
+            Debug.LogError(menuItemTDO.format);
+        }
+        onClose();
+
+    }
+
+    public void onOpen() {
+        refreshMissionList();
+        this.gameObject.SetActive(true);
+    }
+
+    public void onClose() {
+        this.gameObject.SetActive(false);
+    }
     public  void onUp()
     {
         pageShow(curentPageNum - 1);
@@ -131,7 +182,8 @@ public class MissionSelector : MonoBehaviour
 
     public void onNew()
     {
-       
+        mapdata.newMission();
+        onClose();
     }
 
     // Update is called once per frame

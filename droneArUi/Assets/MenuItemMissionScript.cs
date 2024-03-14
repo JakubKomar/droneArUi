@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using System.IO;
 using static MissionSelector;
-
+using System;
 
 public class MenuItemMissionScript : MonoBehaviour
 {
@@ -49,6 +49,13 @@ public class MenuItemMissionScript : MonoBehaviour
 
     public void onLoadPressed()
     {
-        Debug.Log("File load: " + menuItemTdo.path);
+        if (menuItemTdo.missionSelector == null)
+        {
+            Debug.LogError("menuItemTdo.missionSelector == null");
+            return;
+        }
+
+        menuItemTdo.missionSelector.onLoaded(menuItemTdo);
+        
     }
 }

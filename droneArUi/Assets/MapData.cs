@@ -11,7 +11,7 @@ using System.Text;
 
 using Mapbox.Utils;
 using static SpawnOnMap;
-using System.Reflection;
+using UnityEngine.Events;
 
 public class MapData : Singleton <MapData>
 {
@@ -47,20 +47,27 @@ public class MapData : Singleton <MapData>
     [HideInInspector]
     public List<SpawnOnMap> spawnOnMapScripts = new List<SpawnOnMap>();
 
-    public string misionName="test";
+    public string misionName="";
 
     private calibrationScript calibrationScript = null;
 
+    string pathToDir;
+
+    public UnityEvent sevedFile =new UnityEvent();
+
+
     void Start()
     {
+        pathToDir = Path.Combine(Application.persistentDataPath, "misions/");
+
         droneManger = FindObjectOfType<DroneManager>();
+        calibrationScript = FindObjectOfType<calibrationScript>();
 
         droneObj.locationString = "49.22743926623377, 16.596966877183366"; //default vals
         droneObj.relativeAltitude = 10;
         droneObj.name = "dron";
         droneObj.type = MapObject.ObjType.Drone;
 
-        calibrationScript = FindObjectOfType<calibrationScript>();
         homeLocation.name = "home";
         homeLocation.relativeAltitude = 0;
         homeLocation.type = MapObject.ObjType.LandingPad;
@@ -107,20 +114,32 @@ public class MapData : Singleton <MapData>
 
     public void saveMision()
     {
+        if (!Directory.Exists(pathToDir))
+        {
+            Directory.CreateDirectory(pathToDir);
+            Debug.Log("Created directory: " + pathToDir);
+        }
+
+
         JsonFileTdo jsonFileTdo = new JsonFileTdo();
+        if (misionName == "") {
+            misionName= string.Format("mise-{0:yyMMdd-HHmmss}", DateTime.Now);
+        }
         jsonFileTdo.misionName = misionName;
+
+
         jsonFileTdo._planedRoute = _planedRoute;
         jsonFileTdo._objOfInterest = _objOfInterest;
 
         jsonFileTdo._otherObjects= _otherObjects;
         jsonFileTdo._otherObjects.AddRange(mapObjectSers);
         jsonFileTdo.homeLocation= homeLocation;
-        jsonFileTdo.save();
+        jsonFileTdo.save(pathToDir);
+
+        sevedFile.Invoke();
     }
 
-    public void loadMision(string name) {
-        string path="misions/"+name+".json";
-
+    public void loadMision(string path) {
         try
         {
             if (File.Exists(path))
@@ -150,10 +169,19 @@ public class MapData : Singleton <MapData>
         onObjectChanged();
     }
 
-    public void loadCsvMision(string name)
+    public void newMission()
+    {
+        misionName = "";
+        _planedRoute.Clear();
+        _objOfInterest.Clear();
+        _otherObjects.Clear();
+        onObjectChanged();
+    }
+
+    public void loadCsvMision(string path)
     {
         JsonFileTdo jsonFileTdo =new JsonFileTdo();
-        jsonFileTdo.loadCsv(name);
+        jsonFileTdo.loadCsv(path);
         _planedRoute = jsonFileTdo._planedRoute;
         _objOfInterest = jsonFileTdo._objOfInterest;
         _otherObjects = jsonFileTdo._otherObjects;
@@ -269,28 +297,17 @@ public class JsonFileTdo : System.Object
     [JsonProperty("homeLocation")]
     public MapObject homeLocation =null;
 
-    public void save()
+    public void save(string dirPath)
     {
-        saveJson();
-        saveCsv();
+        saveJson(dirPath);
+        saveCsv(dirPath);
     }
 
-    private void checkDir()
-    {
-        if (!Directory.Exists("misions/"))
-        {
-            // If not, create the directory
-            Directory.CreateDirectory("misions/");
-        }
-    }
-
-    public void saveJson() { // internal format
-        string path = "misions/" + misionName + ".json";
+    public void saveJson(string dirPath) { // internal format
         try
         {
-            checkDir();
             string json = JsonConvert.SerializeObject(this);
-            File.WriteAllText(path, json);
+            File.WriteAllText(dirPath + "/"+this.misionName+".json", json);
         }
         catch (Exception ex)
         {
@@ -298,13 +315,11 @@ public class JsonFileTdo : System.Object
         }
     }
 
-    public void saveCsv() //lichi kompatible format
+    public void saveCsv(string dirPath) //lichi kompatible format
     {
-        checkDir();
-        string path = "misions/" + misionName + ".csv";
         try
         {
-            using (StreamWriter sw = new StreamWriter(path, false, Encoding.UTF8))
+            using (StreamWriter sw = new StreamWriter(dirPath + "/" + this.misionName + ".csv", false, Encoding.UTF8))
             {
                 // header
                 CultureInfo culture = new CultureInfo("en-US");
