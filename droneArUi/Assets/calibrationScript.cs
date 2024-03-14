@@ -77,7 +77,8 @@ public class calibrationScript : Singleton<calibrationScript>
         mapControler.setCurentCenter();
 
         calibrationEvent.Invoke();
-
+        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+        textToSpeechSyntetizer.say("Calibration finished.");
 
     }
 

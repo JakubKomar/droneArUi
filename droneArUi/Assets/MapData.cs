@@ -52,14 +52,16 @@ public class MapData : Singleton <MapData>
     private calibrationScript calibrationScript = null;
 
     string pathToDir;
+    string pathToDirCsvExport = "";
+    
 
-    public UnityEvent sevedFile =new UnityEvent();
+public UnityEvent sevedFile =new UnityEvent();
 
 
     void Start()
     {
         pathToDir = Path.Combine(Application.persistentDataPath, "misions/");
-
+        pathToDirCsvExport= Path.Combine(Application.persistentDataPath, "misions/export_csv/");
         droneManger = FindObjectOfType<DroneManager>();
         calibrationScript = FindObjectOfType<calibrationScript>();
 
@@ -111,13 +113,22 @@ public class MapData : Singleton <MapData>
 
     }
 
-
+    public void saveMisionAsNew()
+    {
+        misionName = "";
+        saveMision();
+    }
     public void saveMision()
     {
         if (!Directory.Exists(pathToDir))
         {
             Directory.CreateDirectory(pathToDir);
             Debug.Log("Created directory: " + pathToDir);
+        }
+        if (!Directory.Exists(pathToDirCsvExport))
+        {
+            Directory.CreateDirectory(pathToDirCsvExport);
+            Debug.Log("Created directory: " + pathToDirCsvExport);
         }
 
 
@@ -134,7 +145,9 @@ public class MapData : Singleton <MapData>
         jsonFileTdo._otherObjects= _otherObjects;
         jsonFileTdo._otherObjects.AddRange(mapObjectSers);
         jsonFileTdo.homeLocation= homeLocation;
-        jsonFileTdo.save(pathToDir);
+
+        jsonFileTdo.saveJson(pathToDir);
+        jsonFileTdo.saveCsv(pathToDirCsvExport);
 
         sevedFile.Invoke();
     }
@@ -156,6 +169,9 @@ public class MapData : Singleton <MapData>
                     calibrationScript.setHomeLocation(jsonFileTdo.homeLocation.locationString);
 
                 misionName = jsonFileTdo.misionName;
+
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Mission loaded successfully.");
             }
             else
             {
@@ -171,7 +187,7 @@ public class MapData : Singleton <MapData>
 
     public void newMission()
     {
-        misionName = "";
+        misionName = string.Format("mise-{0:yyMMdd-HHmmss}", DateTime.Now);
         _planedRoute.Clear();
         _objOfInterest.Clear();
         _otherObjects.Clear();
@@ -296,12 +312,6 @@ public class JsonFileTdo : System.Object
 
     [JsonProperty("homeLocation")]
     public MapObject homeLocation =null;
-
-    public void save(string dirPath)
-    {
-        saveJson(dirPath);
-        saveCsv(dirPath);
-    }
 
     public void saveJson(string dirPath) { // internal format
         try

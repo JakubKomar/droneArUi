@@ -170,7 +170,7 @@ public class WebSocketManager2 : Singleton<WebSocketManager2>
 
     private void OnError(string errorMsg)
     {
-        Debug.LogError(errorMsg);
+        Debug.Log(errorMsg);
         handshake_done = false;
         //GameManager.Instance.HandleConnectionFailed();
     }

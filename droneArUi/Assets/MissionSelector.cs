@@ -1,3 +1,5 @@
+// author: jakub komárek
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,6 +32,7 @@ public class MissionSelector : MonoBehaviour
     void Start()
     {
         pathToDir = Path.Combine(Application.persistentDataPath, "misions/");
+
         Debug.Log(pathToDir);
         refreshMissionList();
 
@@ -62,7 +65,7 @@ public class MissionSelector : MonoBehaviour
             Directory.CreateDirectory(pathToDir);
             Debug.Log("Created directory: " + pathToDir);
         }
-       
+
         string[] files = Directory.GetFiles(pathToDir);
 
         foreach (string file in files)
@@ -88,7 +91,6 @@ public class MissionSelector : MonoBehaviour
         if(saveFiles.Count% listLen != 0)
         {
             maxPageNum++;
-
         }
 
         pageShow(curentPageNum);

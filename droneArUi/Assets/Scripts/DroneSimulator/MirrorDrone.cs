@@ -29,7 +29,7 @@ namespace DroneSimulator
         public Transform dangerIndicator;
         public Text distanceText;
 
-        float speedVelocity;
+        //float speedVelocity;
         Vector3 speedDirection;
         Vector3 previousPosition;
         RaycastHit closestHit;
@@ -187,7 +187,7 @@ namespace DroneSimulator
             // mirroring rotation
             transform.rotation = drone.rotation;
 
-            speedVelocity = 0.0f;//(drone.transform.position - previousPosition).magnitude / (GPSManager.droneUpdateInterval);
+            //speedVelocity = 0.0f;//(drone.transform.position - previousPosition).magnitude / (GPSManager.droneUpdateInterval);
             speedDirection = ((drone.transform.position - previousPosition) * 50);
 
             previousPosition = drone.transform.position;

@@ -51,22 +51,27 @@ public class MapControler : MonoBehaviour
 
     private Mapbox.Utils.Vector2d initCenter;
     public AbstractMap abstractMap = null;
-    public PinchSlider pinchSlider = null;
     public Transform mapTransform = null;
     public Transform tableTransform=null;
 
-    private float mapInitY = -0.51f;
+    //private float mapInitY = -0.51f;
     private float sliderVal = 0.5f;
     private float zoom = 19f;
 
     private float moveStepSize = 0.0005f;
 
-    public void setZoom()
+    public void setZoom(SliderEventData sliderEventData)
     {
-        sliderVal = pinchSlider.SliderValue;
+        sliderVal = sliderEventData.NewValue;
         zoom = math.round(19f + sliderVal * 4f - 2f);
 
-        abstractMap.UpdateMap(zoom);
+        try
+        {
+            abstractMap.UpdateMap(zoom);
+        }
+        catch { }
+
+       
     }
 
     private float getStepSize() {
