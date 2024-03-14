@@ -10,6 +10,8 @@ using System.IO;
 using System.Text;
 
 using Mapbox.Utils;
+using static SpawnOnMap;
+using System.Reflection;
 
 public class MapData : Singleton <MapData>
 {
@@ -178,6 +180,13 @@ public class MapData : Singleton <MapData>
         allObjects.Add(player);
         allObjects.Add(homeLocation);
 
+        int index = 0;
+        foreach (var obj in _planedRoute)
+        {
+            obj.pos= index;
+            index++;
+        }
+
 
         foreach (var spawnOnMapScript in spawnOnMapScripts)
         {
@@ -196,26 +205,47 @@ public class MapData : Singleton <MapData>
         _planedRoute.Clear();
         _objOfInterest.Clear();
         _otherObjects.Clear();
-
+        Waypoint waypoint0 = new Waypoint();
+        waypoint0.locationString = "49.22732,16.59683";
+        waypoint0.relativeAltitude = 0;
+        _planedRoute.Add(waypoint0);
         Waypoint waypoint1=new Waypoint();
-        waypoint1.locationString = "49.227654814174905, 16.597106088572705";
-        waypoint1.relativeAltitude = 10;
+        waypoint1.locationString = "49.22732,16.59683";
+        waypoint1.relativeAltitude = 1;
         _planedRoute.Add(waypoint1);
 
         Waypoint waypoint2=new Waypoint();
-        waypoint2.locationString = "49.22753381250514, 16.596691921462376";
-        waypoint2.relativeAltitude = 20;
+        waypoint2.locationString = "49.22732,16.59683";
+        waypoint2.relativeAltitude = 2;
         _planedRoute.Add(waypoint2);
+
+        Waypoint waypoint5 = new Waypoint();
+        waypoint5.locationString = "49.22732,16.59683";
+        waypoint5.relativeAltitude = 2;
+        _planedRoute.Add(waypoint5);
+
+        Waypoint waypoint6 = new Waypoint();
+        waypoint6.locationString = "49.22732,16.59683";
+        waypoint6.relativeAltitude = 3;
+        _planedRoute.Add(waypoint6);
+
+        Waypoint waypoint7 = new Waypoint();
+        waypoint7.locationString = "49.22732,16.59683";
+        waypoint7.relativeAltitude = 4;
+        _planedRoute.Add(waypoint7);
 
         Waypoint waypoint3=new Waypoint();
         waypoint3.locationString = "49.22714707969114, 16.596684655372727";
-        waypoint3.relativeAltitude = 30;
+        waypoint3.relativeAltitude = 3;
         _planedRoute.Add(waypoint3);
 
         Waypoint waypoint4=new Waypoint();
         waypoint4.locationString = "49.2272752000998, 16.597385833024425";
-        waypoint4.relativeAltitude = 20;
+        waypoint4.relativeAltitude = 4;
         _planedRoute.Add(waypoint4);
+        onObjectChanged();
+
+
         onObjectChanged();
 
     }
@@ -362,8 +392,9 @@ public class Waypoint : MapObject
         type = ObjType.Waypoint;
     }
 
-    double heading;
-    double radius;
+    public double heading;
+    public double radius;
+    public int pos = -1;
 
     public ObjOfInterest objOfInterest = null;
 

@@ -117,13 +117,9 @@ public class SpawnOnMap : MonoBehaviour
         }
 
         planedRoute.Clear();
-        int index = 0;
         foreach (var obj in mapData._planedRoute)
         {
-            MapObjectData mapObjectData = new MapObjectData(obj);
-            mapObjectData.mapObject.name = index.ToString();
-            planedRoute.Add(mapObjectData);
-            index++;
+            planedRoute.Add(new MapObjectData(obj));
         }
 
         if (lineRenderer != null)
@@ -252,14 +248,9 @@ public class SpawnOnMap : MonoBehaviour
                 calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
             }
 
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
             gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-
-            LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
-            if (labelTextSetter != null)
-            {
-                labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
-            }
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
+ 
         }
        
         // vykresluj v minimapì pouze objekty v bounding boxu
@@ -270,7 +261,7 @@ public class SpawnOnMap : MonoBehaviour
         else
             gameObject.SetActive(false);
 
-
+        LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
         //dodateèné zmìny pro urèité typy
         switch (mapCustumeObject.mapObject.type)
         {
@@ -292,10 +283,28 @@ public class SpawnOnMap : MonoBehaviour
 
                 break;
             case MapObject.ObjType.ObjOfInterest:
-
+               
+                if (labelTextSetter != null)
+                {
+                    labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
+                }
                 break;
             case MapObject.ObjType.Drone:
+                if (labelTextSetter != null)
+                {
+                    labelTextSetter.Set(new Dictionary<String, object> { { "name", ("("+ Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
+                }
 
+            break;
+            case MapObject.ObjType.Waypoint:
+                if (mapCustumeObject.mapObject is Waypoint) // pøetypování
+                {
+                    Waypoint waypoint = (Waypoint)mapCustumeObject.mapObject;
+                    if (labelTextSetter != null)
+                    {
+                        labelTextSetter.Set(new Dictionary<String, object> { { "name", (waypoint.pos.ToString()+ "("+ Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
+                    }
+                }
                 break;
             default:
                 break;
