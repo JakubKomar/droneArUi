@@ -9,8 +9,8 @@ public class MissionSelector : MonoBehaviour
     // Start is called before the first frame update
     string pathToDir = "";
 
-    List<string> jsonFiles=new List<string>();
-    List<string> csvFiles = new List<string>();
+    List<menuItemTDO> saveFiles=new List<menuItemTDO>();
+
     List<GameObject> menuItems = new List<GameObject>();
 
     [SerializeField]
@@ -37,12 +37,13 @@ public class MissionSelector : MonoBehaviour
 
     public void refreshMissionList()
     {
-        jsonFiles.Clear();
-        csvFiles.Clear();
+        saveFiles.Clear();
+
         foreach (var obj in menuItems)
         {
             Destroy(obj);
         }
+        menuItems.Clear();
 
         if (!Directory.Exists(pathToDir))
         {
@@ -58,7 +59,7 @@ public class MissionSelector : MonoBehaviour
             if (Path.GetExtension(file).Equals(".json"))
             {
                 // Pøidejte cestu k JSON souboru do pole
-                jsonFiles.Add(file);
+                saveFiles.Add( new menuItemTDO(Path.GetFileName(file) ,file, ".json",this));
             }
         }
         foreach (string file in files)
@@ -67,13 +68,13 @@ public class MissionSelector : MonoBehaviour
             if (Path.GetExtension(file).Equals(".csv"))
             {
                 // Pøidejte cestu k JSON souboru do pole
-                csvFiles.Add(file);
+                saveFiles.Add(new menuItemTDO(Path.GetFileName(file), file, ".csv",this));
 
             }
         }
-        maxPageNum = jsonFiles.Count / listLen;
+        maxPageNum = saveFiles.Count / listLen;
 
-        pageShow(0);
+        pageShow(curentPageNum);
     }
 
     void pageShow(int page) { 
@@ -82,35 +83,50 @@ public class MissionSelector : MonoBehaviour
         {
             Destroy(obj);
         }
+        menuItems.Clear();
 
-        if(page < 0)
+        if (page >= maxPageNum) { 
+            page = maxPageNum-1;
+        }
+        if (page < 0)
         {
             page = 0;
-        }
-        if (page > maxPageNum) { 
-            page = maxPageNum;
         }
         curentPageNum = page;
 
 
         int beginIndex = page * listLen;
-        for(int i = beginIndex; i < jsonFiles.Count; i++) {
+
+                        int counter = 0;
+        for(int i = beginIndex; i < saveFiles.Count; i++) {
+            if (counter >= listLen)
+                break;
+
             GameObject gameObject = Instantiate(_menuItemPrefab);
+            MenuItemMissionScript scriptComponent = gameObject.GetComponent<MenuItemMissionScript>();
+            if(scriptComponent != null)
+            {
+                scriptComponent.menuItemTdo = saveFiles[i];
+            }
+
             gameObject.transform.parent = contentConteiner.transform;
             gameObject.transform.localScale = Vector3.one;
+            gameObject.transform.localRotation = new Quaternion(0,0,0,1);
+            gameObject.transform.localPosition = new Vector3(0, -0.01f, 0);
             menuItems.Add(gameObject);
+            counter++;
         }
 
-        contentConteiner.UpdateCollection();
+       
     }
 
     public  void onUp()
     {
-        pageShow(curentPageNum + 1);
+        pageShow(curentPageNum - 1);
     }
     public void onDown()
     {
-        pageShow(curentPageNum -1);
+        pageShow(curentPageNum +1);
     }
 
     public void onNew()
@@ -121,6 +137,23 @@ public class MissionSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        contentConteiner.UpdateCollection();
     }
+
+    public class menuItemTDO
+    {
+        public string name;
+        public string path;
+        public string format;
+        public MissionSelector missionSelector=null;
+        public menuItemTDO() { }
+        public menuItemTDO(string name, string path, string format, MissionSelector missionSelector=null)
+        {
+            this.name = name;
+            this.path = path;
+            this.format = format;
+            this.missionSelector = missionSelector;
+        }
+    }
+
 }

@@ -803,9 +803,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 6774170589042784248}
+        m_TargetAssemblyTypeName: MissionSelector, Assembly-CSharp
+        m_MethodName: onUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1335,9 +1335,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 6774170589042784248}
+        m_TargetAssemblyTypeName: MissionSelector, Assembly-CSharp
+        m_MethodName: onDown
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3028,9 +3028,9 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Increment
+      - m_Target: {fileID: 6774170589042784248}
+        m_TargetAssemblyTypeName: MissionSelector, Assembly-CSharp
+        m_MethodName: onNew
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
