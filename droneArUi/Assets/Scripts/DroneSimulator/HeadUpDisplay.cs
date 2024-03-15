@@ -41,9 +41,10 @@ public class HeadUpDisplay : MonoBehaviour
     RectTransform altitudeTextTransform;
 
     private DroneManager droneManager;
-    private bool controlledDroneFound = false;
     private Transform NavigationLineAnchor;
     private float nextUpdate;
+
+    private bool uiHidded = true;
 
 
     // Start is called before the first frame update
@@ -56,11 +57,9 @@ public class HeadUpDisplay : MonoBehaviour
         NavigationLineAnchor = mirrorDrone.transform.Find("NavigationLineAnchor");
 
         droneManager = DroneManager.Instance;
-
         nextUpdate = GPSManager.droneUpdateInterval;
 
         ToggleHeadUpDisplayElements(false);
-        CheckIfDroneConnected();
     }
 
     /// <summary>
@@ -131,24 +130,6 @@ public class HeadUpDisplay : MonoBehaviour
         this.transform.localScale = new Vector3(distanceToUser, distanceToUser, distanceToUser);
     }
 
-    private bool CheckIfDroneConnected()
-    {
-        var previouslyFound = controlledDroneFound;
-        controlledDroneFound = droneManager.SetControlledDrone(UserProfileManager.Instance.DroneName);
-
-        if (controlledDroneFound && !previouslyFound)
-        {
-            
-            ToggleHeadUpDisplayElements(true);
-        }
-        else if (!controlledDroneFound && previouslyFound)
-        {
-            ToggleHeadUpDisplayElements(false);
-        }
-
-        return controlledDroneFound;
-    }
-
     private void ToggleHeadUpDisplayElements(bool active)
     {
         for (var i = 0; i < transform.childCount; i++)
@@ -159,15 +140,18 @@ public class HeadUpDisplay : MonoBehaviour
         lineRenderer.gameObject.SetActive(active);
         lineRenderer.positionCount = 3;
         //this.gameObject.GetComponent<Image>().enabled = active;
+        uiHidded = active;
     }
 
     // Update is called once per frame
     void Update()
     {
         // don't do anything if no drone was found
-        if (!controlledDroneFound && !CheckIfDroneConnected())
-        {
+        if (droneManager.ControlledDrone == null)
             return;
+        if (uiHidded)
+        {
+            ToggleHeadUpDisplayElements(true);
         }
 
         // Distance to user has to be calculated first because it is used in SetTarget() as well

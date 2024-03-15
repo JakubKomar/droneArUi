@@ -32,9 +32,22 @@ public class DebugTextConsole : MonoBehaviour
         else if (type == LogType.Warning) { typ = "W"; }
         else if (type == LogType.Log) { typ = "L"; }
 
-        if (type== LogType.Error||type==LogType.Log) {
-            textMesh.text += String.Format("{0,4}", lineCount) +" |"+typ+": "+ message + "\n";
-            lineCount++;
+        message=ZkratitText(message, 110);
+
+        textMesh.text += String.Format("{0,4}", lineCount) +" |"+typ+": "+ message + "\n";
+        lineCount++;
+        
+    }
+
+    string ZkratitText(string text, int maxDelka)
+    {
+        if (text.Length <= maxDelka)
+        {
+            return text; // Pokud je text kratší než maximální délka, vrátíme ho beze zmìny
+        }
+        else
+        {
+            return text.Substring(0, maxDelka-3) + "..."; // Jinak zkrátíme text a pøidáme "..."
         }
     }
 }

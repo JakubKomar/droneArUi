@@ -7,13 +7,13 @@ GStreamerCore - Registering Elements!
 GStreamerCore - GStreamer inited
 Initializing GStreamer - Done
 Entering main loop
-Info: Creating Pipeline: rtmpsrc location=rtmp://127.0.0.1:1935/live/55600f93 ! decodebin ! video/x-raw,format=I420 ! videoconvert ! appsink name=videoSink sync=false async=false
+Info: Creating Pipeline: rtmpsrc location=rtmp://127.0.0.1:1935/live/01d55ea1 ! decodebin ! video/x-raw,format=I420 ! videoconvert ! appsink name=videoSink sync=false async=false
 Info: : GstPipelineHandler::CreatePipeline 
 Info: : Pipeline State Changes:  GST_STATE_NULL--> GST_STATE_READY
 Info: : Pausing
 Info: : Playing
 mray_gstreamer_initialize
-Info: Creating Pipeline: rtmpsrc location=rtmp://127.0.0.1:1935/live/50e71978 ! decodebin ! video/x-raw,format=I420 ! videoconvert ! appsink name=videoSink sync=false async=false
+Info: Creating Pipeline: rtmpsrc location=rtmp://127.0.0.1:1935/live/539dfdc7 ! decodebin ! video/x-raw,format=I420 ! videoconvert ! appsink name=videoSink sync=false async=false
 Info: : GstPipelineHandler::CreatePipeline 
 Info: : Pipeline State Changes:  GST_STATE_NULL--> GST_STATE_READY
 Info: : Pausing

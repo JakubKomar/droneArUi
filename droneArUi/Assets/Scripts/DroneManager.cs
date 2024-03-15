@@ -15,11 +15,53 @@ public class DroneManager : Singleton<DroneManager>
 {
 
     public List<Drone> Drones = new List<Drone>();
-    public Drone ControlledDrone;
+    public Drone ControlledDrone=null;
     public AbstractMap Map;
     public GameObject DroneBoundingBox;
     public GameObject ControlledDroneGameObject;
     public static bool RunningInUnityEditor = Application.isEditor;
+
+    private void Update()
+    {
+        // pokud nejsou přijata data o dronu do 15s maže se
+        List<Drone> dronesToRemove = new List<Drone>();
+        foreach (Drone drone in Drones)
+        {
+            if((DateTime.Now - drone.lastUpdate).TotalSeconds > 15)
+            {
+                dronesToRemove.Add(drone);
+            }
+        }
+        foreach (Drone drone in dronesToRemove)
+        {
+            Drones.Remove(drone);
+            if (ControlledDrone != null)
+            {
+                if (drone==ControlledDrone)
+                {
+                    ControlledDrone = null;
+                    TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                    textToSpeechSyntetizer.say("Drone timeout.");
+                }
+            }
+        }
+
+        // pro jistotu
+        if (ControlledDrone != null)
+        {
+            if ((DateTime.Now - ControlledDrone.lastUpdate).TotalSeconds > 15)
+            {
+                ControlledDrone = null;
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Drone timeout.");
+            }
+        }
+        if (ControlledDrone == null)
+        {
+            SetControlledDrone();
+        }
+    }
+
     public void AddDrone(DroneFlightData flightData)
     {
         Mapbox.Utils.Vector2d mapboxPosition = new Mapbox.Utils.Vector2d(flightData.Latitude, flightData.Longitude);
@@ -29,7 +71,9 @@ public class DroneManager : Singleton<DroneManager>
 
         GameObject BBox = Instantiate(DroneBoundingBox, position3d, Quaternion.identity);
         BBox.name = flightData.DroneId;
-        Drones.Add(new Drone(BBox, flightData));
+        Drone newDrone = new Drone(BBox, flightData);
+        newDrone.FlightData = flightData;
+        Drones.Add(newDrone);
         BBox.transform.SetParent(transform);
     }
 
@@ -111,28 +155,24 @@ public class DroneManager : Singleton<DroneManager>
     /// Checks for drone by droneID and sets it as controlled drone
     /// </summary>
     /// <param name="droneID">Drone ID</param>
-    public bool SetControlledDrone(string droneID)
+    public void SetControlledDrone()
     {
-        bool droneFound = false;
         foreach (var drone in Drones)
         {
-            if ((!droneFound) && drone.FlightData.DroneId != "HoloLens2_Pilot")
+            if ( drone.FlightData.DroneId != "HoloLens2_Pilot")
             {
                 drone.IsControlled = true;
                 ControlledDrone = drone;
                 drone.DroneGameObject.Destroy();
                 drone.DroneGameObject = ControlledDroneGameObject;
-                droneFound = true;
-                RTMPstreamPlayer.Instance.OnDroneConnected(drone.FlightData.DroneId);
                 Debug.Log("Controled drone selected:" + drone.FlightData.DroneId);
-            }
-            else
-            {
-                drone.IsControlled = false;
+
+                RTMPstreamPlayer.Instance.OnDroneConnected(drone.FlightData.DroneId);
+
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Drone connected.");
             }
         }
-
-        return droneFound;
     }
 }
 

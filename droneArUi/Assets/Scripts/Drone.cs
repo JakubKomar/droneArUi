@@ -34,6 +34,7 @@ public class Drone {
     public double RotationOffset { 
         get; set;
     }
+    public DateTime lastUpdate;
 
     private readonly IEnumerable<string> DronesWithZeroAltitude = new List<string> { "DJI-Mavic2", "DJI-MAVIC_PRO", "DJI-MAVIC_MINI" };
 
@@ -57,6 +58,7 @@ public class Drone {
         FlightData = flightData;
         IsControlled = isControlled;
         RotationOffset = rotationOffset;
+        lastUpdate= DateTime.Now;
     }
 
     /// <summary>
@@ -66,6 +68,7 @@ public class Drone {
     /// <param name="flightData"></param>
     public void UpdateDroneFlightData(DroneFlightData flightData) {
         var trackingType = UserProfileManager.Instance.TrackingType;
+        lastUpdate = DateTime.Now;
         FlightData = flightData;
         if (trackingType == TrackingTypeEnum.GPS)
         {
