@@ -17,6 +17,7 @@ public class TextToSpeechSyntetizer : Singleton<TextToSpeechSyntetizer>
 
     public void say(string toSay)
     {
+        if(textToSpeech == null) { return; }
         if(toSay =="") { return; }
         textToSpeech.StopSpeaking();
         textToSpeech.StartSpeaking(toSay); 

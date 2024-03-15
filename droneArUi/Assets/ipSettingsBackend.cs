@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ipSettingsBackend : MonoBehaviour
 {
@@ -22,6 +23,22 @@ public class ipSettingsBackend : MonoBehaviour
     public PressableButtonHoloLens2 sameIpCheckBox = null;
     void Start()
     {
+        if (PlayerPrefs.HasKey("ipTelemetry"))
+        {
+            ipTelemetry.text = PlayerPrefs.GetString("ipTelemetry");
+        }
+        if (PlayerPrefs.HasKey("ipTelemetryPort"))
+        {
+            portTelemetry.text = PlayerPrefs.GetString("ipTelemetryPort");
+        }
+        if (PlayerPrefs.HasKey("ipVideoServer"))
+        {
+            ipVideoServer.text = PlayerPrefs.GetString("ipVideoServer");
+        }
+        if (PlayerPrefs.HasKey("portVideoServer"))
+        {
+            portVideoServer.text = PlayerPrefs.GetString("portVideoServer");
+        }
         onConnectetToServerPressed();
     }
 
@@ -68,10 +85,17 @@ public class ipSettingsBackend : MonoBehaviour
         else
         {
             Console.WriteLine("Invalid format for conversion using int.TryParse()");
+            return;
         }
 
         rTMPstreamPlayer.ip=ipVideoServer.text;
         rTMPstreamPlayer.port=portVideoServer.text;
+
+        PlayerPrefs.SetString("ipTelemetry", ipTelemetry.text);
+        PlayerPrefs.SetString("ipTelemetryPort", portTelemetry.text);
+        PlayerPrefs.SetString("ipVideoServer", ipVideoServer.text);
+        PlayerPrefs.SetString("portVideoServer", portVideoServer.text);
+        PlayerPrefs.Save();
     }
 }
 

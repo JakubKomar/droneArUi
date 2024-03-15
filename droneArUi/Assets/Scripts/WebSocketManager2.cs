@@ -131,6 +131,8 @@ public class WebSocketManager2 : Singleton<WebSocketManager2>
                 //GameManager.Instance.RTMPPort = hr.data.rtmp_port;
                 handshake_done = true;
                 Debug.Log("Handshake successful.");
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Connection established.");
                 //GameManager.Instance.HandleHandshakeDone();
             }
         }
@@ -163,6 +165,8 @@ public class WebSocketManager2 : Singleton<WebSocketManager2>
 
     private void OnClose(WebSocketCloseCode closeCode)
     {
+        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+        textToSpeechSyntetizer.say("Connection lost.");
         Debug.Log("Connection closed!");
         handshake_done = false;
         //GameManager.Instance.HandleConnectionFailed();
