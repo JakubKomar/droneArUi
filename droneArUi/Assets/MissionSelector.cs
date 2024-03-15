@@ -29,10 +29,10 @@ public class MissionSelector : MonoBehaviour
 
     private int curentPageNum=0;
     private int maxPageNum = 0;
+
     void Start()
     {
         pathToDir = Path.Combine(Application.persistentDataPath, "misions/");
-
         Debug.Log(pathToDir);
         refreshMissionList();
 
@@ -156,7 +156,7 @@ public class MissionSelector : MonoBehaviour
             mapdata.loadMision(menuItemTDO.path);
         }
         else if (menuItemTDO.format == ".csv") {
-            mapdata.loadCsvMision(menuItemTDO.path);
+            mapdata.loadCsvMision(menuItemTDO.path,menuItemTDO.name);
         }
         else {
             Debug.LogError(menuItemTDO.format);

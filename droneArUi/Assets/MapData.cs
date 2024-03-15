@@ -51,17 +51,20 @@ public class MapData : Singleton <MapData>
 
     private calibrationScript calibrationScript = null;
 
-    string pathToDir;
-    string pathToDirCsvExport = "";
+    public string pathToDir;
+    public string pathToDirCsvExport = "";
     
 
 public UnityEvent sevedFile =new UnityEvent();
 
-
+    private void Awake()
+    {
+    }
     void Start()
     {
         pathToDir = Path.Combine(Application.persistentDataPath, "misions/");
-        pathToDirCsvExport= Path.Combine(Application.persistentDataPath, "misions/export_csv/");
+        pathToDirCsvExport = Path.Combine(Application.persistentDataPath, "misions/export_csv/");
+
         droneManger = FindObjectOfType<DroneManager>();
         calibrationScript = FindObjectOfType<calibrationScript>();
 
@@ -175,15 +178,18 @@ public UnityEvent sevedFile =new UnityEvent();
             }
             else
             {
-                Debug.LogWarning("File not found: " + path);
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("File not found.");
             }
         }
         catch (Exception ex)
         {
-            Debug.LogWarning("Error reading or deserializing the file: " + ex.Message);
+            TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("File corupted.");
         }
         onObjectChanged();
     }
+
 
     public void newMission()
     {
@@ -192,12 +198,16 @@ public UnityEvent sevedFile =new UnityEvent();
         _objOfInterest.Clear();
         _otherObjects.Clear();
         onObjectChanged();
+
+        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+        textToSpeechSyntetizer.say("New mission created.");
     }
 
-    public void loadCsvMision(string path)
+    public void loadCsvMision(string path,string name)
     {
         JsonFileTdo jsonFileTdo =new JsonFileTdo();
-        jsonFileTdo.loadCsv(path);
+        jsonFileTdo.loadCsv(path,name);
+
         _planedRoute = jsonFileTdo._planedRoute;
         _objOfInterest = jsonFileTdo._objOfInterest;
         _otherObjects = jsonFileTdo._otherObjects;
@@ -318,10 +328,14 @@ public class JsonFileTdo : System.Object
         {
             string json = JsonConvert.SerializeObject(this);
             File.WriteAllText(dirPath + "/"+this.misionName+".json", json);
+            TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("Saving successfull.");
         }
         catch (Exception ex)
         {
             Debug.LogWarning("Error saving CSV file: " + ex.Message);
+            TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("Saving json failed.");
         }
     }
 
@@ -347,13 +361,13 @@ public class JsonFileTdo : System.Object
         catch (Exception ex)
         {
             Debug.LogWarning("Error saving CSV file: " + ex.Message);
+            TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("Saving csv failed.");
         }
     }
 
-    public void loadCsv(string misionName)
+    public void  loadCsv(string path,string name)
     {
-        string path = "misions/" + misionName + ".csv";
-
         // clean up
         _planedRoute.Clear();
         _objOfInterest.Clear();
@@ -363,7 +377,7 @@ public class JsonFileTdo : System.Object
         {
             if (File.Exists(path))
             {
-                this.misionName = misionName;
+                this.misionName = name;
                 string[] lines = File.ReadAllLines(path);
 
                 // Skip the header row (assuming the first row contains column names)
@@ -384,15 +398,23 @@ public class JsonFileTdo : System.Object
                     }
                     this._planedRoute.Add(waypoint);
                 }
+                TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Mission loaded successfully.");
+
             }
             else
             {
                 Debug.LogWarning("File not found: " + path);
+                TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("File not found.");
+
             }
         }
         catch (Exception ex)
         {
             Debug.LogWarning("Error reading CSV file: " + ex.Message);
+            TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("File corupted.");
         }
     }
 }
