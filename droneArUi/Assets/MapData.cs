@@ -10,7 +10,6 @@ using System.IO;
 using System.Text;
 
 using Mapbox.Utils;
-using static SpawnOnMap;
 using UnityEngine.Events;
 
 public class MapData : Singleton <MapData>
@@ -25,9 +24,6 @@ public class MapData : Singleton <MapData>
     private List<ObjOfInterest> _objOfInterest = new List<ObjOfInterest>();
     [HideInInspector]
     private List<MapObject> _otherObjects = new List<MapObject>();
-
-    [SerializeField]
-    public List<MapObject> mapObjectSers = new List<MapObject>();
 
     [HideInInspector]
     private DroneManager droneManger = null;
@@ -146,7 +142,6 @@ public UnityEvent sevedFile =new UnityEvent();
         jsonFileTdo._objOfInterest = _objOfInterest;
 
         jsonFileTdo._otherObjects= _otherObjects;
-        jsonFileTdo._otherObjects.AddRange(mapObjectSers);
         jsonFileTdo.homeLocation= homeLocation;
 
         jsonFileTdo.saveJson(pathToDir);
@@ -228,7 +223,6 @@ public UnityEvent sevedFile =new UnityEvent();
         allObjects.Clear();
         allObjects.AddRange(_objOfInterest);
         allObjects.AddRange(_otherObjects);
-        allObjects.AddRange(mapObjectSers); // test purpeses - from unity editor
 
         allObjects.Add(droneObj);
         allObjects.Add(player);
@@ -252,6 +246,21 @@ public UnityEvent sevedFile =new UnityEvent();
                 Debug.LogException(e);
             }
         }
+    }
+
+    public void spawnedObjectDeletion(List<MapObject> list)
+    {
+        foreach (var item in list) { 
+            if (item is Waypoint)
+                _planedRoute.Remove((Waypoint)item);
+            if (item is ObjOfInterest)
+                _objOfInterest.Remove((ObjOfInterest)item);
+            _otherObjects.Remove(item);
+        }
+        if(list.Count > 0) {
+            onObjectChanged();
+        }
+       
     }
 
     public void test()
@@ -417,6 +426,7 @@ public class JsonFileTdo : System.Object
             textToSpeechSyntetizer.say("File corupted.");
         }
     }
+
 }
 
 

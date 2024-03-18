@@ -20,7 +20,11 @@ public class SpawnOnMap : MonoBehaviour
     private List<MapObjectData> allMapObjects = new List<MapObjectData>();
     private List<MapObjectData> planedRoute = new List<MapObjectData>();
 
+    private List<MapObject> removalList = new List<MapObject>();
+
     private MapData mapData = null;
+
+
 
 
     [SerializeField]
@@ -97,6 +101,9 @@ public class SpawnOnMap : MonoBehaviour
         {
             updateLineRenderer();
         }
+
+        mapData.spawnedObjectDeletion(removalList);
+        removalList.Clear();
     }
 
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
@@ -202,6 +209,15 @@ public class SpawnOnMap : MonoBehaviour
         // propsání zmìn po manipulaci
         if (mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
         {
+            if (isMinimap)
+            {
+                if (!boxCollider.bounds.Contains(gameObject.transform.position))
+                {
+                    Debug.Log("to delete:" + mapCustumeObject.mapObject.name);   
+                    removalList.Add(mapCustumeObject.mapObject);
+                }
+            }
+
             Vector2d vector2d= _map.WorldToGeoPosition(gameObject.transform.position);
 
             CultureInfo culture = new CultureInfo("en-US");
@@ -212,7 +228,7 @@ public class SpawnOnMap : MonoBehaviour
                 float sceneHeight = newTransformation.y;//výška k zemi ve scénì
                 float deltaHeight = gameObject.transform.position.y - sceneHeight;
                 Debug.Log(deltaHeight);
-                float calculatedHeight = calcAbsoluteHeight(deltaHeight); // might be wrong
+                float calculatedHeight = calcAbsoluteHeight(deltaHeight);
                 mapCustumeObject.mapObject.relativeAltitude = calculatedHeight;
             }
             else
