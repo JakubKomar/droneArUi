@@ -148,8 +148,6 @@ public class SpawnOnMap : MonoBehaviour
 
     private void renderObject(MapObjectData mapCustumeObject)
     {
-        if(mapCustumeObject.underManipulation) 
-            return;
 
         GameObject gameObject = mapCustumeObject.spawnetGameObject;
 
@@ -190,30 +188,30 @@ public class SpawnOnMap : MonoBehaviour
 
             if (gameObject == null)
                 return;
+
+
             gameObject.transform.parent = this.transform;
             mapCustumeObject.spawnetGameObject = gameObject;
             mapCustumeObject.manipulator = gameObject.GetComponent<ObjectManipulator>();
-            if (mapCustumeObject.manipulator != null)
-            {
+
+            if (mapCustumeObject.manipulator != null){
                 ObjectManipulator objectManipulator = mapCustumeObject.manipulator;
 
                 objectManipulator.OnManipulationStarted.AddListener(mapCustumeObject.onManipultaionStart);
                 objectManipulator.OnManipulationEnded.AddListener(mapCustumeObject.onManipulationEnd);
-                objectManipulator.OnHoverEntered.AddListener(mapCustumeObject.onHoverStart);
-                objectManipulator.OnHoverExited.AddListener(mapCustumeObject.onHoverEnd);
+                //objectManipulator.OnHoverEntered.AddListener(mapCustumeObject.onHoverStart);
+                //objectManipulator.OnHoverExited.AddListener(mapCustumeObject.onHoverEnd);
             }
 
         }
 
-
-        // propsání zmìn po manipulaci
-        if (mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
+        // propsání zmìn po a pøi manipulaci
+        if (mapCustumeObject.underManipulation || mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
         {
             if (isMinimap)
             {
                 if (!boxCollider.bounds.Contains(gameObject.transform.position))
                 {
-                    Debug.Log("to delete:" + mapCustumeObject.mapObject.name);   
                     removalList.Add(mapCustumeObject.mapObject);
                 }
             }
@@ -222,12 +220,13 @@ public class SpawnOnMap : MonoBehaviour
 
             CultureInfo culture = new CultureInfo("en-US");
             mapCustumeObject.mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); // .ToString(culture) protože podìlanej c#
+            
             if (isMinimap)
             {
                 var newTransformation = _map.GeoToWorldPosition(vector2d, true);
                 float sceneHeight = newTransformation.y;//výška k zemi ve scénì
                 float deltaHeight = gameObject.transform.position.y - sceneHeight;
-                Debug.Log(deltaHeight);
+                //Debug.Log(deltaHeight);
                 float calculatedHeight = calcAbsoluteHeight(deltaHeight);
                 mapCustumeObject.mapObject.relativeAltitude = calculatedHeight;
             }
@@ -241,7 +240,8 @@ public class SpawnOnMap : MonoBehaviour
             if (mapCustumeObject.mapObject.relativeAltitude < 0)
                 mapCustumeObject.mapObject.relativeAltitude = 0;
 
-            mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
+            if(mapCustumeObject.manipulationDirtyFlag)
+                mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
         }
 
         if (!mapCustumeObject.underManipulation)

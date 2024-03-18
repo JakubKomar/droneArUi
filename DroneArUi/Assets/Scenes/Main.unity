@@ -23684,6 +23684,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.03, y: 0.04, z: 0.03}
   m_Center: {x: 0, y: 0, z: -0.012000037}
+--- !u!1 &876522931
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 876522932}
+  m_Layer: 0
+  m_Name: NewObjectDock
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &876522932
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 876522931}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1863880690}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &881857984
 GameObject:
   m_ObjectHideFlags: 0
@@ -35117,7 +35148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _planedRoute: []
-  mapObjectSers: []
   homeLocation:
     locationString: 
     name: 
@@ -39078,7 +39108,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.3400932, y: 0.3444907, z: 0.5835057}
   m_Center: {x: 0.006854415, y: 0.13062254, z: -0.00031724572}
@@ -47076,7 +47106,8 @@ Transform:
   m_LocalPosition: {x: 0.1984, y: 0.0023, z: 0.0201}
   m_LocalScale: {x: 0.047087792, y: 0.6336376, z: 0.010000001}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 876522932}
   m_Father: {fileID: 811744642}
   m_LocalEulerAnglesHint: {x: 90, y: -90, z: -90}
 --- !u!114 &1863880691
@@ -54795,7 +54826,7 @@ MonoBehaviour:
   _playerPrefab: {fileID: 1839187062704024, guid: 503a008dc18dc1a4f8856768211f6a00, type: 3}
   _poiPrefab: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
   _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
-  boxCollider: {fileID: 0}
+  boxCollider: {fileID: 1482345398}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 1
   lineRenderer: {fileID: 114478716810624010}
