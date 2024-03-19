@@ -106,8 +106,14 @@ public class SpawnOnMap : MonoBehaviour
         removalList.Clear();
     }
 
+
+    public void createNewObject(MapObject.ObjType type, GameObject gameObject)
+    {
+
+    }
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
     public void reCreateGameObjects() {
+        // smazání starých objektù
         foreach (var obj in allMapObjects)
         {
             Destroy(obj.spawnetGameObject);
@@ -208,7 +214,7 @@ public class SpawnOnMap : MonoBehaviour
         // propsání zmìn po a pøi manipulaci
         if (mapCustumeObject.underManipulation || mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
         {
-            if (isMinimap)
+            if ((!mapCustumeObject.underManipulation) && (isMinimap))
             {
                 if (!boxCollider.bounds.Contains(gameObject.transform.position))
                 {
