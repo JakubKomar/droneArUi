@@ -6647,7 +6647,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3512668110933330880, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Name
-      value: NewItemDoc-item (3)
+      value: WaningZoneSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Enabled
@@ -10442,7 +10442,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3512668110933330880, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Name
-      value: NewItemDoc-item
+      value: WaypointSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: itemPrefab
@@ -28379,7 +28379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1137979167}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Spawners
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31571,8 +31571,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.33932304, y: 0.41570383, z: 0.57237005}
-  m_Center: {x: 0.0028069627, y: 0.14214787, z: -0.0049599386}
+  m_Size: {x: 0.29818395, y: 0.41570383, z: 0.5586279}
+  m_Center: {x: 0.00027669716, y: 0.14214787, z: 0.01677331}
 --- !u!1 &1280192521
 GameObject:
   m_ObjectHideFlags: 0
@@ -36319,15 +36319,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3512668110933330880, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Name
-      value: NewItemDoc-item (1)
+      value: PoiSpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
+      propertyPath: type
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: itemPrefab
       value: 
-      objectReference: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
+      objectReference: {fileID: 7312719393256005487, guid: d6d3721f1165eb54b946b434b08d025d, type: 3}
+    - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
+      propertyPath: spawnOnMap
+      value: 
+      objectReference: {fileID: 114478716810624009}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: description
-      value: Poi
+      value: PoI
       objectReference: {fileID: 0}
     - target: {fileID: 8597152265007815238, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_LocalScale.x
@@ -43671,7 +43679,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3512668110933330880, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Name
-      value: NewItemDoc-item (2)
+      value: BarierSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Enabled
@@ -47145,7 +47153,7 @@ GameObject:
   - component: {fileID: 1863880692}
   - component: {fileID: 1863880691}
   m_Layer: 0
-  m_Name: UI Backplate NewObjectDock
+  m_Name: BackplateSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54002,7 +54010,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2130460722}
   m_Layer: 0
-  m_Name: UI background
+  m_Name: BackPlates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55208,7 +55216,7 @@ MonoBehaviour:
   _waypointPrefab: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
   _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
   _playerPrefab: {fileID: 1839187062704024, guid: 503a008dc18dc1a4f8856768211f6a00, type: 3}
-  _poiPrefab: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
+  _poiPrefab: {fileID: 7312719393256005487, guid: d6d3721f1165eb54b946b434b08d025d, type: 3}
   _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
   boxCollider: {fileID: 1278469115}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
@@ -55523,7 +55531,7 @@ MonoBehaviour:
   _waypointPrefab: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
   _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
   _playerPrefab: {fileID: 0}
-  _poiPrefab: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
+  _poiPrefab: {fileID: 7312719393256005487, guid: d6d3721f1165eb54b946b434b08d025d, type: 3}
   _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
   boxCollider: {fileID: 0}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}

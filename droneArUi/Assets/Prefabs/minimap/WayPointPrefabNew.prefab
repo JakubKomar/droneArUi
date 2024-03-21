@@ -356,12 +356,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1755149553078336074}
   - component: {fileID: 5156431223341485662}
-  - component: {fileID: 338950492540620973}
   - component: {fileID: 3685196579473972206}
   - component: {fileID: 9166347716537838651}
   - component: {fileID: 6384167640124056459}
   - component: {fileID: 5099399017860411338}
   - component: {fileID: 3825849993710130101}
+  - component: {fileID: 4995325872749082135}
   m_Layer: 0
   m_Name: WayPointPrefabNew
   m_TagString: Untagged
@@ -399,27 +399,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textMeshProComponent: {fileID: 6577328984798366049}
---- !u!65 &338950492540620973
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7312719393256005487}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.28, y: 0.28, z: 0.28}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3685196579473972206
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,3 +505,26 @@ MonoBehaviour:
   executionOrder: 0
   constraintOnRotation: -1
   useLocalSpaceForConstraint: 0
+--- !u!136 &4995325872749082135
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312719393256005487}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

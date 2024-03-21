@@ -501,9 +501,9 @@ public class MapObject: System.Object
 {
 
     [Geocode]
-    public string locationString; // gps pozice
+    public string locationString=""; // gps pozice
 
-    public string name; // zobrazovaný název
+    public string name=""; // zobrazovaný název
 
     public float relativeAltitude = 0f; // výška nad zemí 
 
