@@ -1,4 +1,5 @@
 // autor: jakub komárek
+using Mapbox.Examples;
 using Microsoft.MixedReality.Toolkit.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -63,10 +64,16 @@ public class newItemDocItem : MonoBehaviour
 
     private void onManipulationEnd(ManipulationEventData eventData)
     {
-        // call shared data create
-        // return object to spawner
-        Debug.Log("create object metod called");
+        
+        if (spawnOnMap == null)
+        {
+            Debug.LogError("dock:" + description + " dont have abstract map");
+            return;
+        }
+        // vytvoø objekt
+        spawnOnMap.createNewObject(type, movebleGameObject);
 
+        // pøesun objekt spátky do doku
         movebleGameObject.transform.localScale = Vector3.one;
         movebleGameObject.transform.localPosition = Vector3.zero;
     }

@@ -10449,6 +10449,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
+      propertyPath: spawnOnMap
+      value: 
+      objectReference: {fileID: 114478716810624009}
+    - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: description
       value: Waypoint
       objectReference: {fileID: 0}
@@ -31567,8 +31571,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.34739813, y: 0.41570383, z: 0.57237005}
-  m_Center: {x: 0.00684451, y: 0.14214787, z: -0.0049599386}
+  m_Size: {x: 0.33932304, y: 0.41570383, z: 0.57237005}
+  m_Center: {x: 0.0028069627, y: 0.14214787, z: -0.0049599386}
 --- !u!1 &1280192521
 GameObject:
   m_ObjectHideFlags: 0

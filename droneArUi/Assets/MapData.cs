@@ -11,6 +11,8 @@ using System.Text;
 
 using Mapbox.Utils;
 using UnityEngine.Events;
+using UnityEditor.SceneManagement;
+using LibVLCSharp;
 
 public class MapData : Singleton <MapData>
 {
@@ -209,7 +211,7 @@ public UnityEvent sevedFile =new UnityEvent();
 
         misionName = jsonFileTdo.misionName;
 
-        if(_planedRoute == null && _planedRoute.Count < 0) // domov je nastaven pod první waypoint - informace v csv formátu chybí
+        if(_planedRoute.Count > 0) // domov je nastaven pod první waypoint - informace v csv formátu chybí
         {
             calibrationScript.setHomeLocation(_planedRoute[0].locationString);
         }
@@ -307,10 +309,25 @@ public UnityEvent sevedFile =new UnityEvent();
         waypoint4.relativeAltitude = 4;
         _planedRoute.Add(waypoint4);
         onObjectChanged();
-
-
-        onObjectChanged();
-
+    }
+    public void addObject(MapObject NewObject) {
+        switch(NewObject.type){
+            case MapObject.ObjType.Waypoint:
+                Waypoint newWaypoint = new Waypoint(NewObject);
+                _planedRoute.Add(newWaypoint);
+                onObjectChanged();
+                break;
+            case MapObject.ObjType.ObjOfInterest:
+                ObjOfInterest newObjOfInterest = new ObjOfInterest(NewObject);
+                _objOfInterest.Add(newObjOfInterest);
+                onObjectChanged();
+                break;
+            case MapObject.ObjType.LandingPad:
+            case MapObject.ObjType.Barier: 
+            default:
+                Debug.Log("NewObject creation of:" + NewObject.type.ToString()+"not Suported");
+                break;
+        }
     }
 }
 
@@ -444,7 +461,7 @@ public class Player : MapObject
 [Serializable]
 public class Waypoint : MapObject
 {
-    public Waypoint()
+    public Waypoint(MapObject mapObject = null) : base(mapObject)
     {
         type = ObjType.Waypoint;
     }
@@ -460,7 +477,7 @@ public class Waypoint : MapObject
 [Serializable]
 public class ObjOfInterest : MapObject
 {
-    public ObjOfInterest()
+    public ObjOfInterest(MapObject mapObject = null):base(mapObject)
     {
         type = ObjType.ObjOfInterest;
     }
@@ -502,6 +519,16 @@ public class MapObject: System.Object
         ObjOfInterest
     }
     public ObjType type = ObjType.Unspecified;
+
+    public MapObject(MapObject mapObject = null ) 
+    {
+        if (mapObject != null) { 
+            locationString = mapObject.locationString;
+            name = mapObject.name;
+            relativeAltitude = mapObject.relativeAltitude;
+            type = mapObject.type;
+        }
+    }
 
 }
 

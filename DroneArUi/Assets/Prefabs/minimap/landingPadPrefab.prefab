@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f4a424246980d46a214433149ef222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textMesh: {fileID: 0}
+  textMeshProComponent: {fileID: 0}
 --- !u!1 &2477782058961469868
 GameObject:
   m_ObjectHideFlags: 0
@@ -58,7 +58,6 @@ GameObject:
   - component: {fileID: 8590679431812904775}
   - component: {fileID: 1116114561913353056}
   - component: {fileID: 7041883465692632204}
-  - component: {fileID: 2240732373610921595}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -155,19 +154,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &2240732373610921595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2477782058961469868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bfd0b103c3a7b74ba05dcf5264d1726, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _camera: {fileID: 0}
 --- !u!1 &4339170438134646547
 GameObject:
   m_ObjectHideFlags: 0

@@ -109,7 +109,36 @@ public class SpawnOnMap : MonoBehaviour
 
     public void createNewObject(MapObject.ObjType type, GameObject gameObject)
     {
+        if (!isMinimap)
+        {
+            Debug.LogError("object can be created only from minimap");
+            return;
+        }
+        // pokud mimo prostor mapy - objekt nevytváøej
+        if (boxCollider == null || !boxCollider.bounds.Contains(gameObject.transform.position))
+        {
+            //Debug.Log("Object not in space of map - creation stoped");
+            return;
+        }
 
+        MapObject mapObject = new MapObject();
+        mapObject.type = type;
+
+        //výpoèet pozice
+        Vector2d vector2d = _map.WorldToGeoPosition(gameObject.transform.position); // ziskej pozici gps na mapì
+
+        CultureInfo culture = new CultureInfo("en-US");
+        mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); 
+
+        // výpoèet výšky
+        var newTransformation = _map.GeoToWorldPosition(vector2d, true); 
+        float sceneHeight = newTransformation.y;//výška k zemi ve scénì
+        float deltaHeight = gameObject.transform.position.y - sceneHeight;
+        float calculatedHeight = calcAbsoluteHeight(deltaHeight);
+        mapObject.relativeAltitude = calculatedHeight;
+
+
+        mapData.addObject(mapObject);
     }
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
     public void reCreateGameObjects() {
@@ -147,8 +176,20 @@ public class SpawnOnMap : MonoBehaviour
     {
         for (int i = 0; i < planedRoute.Count; i++)
         {
-            if(planedRoute[i].spawnetGameObject!=null)
-                lineRenderer.SetPosition(i, planedRoute[i].spawnetGameObject.transform.position);
+            if (planedRoute[i].spawnetGameObject != null)
+            {
+                if (planedRoute[i].spawnetGameObject.activeSelf || !isMinimap)
+                {
+                    lineRenderer.SetPosition(i, planedRoute[i].spawnetGameObject.transform.position);
+                }
+                else // pokud je objekt mimo minimapu je výška odvozena ze støedu minimapy (aby nedocházelo ke skreslení trasy)
+                {
+                    Vector3 vector = planedRoute[i].spawnetGameObject.transform.position;
+
+                    vector.y = calcScenePosition(_map.GeoToWorldPosition(_map.CenterLatitudeLongitude).y, planedRoute[i].mapObject.relativeAltitude);
+                    lineRenderer.SetPosition(i, vector);
+                }
+            }
         }
     }
 
