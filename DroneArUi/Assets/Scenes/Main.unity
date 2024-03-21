@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6650,6 +6650,10 @@ PrefabInstance:
       value: NewItemDoc-item (3)
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: description
       value: Warning
       objectReference: {fileID: 0}
@@ -10440,6 +10444,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NewItemDoc-item
       objectReference: {fileID: 0}
+    - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
+      propertyPath: itemPrefab
+      value: 
+      objectReference: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: description
       value: Waypoint
@@ -28792,7 +28800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   thumbRoot: {fileID: 1130203441}
-  isTouchable: 0
+  isTouchable: 1
   snapToPosition: 1
   thumbCollider: {fileID: 875068433}
   touchCollider: {fileID: 887246151}
@@ -28803,8 +28811,8 @@ MonoBehaviour:
   tickMarks: {fileID: 852178366}
   thumbVisuals: {fileID: 1596316147}
   sliderAxis: 0
-  sliderStartDistance: -0.12571101
-  sliderEndDistance: 0.12560385
+  sliderStartDistance: -0.12574579
+  sliderEndDistance: 0.12562244
   OnValueUpdated:
     m_PersistentCalls:
       m_Calls:
@@ -36310,6 +36318,10 @@ PrefabInstance:
       value: NewItemDoc-item (1)
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
+      propertyPath: itemPrefab
+      value: 
+      objectReference: {fileID: 1839187062704024, guid: 3d3e8ccc8add7af45afee8978a402e09, type: 3}
+    - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: description
       value: Poi
       objectReference: {fileID: 0}
@@ -43656,6 +43668,10 @@ PrefabInstance:
     - target: {fileID: 3512668110933330880, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Name
       value: NewItemDoc-item (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: description

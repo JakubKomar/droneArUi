@@ -135,7 +135,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2818305352023540888}
   - {fileID: 3889849178664669560}
   - {fileID: 8400905956558701604}
   m_Father: {fileID: 0}
@@ -155,6 +154,7 @@ MonoBehaviour:
   spawnOnMap: {fileID: 0}
   itemPrefab: {fileID: 0}
   descriptionTextMash: {fileID: 1566841812143824491}
+  type: 0
   description: 
 --- !u!1 &6340730762028867118
 GameObject:
@@ -405,65 +405,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1001 &4559660363269373650
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 8597152265007815238}
-    m_Modifications:
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-      propertyPath: m_Name
-      value: WayPointPrefabNew
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
---- !u!4 &2818305352023540888 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1755149553078336074, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
-  m_PrefabInstance: {fileID: 4559660363269373650}
-  m_PrefabAsset: {fileID: 0}
