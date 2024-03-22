@@ -49,6 +49,9 @@ public class SpawnOnMap : MonoBehaviour
     GameObject _dronePrefab;
 
     [SerializeField]
+    GameObject _barierPrefab;
+
+    [SerializeField]
     BoxCollider boxCollider = null;
 
     [SerializeField]
@@ -225,6 +228,12 @@ public class SpawnOnMap : MonoBehaviour
                     if (_waypointPrefab == null)
                         return;
                     gameObject = Instantiate(_waypointPrefab);
+                    mapCustumeObject.spawnetGameObject = gameObject;
+                    break;
+                case MapObject.ObjType.Barier:
+                    if (_barierPrefab == null)
+                        return;
+                    gameObject = Instantiate(_barierPrefab);
                     mapCustumeObject.spawnetGameObject = gameObject;
                     break;
                 default:

@@ -403,9 +403,13 @@ public class MapData : Singleton <MapData>
                 ObjOfInterest newObjOfInterest = new ObjOfInterest(this,NewObject);
                 _objOfInterest.Add(newObjOfInterest);
                 onObjectChanged();
+                break;          
+            case MapObject.ObjType.Barier:
+                Barier barier = new Barier(this, NewObject);
+                _otherObjects.Add(barier);
+                onObjectChanged();
                 break;
             case MapObject.ObjType.LandingPad:
-            case MapObject.ObjType.Barier: 
             default:
                 Debug.Log("NewObject creation of:" + NewObject.type.ToString()+"not Suported");
                 break;
@@ -589,6 +593,14 @@ public class DroneObject : MapObject
     public DroneObject(MapData mapData):base(mapData)
     {
         type = ObjType.Drone;
+    }
+}
+[Serializable]
+public class Barier : MapObject
+{
+    public Barier(MapData mapData, MapObject mapObject = null) : base(mapData, mapObject)
+    {
+        type = ObjType.Barier;
     }
 }
 
