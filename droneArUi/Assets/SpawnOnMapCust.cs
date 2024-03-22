@@ -104,6 +104,7 @@ public class SpawnOnMap : MonoBehaviour
 
         mapData.spawnedObjectDeletion(removalList);
         removalList.Clear();
+
     }
 
 
@@ -121,7 +122,7 @@ public class SpawnOnMap : MonoBehaviour
             return;
         }
 
-        MapObject mapObject = new MapObject();
+        MapObject mapObject = new MapObject(null);
         mapObject.type = type;
 
         //výpoèet pozice
@@ -250,6 +251,11 @@ public class SpawnOnMap : MonoBehaviour
                 //objectManipulator.OnHoverExited.AddListener(mapCustumeObject.onHoverEnd);
             }
 
+            MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>();
+            if (mapGameObjectData!=null)
+            {
+                mapGameObjectData.mapObjectData = mapCustumeObject;
+            }
         }
 
         // propsání zmìn po a pøi manipulaci

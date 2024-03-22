@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 851507512389760911}
   - component: {fileID: 1234500454962110751}
   - component: {fileID: 8072828053953058581}
+  - component: {fileID: -4997139107249095024}
   m_Layer: 10
   m_Name: BarierPrefab
   m_TagString: Untagged
@@ -156,7 +157,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75f4a424246980d46a214433149ef222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _textMesh: {fileID: 0}
+  textMeshProComponent: {fileID: 0}
 --- !u!65 &4040237016279231047
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -266,6 +267,23 @@ MonoBehaviour:
   executionOrder: 0
   constraintOnRotation: -1
   useLocalSpaceForConstraint: 0
+--- !u!114 &-4997139107249095024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839187062704024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1f2e8c64c35c24c89a5474dbd91de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapObject:
+    locationString: 
+    name: 
+    relativeAltitude: 0
+    type: 0
 --- !u!1 &2697121987608023007
 GameObject:
   m_ObjectHideFlags: 0

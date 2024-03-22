@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4936519322476758}
-  - component: {fileID: 114657051886494624}
-  - component: {fileID: 9078128318852493733}
+  - component: {fileID: 4452040727291970588}
+  - component: {fileID: 2248610439068535291}
   m_Layer: 10
   m_Name: dronePrefab
-  m_TagString: Untagged
+  m_TagString: drone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,21 +34,8 @@ Transform:
   - {fileID: 6998921127021031364}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114657051886494624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1839187062704024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75f4a424246980d46a214433149ef222, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _textMesh: {fileID: 0}
---- !u!65 &9078128318852493733
-BoxCollider:
+--- !u!136 &4452040727291970588
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -65,9 +52,28 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.5, y: 0.16091412, z: 0.45030117}
-  m_Center: {x: 0, y: 0.09482671, z: -0.018220283}
+  serializedVersion: 2
+  m_Radius: 1
+  m_Height: 2.5
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2248610439068535291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839187062704024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f1f2e8c64c35c24c89a5474dbd91de3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapObject:
+    locationString: 
+    name: 
+    relativeAltitude: 0
+    type: 0
 --- !u!1001 &3109870760263001326
 PrefabInstance:
   m_ObjectHideFlags: 0

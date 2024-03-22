@@ -20,6 +20,7 @@ public class MapData : Singleton <MapData>
     // uložená trasa
     [HideInInspector]
     public List<Waypoint> _planedRoute = new List<Waypoint>();
+    public int _planedRouteCurrentWaypoint = 0;
 
     // objekty zájmu - pokud jsou nìjaké
     [HideInInspector]
@@ -31,13 +32,13 @@ public class MapData : Singleton <MapData>
     private DroneManager droneManger = null;
 
     [HideInInspector]
-    private DroneObject droneObj = new DroneObject();
+    private DroneObject droneObj = null;
 
 
-    public MapObject homeLocation = new MapObject();
+    public MapObject homeLocation = null;
 
     [HideInInspector]
-    private Player player = new Player();
+    private Player player = null;
 
     [HideInInspector]
     public List<MapObject> allObjects = new List<MapObject>();
@@ -53,13 +54,19 @@ public class MapData : Singleton <MapData>
     public string pathToDirCsvExport = "";
     
 
-public UnityEvent sevedFile =new UnityEvent();
+    public UnityEvent sevedFile =new UnityEvent();
+
+
 
     private void Awake()
     {
     }
     void Start()
     {
+        droneObj = new DroneObject(this);
+        homeLocation = new MapObject(this);
+        player = new Player(this);
+
         pathToDir = Path.Combine(Application.persistentDataPath, "misions/");
         pathToDirCsvExport = Path.Combine(Application.persistentDataPath, "misions/export_csv/");
 
@@ -74,6 +81,9 @@ public UnityEvent sevedFile =new UnityEvent();
         homeLocation.name = "home";
         homeLocation.relativeAltitude = 0;
         homeLocation.type = MapObject.ObjType.LandingPad;
+
+        _planedRouteCurrentWaypoint = 0;
+
 
         onObjectChanged();
     }
@@ -112,6 +122,63 @@ public UnityEvent sevedFile =new UnityEvent();
         player.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerGps.x, calibrationScript.playerGps.y);
         player.heading = calibrationScript.playerHading;
 
+    }
+
+    public void onWaypointCrossed(int index,bool skip=false)
+    {
+        if (index == _planedRouteCurrentWaypoint)
+        {
+            if(_planedRoute.Count >index) {
+                _planedRoute[index].setAsTarget = false;
+                _planedRoute[index].hasBeenVisited = true;
+            }
+            _planedRouteCurrentWaypoint++;
+            index++;
+            if (_planedRoute.Count > index)
+            {
+                _planedRoute[index].setAsTarget = true;
+                if (skip)
+                {
+                    TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                    textToSpeechSyntetizer.say("Waypoint skiped.");
+                }
+                else {
+                    TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                    textToSpeechSyntetizer.say("Waypoint reached.");
+                }
+
+            }
+            else
+            {
+                trackComplete();
+            }
+        }
+    }
+
+    public void onSkipWaypoint()
+    {
+        onWaypointCrossed(_planedRouteCurrentWaypoint,true);
+    }
+
+    public void onResetRoute()
+    {
+        _planedRouteCurrentWaypoint = 0;
+        foreach (var route in _planedRoute)
+        {
+            route.onReset();
+        }
+        if (_planedRoute.Count > 0)
+        {
+            _planedRoute[0].setAsTarget=true;
+        }
+    }
+
+    public void trackComplete()
+    {
+        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+        textToSpeechSyntetizer.say("Flyplan completed.");
+
+        onResetRoute();
     }
 
     public void saveMisionAsNew()
@@ -164,6 +231,7 @@ public UnityEvent sevedFile =new UnityEvent();
                 _planedRoute= jsonFileTdo._planedRoute;
                 _objOfInterest= jsonFileTdo._objOfInterest;
                 _otherObjects =jsonFileTdo._otherObjects;
+                _planedRouteCurrentWaypoint = 0;
 
                 if (jsonFileTdo.homeLocation != null)
                     calibrationScript.setHomeLocation(jsonFileTdo.homeLocation.locationString);
@@ -182,7 +250,7 @@ public UnityEvent sevedFile =new UnityEvent();
         catch (Exception ex)
         {
             TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
-            textToSpeechSyntetizer.say("File corupted.");
+            textToSpeechSyntetizer.say("File corupted:"+ex);
         }
         onObjectChanged();
     }
@@ -203,7 +271,7 @@ public UnityEvent sevedFile =new UnityEvent();
     public void loadCsvMision(string path,string name)
     {
         JsonFileTdo jsonFileTdo =new JsonFileTdo();
-        jsonFileTdo.loadCsv(path,name);
+        jsonFileTdo.loadCsv(path,name,this);
 
         _planedRoute = jsonFileTdo._planedRoute;
         _objOfInterest = jsonFileTdo._objOfInterest;
@@ -231,9 +299,23 @@ public UnityEvent sevedFile =new UnityEvent();
         allObjects.Add(homeLocation);
 
         int index = 0;
+        if(_planedRouteCurrentWaypoint>= _planedRoute.Count)
+        {
+            onResetRoute();
+        }
+
         foreach (var obj in _planedRoute)
         {
+            obj.onReset();
+            obj.setAsTarget = index == _planedRouteCurrentWaypoint;
             obj.pos= index;
+            index++;
+        }
+
+        index = 0;
+        foreach (var obj in _objOfInterest)
+        {
+            obj.name = index.ToString();
             index++;
         }
 
@@ -270,41 +352,41 @@ public UnityEvent sevedFile =new UnityEvent();
         _planedRoute.Clear();
         _objOfInterest.Clear();
         _otherObjects.Clear();
-        Waypoint waypoint0 = new Waypoint();
+        Waypoint waypoint0 = new Waypoint(this);
         waypoint0.locationString = "49.22732,16.59683";
         waypoint0.relativeAltitude = 0;
         _planedRoute.Add(waypoint0);
-        Waypoint waypoint1=new Waypoint();
+        Waypoint waypoint1=new Waypoint(this);
         waypoint1.locationString = "49.22732,16.59683";
         waypoint1.relativeAltitude = 1;
         _planedRoute.Add(waypoint1);
 
-        Waypoint waypoint2=new Waypoint();
+        Waypoint waypoint2=new Waypoint(this);
         waypoint2.locationString = "49.22732,16.59683";
         waypoint2.relativeAltitude = 2;
         _planedRoute.Add(waypoint2);
 
-        Waypoint waypoint5 = new Waypoint();
+        Waypoint waypoint5 = new Waypoint(this);
         waypoint5.locationString = "49.22732,16.59683";
         waypoint5.relativeAltitude = 2;
         _planedRoute.Add(waypoint5);
 
-        Waypoint waypoint6 = new Waypoint();
+        Waypoint waypoint6 = new Waypoint(this);
         waypoint6.locationString = "49.22732,16.59683";
         waypoint6.relativeAltitude = 3;
         _planedRoute.Add(waypoint6);
 
-        Waypoint waypoint7 = new Waypoint();
+        Waypoint waypoint7 = new Waypoint(this);
         waypoint7.locationString = "49.22732,16.59683";
         waypoint7.relativeAltitude = 4;
         _planedRoute.Add(waypoint7);
 
-        Waypoint waypoint3=new Waypoint();
+        Waypoint waypoint3=new Waypoint(this);
         waypoint3.locationString = "49.22714707969114, 16.596684655372727";
         waypoint3.relativeAltitude = 3;
         _planedRoute.Add(waypoint3);
 
-        Waypoint waypoint4=new Waypoint();
+        Waypoint waypoint4=new Waypoint(this);
         waypoint4.locationString = "49.2272752000998, 16.597385833024425";
         waypoint4.relativeAltitude = 4;
         _planedRoute.Add(waypoint4);
@@ -313,12 +395,12 @@ public UnityEvent sevedFile =new UnityEvent();
     public void addObject(MapObject NewObject) {
         switch(NewObject.type){
             case MapObject.ObjType.Waypoint:
-                Waypoint newWaypoint = new Waypoint(NewObject);
+                Waypoint newWaypoint = new Waypoint(this,NewObject);
                 _planedRoute.Add(newWaypoint);
                 onObjectChanged();
                 break;
             case MapObject.ObjType.ObjOfInterest:
-                ObjOfInterest newObjOfInterest = new ObjOfInterest(NewObject);
+                ObjOfInterest newObjOfInterest = new ObjOfInterest(this,NewObject);
                 _objOfInterest.Add(newObjOfInterest);
                 onObjectChanged();
                 break;
@@ -392,7 +474,7 @@ public class JsonFileTdo : System.Object
         }
     }
 
-    public void  loadCsv(string path,string name)
+    public void  loadCsv(string path,string name,MapData mapData)
     {
         // clean up
         _planedRoute.Clear();
@@ -411,7 +493,7 @@ public class JsonFileTdo : System.Object
                 {
                     string[] values = lines[i].Split(',');
 
-                    Waypoint waypoint = new Waypoint();
+                    Waypoint waypoint = new Waypoint(mapData);
                     waypoint.locationString = string.Format("{0}, {1}", values[0], values[1]);
 
                     if (float.TryParse(values[2], out float result))
@@ -450,7 +532,7 @@ public class JsonFileTdo : System.Object
 [Serializable]
 public class Player : MapObject
 {
-    public Player()
+    public Player(MapData mapData):base(mapData)
     {
         type = ObjType.Player;
     }
@@ -461,7 +543,7 @@ public class Player : MapObject
 [Serializable]
 public class Waypoint : MapObject
 {
-    public Waypoint(MapObject mapObject = null) : base(mapObject)
+    public Waypoint(MapData mapData, MapObject mapObject = null) : base(mapData,mapObject)
     {
         type = ObjType.Waypoint;
     }
@@ -470,6 +552,21 @@ public class Waypoint : MapObject
     public double radius;
     public int pos = -1;
 
+    [JsonIgnore]
+    public bool hasBeenVisited=false;
+    [JsonIgnore]
+    public bool setAsTarget = false;
+
+    public void onDroneEnterColider() {
+        mapData.onWaypointCrossed(pos);
+    }
+
+    public void onReset()
+    {
+        hasBeenVisited = false;
+        setAsTarget = false;
+    }
+
     public ObjOfInterest objOfInterest = null;
 
 }
@@ -477,7 +574,7 @@ public class Waypoint : MapObject
 [Serializable]
 public class ObjOfInterest : MapObject
 {
-    public ObjOfInterest(MapObject mapObject = null):base(mapObject)
+    public ObjOfInterest(MapData mapData,MapObject mapObject = null):base(mapData,mapObject)
     {
         type = ObjType.ObjOfInterest;
     }
@@ -489,7 +586,7 @@ public class DroneObject : MapObject
     public DroneFlightData droneFlightData = null;
     public Quaternion rotation= Quaternion.identity;
 
-    public DroneObject()
+    public DroneObject(MapData mapData):base(mapData)
     {
         type = ObjType.Drone;
     }
@@ -507,6 +604,9 @@ public class MapObject: System.Object
 
     public float relativeAltitude = 0f; // výška nad zemí 
 
+    [JsonIgnore]
+    public MapData mapData = null;
+
     public enum ObjType
     {
         Waypoint,
@@ -520,7 +620,7 @@ public class MapObject: System.Object
     }
     public ObjType type = ObjType.Unspecified;
 
-    public MapObject(MapObject mapObject = null ) 
+    public MapObject(MapData mapData, MapObject mapObject = null ) 
     {
         if (mapObject != null) { 
             locationString = mapObject.locationString;
@@ -528,6 +628,7 @@ public class MapObject: System.Object
             relativeAltitude = mapObject.relativeAltitude;
             type = mapObject.type;
         }
+        this.mapData = mapData;
     }
 
 }
