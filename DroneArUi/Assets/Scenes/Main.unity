@@ -6660,7 +6660,7 @@ PrefabInstance:
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: itemPrefab
       value: 
-      objectReference: {fileID: 1839187062704024, guid: 43de2a5b41e80f344afa000160cf081e, type: 3}
+      objectReference: {fileID: 7312719393256005487, guid: 714df81a434f88e45a850e0443264f2b, type: 3}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: spawnOnMap
       value: 
@@ -43746,7 +43746,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: type
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: m_Enabled
@@ -43755,7 +43755,7 @@ PrefabInstance:
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: itemPrefab
       value: 
-      objectReference: {fileID: 1839187062704024, guid: 43de2a5b41e80f344afa000160cf081e, type: 3}
+      objectReference: {fileID: 7312719393256005487, guid: 04c6039ca1d949c45b92c4a5eaeda08f, type: 3}
     - target: {fileID: 6046726891929201079, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
       propertyPath: spawnOnMap
       value: 
@@ -55293,7 +55293,8 @@ MonoBehaviour:
   _playerPrefab: {fileID: 1839187062704024, guid: 503a008dc18dc1a4f8856768211f6a00, type: 3}
   _poiPrefab: {fileID: 7312719393256005487, guid: d6d3721f1165eb54b946b434b08d025d, type: 3}
   _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
-  _barierPrefab: {fileID: 1839187062704024, guid: 43de2a5b41e80f344afa000160cf081e, type: 3}
+  _barierPrefab: {fileID: 7312719393256005487, guid: 04c6039ca1d949c45b92c4a5eaeda08f, type: 3}
+  _warningPrefab: {fileID: 7312719393256005487, guid: 714df81a434f88e45a850e0443264f2b, type: 3}
   boxCollider: {fileID: 1278469115}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 1
@@ -55610,6 +55611,7 @@ MonoBehaviour:
   _poiPrefab: {fileID: 7312719393256005487, guid: d6d3721f1165eb54b946b434b08d025d, type: 3}
   _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
   _barierPrefab: {fileID: 0}
+  _warningPrefab: {fileID: 0}
   boxCollider: {fileID: 0}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 0

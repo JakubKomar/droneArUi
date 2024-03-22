@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2234593915553792465}
   - component: {fileID: 4577004656114630834}
   - component: {fileID: 2194446291938589840}
+  - component: {fileID: 322791809392691549}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f4045e69c4fc5084fb9aa7c7fcd06122, type: 2}
+  - {fileID: 2100000, guid: 9c0a14eadd8c59241ae1e72a8b8e0eb4, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -83,6 +84,27 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &322791809392691549
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2256640746785812441}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7312719393256005487
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,9 +121,9 @@ GameObject:
   - component: {fileID: 5099399017860411338}
   - component: {fileID: 3825849993710130101}
   - component: {fileID: 1606845647115576160}
-  - component: {fileID: 1551022160263990440}
+  - component: {fileID: -2723541988154591974}
   m_Layer: 0
-  m_Name: Barier
+  m_Name: Warning
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -263,7 +285,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1551022160263990440
+--- !u!114 &-2723541988154591974
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

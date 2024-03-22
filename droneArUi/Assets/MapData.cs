@@ -14,6 +14,7 @@ using UnityEngine.Events;
 using UnityEditor.SceneManagement;
 using LibVLCSharp;
 
+
 public class MapData : Singleton <MapData>
 {
     // Start is called before the first frame update
@@ -56,7 +57,8 @@ public class MapData : Singleton <MapData>
 
     public UnityEvent sevedFile =new UnityEvent();
 
-
+    private bool droneInBarier=false;
+    private bool droneInWarningBarier=false;
 
     private void Awake()
     {
@@ -179,6 +181,48 @@ public class MapData : Singleton <MapData>
         textToSpeechSyntetizer.say("Flyplan completed.");
 
         onResetRoute();
+    }
+
+    public void droneEnterBarier(bool isWarning)
+    {
+        if(isWarning) {
+            if (droneInWarningBarier == false)
+            {
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Drone enter warning zone.");
+                droneInWarningBarier = true;
+            }
+        }
+        else
+        {
+            if(droneInBarier==false)
+            {
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Drone enter danger zone.");
+                droneInBarier = true;
+            }
+        }
+    }
+    public void droneLeaveBarier(bool isWarning)
+    {
+        if (isWarning)
+        {
+            if (droneInWarningBarier == true)
+            {
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Drone leave warning zone.");
+                droneInWarningBarier = false;
+            }
+        }
+        else
+        {
+            if (droneInBarier == true)
+            {
+                TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+                textToSpeechSyntetizer.say("Drone leave danger zone.");
+                droneInBarier = false;
+            }
+        }
     }
 
     public void saveMisionAsNew()
@@ -409,6 +453,11 @@ public class MapData : Singleton <MapData>
                 _otherObjects.Add(barier);
                 onObjectChanged();
                 break;
+            case MapObject.ObjType.Warning:
+                Warning warning = new Warning(this, NewObject);
+                _otherObjects.Add(warning);
+                onObjectChanged();
+                break;
             case MapObject.ObjType.LandingPad:
             default:
                 Debug.Log("NewObject creation of:" + NewObject.type.ToString()+"not Suported");
@@ -598,14 +647,33 @@ public class DroneObject : MapObject
 [Serializable]
 public class Barier : MapObject
 {
+    public bool isWarning=false;
     public Barier(MapData mapData, MapObject mapObject = null) : base(mapData, mapObject)
     {
         type = ObjType.Barier;
     }
+
+    virtual public void onDroneEnterColider()
+    {
+        mapData.droneEnterBarier(isWarning);
+    }
+    virtual public void onDroneLeaveColider()
+    {
+        mapData.droneLeaveBarier(isWarning);
+    }
 }
 
-
 [Serializable]
+public class Warning : Barier
+{
+    public Warning(MapData mapData, MapObject mapObject = null) : base(mapData, mapObject)
+    {
+        type = ObjType.Warning;
+        isWarning = true;   
+    }
+}
+
+    [Serializable]
 public class MapObject: System.Object
 {
 
@@ -625,8 +693,8 @@ public class MapObject: System.Object
         LandingPad,
         Player,
         Drone,
-        PowerLine,
         Barier,
+        Warning,
         Unspecified,
         ObjOfInterest
     }
