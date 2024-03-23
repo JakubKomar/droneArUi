@@ -11,9 +11,8 @@ using System.Text;
 
 using Mapbox.Utils;
 using UnityEngine.Events;
-using UnityEditor.SceneManagement;
-using LibVLCSharp;
-
+using TMPro.EditorUtilities;
+using Unity.VisualScripting;
 
 public class MapData : Singleton <MapData>
 {
@@ -21,7 +20,7 @@ public class MapData : Singleton <MapData>
     // uložená trasa
     [HideInInspector]
     public List<Waypoint> _planedRoute = new List<Waypoint>();
-    public int _planedRouteCurrentWaypoint = 0;
+    private int _planedRouteCurrentWaypoint = 0;
 
     // objekty zájmu - pokud jsou nìjaké
     [HideInInspector]
@@ -500,6 +499,12 @@ public class JsonFileTdo : System.Object
         }
     }
 
+    double calcDistance(Vector2d firstPos,Vector2d secondPos)
+    {
+        return Math.Abs(firstPos.x - secondPos.x) + Math.Abs(firstPos.y - secondPos.y);
+    }
+
+
     public void saveCsv(string dirPath) //lichi kompatible format
     {
         try
@@ -513,9 +518,26 @@ public class JsonFileTdo : System.Object
                 // jednotlivé waypointy
                 foreach (var waypoint in _planedRoute)
                 {
-                    Vector2d vector2D = Conversions.StringToLatLon(waypoint.locationString);
+                    Vector2d waypointVec = Conversions.StringToLatLon(waypoint.locationString);
 
-                    sw.WriteLine($"{vector2D.x.ToString(culture)},{vector2D.y.ToString(culture)},{waypoint.relativeAltitude.ToString(culture)},0,3,0,0,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,0,0,0,0,0,0,-1,-1");
+                    ObjOfInterest poi = null;
+
+                    // najdu nejbližší poi k waypountu
+                    foreach (var itrPoi in _objOfInterest)
+                    {
+                        if (poi == null) { poi = itrPoi; continue; }
+
+                        Vector2d poiVector = Conversions.StringToLatLon(itrPoi.locationString);
+
+                        if (calcDistance(waypointVec, poiVector) < calcDistance(waypointVec, Conversions.StringToLatLon(poi.locationString))) {
+                            poi = itrPoi;
+                        }
+                    }
+
+                    float poiX= poi==null?0: (float)Conversions.StringToLatLon(poi.locationString).x;
+                    float poiY = poi == null ? 0 : (float)Conversions.StringToLatLon(poi.locationString).y;
+                    float poiAlt = poi == null ? 0 : poi.relativeAltitude;
+                    sw.WriteLine($"{waypointVec.x.ToString(culture)},{waypointVec.y.ToString(culture)},{waypoint.relativeAltitude.ToString(culture)},0,3,0,0,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,0,0,{poiX.ToString(culture)},{poiY.ToString(culture)},{poiAlt.ToString(culture)},0,-1,-1");
                 }
             }
         }
@@ -546,6 +568,7 @@ public class JsonFileTdo : System.Object
                 {
                     string[] values = lines[i].Split(',');
 
+                    // vytvoøení waypointu
                     Waypoint waypoint = new Waypoint(mapData);
                     waypoint.locationString = string.Format("{0}, {1}", values[0], values[1]);
 
@@ -558,10 +581,41 @@ public class JsonFileTdo : System.Object
                         throw new Exception("converzion error");
                     }
                     this._planedRoute.Add(waypoint);
+
+                    // pokud není poi nastaveno - skip
+                    if (values[40]=="0"|| values[41]=="0")
+                    {
+                        continue;
+                    }
+
+                    string poiLocationString = string.Format("{0}, {1}", values[40], values[41]);
+                    float poiRelAlt = 0;
+
+                    if (float.TryParse(values[42], out float result2))                   
+                        poiRelAlt = result;                    
+                    else
+                        throw new Exception("converzion error");
+                    
+                    //zkusíme dané poi najít - pokud existuje skip
+                    bool founded = false;
+                    foreach (var poi in _objOfInterest)
+                    {
+                        if (poi.locationString == poiLocationString)
+                        {
+                            founded=true;
+                            break;
+                        }
+                    }
+                    if (!founded)
+                    {
+                        ObjOfInterest objOfInterest = new ObjOfInterest(mapData);
+                        objOfInterest.locationString = poiLocationString;
+                        objOfInterest.relativeAltitude = poiRelAlt;
+                        _objOfInterest.Add(objOfInterest);
+                    }
                 }
                 TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
                 textToSpeechSyntetizer.say("Mission loaded successfully.");
-
             }
             else
             {
