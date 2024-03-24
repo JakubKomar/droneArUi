@@ -27,7 +27,6 @@ public class CompassIndicator : MonoBehaviour
     private float canvasWidth;
     private float canvasHeight;
 
-    [SerializeField]
     private float heading = 23;
 
 

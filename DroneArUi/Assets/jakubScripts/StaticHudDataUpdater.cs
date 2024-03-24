@@ -10,25 +10,49 @@ public class StaticHudDataUpdater : MonoBehaviour
 {
     // Start is called before the first frame update
     private DroneManager droneManager;
-    public TMP_Text altitute =null;
-    public TMP_Text speed =null;
-    public TMP_Text rotation = null;
+
+    [SerializeField]
+    TMP_Text altitute =null;
+    [SerializeField]
+    TMP_Text speed =null;
+
+    [SerializeField]
+    TMP_Text rotation = null;
+
+    [SerializeField]
+    TMP_Text battery = null;
+
+    [SerializeField]
+    TMP_Text cameraAngl = null;
+
+    [SerializeField]
+    TMP_Text time = null;
+
+    [SerializeField]
+    TMP_Text flyMod = null;
 
     [SerializeField]
     private Transform playerCamera;
     [SerializeField]
     private Transform wordMapbox;
     public float playerHading = 0;
+
+    [SerializeField]
+    int batteryLevel = 99;
+
+    [SerializeField]
+    flyModEnum droneMod = flyModEnum.position;
     void Start()
     {
         droneManager = DroneManager.Instance;
     }
 
     // Update is called once per frame
+
+    private float batterySimulationTimeStamp=0;
+    private float batteryPercetInterval = 15;
     void Update()
     {
-
-
         /*if (rotation != null) {
              double normalizeCompas = myDrone.FlightData.Compass;
              if(normalizeCompas < 0) {
@@ -45,8 +69,12 @@ public class StaticHudDataUpdater : MonoBehaviour
         rotation.text=playerHading.ToString();
 
         Drone myDrone = droneManager.ControlledDrone;
+        time.text = DateTime.Now.ToString("HH:mm");
 
-        if (myDrone == null) { return; }
+        if (myDrone == null) {
+            //batteryLevel = 99;
+            return; 
+        }
 
         if (altitute != null)
         {
@@ -60,6 +88,25 @@ public class StaticHudDataUpdater : MonoBehaviour
             speed.text = Math.Round((Decimal)newSpeed, 0, MidpointRounding.AwayFromZero).ToString();
         }
 
+        //simulace spotøeby baterie
+        if (Time.time - batterySimulationTimeStamp > 15)
+        {
+            batteryLevel--;
+            batterySimulationTimeStamp = Time.time;
+        }
+        battery.text = batteryLevel.ToString();
 
+
+        cameraAngl.text =Math.Round( myDrone.FlightData.gimbalOrientation.pitch).ToString()+ "°";
+        
+        flyMod.text= droneMod.ToString();
+
+    }
+
+    enum flyModEnum
+    {
+        position,
+        cinematic,
+        sport
     }
 }
