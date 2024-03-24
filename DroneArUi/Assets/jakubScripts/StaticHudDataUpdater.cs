@@ -18,6 +18,7 @@ public class StaticHudDataUpdater : MonoBehaviour
     private Transform playerCamera;
     [SerializeField]
     private Transform wordMapbox;
+    public float playerHading = 0;
     void Start()
     {
         droneManager = DroneManager.Instance;
@@ -35,7 +36,8 @@ public class StaticHudDataUpdater : MonoBehaviour
              }
              rotation.text = Math.Round((Decimal)normalizeCompas, 0, MidpointRounding.AwayFromZero).ToString();
          }*/
-        float playerHading=playerCamera.rotation.eulerAngles.y - wordMapbox.rotation.eulerAngles.y;
+
+        playerHading=playerCamera.rotation.eulerAngles.y - wordMapbox.rotation.eulerAngles.y;
         playerHading = playerHading % 360;
         if (playerHading < 0)
             playerHading += 360;

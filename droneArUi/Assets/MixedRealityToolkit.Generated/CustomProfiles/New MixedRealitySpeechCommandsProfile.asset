@@ -53,7 +53,7 @@ MonoBehaviour:
       axisConstraint: 0
   - localizationKey: 
     keyword: Calibrate
-    keyCode: 0
+    keyCode: 263
     action:
       id: 0
       description: None
