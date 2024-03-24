@@ -15382,6 +15382,7 @@ GameObject:
   - component: {fileID: 519927809}
   - component: {fileID: 519927808}
   - component: {fileID: 519927815}
+  - component: {fileID: 519927816}
   m_Layer: 5
   m_Name: StaticHud-v2
   m_TagString: Untagged
@@ -15562,6 +15563,20 @@ MonoBehaviour:
   altitute: {fileID: 1412165571}
   speed: {fileID: 655518218}
   rotation: {fileID: 810029570}
+  playerCamera: {fileID: 1590441517}
+  wordMapbox: {fileID: 4867832589321306}
+--- !u!114 &519927816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519927807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff4e3b9019304b5aaec5664de0778d21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &527193417
 GameObject:
   m_ObjectHideFlags: 0
@@ -19038,9 +19053,7 @@ MonoBehaviour:
   min: 0
   max: 151
   visibleCount: 50
-  canvasWidth: 0
-  canvasHeight: 0
-  alt: 23
+  testAlt: 23
 --- !u!114 &714993244
 MonoBehaviour:
   m_ObjectHideFlags: 0

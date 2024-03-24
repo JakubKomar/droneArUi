@@ -35,6 +35,8 @@ public class AltIndicator : MonoBehaviour
     private List<GameObject> largeStupniceList = new List<GameObject>();
     private List<GameObject> smallStupniceList = new List<GameObject>();
     private DroneManager droneManager;
+
+    float lastAltWarning = 0;
     void Start()
     {
         droneManager = FindObjectOfType<DroneManager>();
@@ -71,7 +73,6 @@ public class AltIndicator : MonoBehaviour
 
 
         }
-
     }
 
     // Update is called once per frame
@@ -84,6 +85,13 @@ public class AltIndicator : MonoBehaviour
         }
         else { 
             alt=(float)myDrone.FlightData.Altitude; 
+        }
+
+        if (alt > 100 && Mathf.Abs(Time.time -lastAltWarning)>15f)
+        {
+            lastAltWarning = Time.time;
+            TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("Altitude limit execeded.");
         }
 
         tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 0);

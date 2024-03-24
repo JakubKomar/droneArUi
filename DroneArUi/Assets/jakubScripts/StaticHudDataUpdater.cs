@@ -13,6 +13,11 @@ public class StaticHudDataUpdater : MonoBehaviour
     public TMP_Text altitute =null;
     public TMP_Text speed =null;
     public TMP_Text rotation = null;
+
+    [SerializeField]
+    private Transform playerCamera;
+    [SerializeField]
+    private Transform wordMapbox;
     void Start()
     {
         droneManager = DroneManager.Instance;
@@ -21,20 +26,29 @@ public class StaticHudDataUpdater : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+
+        /*if (rotation != null) {
+             double normalizeCompas = myDrone.FlightData.Compass;
+             if(normalizeCompas < 0) {
+                 normalizeCompas=360 + normalizeCompas;
+             }
+             rotation.text = Math.Round((Decimal)normalizeCompas, 0, MidpointRounding.AwayFromZero).ToString();
+         }*/
+        float playerHading=playerCamera.rotation.eulerAngles.y - wordMapbox.rotation.eulerAngles.y;
+        playerHading = playerHading % 360;
+        if (playerHading < 0)
+            playerHading += 360;
+        playerHading=Mathf.Round(playerHading);
+        rotation.text=playerHading.ToString();
+
         Drone myDrone = droneManager.ControlledDrone;
-        
+
         if (myDrone == null) { return; }
 
-        if(altitute != null) {
-            altitute.text =  Math.Round((Decimal)myDrone.FlightData.Altitude, 1, MidpointRounding.AwayFromZero).ToString();
-        }
-
-        if (rotation != null) {
-            double normalizeCompas = myDrone.FlightData.Compass;
-            if(normalizeCompas < 0) {
-                normalizeCompas=360 + normalizeCompas;
-            }
-            rotation.text = Math.Round((Decimal)normalizeCompas, 0, MidpointRounding.AwayFromZero).ToString();
+        if (altitute != null)
+        {
+            altitute.text = Math.Round((Decimal)myDrone.FlightData.Altitude, 1, MidpointRounding.AwayFromZero).ToString();
         }
 
         if (speed != null)
