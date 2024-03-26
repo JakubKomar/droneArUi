@@ -11,8 +11,6 @@ using System.Text;
 
 using Mapbox.Utils;
 using UnityEngine.Events;
-using TMPro.EditorUtilities;
-using Unity.VisualScripting;
 
 public class MapData : Singleton <MapData>
 {
