@@ -86,3 +86,17 @@ MonoBehaviour:
       id: 0
       description: None
       axisConstraint: 0
+  - localizationKey: 
+    keyword: Ip settings
+    keyCode: 105
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Debug
+    keyCode: 111
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
