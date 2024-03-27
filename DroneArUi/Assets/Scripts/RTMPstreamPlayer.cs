@@ -21,10 +21,10 @@ using System.Collections.Generic;
 ///LibVLC parameters: https://wiki.videolan.org/VLC_command-line_help/
 ///Report a bug: https://code.videolan.org/videolan/vlc-unity/-/issues
 
-public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
+public class RTMPstreamPlayer : MonoBehaviour
 {
 
-    public static LibVLC libVLC; //The LibVLC class is mainly used for making MediaPlayer and Media objects. You should only have one LibVLC instance.
+	public static LibVLC libVLC; //The LibVLC class is mainly used for making MediaPlayer and Media objects. You should only have one LibVLC instance.
 	public MediaPlayer mediaPlayer; //MediaPlayer is the main class we use to interact with VLC
 
 	//Screens
@@ -34,12 +34,15 @@ public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 	Texture2D _vlcTexture = null; //This is the texture libVLC writes to directly. It's private.
 	public RenderTexture texture = null; //We copy it into this texture which we actually use in unity.
 
-	public string ip= "127.0.0.1";
-    public string port= "1935";
-	public string dronId = "6ab6be76";
-	public bool manualId = false;
+	public string ip = "127.0.0.1";
+	public string port = "1935";
 
-	private string fullPath;
+    [SerializeField]
+    private string dronId = "";
+
+	[SerializeField]
+	private string connectedUrl = "" ; 
+
     // when copying native Texture2D textures to Unity RenderTextures, the orientation mapping is incorrect on Android, so we flip it over.
     public bool flipTextureX = true;
 	public bool flipTextureY = true;
@@ -59,20 +62,14 @@ public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 			screen = GetComponent<Renderer>();
 		if (canvasScreen == null)
 			canvasScreen = GetComponent<RawImage>();
-		this.fullPath = "rtmp://" + ip + ":" + port + "/live/";
 
-        CreateMediaPlayer();
-		if (manualId) {
-			Open(fullPath + dronId);
-		}
-			
+        CreateMediaPlayer();			
 	}
 
 	void OnDestroy()
 	{
 		//Dispose of mediaPlayer, or it will stay in nemory and keep playing audio
 		DestroyMediaPlayer();
-        libVLC.Dispose();
 
     }
 
@@ -110,7 +107,9 @@ public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 	#region vlc
 	public void Open(string path)
 	{
-        Log("VLCPlayerExample Open " + path);
+		connectedUrl = path;
+        Debug.Log("VLC opened:" + path);
+
         if (mediaPlayer.Media != null)
             mediaPlayer.Media.Dispose();
 
@@ -127,10 +126,8 @@ public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 	}
 
 	public void OnDroneConnected(string conectedDroneId){
-		if (manualId)
-			return;
-        this.fullPath = "rtmp://" + ip + ":" + port + "/live/";
-        Open(fullPath + conectedDroneId);
+		dronId = conectedDroneId;
+        Open("rtmp://" + ip + ":" + port + "/live/" + conectedDroneId);
     }
 	
 
@@ -163,6 +160,7 @@ public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 		}
 
 		Core.Initialize(Application.dataPath); //Load VLC dlls
+		//parametry pro nízkou latenci
 		libVLC = new LibVLC(enableDebugLogs: true, "--clock-synchro=1", "--low-delay", "--no-osd", "--network-caching=0", "--no-audio"); //You can customize LibVLC with advanced CLI options here https://wiki.videolan.org/VLC_command-line_help/
 															
 		//Setup Error Logging
@@ -202,13 +200,9 @@ public class RTMPstreamPlayer : Singleton<RTMPstreamPlayer>
 	{
 		Log("VLCPlayerExample DestroyMediaPlayer");
         mediaPlayer?.Stop();
-
-        _vlcTexture = null;
-        texture = null;
-
-		mediaPlayer?.Dispose();
-		mediaPlayer = null;
-	}
+        mediaPlayer?.Dispose();
+        mediaPlayer = null;
+    }
 
 	//Resize the output textures to the size of the video
 	void ResizeOutputTextures(uint px, uint py)

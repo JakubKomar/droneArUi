@@ -1,3 +1,5 @@
+// jakub komárek
+
 using Mapbox.Directions;
 using System.Collections;
 using System.Collections.Generic;
@@ -44,7 +46,7 @@ public class AltIndicator : MonoBehaviour
         canvasWidth = this.GetComponent<RectTransform>().rect.width;
         canvasHeight = this.GetComponent<RectTransform>().rect.height;
         tape = this.transform.Find("Tape");
-        for (int i = 0; i < max; i+=10)
+        for (int i = min; i < max; i+=10)
         {
             GameObject stupnice=Instantiate(largeStupnice);
             largeStupniceList.Add(stupnice);
@@ -60,7 +62,7 @@ public class AltIndicator : MonoBehaviour
         }
 
 
-        for (int i = 0; i < max; i += 1)
+        for (int i = min; i < max; i += 1)
         {
             GameObject stupnice = Instantiate(smallStupnice);
             smallStupniceList.Add(stupnice);
@@ -96,7 +98,7 @@ public class AltIndicator : MonoBehaviour
 
         tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 0);
 
-        int index = 0;
+        int index = min;
         foreach(var obj in smallStupniceList)
         {
 
@@ -112,7 +114,7 @@ public class AltIndicator : MonoBehaviour
   
         }
 
-        index = 0;
+        index = min;
         foreach (var obj in largeStupniceList)
         {
             if (Mathf.Abs(index - alt) > visibleCount / 2 || Mathf.Abs(index - alt) < 2)
@@ -126,11 +128,5 @@ public class AltIndicator : MonoBehaviour
 
             index+=10;
         }
-    }
-
-
-    void DrawStupnice()
-    {
-       
     }
 }

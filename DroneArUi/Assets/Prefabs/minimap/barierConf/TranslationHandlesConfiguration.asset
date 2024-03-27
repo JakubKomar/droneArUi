@@ -20,6 +20,6 @@ MonoBehaviour:
   drawTetherWhenManipulating: 1
   handlesIgnoreCollider: {fileID: 0}
   handlePrefabColliderType: 1
-  showHandleForX: 1
-  showHandleForY: 1
-  showHandleForZ: 1
+  showHandleForX: 0
+  showHandleForY: 0
+  showHandleForZ: 0

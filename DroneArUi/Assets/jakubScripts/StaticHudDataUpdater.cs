@@ -1,3 +1,5 @@
+// jakub komárek
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -89,7 +91,7 @@ public class StaticHudDataUpdater : MonoBehaviour
         }
 
         //simulace spotøeby baterie
-        if (Time.time - batterySimulationTimeStamp > 15)
+        if (Time.time - batterySimulationTimeStamp > batteryPercetInterval)
         {
             batteryLevel--;
             batterySimulationTimeStamp = Time.time;

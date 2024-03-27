@@ -13,7 +13,7 @@ public class ipSettingsBackend : MonoBehaviour
     // Start is called before the first frame update
 
     public WebSocketManager2 WebSocketManager=null;
-    public RTMPstreamPlayer rTMPstreamPlayer=null;
+    //public RTMPstreamPlayer rTMPstreamPlayer=null;
 
     public MRTKTMPInputField ipTelemetry=null;
     public MRTKTMPInputField portTelemetry = null;
@@ -88,8 +88,13 @@ public class ipSettingsBackend : MonoBehaviour
             return;
         }
 
-        rTMPstreamPlayer.ip=ipVideoServer.text;
-        rTMPstreamPlayer.port=portVideoServer.text;
+        RTMPstreamPlayer[] scripts = FindObjectsOfType<RTMPstreamPlayer>();
+
+        foreach (RTMPstreamPlayer script in scripts)
+        {
+            script.ip = ipVideoServer.text;
+            script.port = portVideoServer.text;
+        }
 
         PlayerPrefs.SetString("ipTelemetry", ipTelemetry.text);
         PlayerPrefs.SetString("ipTelemetryPort", portTelemetry.text);

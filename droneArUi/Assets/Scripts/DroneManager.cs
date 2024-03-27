@@ -167,7 +167,13 @@ public class DroneManager : Singleton<DroneManager>
                 drone.DroneGameObject = ControlledDroneGameObject;
                 Debug.Log("Controled drone selected:" + drone.FlightData.DroneId);
 
-                RTMPstreamPlayer.Instance.OnDroneConnected(drone.FlightData.DroneId);
+                RTMPstreamPlayer[] scripts = FindObjectsOfType<RTMPstreamPlayer>();
+
+             
+                foreach (RTMPstreamPlayer script in scripts)
+                {
+                    script.OnDroneConnected(drone.FlightData.DroneId);
+                }
 
                 TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
                 textToSpeechSyntetizer.say("Drone connected.");
