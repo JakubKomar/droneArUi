@@ -1637,6 +1637,7 @@ GameObject:
   m_Component:
   - component: {fileID: 72034450}
   - component: {fileID: 72034449}
+  - component: {fileID: 72034451}
   m_Layer: 0
   m_Name: Debug
   m_TagString: Untagged
@@ -1705,6 +1706,19 @@ Transform:
   - {fileID: 1444400925}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &72034451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 72034448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d34b46075047609468ae0d797d8e6c3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textMesh: {fileID: 1624458638}
 --- !u!1 &72161102
 GameObject:
   m_ObjectHideFlags: 0
@@ -9117,7 +9131,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1934125961}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ipSettingsBackend, Assembly-CSharp
         m_MethodName: onConnectetToServerPressed
         m_Mode: 1
@@ -16780,7 +16794,7 @@ MonoBehaviour:
   OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1934125961}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: ipSettingsBackend, Assembly-CSharp
         m_MethodName: onSameIpCheckBoxClicked
         m_Mode: 1
@@ -29882,7 +29896,7 @@ PrefabInstance:
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1934125961}
+      objectReference: {fileID: 0}
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -43580,6 +43594,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8597152265007815238, guid: d48bb963e471f0844a0aa54d15e11ee4, type: 3}
   m_PrefabInstance: {fileID: 360996782}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1624458638 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8600104906669901024, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
+  m_PrefabInstance: {fileID: 22368318982984871}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9541d86e2fd84c1d9990edf0852d74ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1629897928
 GameObject:
   m_ObjectHideFlags: 0
@@ -44857,7 +44882,7 @@ PrefabInstance:
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1934125961}
+      objectReference: {fileID: 0}
     - target: {fileID: 5693768067435113710, guid: 4daceed0c4c3c09468897226b8717688, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -50452,7 +50477,6 @@ GameObject:
   - component: {fileID: 1934125958}
   - component: {fileID: 1934125960}
   - component: {fileID: 1934125959}
-  - component: {fileID: 1934125961}
   m_Layer: 0
   m_Name: ContentBackPlateIpSettings
   m_TagString: Untagged
@@ -50528,25 +50552,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1934125957}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1934125961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1934125957}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc138cc7af0dd1845b1387a2859cf842, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  WebSocketManager: {fileID: 287178656}
-  rTMPstreamPlayer: {fileID: 1538955217}
-  ipTelemetry: {fileID: 1348454112}
-  portTelemetry: {fileID: 2106380657}
-  ipVideoServer: {fileID: 1587671006}
-  portVideoServer: {fileID: 1347786826}
-  sameIpCheckBox: {fileID: 553645456}
 --- !u!1 &1934643392
 GameObject:
   m_ObjectHideFlags: 0
@@ -51416,6 +51421,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982942817}
   - component: {fileID: 1982942816}
+  - component: {fileID: 1982942818}
   m_Layer: 0
   m_Name: Ipset
   m_TagString: Untagged
@@ -51484,6 +51490,25 @@ Transform:
   - {fileID: 2111226192}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1982942818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982942815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc138cc7af0dd1845b1387a2859cf842, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  WebSocketManager: {fileID: 287178656}
+  rTMPstreamPlayer: {fileID: 1538955217}
+  ipTelemetry: {fileID: 1348454112}
+  portTelemetry: {fileID: 2106380657}
+  ipVideoServer: {fileID: 1587671006}
+  portVideoServer: {fileID: 1347786826}
+  sameIpCheckBox: {fileID: 553645456}
 --- !u!1 &1986600328 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5768493576279446831, guid: 65de389d4bf865445bf386d8ddb44482, type: 3}
@@ -56020,7 +56045,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6081872234445813639, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

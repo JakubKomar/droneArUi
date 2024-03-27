@@ -3,12 +3,11 @@ mray_gstreamer_initialize
 Initializing GStreamer Engine
 Initializing GStreamer Engine - Done
 Initializing GStreamer
-Info: _g_io_module_get_default: Found default implementation winhttp (GWinHttpVfs) for ‘gio-vfs’
 GStreamerCore - Registering Elements!
 GStreamerCore - GStreamer inited
 Initializing GStreamer - Done
 Entering main loop
-Info: Creating Pipeline: rtmpsrc location=rtmp://127.0.0.1:1935/live/2d852616 ! decodebin ! video/x-raw,format=I420 ! videoconvert ! appsink name=videoSink sync=false async=false
+Info: Creating Pipeline: rtmpsrc location=rtmp://127.0.0.1:1935/live/2c34336b ! decodebin ! video/x-raw,format=I420 ! videoconvert ! appsink name=videoSink sync=false async=false
 Info: : GstPipelineHandler::CreatePipeline 
 Info: : Pipeline State Changes:  GST_STATE_NULL--> GST_STATE_READY
 Info: : Pausing
@@ -16,13 +15,3 @@ Info: : Playing
 Info: : Pipeline State Changes:  GST_STATE_READY--> GST_STATE_PAUSED
 Info: : Playing
 Info: : Pipeline State Changes:  GST_STATE_PAUSED--> GST_STATE_PLAYING
-Info: : Pausing
-Info: : Pipeline State Changes:  GST_STATE_PLAYING--> GST_STATE_PAUSED
-Info: : GstPipelineHandler::Stop 
-Info: : GstPipelineHandler::Close 
-Info: : GstPipelineHandler::Stop 
-Info: : GstPipelineHandler::Close 
-Info: : GstPipelineHandler::Stop 
-Info: : GstPipelineHandler::Close 
-Info: : GstPipelineHandler::Stop 
-Info: Checking is active

@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: VUT
-  productName: DroneArUi
+  companyName: VUTFIT
+  productName: adDroneInterface
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -39,7 +39,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 3286163911610860551, guid: 75d7906f4d253ea4e9e15ae222ddf829, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
@@ -136,10 +138,7 @@ PlayerSettings:
   vulkanEnableCommandBufferRecycling: 1
   loadStoreDebugModeEnabled: 0
   bundleVersion: 1.0
-  preloadedAssets:
-  - {fileID: 11400000, guid: fd50954ff125f5c42999752df2d48523, type: 2}
-  - {fileID: 5256845905389096635, guid: fc39f52942d6974419f639026fd75afb, type: 2}
-  - {fileID: 8387102496871607885, guid: 6b2e5e99a21fcf8469ee65d17383c856, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -686,25 +685,34 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: DroneArUi
+  metroPackageName: ARdroneinterface
   metroPackageVersion: 1.0.0.0
   metroCertificatePath: Assets/WSATestCertificate.pfx
   metroCertificatePassword: 
-  metroCertificateSubject: DefaultCompany
-  metroCertificateIssuer: DefaultCompany
-  metroCertificateNotAfter: 00521ed8cc58db01
+  metroCertificateSubject: VUTFIT
+  metroCertificateIssuer: VUTFIT
+  metroCertificateNotAfter: 0043564e149fdb01
   metroApplicationDescription: DroneArUi
-  wsaImages: {}
-  metroTileShortName: DroneArUi
+  wsaImages:
+    65636: Assets/icons/50x50.jpg
+    131272: Assets/icons/1240x600.png
+    2031640: Assets/icons/24x24.jpg
+    2031716: Assets/icons/44x44.jpg
+    2031816: Assets/icons/88x88.jpg
+    2097352: Assets/icons/142x142.jpg
+    2162888: Assets/icons/300x300.jpg
+    2228424: Assets/icons/620x620.jpg
+    2293960: Assets/icons/620x300.jpg
+  metroTileShortName: AR drone interface
   metroTileShowName: 0
-  metroMediumTileShowName: 0
+  metroMediumTileShowName: 1
   metroLargeTileShowName: 0
   metroWideTileShowName: 0
   metroSupportStreamingInstall: 0
   metroLastRequiredScene: 0
   metroDefaultTileSize: 1
   metroTileForegroundText: 2
-  metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
+  metroTileBackgroundColor: {r: 1, g: 1, b: 1, a: 0}
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
   metroSplashScreenUseBackgroundColor: 0
   platformCapabilities:
@@ -712,7 +720,7 @@ PlayerSettings:
       GazeInput: True
       UserDataTasks: True
       SpatialPerception: True
-      PicturesLibrary: False
+      PicturesLibrary: True
       InternetClient: True
       WebCam: True
       Microphone: True

@@ -48,8 +48,8 @@ public class speedIndicatorControler : MonoBehaviour
         }
 
         // rozsah do 18 m/s
-        float newPosY = (float)((velocityX/18)* canvasWidth / 2);
-        float newPosX = (float)((velocityY / 18) * canvasHeight / 2);
+        float newPosY = (float)((velocityY/18)* canvasWidth / 2);
+        float newPosX = (float)((velocityX / 18) * canvasHeight / 2);
 
         point.anchoredPosition = new Vector2(newPosX, newPosY);
     }
