@@ -274,6 +274,8 @@ public class SpawnOnMap : MonoBehaviour
             {
                 mapGameObjectData.mapObjectData = mapCustumeObject;
             }
+
+            gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
         }
 
         // propsání zmìn po a pøi manipulaci
@@ -335,7 +337,7 @@ public class SpawnOnMap : MonoBehaviour
                 calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
             }
 
-            gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+            
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
  
         }
