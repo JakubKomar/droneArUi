@@ -26,10 +26,8 @@ public class CustumeFollowMeMap :  RadialView
         transformMap.rotation = goalRotation;
 
     }
-    private bool anchored = false;
     public void onAchorClick() {
         followMeTogle.ToggleFollowMeBehavior();
-        
-        anchored = !anchored;
-    }
+       
+    }    
 }

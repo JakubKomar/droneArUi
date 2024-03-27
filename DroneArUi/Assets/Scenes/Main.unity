@@ -9484,6 +9484,7 @@ GameObject:
   m_Component:
   - component: {fileID: 321165975}
   - component: {fileID: 321165974}
+  - component: {fileID: 321165976}
   m_Layer: 0
   m_Name: StaticHud
   m_TagString: Untagged
@@ -9505,30 +9506,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocusRequired: 0
   keywords:
-  - keyword: Hud off
+  - keyword: Toggle Hud
     response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 519927807}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  - keyword: Hud on
-    response:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 519927807}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
+        - m_Target: {fileID: 321165976}
+          m_TargetAssemblyTypeName: ToggleActive, Assembly-CSharp
+          m_MethodName: onToggleActive
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -9555,6 +9540,19 @@ Transform:
   - {fileID: 519927814}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &321165976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321165973}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03401fef36bd4a14fb63ac24d232eeb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 519927807}
 --- !u!1 &329035441
 GameObject:
   m_ObjectHideFlags: 0
@@ -36185,7 +36183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocusRequired: 0
   keywords:
-  - keyword: Skip waypoint
+  - keyword: Skip
     response:
       m_PersistentCalls:
         m_Calls:
@@ -36201,7 +36199,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - keyword: Reset plan
+  - keyword: Reset
     response:
       m_PersistentCalls:
         m_Calls:
@@ -51443,7 +51441,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocusRequired: 0
   keywords:
-  - keyword: Ip settings
+  - keyword: Connection
     response:
       m_PersistentCalls:
         m_Calls:
@@ -57385,6 +57383,7 @@ GameObject:
   - component: {fileID: 919132148953412635}
   - component: {fileID: 919132148953412633}
   - component: {fileID: 919132148953412636}
+  - component: {fileID: 919132148953412637}
   m_Layer: 0
   m_Name: Minimap
   m_TagString: Untagged
@@ -57465,6 +57464,39 @@ MonoBehaviour:
   transformMap: {fileID: 543450652692590242}
   mainCameraTransform: {fileID: 1590441517}
   followMeTogle: {fileID: 919132148953412633}
+--- !u!114 &919132148953412637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148953412632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45b3eff181cc4244a8a14234096e62fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isFocusRequired: 1
+  keywords:
+  - keyword: Map
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 919132148953412633}
+          m_TargetAssemblyTypeName: Microsoft.MixedReality.Toolkit.UI.FollowMeToggle,
+            Microsoft.MixedReality.Toolkit.SDK
+          m_MethodName: SetFollowMeBehavior
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  persistentKeywords: 0
+  speechConfirmationTooltipPrefab: {fileID: 0}
 --- !u!114 &932493269674624475
 MonoBehaviour:
   m_ObjectHideFlags: 0

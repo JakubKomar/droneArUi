@@ -59,35 +59,28 @@ MonoBehaviour:
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: Skip waypoint
+    keyword: Skip
     keyCode: 256
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: Reset plan
+    keyword: Reset
     keyCode: 257
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: Hud on
+    keyword: Toggle Hud
     keyCode: 264
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: Hud off
-    keyCode: 265
-    action:
-      id: 0
-      description: None
-      axisConstraint: 0
-  - localizationKey: 
-    keyword: Ip settings
+    keyword: Connection
     keyCode: 105
     action:
       id: 0
@@ -96,6 +89,20 @@ MonoBehaviour:
   - localizationKey: 
     keyword: Debug
     keyCode: 111
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Map
+    keyCode: 258
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Toggle Fpv
+    keyCode: 259
     action:
       id: 0
       description: None

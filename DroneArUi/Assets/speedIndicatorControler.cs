@@ -11,46 +11,64 @@ public class speedIndicatorControler : MonoBehaviour
     [SerializeField]
     RectTransform point =null;
 
-    double canvasWidth=0;
-    double canvasHeight=0;
+    float canvasWidth=0;
+    float canvasHeight=0;
 
     [SerializeField]
     public float testVelX = 0;
     [SerializeField]
     public float testVelY = 0;
+    [SerializeField]
+    public float testCompass = 0;
+    Canvas canvas;
     void Start()
     {
         droneManager = FindObjectOfType<DroneManager>();
-
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas != null)
-        {
-            // Získat rozmìry plátna
-            canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
-            canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
-        }
+        canvas = this.gameObject.GetComponent<Canvas>();
+        canvasWidth = canvas.GetComponent<RectTransform>().rect.width;
+        canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
     }
 
     // Update is called once per frame
     void Update()
     {
         contDrone = droneManager.ControlledDrone;
-        double velocityX = 0;
-        double velocityY = 0;
+        float velocityX = 0;
+        float velocityY = 0;
+        float compass = 0;
+
         if (contDrone != null)
         {
-            velocityX = contDrone.FlightData.VelocityX;
-            velocityY = contDrone.FlightData.VelocityY;
+            velocityX = (float)contDrone.FlightData.VelocityX;
+            velocityY = (float)contDrone.FlightData.VelocityY;
+            compass = (float)contDrone.FlightData.Compass;
         }
         else
         {
-            velocityX = testVelX; velocityY =testVelY;
+            velocityX = testVelX;
+            velocityY = testVelY;
+            compass = testCompass;
         }
 
-        // rozsah do 18 m/s
-        float newPosY = (float)((velocityY/18)* canvasWidth / 2);
-        float newPosX = (float)((velocityX / 18) * canvasHeight / 2);
+        float newPosX = ((velocityX / 18) * canvasWidth / 2);
+        float newPosY = ((velocityY / 18) * canvasHeight / 2);
 
-        point.anchoredPosition = new Vector2(newPosX, newPosY);
+        compass = (compass-90) % 360;
+        if (compass < 0)
+            compass += 360;
+        compass = -compass;
+
+
+
+        float X1 = 0;// canvasWidth / 2;
+        float Y1 = 0;// canvasHeight / 2;
+        float x = newPosX;
+        float y = newPosY;
+        float rotationAngleRadians =compass * Mathf.Deg2Rad;
+        newPosX = (x - X1) * Mathf.Cos(rotationAngleRadians) - (y - Y1) * Mathf.Sin(rotationAngleRadians) + X1;
+        newPosY = (x - X1) * Mathf.Sin(rotationAngleRadians) + (y - Y1) * Mathf.Cos(rotationAngleRadians) + Y1;
+
+        
+        point.anchoredPosition = new Vector2(-newPosX, newPosY);
     }
 }
