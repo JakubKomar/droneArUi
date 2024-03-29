@@ -3806,15 +3806,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 149429377}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00006818771}
-  m_LocalScale: {x: 0.49, y: 0.49, z: 0.49}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00006818771}
+  m_LocalScale: {x: 0.49000004, y: 0.49000004, z: 0.49000004}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 217248862}
+  m_Father: {fileID: 2073620789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 154, y: -92.8}
+  m_AnchoredPosition: {x: 24.5, y: -24.500008}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &149429379
@@ -4776,8 +4776,7 @@ RectTransform:
   - {fileID: 1412165570}
   - {fileID: 1288399050}
   - {fileID: 644277682}
-  - {fileID: 149429378}
-  - {fileID: 1987768671}
+  - {fileID: 2073620789}
   m_Father: {fileID: 519927814}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -25948,6 +25947,8 @@ MonoBehaviour:
   sevedFile:
     m_PersistentCalls:
       m_Calls: []
+  droneInBarier: 0
+  droneInWarningBarier: 0
 --- !u!114 &1340560131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37381,15 +37382,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987768670}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.00006818771}
-  m_LocalScale: {x: 0.49, y: 0.49, z: 0.49}
+  m_LocalPosition: {x: 0, y: 0, z: 0.00006818771}
+  m_LocalScale: {x: 0.49000004, y: 0.49000004, z: 0.49000004}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 217248862}
+  m_Father: {fileID: 2073620789}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 154, y: -92.8}
+  m_AnchoredPosition: {x: 24.5, y: -24.500008}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1987768672
@@ -40066,6 +40067,59 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+--- !u!1 &2073620788
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2073620789}
+  - component: {fileID: 2073620790}
+  m_Layer: 5
+  m_Name: DangerWarningZone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2073620789
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073620788}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.00006818771}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1987768671}
+  - {fileID: 149429378}
+  m_Father: {fileID: 217248862}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -346, y: 231.75}
+  m_SizeDelta: {x: 49, y: 49.000015}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2073620790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073620788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b01280cba5e1a34184971359314a199, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warningZoneIcon: {fileID: 1987768670}
+  dangerZoneIcon: {fileID: 149429377}
+  mapData: {fileID: 1340560130}
 --- !u!1 &2075377184
 GameObject:
   m_ObjectHideFlags: 0

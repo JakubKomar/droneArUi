@@ -54,8 +54,8 @@ public class MapData : Singleton <MapData>
 
     public UnityEvent sevedFile =new UnityEvent();
 
-    private bool droneInBarier=false;
-    private bool droneInWarningBarier=false;
+    public bool droneInBarier=false;
+    public bool droneInWarningBarier=false;
 
     private void Awake()
     {

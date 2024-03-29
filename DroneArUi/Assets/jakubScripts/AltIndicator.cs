@@ -90,6 +90,7 @@ public class AltIndicator : MonoBehaviour
         else { 
             alt=(float)myDrone.FlightData.Altitude; 
         }
+
         if (alt > 100)
         {
             altWarnIcon.SetActive(true);
