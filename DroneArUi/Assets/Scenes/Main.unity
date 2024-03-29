@@ -3526,8 +3526,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Map: {fileID: 114478717238887276}
-  DroneBoundingBox: {fileID: 919132149155446097, guid: 1ebdf308b55e8824b86341087edaef32, type: 3}
-  ControlledDroneGameObject: {fileID: 0}
 --- !u!1 &139051431
 GameObject:
   m_ObjectHideFlags: 0
@@ -33024,7 +33022,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8905895537249588540, guid: cdd2f47c652dfde46b23f817f1b9101b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3552258239391344757, guid: cdd2f47c652dfde46b23f817f1b9101b, type: 3}

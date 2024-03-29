@@ -25,7 +25,7 @@ public class DroneManager : Singleton<DroneManager>
         List<Drone> dronesToRemove = new List<Drone>();
         foreach (Drone drone in Drones)
         {
-            if((DateTime.Now - drone.lastUpdate).TotalSeconds > 15)
+            if((DateTime.Now - drone.lastUpdate).TotalSeconds > 5)
             {
                 dronesToRemove.Add(drone);
             }
@@ -131,18 +131,6 @@ public class DroneManager : Singleton<DroneManager>
         // Drone is new one in the system, we need to instanciate it
         AddDrone(flightData);
     }
-
-    /*public Drone GetDroneByID(string droneID)
-    {
-        foreach (Drone drone in Drones)
-        {
-            if (drone.FlightData.DroneId.StartsWith(droneID))
-            {
-                return drone;
-            }
-        }
-        return null;
-    }*/
 
     /// <summary>
     /// Checks for drone by droneID and sets it as controlled drone
