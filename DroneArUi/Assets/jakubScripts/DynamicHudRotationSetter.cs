@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Unity.Mathematics;
+using Unity.VisualScripting;
+
 public class DynamicHudRotationSetter : Singleton<DynamicHudRotationSetter>
 {
     // Start is called before the first frame update
@@ -57,8 +59,8 @@ public class DynamicHudRotationSetter : Singleton<DynamicHudRotationSetter>
             // Nastavení rotace game objektu s canvasem
             transform.rotation = targetRotation;
 
-            distance.text = math.round(droneDistance).ToString();
-            alt.text = math.round(drone.FlightData.Altitude).ToString();
+            distance.text = "D:"+ math.round(droneDistance).ToString();
+            alt.text = string.Format("A:{0:0.0}m", drone.FlightData.Altitude); 
             hudChild.gameObject.SetActive(true);
         }
         else

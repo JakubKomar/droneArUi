@@ -219,7 +219,7 @@ public class CompassIndicator : Singleton<CompassIndicator>
            
 
 
-            icon.transform.localPosition = new Vector3((canvasWidth / visibleCount) * az, 0, -1);
+            icon.transform.localPosition = new Vector3((canvasWidth / visibleCount) * az, 15, -1);
             icon.SetActive(true);
         }
         else
