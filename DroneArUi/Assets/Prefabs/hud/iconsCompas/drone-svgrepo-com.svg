@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   id="Layer_1"
+   data-name="Layer 1"
+   version="1.1"
+   sodipodi:docname="drone-svgrepo-com.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview25"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.2525"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="Layer_1" />
+  <defs
+     id="defs4">
+    <style
+       id="style2">.cls-1{fill:none;stroke:#020202;stroke-miterlimit:10;stroke-width:1.91px;}</style>
+  </defs>
+  <path
+     class="cls-1"
+     d="M4.84,8.18A3.34,3.34,0,1,1,8.18,4.84"
+     id="path6"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <path
+     class="cls-1"
+     d="M8.18,19.16a3.34,3.34,0,1,1-3.34-3.34"
+     id="path8"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <path
+     class="cls-1"
+     d="M15.82,4.84a3.34,3.34,0,1,1,3.34,3.34"
+     id="path10"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <path
+     class="cls-1"
+     d="M19.16,15.82a3.34,3.34,0,1,1-3.34,3.34"
+     id="path12"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <line
+     class="cls-1"
+     x1="19.64"
+     y1="19.64"
+     x2="14.86"
+     y2="14.86"
+     id="line14"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <line
+     class="cls-1"
+     x1="9.14"
+     y1="9.14"
+     x2="4.36"
+     y2="4.36"
+     id="line16"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <line
+     class="cls-1"
+     x1="9.14"
+     y1="14.86"
+     x2="4.36"
+     y2="19.64"
+     id="line18"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <line
+     class="cls-1"
+     x1="19.64"
+     y1="4.36"
+     x2="14.86"
+     y2="9.14"
+     id="line20"
+     style="stroke:#fff002;stroke-opacity:1" />
+  <path
+     class="cls-1"
+     d="M14.86,9.14v5.72a2.86,2.86,0,1,1-5.72,0V9.14a2.86,2.86,0,1,1,5.72,0Z"
+     id="path22"
+     style="stroke:#fff002;stroke-opacity:1" />
+</svg>

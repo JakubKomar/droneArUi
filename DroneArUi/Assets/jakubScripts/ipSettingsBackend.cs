@@ -84,7 +84,7 @@ public class ipSettingsBackend : MonoBehaviour
         }
         else
         {
-            Console.WriteLine("Invalid format for conversion using int.TryParse()");
+            Debug.LogError("Invalid format for conversion using int.TryParse()");
             return;
         }
 

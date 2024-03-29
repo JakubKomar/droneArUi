@@ -1,10 +1,13 @@
 // jakub komárek
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder.Shapes;
+using static UnityEngine.GraphicsBuffer;
 
-public class CompassIndicator : MonoBehaviour
+public class CompassIndicator : Singleton<CompassIndicator>
 {
 
     // Start is called before the first frame update
@@ -37,6 +40,18 @@ public class CompassIndicator : MonoBehaviour
     private DroneManager droneManager;
 
     float lastAltWarning = 0;
+
+    public GameObject playerCamera;
+
+    // objekty ve wordscalu
+    public GameObject drone;
+    public GameObject activeWaypoint;
+    public GameObject landingPad;
+
+    public GameObject droneIcon;
+    public GameObject waypointIcon;
+    public GameObject landingPadIcon;
+
     void Start()
     {
         droneManager = FindObjectOfType<DroneManager>();
@@ -114,6 +129,24 @@ public class CompassIndicator : MonoBehaviour
         }
     }
 
+
+    float calcAzimut(Transform player, Transform obj)
+    {
+        Vector3 direction = (obj.position - player.position).normalized;
+        //direction -= staticHudUp.playerHadingOffset;
+        // Spoèítejte azimut pomocí funkce Atan2
+        float azimuth = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + staticHudUp.playerHadingOffset; // pøiètu calibraèní offset
+
+        azimuth = azimuth % 360;
+        // Azimut mùže být v rozsahu -180 až 180 stupòù, pøevedeme ho na rozsah 0 až 360 stupòù
+        if (azimuth < 0)
+        {
+            azimuth += 360f;
+        }
+
+        return azimuth;
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -151,6 +184,47 @@ public class CompassIndicator : MonoBehaviour
             }
 
             index += 45;
+        }
+
+        setIconPos(drone, droneIcon);
+        setIconPos(landingPad, landingPadIcon);
+        setIconPos(activeWaypoint, waypointIcon);
+    }
+
+    void setIconPos( GameObject trackedObject, GameObject icon)
+    {
+        if (trackedObject != null)
+        {
+            float az = calcAzimut(playerCamera.transform, trackedObject.transform);
+
+            // pokouším se iconu umístit na rùzná místa na pásce - páska je orotovaná zhruba 2.5x aby byla vidìt vždy celá
+            if(Mathf.Abs(az - heading) > visibleCount / 2)
+            {
+                az = (az + 360);
+
+                if (Mathf.Abs(az - heading) > visibleCount / 2)
+                {
+                    az = az % 360;
+                    az -= 360;
+                    az = az % 360;
+
+                    // pokud objekt nelze umístit, vypínáme ho
+                    if (Mathf.Abs(az - heading) > visibleCount / 2)
+                    {
+                        icon.SetActive(false);
+                        return;
+                    }
+                }       
+            }
+           
+
+
+            icon.transform.localPosition = new Vector3((canvasWidth / visibleCount) * az, 0, -1);
+            icon.SetActive(true);
+        }
+        else
+        {
+            icon.SetActive(false);
         }
     }
 }

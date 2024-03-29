@@ -38,6 +38,7 @@ public class StaticHudDataUpdater : MonoBehaviour
     [SerializeField]
     private Transform wordMapbox;
     public float playerHading = 0;
+    public float playerHadingOffset = 0;
 
     [SerializeField]
     int batteryLevel = 99;
@@ -64,6 +65,7 @@ public class StaticHudDataUpdater : MonoBehaviour
          }*/
 
         playerHading=playerCamera.rotation.eulerAngles.y - wordMapbox.rotation.eulerAngles.y;
+        playerHadingOffset = -wordMapbox.rotation.eulerAngles.y;
         playerHading = playerHading % 360;
         if (playerHading < 0)
             playerHading += 360;
