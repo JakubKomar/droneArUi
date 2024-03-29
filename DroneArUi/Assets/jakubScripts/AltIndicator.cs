@@ -39,6 +39,8 @@ public class AltIndicator : MonoBehaviour
     private DroneManager droneManager;
 
     float lastAltWarning = 0;
+    [SerializeField]
+    private GameObject altWarnIcon;
     void Start()
     {
         droneManager = FindObjectOfType<DroneManager>();
@@ -87,6 +89,14 @@ public class AltIndicator : MonoBehaviour
         }
         else { 
             alt=(float)myDrone.FlightData.Altitude; 
+        }
+        if (alt > 100)
+        {
+            altWarnIcon.SetActive(true);
+        }
+        else
+        {
+            altWarnIcon.SetActive(false);
         }
 
         if (alt > 100 && Mathf.Abs(Time.time -lastAltWarning)>15f)
