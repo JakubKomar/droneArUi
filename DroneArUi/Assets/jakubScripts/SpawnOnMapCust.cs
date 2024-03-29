@@ -216,8 +216,15 @@ public class SpawnOnMap : MonoBehaviour
                         gameObject = Instantiate(_playerPrefab);
                     break;
                 case MapObject.ObjType.LandingPad:
-                    if (_homeLocationPrefab!=null)
+                    if (_homeLocationPrefab != null)
+                    {
                         gameObject = Instantiate(_homeLocationPrefab);
+                        if (!isMinimap)
+                        {
+                            CompassIndicator compasIndicator=FindObjectOfType<CompassIndicator>();
+                            compasIndicator.landingPad = gameObject;
+                        }
+                    }
                     break;
                 case MapObject.ObjType.ObjOfInterest:
                     if(_poiPrefab!=null)
@@ -226,6 +233,11 @@ public class SpawnOnMap : MonoBehaviour
                 case MapObject.ObjType.Drone:
                     if (_dronePrefab != null)
                         gameObject = Instantiate(_dronePrefab);
+                    if (!isMinimap)
+                    {
+                        CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
+                        compasIndicator.drone = gameObject;
+                    }
                     break;
                 case MapObject.ObjType.Waypoint:
                     if (_waypointPrefab == null)
@@ -392,6 +404,11 @@ public class SpawnOnMap : MonoBehaviour
                     if (labelTextSetter != null)
                     {
                         labelTextSetter.Set(new Dictionary<String, object> { { "name", (waypoint.pos.ToString()+ "("+ Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
+                    }
+                    if (!isMinimap&& waypoint.setAsTarget)
+                    {
+                        CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
+                        compasIndicator.activeWaypoint = gameObject;
                     }
                 }
                 break;
