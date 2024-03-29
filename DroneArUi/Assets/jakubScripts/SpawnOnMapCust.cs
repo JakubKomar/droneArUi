@@ -219,11 +219,6 @@ public class SpawnOnMap : MonoBehaviour
                     if (_homeLocationPrefab != null)
                     {
                         gameObject = Instantiate(_homeLocationPrefab);
-                        if (!isMinimap)
-                        {
-                            CompassIndicator compasIndicator=FindObjectOfType<CompassIndicator>();
-                            compasIndicator.landingPad = gameObject;
-                        }
                     }
                     break;
                 case MapObject.ObjType.ObjOfInterest:
@@ -233,29 +228,21 @@ public class SpawnOnMap : MonoBehaviour
                 case MapObject.ObjType.Drone:
                     if (_dronePrefab != null)
                         gameObject = Instantiate(_dronePrefab);
-                    if (!isMinimap)
-                    {
-                        CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
-                        compasIndicator.drone = gameObject;
-                    }
                     break;
                 case MapObject.ObjType.Waypoint:
                     if (_waypointPrefab == null)
                         return;
                     gameObject = Instantiate(_waypointPrefab);
-                    mapCustumeObject.spawnetGameObject = gameObject;
                     break;
                 case MapObject.ObjType.Barier:
                     if (_barierPrefab == null)
                         return;
                     gameObject = Instantiate(_barierPrefab);
-                    mapCustumeObject.spawnetGameObject = gameObject;
                     break;
                 case MapObject.ObjType.Warning:
                     if (_warningPrefab == null)
                         return;
                     gameObject = Instantiate(_warningPrefab);
-                    mapCustumeObject.spawnetGameObject = gameObject;
                     break;
                 default:
                     if (_defaultPrefab != null)
@@ -381,7 +368,12 @@ public class SpawnOnMap : MonoBehaviour
                 }
                 break;
             case MapObject.ObjType.LandingPad:
-
+                if (!isMinimap)
+                {
+                    CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
+                    if (compasIndicator != null)
+                        compasIndicator.landingPad = gameObject;
+                }
                 break;
             case MapObject.ObjType.ObjOfInterest:
                
@@ -395,8 +387,18 @@ public class SpawnOnMap : MonoBehaviour
                 {
                     labelTextSetter.Set(new Dictionary<String, object> { { "name", ("("+ Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
                 }
+                if (!isMinimap)
+                {
+                    CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
+                    if (compasIndicator != null)
+                        compasIndicator.drone = gameObject;
 
-            break;
+                    DynamicHudRotationSetter dynamicHudRotationSetter = FindObjectOfType<DynamicHudRotationSetter>();
+                    if (dynamicHudRotationSetter != null)
+                        dynamicHudRotationSetter.droneWordScale = gameObject;
+                }
+
+                break;
             case MapObject.ObjType.Waypoint:
                 if (mapCustumeObject.mapObject is Waypoint) // pøetypování
                 {
@@ -408,7 +410,8 @@ public class SpawnOnMap : MonoBehaviour
                     if (!isMinimap&& waypoint.setAsTarget)
                     {
                         CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
-                        compasIndicator.activeWaypoint = gameObject;
+                        if(compasIndicator!=null)
+                            compasIndicator.activeWaypoint = gameObject;
                     }
                 }
                 break;
