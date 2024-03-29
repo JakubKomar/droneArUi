@@ -27,7 +27,7 @@ public class GPSManager : Singleton<GPSManager>
         //WebSocketManager2.Instance.OnConnectedToServer += OnConnectedToServer;
 
         // Generate Unique ID for our drone
-        drone = new Drone(Camera.gameObject, new DroneFlightData());
+        drone = new Drone( new DroneFlightData());
         drone.FlightData.DroneId = "HoloLens2_Pilot";
         DroneManager.Instance.Drones.Add(drone);
     }
@@ -85,7 +85,7 @@ public class GPSManager : Singleton<GPSManager>
         // update map center position
         Map.UpdateMap(new Vector2d(drone.FlightData.Latitude, drone.FlightData.Longitude));
         Map.transform.eulerAngles = new Vector3(0, (float)-drone.FlightData.Yaw, 0);
-        drone.DroneGameObject.transform.position = Camera.transform.position;
+        //drone.DroneGameObject.transform.position = Camera.transform.position;
         drone.RotationOffset = drone.FlightData.Yaw;
         drone.ClearPositionOffset();
     }

@@ -17,8 +17,6 @@ public class DroneManager : Singleton<DroneManager>
     public List<Drone> Drones = new List<Drone>();
     public Drone ControlledDrone=null;
     public AbstractMap Map;
-    public GameObject DroneBoundingBox;
-    public GameObject ControlledDroneGameObject;
     public static bool RunningInUnityEditor = Application.isEditor;
 
     private void Update()
@@ -65,16 +63,11 @@ public class DroneManager : Singleton<DroneManager>
     public void AddDrone(DroneFlightData flightData)
     {
         Mapbox.Utils.Vector2d mapboxPosition = new Mapbox.Utils.Vector2d(flightData.Latitude, flightData.Longitude);
-        Vector3 position3d = Map.GeoToWorldPosition(mapboxPosition, false);
         //float groundAltitude = MapController.Instance.Map.QueryElevationInUnityUnitsAt(MapController.Instance.Map.WorldToGeoPosition(position3d));
-        position3d.y = (float)flightData.Altitude;
 
-        GameObject BBox = Instantiate(DroneBoundingBox, position3d, Quaternion.identity);
-        BBox.name = flightData.DroneId;
-        Drone newDrone = new Drone(BBox, flightData);
+        Drone newDrone = new Drone(flightData);
         newDrone.FlightData = flightData;
         Drones.Add(newDrone);
-        BBox.transform.SetParent(transform);
     }
 
     public void HandleReceivedDroneData(string data)
@@ -163,8 +156,6 @@ public class DroneManager : Singleton<DroneManager>
             {
                 drone.IsControlled = true;
                 ControlledDrone = drone;
-                drone.DroneGameObject.Destroy();
-                drone.DroneGameObject = ControlledDroneGameObject;
                 Debug.Log("Controled drone selected:" + drone.FlightData.DroneId);
 
                 RTMPstreamPlayer[] scripts = FindObjectsOfType<RTMPstreamPlayer>();

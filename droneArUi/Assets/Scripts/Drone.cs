@@ -15,9 +15,6 @@ using UnityEngine;
 
 public class Drone {
 
-    public GameObject DroneGameObject {
-        get; set;
-    }
 
     public DroneFlightData FlightData {
         get; set;
@@ -45,16 +42,10 @@ public class Drone {
         {
 
             return (float)FlightData.Altitude;
-            
-
-            var latlong = new Vector2d(FlightData.Latitude, FlightData.Longitude);
-            var groundAltitude = DroneManager.Instance.Map.QueryElevationInUnityUnitsAt(latlong);
-            return (float)FlightData.Altitude - groundAltitude;
         }
     }
 
-    public Drone(GameObject droneGameObject, DroneFlightData flightData, bool isControlled=false, float rotationOffset=0) {
-        DroneGameObject = droneGameObject;
+    public Drone(DroneFlightData flightData, bool isControlled=false, float rotationOffset=0) {
         FlightData = flightData;
         IsControlled = isControlled;
         RotationOffset = rotationOffset;
@@ -67,7 +58,7 @@ public class Drone {
     /// </summary>
     /// <param name="flightData"></param>
     public void UpdateDroneFlightData(DroneFlightData flightData) {
-        var trackingType = UserProfileManager.Instance.TrackingType;
+        /*var trackingType = UserProfileManager.Instance.TrackingType;
         lastUpdate = DateTime.Now;
         FlightData = flightData;
         if (trackingType == TrackingTypeEnum.GPS)
@@ -77,7 +68,8 @@ public class Drone {
         else
         {
             UpdatePositionByIMU(flightData);
-        }
+        }*/
+        UpdatePositionByGPS(flightData);
     }
 
     /// <summary>
@@ -87,7 +79,7 @@ public class Drone {
     /// <param name="flightData"></param>
     private void UpdatePositionByIMU(DroneFlightData flightData)
     {
-        FlightData = flightData;
+        /*FlightData = flightData;
         var height = GetRelativeAltitude();
         var correction = UserProfileManager.Instance.DroneThreshold;
         var newVector = Rotate2DVector(new Vector2((float)flightData.VelocityX, (float)flightData.VelocityY), RotationOffset) * GPSManager.droneUpdateInterval;
@@ -96,7 +88,7 @@ public class Drone {
         var newPosition = dronePosition + new Vector3(newVector.y, 0, newVector.x);
 
         DroneGameObject.transform.position = new Vector3(newPosition.x, height, newPosition.z);
-        SetRotation();
+        SetRotation();*/
     }
 
     /// <summary>
@@ -108,17 +100,17 @@ public class Drone {
     private void UpdatePositionByGPS(DroneFlightData flightData)
     {
         FlightData = flightData;
-        if (double.IsNaN(FlightData.Latitude) || double.IsNaN(FlightData.Longitude))
+       /* if (double.IsNaN(FlightData.Latitude) || double.IsNaN(FlightData.Longitude))
         {
             return;
-        }
+        }*/
 
-        var newRealPos = DroneManager.Instance.Map.GeoToWorldPosition(new Vector2d(flightData.Latitude, flightData.Longitude), false);
-        var position3d = newRealPos;
+        //var newRealPos = DroneManager.Instance.Map.GeoToWorldPosition(new Vector2d(flightData.Latitude, flightData.Longitude), false);
+        //var position3d = newRealPos;
 
-        position3d.y = GetRelativeAltitude();
+        //position3d.y = GetRelativeAltitude();
 
-        if (CheckThreshold(flightData, position3d.y))
+        /*if (CheckThreshold(flightData, position3d.y))
         {
             DroneGameObject.transform.position = position3d + CorrectionOffset;
         }
@@ -129,7 +121,7 @@ public class Drone {
 
         var dronePosition = DroneGameObject.transform.position;
         DroneGameObject.transform.position = new Vector3(dronePosition.x, position3d.y, dronePosition.z);
-        SetRotation();
+        SetRotation();*/
     }
 
     /// <summary>
@@ -137,7 +129,7 @@ public class Drone {
     /// </summary>
     private void SetRotation()
     {
-        DroneGameObject.transform.localEulerAngles = new Vector3((float)-FlightData.Pitch, (float)(FlightData.Yaw - RotationOffset), (float)-FlightData.Roll);
+        //DroneGameObject.transform.localEulerAngles = new Vector3((float)-FlightData.Pitch, (float)(FlightData.Yaw - RotationOffset), (float)-FlightData.Roll);
     }
 
     /// <summary>
