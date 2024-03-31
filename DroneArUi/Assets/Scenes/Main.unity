@@ -25938,6 +25938,8 @@ MonoBehaviour:
     name: 
     relativeAltitude: 10
     mapData: {fileID: 0}
+    rotation: {x: 0, y: 0, z: 0, w: 0}
+    scale: {x: 0, y: 0, z: 0}
     type: 6
   allObjects: []
   spawnOnMapScripts: []
@@ -41976,6 +41978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 114478716810624008}
   _spawnScale: 0.02
+  _barierMinimapScale: 1
   _defaultPrefab: {fileID: 0}
   _waypointPrefab: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
   _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
@@ -42291,6 +42294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 114478717238887276}
   _spawnScale: 1.3
+  _barierMinimapScale: 100
   _defaultPrefab: {fileID: 0}
   _waypointPrefab: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
   _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
