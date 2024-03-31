@@ -150,7 +150,7 @@ public class SpawnOnMap : MonoBehaviour
 
         if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Barier) {
             mapObject.rotation = gameObject.transform.rotation;
-            mapObject.scale = new Vector3(_barierMinimapScale, _barierMinimapScale, _barierMinimapScale);
+            mapObject.scale = new Vector3(15, 15, 15); // vytvoø krychly o rozmìrech 15x15x15m
         }
 
         mapData.addObject(mapObject);
@@ -274,7 +274,7 @@ public class SpawnOnMap : MonoBehaviour
                     gameObject = Instantiate(_warningPrefab);
 
                     if (isMinimap)
-                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale * _barierMinimapScale;
                     else
                         gameObject.transform.localScale = mapCustumeObject.mapObject.scale;
                     gameObject.transform.rotation = mapCustumeObject.mapObject.rotation;
@@ -321,7 +321,7 @@ public class SpawnOnMap : MonoBehaviour
             }
 
 
-                MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>();
+            MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>();
             if (mapGameObjectData!=null)
             {
                 mapGameObjectData.mapObjectData = mapCustumeObject;
@@ -370,7 +370,7 @@ public class SpawnOnMap : MonoBehaviour
             }else
                 mapCustumeObject.mapObject.scale = gameObject.transform.localScale ;
 
-            mapCustumeObject.mapObject.rotation = gameObject.transform.rotation;
+            mapCustumeObject.mapObject.rotation = gameObject.transform.localRotation;
             
 
             if (mapCustumeObject.manipulationDirtyFlag)
@@ -390,11 +390,11 @@ public class SpawnOnMap : MonoBehaviour
             {
                 if (isMinimap)
                 {
-                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale* _barierMinimapScale;
                 }else
                     gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
 
-                gameObject.transform.rotation = mapCustumeObject.mapObject.rotation;
+                gameObject.transform.localRotation = mapCustumeObject.mapObject.rotation;
             }
             else
             {

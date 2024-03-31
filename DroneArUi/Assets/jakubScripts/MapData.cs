@@ -739,8 +739,8 @@ public class MapObject: System.Object
     [JsonIgnore]
     public MapData mapData = null;
 
-    public Quaternion rotation = Quaternion.identity;
-    public Vector3 scale = Vector3.one;
+    public SerializableQuaternion rotation = Quaternion.identity;
+    public SerializableVector3 scale = Vector3.one;
      
     public enum ObjType
     {
@@ -770,3 +770,96 @@ public class MapObject: System.Object
 
 }
 
+[System.Serializable]
+public class SerializableVector3
+{
+    public float x;
+    public float y;
+    public float z;
+
+    public SerializableVector3() { }
+
+    public SerializableVector3(float x, float y, float z)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    public SerializableVector3(Vector3 vector)
+    {
+        this.x = vector.x;
+        this.y = vector.y;
+        this.z = vector.z;
+    }
+
+    public Vector3 ToVector3()
+    {
+        return new Vector3(x, y, z);
+    }
+
+    public static implicit operator Vector3(SerializableVector3 serializableVector)
+    {
+        return serializableVector.ToVector3();
+    }
+
+    public static implicit operator SerializableVector3(Vector3 vector)
+    {
+        return new SerializableVector3(vector);
+    }
+
+    public static SerializableVector3 operator *(SerializableVector3 vector, float multiplier)
+    {
+        return new SerializableVector3(vector.x * multiplier, vector.y * multiplier, vector.z * multiplier);
+    }
+
+    public static SerializableVector3 operator *(float multiplier, SerializableVector3 vector)
+    {
+        return vector * multiplier;
+    }
+}
+
+[System.Serializable]
+public class SerializableQuaternion
+{
+    public float x;
+    public float y;
+    public float z;
+    public float w;
+
+    public SerializableQuaternion()
+    {
+        // Výchozí konstruktor
+    }
+
+    public SerializableQuaternion(float x, float y, float z, float w)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.w = w;
+    }
+
+    public SerializableQuaternion(Quaternion quaternion)
+    {
+        this.x = quaternion.x;
+        this.y = quaternion.y;
+        this.z = quaternion.z;
+        this.w = quaternion.w;
+    }
+
+    public Quaternion ToQuaternion()
+    {
+        return new Quaternion(x, y, z, w);
+    }
+
+    public static implicit operator Quaternion(SerializableQuaternion serializableQuaternion)
+    {
+        return serializableQuaternion.ToQuaternion();
+    }
+
+    public static implicit operator SerializableQuaternion(Quaternion quaternion)
+    {
+        return new SerializableQuaternion(quaternion);
+    }
+}

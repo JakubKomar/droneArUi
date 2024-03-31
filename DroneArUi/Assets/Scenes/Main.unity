@@ -41978,7 +41978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 114478716810624008}
   _spawnScale: 0.02
-  _barierMinimapScale: 1
+  _barierMinimapScale: 0.0025
   _defaultPrefab: {fileID: 0}
   _waypointPrefab: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
   _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
@@ -42301,8 +42301,8 @@ MonoBehaviour:
   _playerPrefab: {fileID: 0}
   _poiPrefab: {fileID: 7312719393256005487, guid: d6d3721f1165eb54b946b434b08d025d, type: 3}
   _dronePrefab: {fileID: 1839187062704024, guid: 5d8570abbe21b984391533ef229f9d47, type: 3}
-  _barierPrefab: {fileID: 0}
-  _warningPrefab: {fileID: 0}
+  _barierPrefab: {fileID: 7312719393256005487, guid: 04c6039ca1d949c45b92c4a5eaeda08f, type: 3}
+  _warningPrefab: {fileID: 7312719393256005487, guid: 714df81a434f88e45a850e0443264f2b, type: 3}
   boxCollider: {fileID: 0}
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 0
