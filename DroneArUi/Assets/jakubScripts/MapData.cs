@@ -11,6 +11,7 @@ using System.Text;
 
 using Mapbox.Utils;
 using UnityEngine.Events;
+using Unity.Mathematics;
 
 public class MapData : Singleton <MapData>
 {
@@ -689,7 +690,6 @@ public class ObjOfInterest : MapObject
 public class DroneObject : MapObject
 {
     public DroneFlightData droneFlightData = null;
-    public Quaternion rotation= Quaternion.identity;
 
     public DroneObject(MapData mapData):base(mapData)
     {
@@ -739,6 +739,9 @@ public class MapObject: System.Object
     [JsonIgnore]
     public MapData mapData = null;
 
+    public Quaternion rotation = Quaternion.identity;
+    public Vector3 scale = Vector3.one;
+     
     public enum ObjType
     {
         Waypoint,
@@ -759,6 +762,8 @@ public class MapObject: System.Object
             name = mapObject.name;
             relativeAltitude = mapObject.relativeAltitude;
             type = mapObject.type;
+            rotation=mapObject.rotation;
+            scale = mapObject.scale;
         }
         this.mapData = mapData;
     }

@@ -10,6 +10,7 @@ using Mapbox.Examples;
 using System.Globalization;
 using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine.UIElements;
+using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
 
 public class SpawnOnMap : MonoBehaviour
 {
@@ -29,6 +30,9 @@ public class SpawnOnMap : MonoBehaviour
 
     [SerializeField]
     float _spawnScale = 100f;
+
+    [SerializeField]
+    float _barierMinimapScale = 0.02f;
 
     [SerializeField]
     GameObject _defaultPrefab;
@@ -144,6 +148,10 @@ public class SpawnOnMap : MonoBehaviour
         float calculatedHeight = calcAbsoluteHeight(deltaHeight);
         mapObject.relativeAltitude = calculatedHeight;
 
+        if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Barier) {
+            mapObject.rotation = gameObject.transform.rotation;
+            mapObject.scale = new Vector3(_barierMinimapScale, _barierMinimapScale, _barierMinimapScale);
+        }
 
         mapData.addObject(mapObject);
     }
@@ -212,38 +220,66 @@ public class SpawnOnMap : MonoBehaviour
             switch (mapCustumeObject.mapObject.type)
             {
                 case MapObject.ObjType.Player:
-                    if(_playerPrefab != null)
+                    if (_playerPrefab != null)
+                    {
                         gameObject = Instantiate(_playerPrefab);
+                        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                    }
                     break;
                 case MapObject.ObjType.LandingPad:
                     if (_homeLocationPrefab != null)
                     {
                         gameObject = Instantiate(_homeLocationPrefab);
+                        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                     }
                     break;
                 case MapObject.ObjType.ObjOfInterest:
-                    if(_poiPrefab!=null)
+                    if (_poiPrefab != null)
+                    {
                         gameObject = Instantiate(_poiPrefab);
+                        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                    }
                     break;
                 case MapObject.ObjType.Drone:
                     if (_dronePrefab != null)
+                    {
                         gameObject = Instantiate(_dronePrefab);
+                        gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                    }
                     break;
                 case MapObject.ObjType.Waypoint:
                     if (_waypointPrefab == null)
+                    {
                         return;
+                    }
                     gameObject = Instantiate(_waypointPrefab);
+                    gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                     break;
                 case MapObject.ObjType.Barier:
                     if (_barierPrefab == null)
                         return;
                     gameObject = Instantiate(_barierPrefab);
+
+                    if(isMinimap)
+                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                    else
+                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+
+                    gameObject.transform.rotation = mapCustumeObject.mapObject.rotation ;
+
                     break;
                 case MapObject.ObjType.Warning:
                     if (_warningPrefab == null)
                         return;
                     gameObject = Instantiate(_warningPrefab);
+
+                    if (isMinimap)
+                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                    else
+                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale;
+                    gameObject.transform.rotation = mapCustumeObject.mapObject.rotation;
                     break;
+
                 default:
                     if (_defaultPrefab != null)
                         gameObject = Instantiate(_defaultPrefab);
@@ -264,17 +300,33 @@ public class SpawnOnMap : MonoBehaviour
 
                 objectManipulator.OnManipulationStarted.AddListener(mapCustumeObject.onManipultaionStart);
                 objectManipulator.OnManipulationEnded.AddListener(mapCustumeObject.onManipulationEnd);
+
                 //objectManipulator.OnHoverEntered.AddListener(mapCustumeObject.onHoverStart);
                 //objectManipulator.OnHoverExited.AddListener(mapCustumeObject.onHoverEnd);
+
+
+                mapCustumeObject.boundsControl = gameObject.GetComponent<BoundsControl>();
+                if (mapCustumeObject.boundsControl != null)
+                {
+                    BoundsControl boundsControl = mapCustumeObject.boundsControl;
+
+                    boundsControl.ScaleStarted.AddListener(mapCustumeObject.onManipultaionStart);
+                    boundsControl.RotateStarted.AddListener(mapCustumeObject.onManipultaionStart);
+                    boundsControl.TranslateStarted.AddListener(mapCustumeObject.onManipultaionStart);
+
+                    boundsControl.ScaleStopped.AddListener(mapCustumeObject.onManipulationEnd);
+                    boundsControl.RotateStopped.AddListener(mapCustumeObject.onManipulationEnd);
+                    boundsControl.TranslateStopped.AddListener(mapCustumeObject.onManipulationEnd);
+                }
             }
 
-            MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>();
+
+                MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>();
             if (mapGameObjectData!=null)
             {
                 mapGameObjectData.mapObjectData = mapCustumeObject;
             }
 
-            gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
         }
 
         // propsání zmìn po a pøi manipulaci
@@ -312,7 +364,16 @@ public class SpawnOnMap : MonoBehaviour
             if (mapCustumeObject.mapObject.relativeAltitude < 0)
                 mapCustumeObject.mapObject.relativeAltitude = 0;
 
-            if(mapCustumeObject.manipulationDirtyFlag)
+            if (isMinimap)
+            {
+                mapCustumeObject.mapObject.scale = gameObject.transform.localScale / _barierMinimapScale;
+            }else
+                mapCustumeObject.mapObject.scale = gameObject.transform.localScale ;
+
+            mapCustumeObject.mapObject.rotation = gameObject.transform.rotation;
+            
+
+            if (mapCustumeObject.manipulationDirtyFlag)
                 mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
         }
 
@@ -323,7 +384,24 @@ public class SpawnOnMap : MonoBehaviour
 
             gameObject.transform.localPosition = Vector3.zero;
             gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
-            gameObject.transform.rotation = _map.transform.rotation;
+
+
+            if(mapCustumeObject.mapObject.type==MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
+            {
+                if (isMinimap)
+                {
+                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                }else
+                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+
+                gameObject.transform.rotation = mapCustumeObject.mapObject.rotation;
+            }
+            else
+            {
+                gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                gameObject.transform.rotation = _map.transform.rotation;
+            }
+
 
             float calcHeight;
             if (isMinimap)
@@ -445,6 +523,7 @@ public class SpawnOnMap : MonoBehaviour
         public MapObject mapObject=null;
 
         public ObjectManipulator manipulator = null;
+        public BoundsControl boundsControl = null;
 
         public bool underManipulation = false;
         public bool manipulationDirtyFlag = false;
@@ -470,10 +549,18 @@ public class SpawnOnMap : MonoBehaviour
         }
         public void onManipultaionStart(ManipulationEventData eventData)
         {
+            onManipultaionStart();
+        }
+        public void onManipulationEnd(ManipulationEventData eventData)
+        {
+            onManipulationEnd();
+        }
+        public void onManipultaionStart()
+        {
             this.underManipulation = true;
             Debug.Log("manipulataion start");
         }
-        public void onManipulationEnd(ManipulationEventData eventData)
+        public void onManipulationEnd()
         {
             this.underManipulation = false;
             this.manipulationDirtyFlag = true;
