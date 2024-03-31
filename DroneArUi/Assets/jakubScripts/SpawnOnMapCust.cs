@@ -149,7 +149,7 @@ public class SpawnOnMap : MonoBehaviour
         mapObject.relativeAltitude = calculatedHeight;
 
         if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Barier) {
-            mapObject.rotation = gameObject.transform.rotation;
+            mapObject.rotation = Quaternion.identity;
             mapObject.scale = new Vector3(15, 15, 15); // vytvoø krychly o rozmìrech 15x15x15m
         }
 
