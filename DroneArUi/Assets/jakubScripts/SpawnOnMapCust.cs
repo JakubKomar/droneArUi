@@ -146,11 +146,17 @@ public class SpawnOnMap : MonoBehaviour
         float sceneHeight = newTransformation.y;//výška k zemi ve scénì
         float deltaHeight = gameObject.transform.position.y - sceneHeight;
         float calculatedHeight = calcAbsoluteHeight(deltaHeight);
+
+
         mapObject.relativeAltitude = calculatedHeight;
 
-        if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Barier) {
+        if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Warning) {
             mapObject.rotation = Quaternion.identity;
             mapObject.scale = new Vector3(15, 15, 15); // vytvoø krychly o rozmìrech 15x15x15m
+
+            mapObject.relativeAltitude = 7.5f; // støed je v pùlce
+
+            
         }
 
         mapData.addObject(mapObject);
@@ -344,22 +350,42 @@ public class SpawnOnMap : MonoBehaviour
 
             CultureInfo culture = new CultureInfo("en-US");
             mapCustumeObject.mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); // .ToString(culture) protože podìlanej c#
-            
+
+
+            float sceneHeight;//výška k zemi ve scénì
+            float deltaHeight;
+
             if (isMinimap)
             {
                 var newTransformation = _map.GeoToWorldPosition(vector2d, true);
-                float sceneHeight = newTransformation.y;//výška k zemi ve scénì
-                float deltaHeight = gameObject.transform.position.y - sceneHeight;
-                //Debug.Log(deltaHeight);
-                float calculatedHeight = calcAbsoluteHeight(deltaHeight);
-                mapCustumeObject.mapObject.relativeAltitude = calculatedHeight;
+
+                if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
+                {
+                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(mapCustumeObject.spawnetGameObject.transform.localScale.y*0.5f) ; 
+                }
+                else
+                {
+                    sceneHeight = newTransformation.y;//výška k zemi ve scénì
+                    deltaHeight = gameObject.transform.position.y - sceneHeight;
+                    mapCustumeObject.mapObject.relativeAltitude =  calcAbsoluteHeight(deltaHeight);
+                }
             }
             else
             {
                 var newTransformation = _map.GeoToWorldPosition(vector2d, true);
-                float sceneHeight = newTransformation.y;//výška k zemi ve scénì
-                float deltaHeight = gameObject.transform.position.y - sceneHeight;
-                mapCustumeObject.mapObject.relativeAltitude = deltaHeight;
+
+
+                if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
+                {
+                    mapCustumeObject.mapObject.relativeAltitude = mapCustumeObject.spawnetGameObject.transform.localScale.y/2 ;
+              
+                }
+                else
+                {
+                    sceneHeight = newTransformation.y;//výška k zemi ve scénì
+                    deltaHeight = gameObject.transform.position.y - sceneHeight;
+                    mapCustumeObject.mapObject.relativeAltitude = deltaHeight;
+                }
             }
             if (mapCustumeObject.mapObject.relativeAltitude < 0)
                 mapCustumeObject.mapObject.relativeAltitude = 0;
@@ -558,13 +584,13 @@ public class SpawnOnMap : MonoBehaviour
         public void onManipultaionStart()
         {
             this.underManipulation = true;
-            Debug.Log("manipulataion start");
+            //Debug.Log("manipulataion start");
         }
         public void onManipulationEnd()
         {
             this.underManipulation = false;
             this.manipulationDirtyFlag = true;
-            Debug.Log("manipulataion ends");
+            //Debug.Log("manipulataion ends");
         }
 
     }

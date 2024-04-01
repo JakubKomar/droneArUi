@@ -30,7 +30,6 @@ public class CompassIndicator : Singleton<CompassIndicator>
     private int visibleCount = 180;
 
     private float canvasWidth;
-    private float canvasHeight;
 
     private float heading = 23;
 
@@ -39,7 +38,6 @@ public class CompassIndicator : Singleton<CompassIndicator>
     private List<GameObject> smallStupniceList = new List<GameObject>();
     private DroneManager droneManager;
 
-    float lastAltWarning = 0;
 
     public GameObject playerCamera;
 
@@ -57,7 +55,7 @@ public class CompassIndicator : Singleton<CompassIndicator>
         droneManager = FindObjectOfType<DroneManager>();
 
         canvasWidth = this.GetComponent<RectTransform>().rect.width;
-        canvasHeight = this.GetComponent<RectTransform>().rect.height;
+        //canvasHeight = this.GetComponent<RectTransform>().rect.height;
 
         tape = this.transform.Find("Tape");
 
