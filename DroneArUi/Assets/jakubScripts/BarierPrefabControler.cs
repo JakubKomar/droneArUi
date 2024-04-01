@@ -19,12 +19,20 @@ public class BarierPrefabControler : MapGameObjectData
 
     void Update()
     {
-        timeSinceLastCheck += Time.deltaTime;
-        if (timeSinceLastCheck >= checkInterval)
+        bool checkForBounds = this.mapObjectData != null && this.mapObjectData.mapObject != null && (!this.mapObjectData.isInMinimap);
+        if (checkForBounds && timeSinceLastCheck >= checkInterval)
         {
             timeSinceLastCheck = 0f;
             CheckForObject();
+
+            // nastavení materiálu dle interní reprezetace waypointu
         }
+        else if (checkForBounds)
+        {
+            // update každých 0.2s
+            timeSinceLastCheck += Time.deltaTime;
+        }
+
     }
 
     private bool reported=false;

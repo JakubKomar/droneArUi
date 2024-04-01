@@ -26,35 +26,41 @@ public class waypointPrefabControler : MapGameObjectData
 
     void Update()
     {
-        // update každých 0.2s
-        timeSinceLastCheck += Time.deltaTime;
-        if (timeSinceLastCheck >= checkInterval)
+        bool checkForBounds = this.mapObjectData != null && this.mapObjectData.mapObject != null  && (!this.mapObjectData.isInMinimap);
+        if (checkForBounds && timeSinceLastCheck >= checkInterval)
         {
             timeSinceLastCheck = 0f;
             CheckForObject();
 
             // nastavení materiálu dle interní reprezetace waypointu
-            MeshRenderer renderer = spere.GetComponent<MeshRenderer>();
 
-            if (this.mapObjectData != null && this.mapObjectData.mapObject != null
-                    && this.mapObjectData.mapObject is Waypoint&& spere!=null && renderer != null)
+        }
+        else if(checkForBounds)
+        {
+            // update každých 0.2s
+            timeSinceLastCheck += Time.deltaTime;
+        }
+
+        MeshRenderer renderer = spere.GetComponent<MeshRenderer>();
+
+        if (this.mapObjectData != null && this.mapObjectData.mapObject != null
+                && this.mapObjectData.mapObject is Waypoint && spere != null && renderer != null)
+        {
+            Waypoint waypoint = (Waypoint)this.mapObjectData.mapObject;
+
+            if (waypoint.hasBeenVisited)
             {
-                Waypoint waypoint = (Waypoint)this.mapObjectData.mapObject;
-
-                if (waypoint.hasBeenVisited)
-                {
-                    renderer.material = materialCrossed;
-                }
-                else if (waypoint.setAsTarget)
-                {
-                    renderer.material = materialAsTarget;
-                }
-                else
-                {
-                    renderer.material = materialNotCrossed;
-                }
-                
+                renderer.material = materialCrossed;
             }
+            else if (waypoint.setAsTarget)
+            {
+                renderer.material = materialAsTarget;
+            }
+            else
+            {
+                renderer.material = materialNotCrossed;
+            }
+
         }
     }
     private void CheckForObject()

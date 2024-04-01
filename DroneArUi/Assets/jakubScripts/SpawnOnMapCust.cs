@@ -156,7 +156,6 @@ public class SpawnOnMap : MonoBehaviour
 
             mapObject.relativeAltitude = 7.5f; // støed je v pùlce
 
-            
         }
 
         mapData.addObject(mapObject);
@@ -300,10 +299,11 @@ public class SpawnOnMap : MonoBehaviour
             gameObject.transform.parent = this.transform;
             mapCustumeObject.spawnetGameObject = gameObject;
             mapCustumeObject.manipulator = gameObject.GetComponent<ObjectManipulator>();
+            mapCustumeObject.isInMinimap = isMinimap;
 
             if (mapCustumeObject.manipulator != null){
                 ObjectManipulator objectManipulator = mapCustumeObject.manipulator;
-
+                objectManipulator.AllowFarManipulation = !isMinimap;
                 objectManipulator.OnManipulationStarted.AddListener(mapCustumeObject.onManipultaionStart);
                 objectManipulator.OnManipulationEnded.AddListener(mapCustumeObject.onManipulationEnd);
 
@@ -315,7 +315,7 @@ public class SpawnOnMap : MonoBehaviour
                 if (mapCustumeObject.boundsControl != null)
                 {
                     BoundsControl boundsControl = mapCustumeObject.boundsControl;
-
+         
                     boundsControl.ScaleStarted.AddListener(mapCustumeObject.onManipultaionStart);
                     boundsControl.RotateStarted.AddListener(mapCustumeObject.onManipultaionStart);
                     boundsControl.TranslateStarted.AddListener(mapCustumeObject.onManipultaionStart);
@@ -553,6 +553,8 @@ public class SpawnOnMap : MonoBehaviour
 
         public bool underManipulation = false;
         public bool manipulationDirtyFlag = false;
+
+        public bool isInMinimap;
 
         public MapObjectData(MapObject mapObject)
         {
