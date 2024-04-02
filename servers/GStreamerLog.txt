@@ -49,3 +49,13 @@ Info: Checking is active
 Info: : Pipeline State Changes:  GST_STATE_READY--> GST_STATE_PAUSED
 Info: : Playing
 Info: : Pipeline State Changes:  GST_STATE_PAUSED--> GST_STATE_PLAYING
+Info: : Pausing
+Info: : Pipeline State Changes:  GST_STATE_PLAYING--> GST_STATE_PAUSED
+Info: : GstPipelineHandler::Stop 
+Info: : GstPipelineHandler::Close 
+Info: : GstPipelineHandler::Stop 
+Info: : GstPipelineHandler::Close 
+Info: : GstPipelineHandler::Stop 
+Info: : GstPipelineHandler::Close 
+Info: : GstPipelineHandler::Stop 
+Info: Checking is active

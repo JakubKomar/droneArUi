@@ -69,9 +69,16 @@ public class calibrationScript : Singleton<calibrationScript>
 
         wordScaleMap.UpdateMap(actualCenter);
         
-        Quaternion targetRotation = Quaternion.Euler(0, playeryRottation-((float) compas), 0);
-        wordScaleMap.transform.rotation = targetRotation;
-        wordScaleMap.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y-1.8f, playerCamera.transform.position.z);
+        //reset soft calibrace
+        this.transform.localScale = Vector3.one;
+        this.transform.localRotation = Quaternion.identity;
+        this.transform.position = Vector3.zero;
+
+        // nastavení pozice dle hráèe a drona
+        Quaternion targetRotation = Quaternion.Euler(0, playeryRottation - ((float)compas), 0);
+        wordScaleMap.transform.localRotation = targetRotation;
+        wordScaleMap.transform.localPosition = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 1.8f, playerCamera.transform.position.z);
+        wordScaleMap.transform.localScale = Vector3.one;
 
         miniMap.UpdateMap(actualCenter);
         mapControler.setCurentCenter();
