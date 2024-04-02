@@ -720,7 +720,7 @@ PlayerSettings:
       GazeInput: True
       UserDataTasks: True
       SpatialPerception: True
-      PicturesLibrary: True
+      PicturesLibrary: False
       InternetClient: True
       WebCam: True
       Microphone: True

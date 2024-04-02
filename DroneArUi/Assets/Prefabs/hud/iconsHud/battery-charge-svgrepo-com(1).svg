@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   fill="none"
+   version="1.1"
+   id="svg3"
+   sodipodi:docname="battery-charge-svgrepo-com(1).svg"
+   inkscape:version="1.3.1 (91b66b0783, 2023-11-16)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3" />
+  <sodipodi:namedview
+     id="namedview3"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:zoom="2.2275"
+     inkscape:cx="707.74411"
+     inkscape:cy="371.49271"
+     inkscape:window-width="1920"
+     inkscape:window-height="1129"
+     inkscape:window-x="490"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="SVGRepo_iconCarrier" />
+  <g
+     id="SVGRepo_bgCarrier"
+     stroke-width="0" />
+  <g
+     id="SVGRepo_tracerCarrier"
+     stroke-linecap="round"
+     stroke-linejoin="round" />
+  <g
+     id="SVGRepo_iconCarrier">
+    <path
+       opacity="0.5"
+       d="M 3.3389371,5.17157 C 2,6.34315 2,8.22876 2,12 2,15.7712 2,17.6569 3.3389371,18.8284 4.6778857,20 6.8328686,20 11.142857,20 h 1.714286 c 4.309943,0 6.465028,0 7.803886,-1.1716 C 22,17.6569 22,15.7712 22,12 22,8.22876 22,6.34315 20.661029,5.17157 19.322171,4 17.167086,4 12.857143,4 H 11.142857 C 6.8328686,4 4.6778857,4 3.3389371,5.17157 Z"
+       fill="#00ff00"
+       id="path1"
+       style="stroke-width:1.06904" />
+    <path
+       d="m 21.9913,14 c 0.007,-0.6007 0.007,-1.2645 0.007,-2 0,-0.7355 0,-1.3993 -0.007,-2 h 0.407185 c 0.754954,0 1.132431,0 1.366973,0.2929 C 24,10.5858 24,11.0572 24,12 c 0,0.9428 0,1.4142 -0.234542,1.7071 C 23.530916,14 23.153439,14 22.398485,14 Z"
+       fill="#00ff00"
+       id="path2"
+       style="stroke-width:0.89485" />
+    <path
+       d="M12.0762 9.48016C12.3413 9.16195 12.2984 8.68903 11.9801 8.42385C11.6619 8.15868 11.189 8.20167 10.9238 8.51988L8.42384 11.5199C8.23754 11.7434 8.19738 12.0546 8.32082 12.3181C8.44425 12.5817 8.709 12.75 9.00001 12.75H10.8987L9.42384 14.5199C9.15867 14.8381 9.20166 15.311 9.51987 15.5762C9.83808 15.8414 10.311 15.7984 10.5762 15.4802L13.0762 12.4802C13.2625 12.2566 13.3026 11.9454 13.1792 11.6819C13.0558 11.4184 12.791 11.25 12.5 11.25H10.6013L12.0762 9.48016Z"
+       fill="#00ff00"
+       id="path3"
+       style="fill:#ffffff;fill-opacity:1" />
+  </g>
+</svg>
