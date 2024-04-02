@@ -384,7 +384,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnMovement: 6
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &70343503890416047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,7 +401,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnRotation: -1
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &6614541573887477196
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4508,7 +4508,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnMovement: -1
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &5900442493719584923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4525,7 +4525,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnRotation: 5
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &4649199470198056896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12676,7 +12676,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnRotation: -1
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &4517535994895199516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12693,7 +12693,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnMovement: 3
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &26179603886526297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15346,7 +15346,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnRotation: -1
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &4162719739356015050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15363,7 +15363,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnMovement: 5
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!136 &6663197918518851608
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15588,7 +15588,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnRotation: -1
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &8635967011695972425
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15605,7 +15605,7 @@ MonoBehaviour:
   proximityType: 3
   executionOrder: 0
   constraintOnMovement: 2
-  useLocalSpaceForConstraint: 0
+  useLocalSpaceForConstraint: 1
 --- !u!114 &1571955446436948159
 MonoBehaviour:
   m_ObjectHideFlags: 0

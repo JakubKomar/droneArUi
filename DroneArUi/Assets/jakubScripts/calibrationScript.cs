@@ -20,6 +20,9 @@ public class calibrationScript : Singleton<calibrationScript>
     public float playerHading;
 
     public UnityEvent calibrationEvent = new UnityEvent();
+
+    [SerializeField]
+    GameObject manipulatorPrefab = null;
     void Start()
     {
     }
@@ -79,6 +82,11 @@ public class calibrationScript : Singleton<calibrationScript>
         wordScaleMap.transform.localRotation = targetRotation;
         wordScaleMap.transform.localPosition = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 1.8f, playerCamera.transform.position.z);
         wordScaleMap.transform.localScale = Vector3.one;
+
+        manipulatorPrefab.transform.localRotation =Quaternion.identity;
+        manipulatorPrefab.transform.localPosition = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y -0.8f, playerCamera.transform.position.z); ;
+
+
 
         miniMap.UpdateMap(actualCenter);
         mapControler.setCurentCenter();

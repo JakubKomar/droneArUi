@@ -14251,6 +14251,7 @@ MonoBehaviour:
   calibrationEvent:
     m_PersistentCalls:
       m_Calls: []
+  manipulatorPrefab: {fileID: 1629825553}
 --- !u!4 &568251513
 Transform:
   m_ObjectHideFlags: 0
@@ -35219,6 +35220,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1625455872}
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1629825553 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8681007831935207440, guid: cbb3283aa57648644b05a4dc1c373940, type: 3}
+  m_PrefabInstance: {fileID: 1925965757}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1629897928
 GameObject:
   m_ObjectHideFlags: 0
