@@ -23,6 +23,8 @@ public class calibrationScript : Singleton<calibrationScript>
 
     [SerializeField]
     GameObject manipulatorPrefab = null;
+    [SerializeField]
+    CalibrationGround ground;
     void Start()
     {
     }
@@ -106,5 +108,40 @@ public class calibrationScript : Singleton<calibrationScript>
         wordScaleMap.UpdateMap(actualCenter);
         miniMap.UpdateMap(actualCenter);
         mapControler.setCurentCenter();
+    }
+    bool softCalibrationActive = false;
+    private void softCalibrationStart()
+    {
+
+        VectorSubLayerProperties vc = wordScaleMap.VectorData.FindFeatureSubLayerWithName("Untitled");
+        vc.SetActive(true);
+
+        manipulatorPrefab.SetActive(true);
+        manipulatorPrefab.transform.rotation = Quaternion.Euler( 0, playerCamera.transform.rotation.y, 0);
+        manipulatorPrefab.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y, playerCamera.transform.position.z); ; //new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y, playerCamera.transform.position.z); ;
+        ground.setCalibration(true);
+
+        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+        textToSpeechSyntetizer.say("Soft calibration started.");
+    }
+
+    private void softCalibrationFinish()
+    {
+        VectorSubLayerProperties vc = wordScaleMap.VectorData.FindFeatureSubLayerWithName("Untitled");
+        vc.SetActive(false);
+
+        manipulatorPrefab.SetActive(false);
+        ground.setCalibration(false);
+        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+        textToSpeechSyntetizer.say("Soft calibration finished.");
+    }
+
+    public void onToggleSoftCalibration()
+    {
+        softCalibrationActive = !softCalibrationActive;
+        if (softCalibrationActive)
+            softCalibrationStart();
+        else
+            softCalibrationFinish();
     }
 }

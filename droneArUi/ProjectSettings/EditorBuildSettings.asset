@@ -8,12 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 5512233ec63f9cc41822336cd2220237
-  - enabled: 0
-    path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.3/Experimental - ExamplesHub/Scenes/MRTKExamplesHubMainMenu.unity
-    guid: 63a00118e809c754f9c7911bb85d635f
-  - enabled: 0
-    path: Assets/Samples/Mixed Reality Toolkit Examples/2.8.3/Demos - ScrollingObjectCollection/Scenes/ScrollingObjectCollection.unity
-    guid: 79a0bb4c0426b7a4099c35eeced52ee4
   m_configObjects:
     com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: fd50954ff125f5c42999752df2d48523, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: fc39f52942d6974419f639026fd75afb, type: 2}
