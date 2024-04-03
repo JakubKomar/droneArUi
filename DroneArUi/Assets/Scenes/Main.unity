@@ -47990,7 +47990,7 @@ MonoBehaviour:
           propertyDescription: Number. Height of building or part of building.
           minimumHeight: 0
           maximumHeight: 1
-          extrusionScaleFactor: 1
+          extrusionScaleFactor: 1.8
         colliderOptions:
           colliderType: 0
         materialOptions:
@@ -48573,7 +48573,7 @@ MonoBehaviour:
       vectorSubLayers:
       - coreOptions:
           sourceId: 
-          isActive: 0
+          isActive: 1
           sublayerName: Untitled
           geometryType: 2
           layerName: building
@@ -48590,14 +48590,14 @@ MonoBehaviour:
           filters: []
           combinerType: 0
         extrusionOptions:
-          _selectedLayerName: 
+          _selectedLayerName: building
           extrusionType: 1
           extrusionGeometryType: 0
           propertyName: height
-          propertyDescription: 
+          propertyDescription: Number. Height of building or part of building.
           minimumHeight: 0
           maximumHeight: 1
-          extrusionScaleFactor: 1
+          extrusionScaleFactor: 1.8
         colliderOptions:
           colliderType: 0
         materialOptions:

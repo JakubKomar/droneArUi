@@ -115,6 +115,7 @@ public class calibrationScript : Singleton<calibrationScript>
 
         VectorSubLayerProperties vc = wordScaleMap.VectorData.FindFeatureSubLayerWithName("Untitled");
         vc.SetActive(true);
+        //vc.Modeling.LineOptions.SetLineWidth(1);
 
         manipulatorPrefab.SetActive(true);
         manipulatorPrefab.transform.rotation = Quaternion.Euler( 0, playerCamera.transform.rotation.y, 0);
