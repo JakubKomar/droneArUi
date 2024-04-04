@@ -16,7 +16,7 @@ public class DangerZoneIcon : MonoBehaviour
     MapData mapData;
     void Start()
     {
-        
+        mapData =MapData.Instance;
     }
 
     // Update is called once per frame

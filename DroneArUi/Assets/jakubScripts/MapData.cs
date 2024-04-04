@@ -160,7 +160,7 @@ public class MapData : Singleton <MapData>
         onWaypointCrossed(_planedRouteCurrentWaypoint,true);
     }
 
-    public void onResetRoute()
+    public void onResetRoute(bool sayIt=true)
     {
         _planedRouteCurrentWaypoint = 0;
         foreach (var route in _planedRoute)
@@ -171,8 +171,11 @@ public class MapData : Singleton <MapData>
         {
             _planedRoute[0].setAsTarget=true;
         }
-        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
-        textToSpeechSyntetizer.say("Flyplan completed.");
+        if (sayIt)
+        {
+            TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("Flyplan completed.");
+        }
     }
 
     public void trackComplete()
@@ -342,7 +345,7 @@ public class MapData : Singleton <MapData>
         int index = 0;
         if(_planedRouteCurrentWaypoint>= _planedRoute.Count)
         {
-            onResetRoute();
+            onResetRoute(false);
         }
 
         foreach (var obj in _planedRoute)

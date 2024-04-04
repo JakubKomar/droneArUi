@@ -65,7 +65,7 @@ public class DroneWordscaleHud :MonoBehaviour
 
 
             distance.text = "D:" + Mathf.Round(droneDistance).ToString();
-            alt.text = string.Format("A:{0:0.0}m", drone.FlightData.Altitude);
+            //alt.text = string.Format("A:{0:0.0}m", drone.FlightData.Altitude);
             hudChild.gameObject.SetActive(true);
         }
         else

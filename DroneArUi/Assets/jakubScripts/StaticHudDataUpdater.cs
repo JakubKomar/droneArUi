@@ -48,6 +48,7 @@ public class StaticHudDataUpdater : MonoBehaviour
     void Start()
     {
         droneManager = DroneManager.Instance;
+        playerCamera = Camera.main.transform;
     }
 
     // Update is called once per frame
@@ -56,24 +57,20 @@ public class StaticHudDataUpdater : MonoBehaviour
     private float batteryPercetInterval = 15;
     void Update()
     {
-        /*if (rotation != null) {
-             double normalizeCompas = myDrone.FlightData.Compass;
-             if(normalizeCompas < 0) {
-                 normalizeCompas=360 + normalizeCompas;
-             }
-             rotation.text = Math.Round((Decimal)normalizeCompas, 0, MidpointRounding.AwayFromZero).ToString();
-         }*/
 
-        playerHading=playerCamera.rotation.eulerAngles.y - wordMapbox.rotation.eulerAngles.y;
-        playerHadingOffset = -wordMapbox.rotation.eulerAngles.y;
-        playerHading = playerHading % 360;
-        if (playerHading < 0)
-            playerHading += 360;
-        playerHading=Mathf.Round(playerHading);
-        rotation.text=playerHading.ToString();
-
+        if (wordMapbox != null && playerCamera != null)
+        {
+            playerHading = playerCamera.rotation.eulerAngles.y - wordMapbox.rotation.eulerAngles.y;
+            playerHadingOffset = -wordMapbox.rotation.eulerAngles.y;
+            playerHading = playerHading % 360;
+            if (playerHading < 0)
+                playerHading += 360;
+            playerHading = Mathf.Round(playerHading);
+            rotation.text = playerHading.ToString();
+        }
         Drone myDrone = droneManager.ControlledDrone;
-        time.text = DateTime.Now.ToString("HH:mm");
+        if(time!=null)
+            time.text = DateTime.Now.ToString("HH:mm");
 
         if (myDrone == null) {
             //batteryLevel = 99;
@@ -98,12 +95,13 @@ public class StaticHudDataUpdater : MonoBehaviour
             batteryLevel--;
             batterySimulationTimeStamp = Time.time;
         }
-        battery.text = batteryLevel.ToString();
+        if(battery!=null)
+            battery.text = batteryLevel.ToString();
 
-
-        cameraAngl.text =Math.Round( myDrone.FlightData.gimbalOrientation.pitch).ToString()+ "°";
-        
-        flyMod.text= droneMod.ToString();
+        if (cameraAngl != null)
+            cameraAngl.text =Math.Round( myDrone.FlightData.gimbalOrientation.pitch).ToString()+ "°";
+        if (flyMod != null)
+            flyMod.text= droneMod.ToString();
 
     }
 
