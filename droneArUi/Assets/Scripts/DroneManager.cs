@@ -145,10 +145,9 @@ public class DroneManager : Singleton<DroneManager>
                 drone.IsControlled = true;
                 ControlledDrone = drone;
                 Debug.Log("Controled drone selected:" + drone.FlightData.DroneId);
-
                 RTMPstreamPlayer[] scripts = FindObjectsOfType<RTMPstreamPlayer>();
 
-             
+
                 foreach (RTMPstreamPlayer script in scripts)
                 {
                     script.OnDroneConnected(drone.FlightData.DroneId);

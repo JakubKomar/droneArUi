@@ -48810,7 +48810,7 @@ MonoBehaviour:
       vectorSubLayers:
       - coreOptions:
           sourceId: 
-          isActive: 1
+          isActive: 0
           sublayerName: Buildings
           geometryType: 2
           layerName: building
@@ -48873,7 +48873,7 @@ MonoBehaviour:
         selectedTypes: 
       - coreOptions:
           sourceId: 
-          isActive: 1
+          isActive: 0
           sublayerName: RedBarier-roads
           geometryType: 1
           layerName: road

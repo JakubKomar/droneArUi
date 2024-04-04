@@ -34,11 +34,6 @@ public class RTMPstreamPlayer : MonoBehaviour
 	Texture2D _vlcTexture = null; //This is the texture libVLC writes to directly. It's private.
 	public RenderTexture texture = null; //We copy it into this texture which we actually use in unity.
 
-	public string ip = "127.0.0.1";
-	public string port = "1935";
-
-    [SerializeField]
-    private string dronId = "";
 
 	[SerializeField]
 	private string connectedUrl = "" ; 
@@ -66,7 +61,20 @@ public class RTMPstreamPlayer : MonoBehaviour
         CreateMediaPlayer();			
 	}
 
-	void OnDestroy()
+    void OnEnable()
+    {
+		DroneManager droneManager=DroneManager.Instance;
+		if (droneManager.ControlledDrone == null)
+		{
+			return;
+
+        }
+		string newDronId=droneManager.ControlledDrone.FlightData.DroneId;
+
+        OnDroneConnected(newDronId);
+    }
+
+    void OnDestroy()
 	{
 		//Dispose of mediaPlayer, or it will stay in nemory and keep playing audio
 		DestroyMediaPlayer();
@@ -107,6 +115,12 @@ public class RTMPstreamPlayer : MonoBehaviour
 	#region vlc
 	public void Open(string path)
 	{
+		if(path== connectedUrl&& mediaPlayer.IsPlaying)
+		{
+			return;
+		}
+
+
 		connectedUrl = path;
         Debug.Log("VLC opened:" + path);
 
@@ -126,8 +140,13 @@ public class RTMPstreamPlayer : MonoBehaviour
 	}
 
 	public void OnDroneConnected(string conectedDroneId){
-		dronId = conectedDroneId;
-        Open("rtmp://" + ip + ":" + port + "/live/" + conectedDroneId);
+
+        string ip = ipSettingsBackend.Instance.ipVideoServer.text;
+        string port = ipSettingsBackend.Instance.portVideoServer.text;
+
+        string newUri="rtmp://" + ip + ":" + port + "/live/" + conectedDroneId;
+
+        Open(newUri);
     }
 	
 
