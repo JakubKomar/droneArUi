@@ -8,19 +8,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ipSettingsBackend : MonoBehaviour
+public class ipSettingsBackend :Singleton<ipSettingsBackend>
 {
     // Start is called before the first frame update
-
-    public WebSocketManager2 WebSocketManager=null;
+    [SerializeField]
+    WebSocketManager2 WebSocketManager=null;
     //public RTMPstreamPlayer rTMPstreamPlayer=null;
 
+    [SerializeField]
     public MRTKTMPInputField ipTelemetry=null;
+    [SerializeField]
     public MRTKTMPInputField portTelemetry = null;
 
+    [SerializeField]
     public MRTKTMPInputField ipVideoServer = null;
+    [SerializeField]
     public MRTKTMPInputField portVideoServer = null;
+    [SerializeField]
     public PressableButtonHoloLens2 sameIpCheckBox = null;
+
+    public List<RTMPstreamPlayer> streamPlayerList =new List<RTMPstreamPlayer>();
     void Start()
     {
         if (PlayerPrefs.HasKey("ipTelemetry"))
@@ -86,14 +93,6 @@ public class ipSettingsBackend : MonoBehaviour
         {
             Debug.LogError("Invalid format for conversion using int.TryParse()");
             return;
-        }
-
-        RTMPstreamPlayer[] scripts = FindObjectsOfType<RTMPstreamPlayer>();
-
-        foreach (RTMPstreamPlayer script in scripts)
-        {
-            script.ip = ipVideoServer.text;
-            script.port = portVideoServer.text;
         }
 
         PlayerPrefs.SetString("ipTelemetry", ipTelemetry.text);

@@ -58,9 +58,8 @@ public class AltIndicator : MonoBehaviour
             stupnice.transform.parent = tape;
 
             stupnice.transform.localScale = Vector3.one;
-            stupnice.transform.localPosition = new Vector3(18.2f, (canvasHeight/ visibleCount) *i, -1);
-
-            
+            stupnice.transform.localRotation = Quaternion.identity;
+            stupnice.transform.localPosition = new Vector3(23f, (canvasHeight/ visibleCount) *i, -1);
         }
 
 
@@ -73,7 +72,8 @@ public class AltIndicator : MonoBehaviour
             SmallStupnice script = stupnice.GetComponent<SmallStupnice>();
             script.red = i > 100;
             stupnice.transform.localScale = Vector3.one;
-            stupnice.transform.localPosition = new Vector3(23.8f, (canvasHeight / visibleCount) * i, -1);
+            stupnice.transform.localRotation = Quaternion.identity;
+            stupnice.transform.localPosition = new Vector3(28f, (canvasHeight / visibleCount) * i, -1);
 
 
         }

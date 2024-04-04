@@ -160,7 +160,7 @@ public class MapData : Singleton <MapData>
         onWaypointCrossed(_planedRouteCurrentWaypoint,true);
     }
 
-    public void onResetRoute()
+    public void onResetRoute(bool sayIt=true)
     {
         _planedRouteCurrentWaypoint = 0;
         foreach (var route in _planedRoute)
@@ -171,13 +171,15 @@ public class MapData : Singleton <MapData>
         {
             _planedRoute[0].setAsTarget=true;
         }
+        if (sayIt)
+        {
+            TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("Flyplan completed.");
+        }
     }
 
     public void trackComplete()
     {
-        TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
-        textToSpeechSyntetizer.say("Flyplan completed.");
-
         onResetRoute();
     }
 
@@ -343,7 +345,7 @@ public class MapData : Singleton <MapData>
         int index = 0;
         if(_planedRouteCurrentWaypoint>= _planedRoute.Count)
         {
-            onResetRoute();
+            onResetRoute(false);
         }
 
         foreach (var obj in _planedRoute)
@@ -385,8 +387,7 @@ public class MapData : Singleton <MapData>
         }
         if(list.Count > 0) {
             onObjectChanged();
-        }
-       
+        }   
     }
 
     public void test()
@@ -434,11 +435,19 @@ public class MapData : Singleton <MapData>
         _planedRoute.Add(waypoint4);
         onObjectChanged();
     }
-    public void addObject(MapObject NewObject) {
-        switch(NewObject.type){
+    public void addObject(MapObject NewObject, int nearestWpIndex=-1) {
+        switch (NewObject.type) {
             case MapObject.ObjType.Waypoint:
-                Waypoint newWaypoint = new Waypoint(this,NewObject);
-                _planedRoute.Add(newWaypoint);
+                Waypoint newWaypoint = new Waypoint(this, NewObject);
+
+                if (nearestWpIndex >= 0 && nearestWpIndex< _planedRoute.Count )
+                {
+                    _planedRoute.Insert(nearestWpIndex, newWaypoint);
+                }
+                else
+                {
+                    _planedRoute.Add(newWaypoint);
+                }
                 onObjectChanged();
                 break;
             case MapObject.ObjType.ObjOfInterest:

@@ -11,6 +11,7 @@ using System.Globalization;
 using Microsoft.MixedReality.Toolkit.UI;
 using UnityEngine.UIElements;
 using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
+using Mapbox.Directions;
 
 public class SpawnOnMap : MonoBehaviour
 {
@@ -147,7 +148,7 @@ public class SpawnOnMap : MonoBehaviour
         float deltaHeight = gameObject.transform.position.y - sceneHeight;
         float calculatedHeight = calcAbsoluteHeight(deltaHeight);
 
-
+        if(calculatedHeight < 0) { calculatedHeight = 0; }
         mapObject.relativeAltitude = calculatedHeight;
 
         if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Warning) {
@@ -157,9 +158,82 @@ public class SpawnOnMap : MonoBehaviour
             mapObject.relativeAltitude = 7.5f; // støed je v pùlce
 
         }
+        if (type == MapObject.ObjType.Waypoint)
+        {
+            createWaypoint(mapObject, gameObject);         
+            return;
+        }
 
         mapData.addObject(mapObject);
     }
+
+    private void createWaypoint(MapObject mapObject, GameObject gameObject)
+    {
+        MapObjectData nearestWp1 = null;
+        MapObjectData nearestWp2 = null;
+        int nearestWpIndex1 = -1;
+        int nearestWpIndex2 = -1;
+        float closestDistance1 = float.MaxValue;
+        float closestDistance2 = float.MaxValue;
+        int index = 0;
+
+        foreach (var waypoint in planedRoute)
+        {
+            float distance = Vector3.Distance(waypoint.spawnetGameObject.transform.position, gameObject.transform.position);
+
+            if (distance < closestDistance1)
+            {
+                nearestWp2 = nearestWp1;
+                nearestWpIndex2 = nearestWpIndex1;
+                closestDistance2 = closestDistance1;
+
+                nearestWp1 = waypoint;
+                nearestWpIndex1 = index;
+                closestDistance1 = distance;
+            }
+            else if (distance < closestDistance2)
+            {
+                nearestWp2 = waypoint;
+                nearestWpIndex2 = index;
+                closestDistance2 = distance;
+            }
+            index++;
+        }
+      
+        if (nearestWpIndex1 < 0) // pokud není žádný nejbližší vlož nakone
+        {
+            mapData.addObject(mapObject);
+        }else if(nearestWpIndex1>=0&& nearestWpIndex2 >= 0 && Math.Abs(nearestWpIndex1- nearestWpIndex2)==1){ // vládání mezi je podporováno pouze pokud dva nejbližší jsou indexovì za sebou
+        
+            float distanceBettweenCloses = Vector3.Distance(nearestWp2.spawnetGameObject.transform.position, nearestWp1.spawnetGameObject.transform.position);
+            if (nearestWpIndex1 - nearestWpIndex2 > 0) // nejbližší pøedchází idexové druhého 
+            {
+                if (distanceBettweenCloses > closestDistance2) {
+                    mapData.addObject(mapObject, nearestWpIndex1);
+                }
+                else
+                {
+                    mapData.addObject(mapObject, nearestWpIndex1+1 );
+                }
+            }
+            else //nejbližší nepøedchází idexové druhého 
+            {
+                if (distanceBettweenCloses < closestDistance2)
+                {
+                    mapData.addObject(mapObject, nearestWpIndex1 );
+                }
+                else
+                {
+                    mapData.addObject(mapObject, nearestWpIndex1+1);
+                }
+            } 
+        }
+        else{ // jinak vlož nakonec
+            mapData.addObject(mapObject); 
+        }
+    }
+
+
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
     public void reCreateGameObjects() {
         // smazání starých objektù
