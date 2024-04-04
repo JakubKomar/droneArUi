@@ -277,7 +277,8 @@ public class MapData : Singleton <MapData>
                 _otherObjects =jsonFileTdo._otherObjects;
                 _planedRouteCurrentWaypoint = 0;
 
-                if (jsonFileTdo.homeLocation != null)
+
+                if (jsonFileTdo.homeLocation != null && droneManger.ControlledDrone==null)
                     calibrationScript.setHomeLocation(jsonFileTdo.homeLocation.locationString);
 
                 misionName = jsonFileTdo.misionName;
@@ -323,7 +324,7 @@ public class MapData : Singleton <MapData>
 
         misionName = jsonFileTdo.misionName;
 
-        if(_planedRoute.Count > 0) // domov je nastaven pod první waypoint - informace v csv formátu chybí
+        if(_planedRoute.Count > 0 && droneManger.ControlledDrone == null) // domov je nastaven pod první waypoint - informace v csv formátu chybí
         {
             calibrationScript.setHomeLocation(_planedRoute[0].locationString);
         }
@@ -388,52 +389,6 @@ public class MapData : Singleton <MapData>
         if(list.Count > 0) {
             onObjectChanged();
         }   
-    }
-
-    public void test()
-    {
-        _planedRoute.Clear();
-        _objOfInterest.Clear();
-        _otherObjects.Clear();
-        Waypoint waypoint0 = new Waypoint(this);
-        waypoint0.locationString = "49.22732,16.59683";
-        waypoint0.relativeAltitude = 0;
-        _planedRoute.Add(waypoint0);
-        Waypoint waypoint1=new Waypoint(this);
-        waypoint1.locationString = "49.22732,16.59683";
-        waypoint1.relativeAltitude = 1;
-        _planedRoute.Add(waypoint1);
-
-        Waypoint waypoint2=new Waypoint(this);
-        waypoint2.locationString = "49.22732,16.59683";
-        waypoint2.relativeAltitude = 2;
-        _planedRoute.Add(waypoint2);
-
-        Waypoint waypoint5 = new Waypoint(this);
-        waypoint5.locationString = "49.22732,16.59683";
-        waypoint5.relativeAltitude = 2;
-        _planedRoute.Add(waypoint5);
-
-        Waypoint waypoint6 = new Waypoint(this);
-        waypoint6.locationString = "49.22732,16.59683";
-        waypoint6.relativeAltitude = 3;
-        _planedRoute.Add(waypoint6);
-
-        Waypoint waypoint7 = new Waypoint(this);
-        waypoint7.locationString = "49.22732,16.59683";
-        waypoint7.relativeAltitude = 4;
-        _planedRoute.Add(waypoint7);
-
-        Waypoint waypoint3=new Waypoint(this);
-        waypoint3.locationString = "49.22714707969114, 16.596684655372727";
-        waypoint3.relativeAltitude = 3;
-        _planedRoute.Add(waypoint3);
-
-        Waypoint waypoint4=new Waypoint(this);
-        waypoint4.locationString = "49.2272752000998, 16.597385833024425";
-        waypoint4.relativeAltitude = 4;
-        _planedRoute.Add(waypoint4);
-        onObjectChanged();
     }
     public void addObject(MapObject NewObject, int nearestWpIndex=-1) {
         switch (NewObject.type) {

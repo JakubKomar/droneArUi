@@ -15,6 +15,9 @@ public class DroneWordscaleHud :MonoBehaviour
     [SerializeField]
     public bool disableDrone=true;
 
+    [SerializeField]
+    public bool disableHud = false;
+
     Drone drone;
 
     [SerializeField]

@@ -29,5 +29,5 @@ Material:
     m_Floats:
     - _Glossiness: 0.479
     m_Colors:
-    - _Color: {r: 0.89286566, g: 0, b: 1, a: 0.47058824}
+    - _Color: {r: 0.89286566, g: 0, b: 1, a: 0.85490197}
   m_BuildTextureStacks: []
