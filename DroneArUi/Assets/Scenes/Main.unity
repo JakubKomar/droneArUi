@@ -4683,7 +4683,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 850.5, y: 500.05997}
+  m_AnchoredPosition: {x: 850.5, y: 489}
   m_SizeDelta: {x: 200, y: 97}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &178145456
@@ -5208,8 +5208,8 @@ RectTransform:
   - {fileID: 1420864319}
   - {fileID: 930075201}
   - {fileID: 714993242}
-  - {fileID: 668633647}
   - {fileID: 810029569}
+  - {fileID: 668633647}
   - {fileID: 178145455}
   - {fileID: 556689602}
   - {fileID: 1581823537}
@@ -5231,7 +5231,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 217248861}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f06da521c12cbaf45abbfe8906aa5a04, type: 3}
   m_Name: 
@@ -15173,7 +15173,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 952.6, y: 500.05997}
+  m_AnchoredPosition: {x: 952.6, y: 489}
   m_SizeDelta: {x: 200, y: 97}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &556689603
@@ -16088,7 +16088,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 791a16ab3354c6a48b431797038f6bf7, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 248.6
+      value: 237.54004
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 791a16ab3354c6a48b431797038f6bf7, type: 3}
       propertyPath: m_LocalPosition.z
@@ -16921,7 +16921,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 7.63, y: -45}
+  m_AnchoredPosition: {x: 7.63, y: -59.6}
   m_SizeDelta: {x: 983.05, y: 49.46}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &668633648
@@ -19175,7 +19175,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 421.49, y: 535.62946}
+  m_AnchoredPosition: {x: 421.49, y: 524.56946}
   m_SizeDelta: {x: 181.59, y: 48.63}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &810029570
@@ -27509,7 +27509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 34272220bf550ae4296811e45fbd7873, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 248.6
+      value: 237.54004
       objectReference: {fileID: 0}
     - target: {fileID: 8742538545776668643, guid: 34272220bf550ae4296811e45fbd7873, type: 3}
       propertyPath: m_LocalPosition.z
@@ -34162,7 +34162,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1420864319
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38055,7 +38055,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 719.1001, y: 500.05997}
+  m_AnchoredPosition: {x: 719.1001, y: 489}
   m_SizeDelta: {x: 200, y: 97}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1581823538
@@ -52900,7 +52900,7 @@ MonoBehaviour:
       vectorSubLayers:
       - coreOptions:
           sourceId: 
-          isActive: 0
+          isActive: 1
           sublayerName: Buildings
           geometryType: 2
           layerName: building
@@ -52924,11 +52924,11 @@ MonoBehaviour:
           propertyDescription: Number. Height of building or part of building.
           minimumHeight: 0
           maximumHeight: 1
-          extrusionScaleFactor: 2
+          extrusionScaleFactor: 2.2
         colliderOptions:
           colliderType: 0
         materialOptions:
-          style: 4
+          style: 2
           texturingType: 0
           materials:
           - Materials:

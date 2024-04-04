@@ -60,8 +60,6 @@ public class AltIndicator : MonoBehaviour
             stupnice.transform.localScale = Vector3.one;
             stupnice.transform.localRotation = Quaternion.identity;
             stupnice.transform.localPosition = new Vector3(23f, (canvasHeight/ visibleCount) *i, -1);
-
-            
         }
 
 
