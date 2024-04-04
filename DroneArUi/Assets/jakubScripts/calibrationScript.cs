@@ -113,7 +113,7 @@ public class calibrationScript : Singleton<calibrationScript>
     private void softCalibrationStart()
     {
 
-        VectorSubLayerProperties vc = wordScaleMap.VectorData.FindFeatureSubLayerWithName("Untitled");
+        VectorSubLayerProperties vc = wordScaleMap.VectorData.FindFeatureSubLayerWithName("Buildings");
         vc.SetActive(true);
         //vc.Modeling.LineOptions.SetLineWidth(1);
 
@@ -128,7 +128,7 @@ public class calibrationScript : Singleton<calibrationScript>
 
     private void softCalibrationFinish()
     {
-        VectorSubLayerProperties vc = wordScaleMap.VectorData.FindFeatureSubLayerWithName("Untitled");
+        VectorSubLayerProperties vc = wordScaleMap.VectorData.FindFeatureSubLayerWithName("Buildings");
         vc.SetActive(false);
 
         manipulatorPrefab.SetActive(false);
