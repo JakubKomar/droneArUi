@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a791bb2b274fc4042956ee04709c4738, type: 2}
+  - {fileID: 2100000, guid: c2b9f54d378c00d42bc6788e9de721cf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -100,6 +100,7 @@ GameObject:
   - component: {fileID: 3871439581311503594}
   - component: {fileID: 5387274783440034765}
   - component: {fileID: 2285052833990949710}
+  - component: {fileID: 5223020106997526966}
   m_Layer: 0
   m_Name: BarierWordScale
   m_TagString: Untagged
@@ -310,3 +311,16 @@ MonoBehaviour:
   executionOrder: 0
   constraintOnRotation: 5
   useLocalSpaceForConstraint: 0
+--- !u!114 &5223020106997526966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7312719393256005487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa98519142328ff4ab0088aaeeb15d06, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  obj: {fileID: 2256640746785812441}
