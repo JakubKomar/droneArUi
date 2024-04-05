@@ -18,8 +18,6 @@ public class TextureFliper : MonoBehaviour
         Vector2[] uvs = GetComponent<MeshFilter>().sharedMesh.uv;
 
 
-        Debug.Log(uvs);
-
         uvs[6] = new Vector2(1, 0);
         uvs[7] = new Vector2(0, 0);
         uvs[10] = new Vector2(1, 1);
