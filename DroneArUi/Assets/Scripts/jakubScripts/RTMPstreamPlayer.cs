@@ -1,4 +1,12 @@
-
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// upravený vlc skript, který pøehrává rtmp streamy, stream je nakonfigurován pro nízkou latenci
+/// </summary>
 
 using UnityEngine;
 using System;

@@ -1,3 +1,13 @@
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// scaluje texturu podle lokálního mìøídka
+/// </summary>
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
