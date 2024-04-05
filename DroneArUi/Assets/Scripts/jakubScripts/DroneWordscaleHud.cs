@@ -15,7 +15,7 @@ public class DroneWordscaleHud : MonoBehaviour
     private float droneDistance = 0;
 
     [SerializeField]
-    private float minDistanceLimit = 15;
+    private float minDistanceLimit = 0;
 
     [SerializeField]
     public bool disableDrone = true;
@@ -47,16 +47,16 @@ public class DroneWordscaleHud : MonoBehaviour
         Drone drone = droneManager.ControlledDrone;
 
 
-        if (drone != null)
+        if (!disableHud && drone != null )
         {
             droneDistance = Vector3.Distance(this.transform.position, player.position);
 
             // objekt je moc blízko, vypneme sledování
-            /*if (droneDistance < minDistanceLimit)
+            if (droneDistance < minDistanceLimit)
             {
                 hudChild.gameObject.SetActive(false);
                 return;
-            }*/
+            }
             float scale = droneDistance * 0.001f;
             hudChild.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
@@ -78,6 +78,6 @@ public class DroneWordscaleHud : MonoBehaviour
             hudChild.gameObject.SetActive(false);
         }
 
-        droneObject.SetActive(!disableDrone);
+        droneObject.SetActive(!disableDrone && drone != null);
     }
 }

@@ -83,8 +83,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a518471fe19130142a5d1e2d8036f45e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDistanceLimit: 15
+  minDistanceLimit: 1
   disableDrone: 1
+  disableHud: 0
   distance: {fileID: 869203692390410802}
   alt: {fileID: 0}
   hudChild: {fileID: 5651164703010907522}

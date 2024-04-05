@@ -81,7 +81,11 @@ public class MapBarierControler : Singleton<MapBarierControler>
                     Debug.LogWarning("MapBarierControler l40");
                     continue;
                 }
-                vc.Modeling.LineOptions.SetLineWidth(newBarierWidth);
+                try
+                {
+                    vc.Modeling.LineOptions.SetLineWidth(newBarierWidth);
+                }
+                catch { }
 
             }
 

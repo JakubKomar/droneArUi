@@ -18,4 +18,11 @@ public class ToggleWordscaleDrone : MonoBehaviour
 
         foreach(DroneWordscaleHud droneWordscaleHud in droneWordscaleHuds) { droneWordscaleHud.disableDrone = !droneWordscaleHud.disableDrone; }
     }
+
+    public void onToggleWordScaleDroneHud()
+    {
+        DroneWordscaleHud[] droneWordscaleHuds = FindObjectsOfType<DroneWordscaleHud>();
+
+        foreach (DroneWordscaleHud droneWordscaleHud in droneWordscaleHuds) { droneWordscaleHud.disableHud = !droneWordscaleHud.disableHud; }
+    }
 }
