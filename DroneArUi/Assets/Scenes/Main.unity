@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -42913,7 +42913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e54cfe8f60c2644eabc60fdcc6ee01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1590441517}
 --- !u!1 &1863658926
 GameObject:
   m_ObjectHideFlags: 0
@@ -51659,9 +51658,9 @@ MonoBehaviour:
             texturingType: 0
             materials:
             - Materials:
-              - {fileID: 2100000, guid: f4045e69c4fc5084fb9aa7c7fcd06122, type: 2}
+              - {fileID: 2100000, guid: c2b9f54d378c00d42bc6788e9de721cf, type: 2}
             - Materials:
-              - {fileID: 2100000, guid: f4045e69c4fc5084fb9aa7c7fcd06122, type: 2}
+              - {fileID: 2100000, guid: c2b9f54d378c00d42bc6788e9de721cf, type: 2}
             atlasInfo: {fileID: 11400000, guid: 414754d7155df47beb52ca117a774f21, type: 2}
             colorPalette: {fileID: 11400000, guid: 57bdfa37edf7a4f7f999d19443497554, type: 2}
         performanceOptions:
@@ -51820,8 +51819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e6719555f957ec419be87a8b5065a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  abstractMap: {fileID: 0}
-  disableRender: 1
 --- !u!114 &114478717238887280
 MonoBehaviour:
   m_ObjectHideFlags: 0
