@@ -1,13 +1,18 @@
-// jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// Toggle vlastnost active u zvoleného objektu
+/// </summary>
+/// 
 
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ToggleActive : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
     private GameObject target = null;
 

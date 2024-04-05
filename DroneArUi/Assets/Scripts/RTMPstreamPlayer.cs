@@ -1,9 +1,4 @@
-/*
- * modified example for low latency rtmp stream script
- * author: jakub komárek
- * 
- * 
-*/
+
 
 using UnityEngine;
 using System;

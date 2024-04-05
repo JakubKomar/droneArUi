@@ -1,21 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// Vypíná zapíná vizualizaci wordspace objektu dronu 
+/// </summary>
+
 using UnityEngine;
 
 public class ToggleWordscaleDrone : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void onToggleWordScaleDrone()
     {
         DroneWordscaleHud[] droneWordscaleHuds = FindObjectsOfType<DroneWordscaleHud>();

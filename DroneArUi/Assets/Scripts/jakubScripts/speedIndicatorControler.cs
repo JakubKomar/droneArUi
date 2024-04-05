@@ -1,18 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// obsluhuje kruhový indikátor rychlosti
+/// </summary>
 using UnityEngine;
 
 public class speedIndicatorControler : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Drone contDrone=null;
-    DroneManager droneManager=null;
+    Drone contDrone = null;
+    DroneManager droneManager = null;
 
     [SerializeField]
-    RectTransform point =null;
+    RectTransform point = null;
 
-    float canvasWidth=0;
-    float canvasHeight=0;
+    float canvasWidth = 0;
+    float canvasHeight = 0;
 
     [SerializeField]
     public float testVelX = 0;
@@ -29,7 +35,6 @@ public class speedIndicatorControler : MonoBehaviour
         canvasHeight = canvas.GetComponent<RectTransform>().rect.height;
     }
 
-    // Update is called once per frame
     void Update()
     {
         contDrone = droneManager.ControlledDrone;
@@ -53,7 +58,7 @@ public class speedIndicatorControler : MonoBehaviour
         float newPosX = ((velocityX / 18) * canvasWidth / 2);
         float newPosY = ((velocityY / 18) * canvasHeight / 2);
 
-        compass = (compass-90) % 360;
+        compass = (compass - 90) % 360;
         if (compass < 0)
             compass += 360;
         compass = -compass;
@@ -64,11 +69,11 @@ public class speedIndicatorControler : MonoBehaviour
         float Y1 = 0;// canvasHeight / 2;
         float x = newPosX;
         float y = newPosY;
-        float rotationAngleRadians =compass * Mathf.Deg2Rad;
+        float rotationAngleRadians = compass * Mathf.Deg2Rad;
         newPosX = (x - X1) * Mathf.Cos(rotationAngleRadians) - (y - Y1) * Mathf.Sin(rotationAngleRadians) + X1;
         newPosY = (x - X1) * Mathf.Sin(rotationAngleRadians) + (y - Y1) * Mathf.Cos(rotationAngleRadians) + Y1;
 
-        
+
         point.anchoredPosition = new Vector2(-newPosX, newPosY);
     }
 }

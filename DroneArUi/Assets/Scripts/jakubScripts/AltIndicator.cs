@@ -1,4 +1,13 @@
-// jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// Logika páskového indikátoru výšky, stará se o vytvoøení a následou èinost widgetu
+/// </summary>
+
 
 using Mapbox.Directions;
 using System.Collections;
@@ -9,12 +18,11 @@ using UnityEngine;
 
 public class AltIndicator : MonoBehaviour
 {
-    // Start is called before the first frame update
 
     [SerializeField]
-    private GameObject largeStupnice=null;
+    private GameObject largeStupnice = null;
     [SerializeField]
-    private GameObject smallStupnice=null;
+    private GameObject smallStupnice = null;
 
     [SerializeField]
     private Transform tape;
@@ -23,14 +31,14 @@ public class AltIndicator : MonoBehaviour
     private int min = 0;
 
     [SerializeField]
-    private int max=150;
+    private int max = 150;
     [SerializeField]
-    private int visibleCount=50;
+    private int visibleCount = 50;
 
     private float canvasWidth;
     private float canvasHeight;
 
-    private float alt=23;
+    private float alt = 23;
     [SerializeField]
     private float testAlt = 23;
 
@@ -48,18 +56,18 @@ public class AltIndicator : MonoBehaviour
         canvasWidth = this.GetComponent<RectTransform>().rect.width;
         canvasHeight = this.GetComponent<RectTransform>().rect.height;
         tape = this.transform.Find("Tape");
-        for (int i = min; i < max; i+=10)
+        for (int i = min; i < max; i += 10)
         {
-            GameObject stupnice=Instantiate(largeStupnice);
+            GameObject stupnice = Instantiate(largeStupnice);
             largeStupniceList.Add(stupnice);
-            LargeStupnice script= stupnice.GetComponent<LargeStupnice>();
+            LargeStupnice script = stupnice.GetComponent<LargeStupnice>();
             script.red = i > 100;
             script.text = i.ToString();
             stupnice.transform.parent = tape;
 
             stupnice.transform.localScale = Vector3.one;
             stupnice.transform.localRotation = Quaternion.identity;
-            stupnice.transform.localPosition = new Vector3(23f, (canvasHeight/ visibleCount) *i, -1);
+            stupnice.transform.localPosition = new Vector3(23f, (canvasHeight / visibleCount) * i, -1);
         }
 
 
@@ -79,16 +87,17 @@ public class AltIndicator : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         Drone myDrone = droneManager.ControlledDrone;
 
-        if (myDrone == null) { 
-            alt = testAlt; 
+        if (myDrone == null)
+        {
+            alt = testAlt;
         }
-        else { 
-            alt=(float)myDrone.FlightData.Altitude; 
+        else
+        {
+            alt = (float)myDrone.FlightData.Altitude;
         }
 
         if (alt > 100)
@@ -100,7 +109,7 @@ public class AltIndicator : MonoBehaviour
             altWarnIcon.SetActive(false);
         }
 
-        if (alt > 100 && Mathf.Abs(Time.time -lastAltWarning)>15f)
+        if (alt > 100 && Mathf.Abs(Time.time - lastAltWarning) > 15f)
         {
             lastAltWarning = Time.time;
             TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
@@ -110,19 +119,20 @@ public class AltIndicator : MonoBehaviour
         tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 0);
 
         int index = min;
-        foreach(var obj in smallStupniceList)
+        foreach (var obj in smallStupniceList)
         {
 
-            if (index%10==0|| Mathf.Abs(index - alt) > visibleCount / 2 )
+            if (index % 10 == 0 || Mathf.Abs(index - alt) > visibleCount / 2)
             {
                 obj.SetActive(false);
             }
-            else { 
+            else
+            {
                 obj.SetActive(true);
             }
-            
+
             index++;
-  
+
         }
 
         index = min;
@@ -137,7 +147,7 @@ public class AltIndicator : MonoBehaviour
                 obj.SetActive(true);
             }
 
-            index+=10;
+            index += 10;
         }
     }
 }

@@ -1,10 +1,18 @@
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// setter pro malou stupnici indikátoru výšky
+/// </summary>
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class SmallStupnice : MonoBehaviour
 {
-    // Start is called before the first frame update
     public bool red=false;
 
     [SerializeField]
@@ -13,7 +21,7 @@ public class SmallStupnice : MonoBehaviour
     private Material greenMaterial;
     [SerializeField]
     private Renderer square;
-    // Update is called once per frame
+
     void Update()
     {
         if (red)      

@@ -1,12 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// Stará se o správu waypoint prefabu, nastavuje materiály dle stavu waypointu, kontroluje kontakt s drone a reporutuje ho do hlavní struktury shared dat.
+/// </summary>
 using UnityEngine;
 
 public class waypointPrefabControler : MapGameObjectData
 {
     void Start()
     {
-        targetCollider=this.gameObject.GetComponent<Collider>();
+        targetCollider = this.gameObject.GetComponent<Collider>();
     }
 
     private Collider targetCollider; // Collider, ve kterém budeme kontrolovat
@@ -26,7 +33,7 @@ public class waypointPrefabControler : MapGameObjectData
 
     void Update()
     {
-        bool checkForBounds = this.mapObjectData != null && this.mapObjectData.mapObject != null  && (!this.mapObjectData.isInMinimap);
+        bool checkForBounds = this.mapObjectData != null && this.mapObjectData.mapObject != null && (!this.mapObjectData.isInMinimap);
         if (checkForBounds && timeSinceLastCheck >= checkInterval)
         {
             timeSinceLastCheck = 0f;
@@ -35,7 +42,7 @@ public class waypointPrefabControler : MapGameObjectData
             // nastavení materiálu dle interní reprezetace waypointu
 
         }
-        else if(checkForBounds)
+        else if (checkForBounds)
         {
             // update každých 0.2s
             timeSinceLastCheck += Time.deltaTime;
@@ -74,9 +81,9 @@ public class waypointPrefabControler : MapGameObjectData
             {
                 // Objekt daného typu nalezen v colideru      
                 if (this.mapObjectData != null && this.mapObjectData.mapObject != null
-                    && this.mapObjectData.mapObject is Waypoint) 
-                { 
-                    Waypoint waypoint =(Waypoint)this.mapObjectData.mapObject;
+                    && this.mapObjectData.mapObject is Waypoint)
+                {
+                    Waypoint waypoint = (Waypoint)this.mapObjectData.mapObject;
                     waypoint.onDroneEnterColider();
                 }
             }

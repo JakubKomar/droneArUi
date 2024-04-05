@@ -1,4 +1,12 @@
-// author jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+///  stará se o zanesení vlastních objektù do abstraktní mapy, zaøizuje manipulaci a propisování úprav do ostatních map, obsahuje metody pro vytvoøení nových objektù
+/// </summary>
 
 using UnityEngine;
 using Mapbox.Utils;
@@ -9,9 +17,7 @@ using System;
 using Mapbox.Examples;
 using System.Globalization;
 using Microsoft.MixedReality.Toolkit.UI;
-using UnityEngine.UIElements;
 using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
-using Mapbox.Directions;
 
 public class SpawnOnMap : MonoBehaviour
 {
@@ -25,8 +31,6 @@ public class SpawnOnMap : MonoBehaviour
     private List<MapObject> removalList = new List<MapObject>();
 
     private MapData mapData = null;
-
-
 
 
     [SerializeField]
@@ -76,7 +80,7 @@ public class SpawnOnMap : MonoBehaviour
     }
     void Start()
     {
-        mapData= FindObjectOfType<MapData>();
+        mapData = FindObjectOfType<MapData>();
         mapData.spawnOnMapScripts.Add(this);
 
         reCreateGameObjects();
@@ -140,18 +144,19 @@ public class SpawnOnMap : MonoBehaviour
         Vector2d vector2d = _map.WorldToGeoPosition(gameObject.transform.position); // ziskej pozici gps na mapì
 
         CultureInfo culture = new CultureInfo("en-US");
-        mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); 
+        mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture));
 
         // výpoèet výšky
-        var newTransformation = _map.GeoToWorldPosition(vector2d, true); 
+        var newTransformation = _map.GeoToWorldPosition(vector2d, true);
         float sceneHeight = newTransformation.y;//výška k zemi ve scénì
         float deltaHeight = gameObject.transform.position.y - sceneHeight;
         float calculatedHeight = calcAbsoluteHeight(deltaHeight);
 
-        if(calculatedHeight < 0) { calculatedHeight = 0; }
+        if (calculatedHeight < 0) { calculatedHeight = 0; }
         mapObject.relativeAltitude = calculatedHeight;
 
-        if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Warning) {
+        if (type == MapObject.ObjType.Barier || type == MapObject.ObjType.Warning)
+        {
             mapObject.rotation = Quaternion.identity;
             mapObject.scale = new Vector3(15, 15, 15); // vytvoø krychly o rozmìrech 15x15x15m
 
@@ -160,7 +165,7 @@ public class SpawnOnMap : MonoBehaviour
         }
         if (type == MapObject.ObjType.Waypoint)
         {
-            createWaypoint(mapObject, gameObject);         
+            createWaypoint(mapObject, gameObject);
             return;
         }
 
@@ -199,43 +204,48 @@ public class SpawnOnMap : MonoBehaviour
             }
             index++;
         }
-      
+
         if (nearestWpIndex1 < 0) // pokud není žádný nejbližší vlož nakone
         {
             mapData.addObject(mapObject);
-        }else if(nearestWpIndex1>=0&& nearestWpIndex2 >= 0 && Math.Abs(nearestWpIndex1- nearestWpIndex2)==1){ // vládání mezi je podporováno pouze pokud dva nejbližší jsou indexovì za sebou
-        
+        }
+        else if (nearestWpIndex1 >= 0 && nearestWpIndex2 >= 0 && Math.Abs(nearestWpIndex1 - nearestWpIndex2) == 1)
+        { // vládání mezi je podporováno pouze pokud dva nejbližší jsou indexovì za sebou
+
             float distanceBettweenCloses = Vector3.Distance(nearestWp2.spawnetGameObject.transform.position, nearestWp1.spawnetGameObject.transform.position);
             if (nearestWpIndex1 - nearestWpIndex2 > 0) // nejbližší pøedchází idexové druhého 
             {
-                if (distanceBettweenCloses > closestDistance2) {
+                if (distanceBettweenCloses > closestDistance2)
+                {
                     mapData.addObject(mapObject, nearestWpIndex1);
                 }
                 else
                 {
-                    mapData.addObject(mapObject, nearestWpIndex1+1 );
+                    mapData.addObject(mapObject, nearestWpIndex1 + 1);
                 }
             }
             else //nejbližší nepøedchází idexové druhého 
             {
                 if (distanceBettweenCloses < closestDistance2)
                 {
-                    mapData.addObject(mapObject, nearestWpIndex1 );
+                    mapData.addObject(mapObject, nearestWpIndex1);
                 }
                 else
                 {
-                    mapData.addObject(mapObject, nearestWpIndex1+1);
+                    mapData.addObject(mapObject, nearestWpIndex1 + 1);
                 }
-            } 
+            }
         }
-        else{ // jinak vlož nakonec
-            mapData.addObject(mapObject); 
+        else
+        { // jinak vlož nakonec
+            mapData.addObject(mapObject);
         }
     }
 
 
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
-    public void reCreateGameObjects() {
+    public void reCreateGameObjects()
+    {
         // smazání starých objektù
         foreach (var obj in allMapObjects)
         {
@@ -248,7 +258,8 @@ public class SpawnOnMap : MonoBehaviour
 
 
         allMapObjects.Clear();
-        foreach (var obj in mapData.allObjects) {
+        foreach (var obj in mapData.allObjects)
+        {
             allMapObjects.Add(new MapObjectData(obj));
         }
 
@@ -294,7 +305,7 @@ public class SpawnOnMap : MonoBehaviour
 
 
         // pokud objekt nemá v mapì fyzickou reprezataci, udìlej novou
-        if (gameObject == null) 
+        if (gameObject == null)
         {
             switch (mapCustumeObject.mapObject.type)
             {
@@ -339,12 +350,12 @@ public class SpawnOnMap : MonoBehaviour
                         return;
                     gameObject = Instantiate(_barierPrefab);
 
-                    if(isMinimap)
-                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                    if (isMinimap)
+                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale;
                     else
-                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                        gameObject.transform.localScale = mapCustumeObject.mapObject.scale;
 
-                    gameObject.transform.rotation = mapCustumeObject.mapObject.rotation ;
+                    gameObject.transform.rotation = mapCustumeObject.mapObject.rotation;
 
                     break;
                 case MapObject.ObjType.Warning:
@@ -375,7 +386,8 @@ public class SpawnOnMap : MonoBehaviour
             mapCustumeObject.manipulator = gameObject.GetComponent<ObjectManipulator>();
             mapCustumeObject.isInMinimap = isMinimap;
 
-            if (mapCustumeObject.manipulator != null){
+            if (mapCustumeObject.manipulator != null)
+            {
                 ObjectManipulator objectManipulator = mapCustumeObject.manipulator;
                 objectManipulator.AllowFarManipulation = !isMinimap;
                 objectManipulator.OnManipulationStarted.AddListener(mapCustumeObject.onManipultaionStart);
@@ -389,7 +401,7 @@ public class SpawnOnMap : MonoBehaviour
                 if (mapCustumeObject.boundsControl != null)
                 {
                     BoundsControl boundsControl = mapCustumeObject.boundsControl;
-         
+
                     boundsControl.ScaleStarted.AddListener(mapCustumeObject.onManipultaionStart);
                     boundsControl.RotateStarted.AddListener(mapCustumeObject.onManipultaionStart);
                     boundsControl.TranslateStarted.AddListener(mapCustumeObject.onManipultaionStart);
@@ -402,7 +414,7 @@ public class SpawnOnMap : MonoBehaviour
 
 
             MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>();
-            if (mapGameObjectData!=null)
+            if (mapGameObjectData != null)
             {
                 mapGameObjectData.mapObjectData = mapCustumeObject;
             }
@@ -420,7 +432,7 @@ public class SpawnOnMap : MonoBehaviour
                 }
             }
 
-            Vector2d vector2d= _map.WorldToGeoPosition(gameObject.transform.position);
+            Vector2d vector2d = _map.WorldToGeoPosition(gameObject.transform.position);
 
             CultureInfo culture = new CultureInfo("en-US");
             mapCustumeObject.mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); // .ToString(culture) protože podìlanej c#
@@ -435,13 +447,13 @@ public class SpawnOnMap : MonoBehaviour
 
                 if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
                 {
-                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(mapCustumeObject.spawnetGameObject.transform.localScale.y*0.5f) ; 
+                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(mapCustumeObject.spawnetGameObject.transform.localScale.y * 0.5f);
                 }
                 else
                 {
                     sceneHeight = newTransformation.y;//výška k zemi ve scénì
                     deltaHeight = gameObject.transform.position.y - sceneHeight;
-                    mapCustumeObject.mapObject.relativeAltitude =  calcAbsoluteHeight(deltaHeight);
+                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(deltaHeight);
                 }
             }
             else
@@ -451,8 +463,8 @@ public class SpawnOnMap : MonoBehaviour
 
                 if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
                 {
-                    mapCustumeObject.mapObject.relativeAltitude = mapCustumeObject.spawnetGameObject.transform.localScale.y/2 ;
-              
+                    mapCustumeObject.mapObject.relativeAltitude = mapCustumeObject.spawnetGameObject.transform.localScale.y / 2;
+
                 }
                 else
                 {
@@ -467,11 +479,12 @@ public class SpawnOnMap : MonoBehaviour
             if (isMinimap)
             {
                 mapCustumeObject.mapObject.scale = gameObject.transform.localScale / _barierMinimapScale;
-            }else
-                mapCustumeObject.mapObject.scale = gameObject.transform.localScale ;
+            }
+            else
+                mapCustumeObject.mapObject.scale = gameObject.transform.localScale;
 
             mapCustumeObject.mapObject.rotation = gameObject.transform.localRotation;
-            
+
 
             if (mapCustumeObject.manipulationDirtyFlag)
                 mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
@@ -486,13 +499,14 @@ public class SpawnOnMap : MonoBehaviour
             gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
 
 
-            if(mapCustumeObject.mapObject.type==MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
+            if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
             {
                 if (isMinimap)
                 {
-                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale* _barierMinimapScale;
-                }else
-                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale ;
+                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale * _barierMinimapScale;
+                }
+                else
+                    gameObject.transform.localScale = mapCustumeObject.mapObject.scale;
 
                 gameObject.transform.localRotation = mapCustumeObject.mapObject.rotation;
             }
@@ -514,14 +528,14 @@ public class SpawnOnMap : MonoBehaviour
                 calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
             }
 
-            
+
             gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
- 
+
         }
-       
+
         // vykresluj v minimapì pouze objekty v bounding boxu
-        if (boxCollider==null|| boxCollider.bounds.Contains(gameObject.transform.position)|| mapCustumeObject.underManipulation)
-        { 
+        if (boxCollider == null || boxCollider.bounds.Contains(gameObject.transform.position) || mapCustumeObject.underManipulation)
+        {
             gameObject.SetActive(true);
         }
         else
@@ -539,7 +553,7 @@ public class SpawnOnMap : MonoBehaviour
 
                     if (isMinimap)
                         elulerRot = new Vector3(0, player.heading, 0);
-                    else 
+                    else
                         elulerRot = new Vector3(0, player.heading, 0);
 
                     gameObject.transform.localEulerAngles = elulerRot;
@@ -554,7 +568,7 @@ public class SpawnOnMap : MonoBehaviour
                 }
                 break;
             case MapObject.ObjType.ObjOfInterest:
-               
+
                 if (labelTextSetter != null)
                 {
                     labelTextSetter.Set(new Dictionary<String, object> { { "name", mapCustumeObject.mapObject.name }, });
@@ -563,7 +577,7 @@ public class SpawnOnMap : MonoBehaviour
             case MapObject.ObjType.Drone:
                 if (labelTextSetter != null)
                 {
-                    labelTextSetter.Set(new Dictionary<String, object> { { "name", ("("+ Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
+                    labelTextSetter.Set(new Dictionary<String, object> { { "name", ("(" + Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
                 }
                 if (!isMinimap)
                 {
@@ -583,12 +597,12 @@ public class SpawnOnMap : MonoBehaviour
                     Waypoint waypoint = (Waypoint)mapCustumeObject.mapObject;
                     if (labelTextSetter != null)
                     {
-                        labelTextSetter.Set(new Dictionary<String, object> { { "name", (waypoint.pos.ToString()+ "("+ Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
+                        labelTextSetter.Set(new Dictionary<String, object> { { "name", (waypoint.pos.ToString() + "(" + Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
                     }
-                    if (!isMinimap&& waypoint.setAsTarget)
+                    if (!isMinimap && waypoint.setAsTarget)
                     {
                         CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
-                        if(compasIndicator!=null)
+                        if (compasIndicator != null)
                             compasIndicator.activeWaypoint = gameObject;
                     }
                 }
@@ -620,7 +634,7 @@ public class SpawnOnMap : MonoBehaviour
     {
         public GameObject spawnetGameObject = null;
 
-        public MapObject mapObject=null;
+        public MapObject mapObject = null;
 
         public ObjectManipulator manipulator = null;
         public BoundsControl boundsControl = null;
@@ -635,9 +649,10 @@ public class SpawnOnMap : MonoBehaviour
             this.mapObject = mapObject;
         }
 
-        public void endManipulation() {
-            manipulationDirtyFlag=true;
-            underManipulation=false;
+        public void endManipulation()
+        {
+            manipulationDirtyFlag = true;
+            underManipulation = false;
         }
 
         public void onHoverStart(ManipulationEventData eventData)

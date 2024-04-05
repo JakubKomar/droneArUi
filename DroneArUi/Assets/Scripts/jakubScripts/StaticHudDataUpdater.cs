@@ -1,22 +1,26 @@
-// jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// Updatu statická data hudu, bateria a letový mód je simulován
+/// </summary>
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 
 public class StaticHudDataUpdater : MonoBehaviour
 {
-    // Start is called before the first frame update
     private DroneManager droneManager;
 
     [SerializeField]
-    TMP_Text altitute =null;
+    TMP_Text altitute = null;
     [SerializeField]
-    TMP_Text speed =null;
+    TMP_Text speed = null;
 
     [SerializeField]
     TMP_Text rotation = null;
@@ -51,9 +55,8 @@ public class StaticHudDataUpdater : MonoBehaviour
         playerCamera = Camera.main.transform;
     }
 
-    // Update is called once per frame
 
-    private float batterySimulationTimeStamp=0;
+    private float batterySimulationTimeStamp = 0;
     private float batteryPercetInterval = 15;
     void Update()
     {
@@ -69,12 +72,13 @@ public class StaticHudDataUpdater : MonoBehaviour
             rotation.text = playerHading.ToString();
         }
         Drone myDrone = droneManager.ControlledDrone;
-        if(time!=null)
+        if (time != null)
             time.text = DateTime.Now.ToString("HH:mm");
 
-        if (myDrone == null) {
+        if (myDrone == null)
+        {
             //batteryLevel = 99;
-            return; 
+            return;
         }
 
         if (altitute != null)
@@ -95,13 +99,13 @@ public class StaticHudDataUpdater : MonoBehaviour
             batteryLevel--;
             batterySimulationTimeStamp = Time.time;
         }
-        if(battery!=null)
+        if (battery != null)
             battery.text = batteryLevel.ToString();
 
         if (cameraAngl != null)
-            cameraAngl.text =Math.Round( myDrone.FlightData.gimbalOrientation.pitch).ToString()+ "°";
+            cameraAngl.text = Math.Round(myDrone.FlightData.gimbalOrientation.pitch).ToString() + "°";
         if (flyMod != null)
-            flyMod.text= droneMod.ToString();
+            flyMod.text = droneMod.ToString();
 
     }
 
