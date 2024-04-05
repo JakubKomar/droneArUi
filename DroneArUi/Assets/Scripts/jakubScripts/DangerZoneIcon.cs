@@ -1,12 +1,16 @@
-// jakub komárek
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// setter pro ikony varování 
+/// </summary>
 using UnityEngine;
 
 public class DangerZoneIcon : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     [SerializeField]
     private GameObject warningZoneIcon;
     [SerializeField]
@@ -19,7 +23,6 @@ public class DangerZoneIcon : MonoBehaviour
         mapData =MapData.Instance;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if(mapData.droneInBarier)
@@ -36,6 +39,5 @@ public class DangerZoneIcon : MonoBehaviour
             warningZoneIcon.SetActive(false);
             dangerZoneIcon.SetActive(false);
         }
-
     }
 }

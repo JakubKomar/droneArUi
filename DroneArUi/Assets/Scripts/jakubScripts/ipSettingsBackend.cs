@@ -1,22 +1,25 @@
-// author: jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// stará se o zadání ip adres serverù, adresy persistentnì ukládá a nastavuje je pøi zapnutí programu
+/// </summary>
 
 using Microsoft.MixedReality.Toolkit.Experimental.UI;
 using Microsoft.MixedReality.Toolkit.UI;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class ipSettingsBackend :Singleton<ipSettingsBackend>
+public class ipSettingsBackend : Singleton<ipSettingsBackend>
 {
-    // Start is called before the first frame update
     [SerializeField]
-    WebSocketManager2 WebSocketManager=null;
-    //public RTMPstreamPlayer rTMPstreamPlayer=null;
+    WebSocketManager2 WebSocketManager = null;
 
     [SerializeField]
-    public MRTKTMPInputField ipTelemetry=null;
+    public MRTKTMPInputField ipTelemetry = null;
     [SerializeField]
     public MRTKTMPInputField portTelemetry = null;
 
@@ -27,7 +30,7 @@ public class ipSettingsBackend :Singleton<ipSettingsBackend>
     [SerializeField]
     public PressableButtonHoloLens2 sameIpCheckBox = null;
 
-    public List<RTMPstreamPlayer> streamPlayerList =new List<RTMPstreamPlayer>();
+    public List<RTMPstreamPlayer> streamPlayerList = new List<RTMPstreamPlayer>();
     void Start()
     {
         if (PlayerPrefs.HasKey("ipTelemetry"))
@@ -49,16 +52,11 @@ public class ipSettingsBackend :Singleton<ipSettingsBackend>
         onConnectetToServerPressed();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    bool checkBoxState=false;
+    bool checkBoxState = false;
     public void onSameIpCheckBoxClicked()
     {
-        checkBoxState=!checkBoxState;
+        checkBoxState = !checkBoxState;
 
         if (checkBoxState)
         {

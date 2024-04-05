@@ -1,5 +1,13 @@
-// autor jakub komárek
-
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// hlavní tøída pro jednotnou manipulaci s uživatelskými objekty na mapì, zajištuje jednotné vykreslování ve všech pøipojených mapách
+/// umí naèítat a ukládat mise z formátu json a cvs
+/// </summary>
 using Mapbox.Unity.Utilities;
 using Newtonsoft.Json;
 using System;
@@ -11,11 +19,9 @@ using System.Text;
 
 using Mapbox.Utils;
 using UnityEngine.Events;
-using Unity.Mathematics;
 
-public class MapData : Singleton <MapData>
+public class MapData : Singleton<MapData>
 {
-    // Start is called before the first frame update
     // uložená trasa
     [HideInInspector]
     public List<Waypoint> _planedRoute = new List<Waypoint>();
@@ -45,18 +51,18 @@ public class MapData : Singleton <MapData>
     [HideInInspector]
     public List<SpawnOnMap> spawnOnMapScripts = new List<SpawnOnMap>();
 
-    public string misionName="";
+    public string misionName = "";
 
     private calibrationScript calibrationScript = null;
 
     public string pathToDir;
     public string pathToDirCsvExport = "";
-    
 
-    public UnityEvent sevedFile =new UnityEvent();
 
-    public bool droneInBarier=false;
-    public bool droneInWarningBarier=false;
+    public UnityEvent sevedFile = new UnityEvent();
+
+    public bool droneInBarier = false;
+    public bool droneInWarningBarier = false;
 
     private void Awake()
     {
@@ -73,7 +79,7 @@ public class MapData : Singleton <MapData>
         droneManger = FindObjectOfType<DroneManager>();
         calibrationScript = FindObjectOfType<calibrationScript>();
 
-        droneObj.locationString = "49.22743926623377, 16.596966877183366"; //default vals
+        droneObj.locationString = "49.22743926623377, 16.596966877183366";
         droneObj.relativeAltitude = 10;
         droneObj.name = "dron";
         droneObj.type = MapObject.ObjType.Drone;
@@ -88,7 +94,6 @@ public class MapData : Singleton <MapData>
         onObjectChanged();
     }
 
-    // Update is called once per frame
     void Update()
     {
         // update umístìní drona 
@@ -104,7 +109,7 @@ public class MapData : Singleton <MapData>
 
             droneObj.name = droneManger.ControlledDrone.FlightData.DroneId;
             droneObj.relativeAltitude = (float)droneManger.ControlledDrone.FlightData.Altitude;
-            
+
             //nastavení rotace drona
             droneObj.rotation = new Quaternion(
                 (float)droneManger.ControlledDrone.FlightData.Roll,
@@ -116,19 +121,20 @@ public class MapData : Singleton <MapData>
         }
 
         // update domovské pozice
-        homeLocation.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerPosition.x, calibrationScript.playerPosition.y);
+        homeLocation.locationString = string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerPosition.x, calibrationScript.playerPosition.y);
 
         // update pozice hráèe
-        player.locationString= string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerGps.x, calibrationScript.playerGps.y);
+        player.locationString = string.Format(NumberFormatInfo.InvariantInfo, "{0}, {1}", calibrationScript.playerGps.x, calibrationScript.playerGps.y);
         player.heading = calibrationScript.playerHading;
 
     }
 
-    public void onWaypointCrossed(int index,bool skip=false)
+    public void onWaypointCrossed(int index, bool skip = false)
     {
         if (index == _planedRouteCurrentWaypoint)
         {
-            if(_planedRoute.Count >index) {
+            if (_planedRoute.Count > index)
+            {
                 _planedRoute[index].setAsTarget = false;
                 _planedRoute[index].hasBeenVisited = true;
             }
@@ -142,7 +148,8 @@ public class MapData : Singleton <MapData>
                     TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
                     textToSpeechSyntetizer.say("Waypoint skiped.");
                 }
-                else {
+                else
+                {
                     TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
                     textToSpeechSyntetizer.say("Waypoint reached.");
                 }
@@ -157,10 +164,10 @@ public class MapData : Singleton <MapData>
 
     public void onSkipWaypoint()
     {
-        onWaypointCrossed(_planedRouteCurrentWaypoint,true);
+        onWaypointCrossed(_planedRouteCurrentWaypoint, true);
     }
 
-    public void onResetRoute(bool sayIt=true)
+    public void onResetRoute(bool sayIt = true)
     {
         _planedRouteCurrentWaypoint = 0;
         foreach (var route in _planedRoute)
@@ -169,7 +176,7 @@ public class MapData : Singleton <MapData>
         }
         if (_planedRoute.Count > 0)
         {
-            _planedRoute[0].setAsTarget=true;
+            _planedRoute[0].setAsTarget = true;
         }
         if (sayIt)
         {
@@ -185,7 +192,8 @@ public class MapData : Singleton <MapData>
 
     public void droneEnterBarier(bool isWarning)
     {
-        if(isWarning) {
+        if (isWarning)
+        {
             if (droneInWarningBarier == false)
             {
                 TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
@@ -195,7 +203,7 @@ public class MapData : Singleton <MapData>
         }
         else
         {
-            if(droneInBarier==false)
+            if (droneInBarier == false)
             {
                 TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
                 textToSpeechSyntetizer.say("Drone enter danger zone.");
@@ -245,8 +253,9 @@ public class MapData : Singleton <MapData>
 
 
         JsonFileTdo jsonFileTdo = new JsonFileTdo();
-        if (misionName == "") {
-            misionName= string.Format("mise-{0:yyMMdd-HHmmss}", DateTime.Now);
+        if (misionName == "")
+        {
+            misionName = string.Format("mise-{0:yyMMdd-HHmmss}", DateTime.Now);
         }
         jsonFileTdo.misionName = misionName;
 
@@ -254,8 +263,8 @@ public class MapData : Singleton <MapData>
         jsonFileTdo._planedRoute = _planedRoute;
         jsonFileTdo._objOfInterest = _objOfInterest;
 
-        jsonFileTdo._otherObjects= _otherObjects;
-        jsonFileTdo.homeLocation= homeLocation;
+        jsonFileTdo._otherObjects = _otherObjects;
+        jsonFileTdo.homeLocation = homeLocation;
 
         jsonFileTdo.saveJson(pathToDir);
         jsonFileTdo.saveCsv(pathToDirCsvExport);
@@ -263,7 +272,8 @@ public class MapData : Singleton <MapData>
         sevedFile.Invoke();
     }
 
-    public void loadMision(string path) {
+    public void loadMision(string path)
+    {
         try
         {
             if (File.Exists(path))
@@ -272,13 +282,13 @@ public class MapData : Singleton <MapData>
 
                 JsonFileTdo jsonFileTdo = JsonConvert.DeserializeObject<JsonFileTdo>(jsonContent);
 
-                _planedRoute= jsonFileTdo._planedRoute;
-                _objOfInterest= jsonFileTdo._objOfInterest;
-                _otherObjects =jsonFileTdo._otherObjects;
+                _planedRoute = jsonFileTdo._planedRoute;
+                _objOfInterest = jsonFileTdo._objOfInterest;
+                _otherObjects = jsonFileTdo._otherObjects;
                 _planedRouteCurrentWaypoint = 0;
 
 
-                if (jsonFileTdo.homeLocation != null && droneManger.ControlledDrone==null)
+                if (jsonFileTdo.homeLocation != null && droneManger.ControlledDrone == null)
                     calibrationScript.setHomeLocation(jsonFileTdo.homeLocation.locationString);
 
                 misionName = jsonFileTdo.misionName;
@@ -295,7 +305,7 @@ public class MapData : Singleton <MapData>
         catch (Exception ex)
         {
             TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
-            textToSpeechSyntetizer.say("File corupted:"+ex);
+            textToSpeechSyntetizer.say("File corupted:" + ex);
         }
         onObjectChanged();
     }
@@ -313,10 +323,10 @@ public class MapData : Singleton <MapData>
         textToSpeechSyntetizer.say("New mission created.");
     }
 
-    public void loadCsvMision(string path,string name)
+    public void loadCsvMision(string path, string name)
     {
-        JsonFileTdo jsonFileTdo =new JsonFileTdo();
-        jsonFileTdo.loadCsv(path,name,this);
+        JsonFileTdo jsonFileTdo = new JsonFileTdo();
+        jsonFileTdo.loadCsv(path, name, this);
 
         _planedRoute = jsonFileTdo._planedRoute;
         _objOfInterest = jsonFileTdo._objOfInterest;
@@ -324,7 +334,7 @@ public class MapData : Singleton <MapData>
 
         misionName = jsonFileTdo.misionName;
 
-        if(_planedRoute.Count > 0 && droneManger.ControlledDrone == null) // domov je nastaven pod první waypoint - informace v csv formátu chybí
+        if (_planedRoute.Count > 0 && droneManger.ControlledDrone == null) // domov je nastaven pod první waypoint - informace v csv formátu chybí
         {
             calibrationScript.setHomeLocation(_planedRoute[0].locationString);
         }
@@ -344,7 +354,7 @@ public class MapData : Singleton <MapData>
         allObjects.Add(homeLocation);
 
         int index = 0;
-        if(_planedRouteCurrentWaypoint>= _planedRoute.Count)
+        if (_planedRouteCurrentWaypoint >= _planedRoute.Count)
         {
             onResetRoute(false);
         }
@@ -353,7 +363,7 @@ public class MapData : Singleton <MapData>
         {
             obj.onReset();
             obj.setAsTarget = index == _planedRouteCurrentWaypoint;
-            obj.pos= index;
+            obj.pos = index;
             index++;
         }
 
@@ -370,7 +380,8 @@ public class MapData : Singleton <MapData>
             try
             {
                 spawnOnMapScript.reCreateGameObjects();
-            }catch (Exception e)
+            }
+            catch (Exception e)
             {
                 Debug.LogException(e);
             }
@@ -379,23 +390,27 @@ public class MapData : Singleton <MapData>
 
     public void spawnedObjectDeletion(List<MapObject> list)
     {
-        foreach (var item in list) { 
+        foreach (var item in list)
+        {
             if (item is Waypoint)
                 _planedRoute.Remove((Waypoint)item);
             if (item is ObjOfInterest)
                 _objOfInterest.Remove((ObjOfInterest)item);
             _otherObjects.Remove(item);
         }
-        if(list.Count > 0) {
+        if (list.Count > 0)
+        {
             onObjectChanged();
-        }   
+        }
     }
-    public void addObject(MapObject NewObject, int nearestWpIndex=-1) {
-        switch (NewObject.type) {
+    public void addObject(MapObject NewObject, int nearestWpIndex = -1)
+    {
+        switch (NewObject.type)
+        {
             case MapObject.ObjType.Waypoint:
                 Waypoint newWaypoint = new Waypoint(this, NewObject);
 
-                if (nearestWpIndex >= 0 && nearestWpIndex< _planedRoute.Count )
+                if (nearestWpIndex >= 0 && nearestWpIndex < _planedRoute.Count)
                 {
                     _planedRoute.Insert(nearestWpIndex, newWaypoint);
                 }
@@ -406,10 +421,10 @@ public class MapData : Singleton <MapData>
                 onObjectChanged();
                 break;
             case MapObject.ObjType.ObjOfInterest:
-                ObjOfInterest newObjOfInterest = new ObjOfInterest(this,NewObject);
+                ObjOfInterest newObjOfInterest = new ObjOfInterest(this, NewObject);
                 _objOfInterest.Add(newObjOfInterest);
                 onObjectChanged();
-                break;          
+                break;
             case MapObject.ObjType.Barier:
                 Barier barier = new Barier(this, NewObject);
                 _otherObjects.Add(barier);
@@ -422,7 +437,7 @@ public class MapData : Singleton <MapData>
                 break;
             case MapObject.ObjType.LandingPad:
             default:
-                Debug.Log("NewObject creation of:" + NewObject.type.ToString()+"not Suported");
+                Debug.Log("NewObject creation of:" + NewObject.type.ToString() + "not Suported");
                 break;
         }
     }
@@ -432,7 +447,7 @@ public class MapData : Singleton <MapData>
 public class JsonFileTdo : System.Object
 {
     [JsonProperty("mision_name")]
-    public string misionName="";
+    public string misionName = "";
 
     [JsonProperty("dronePath")]
     public List<Waypoint> _planedRoute = new List<Waypoint>();
@@ -444,13 +459,14 @@ public class JsonFileTdo : System.Object
     public List<MapObject> _otherObjects = new List<MapObject>();
 
     [JsonProperty("homeLocation")]
-    public MapObject homeLocation =null;
+    public MapObject homeLocation = null;
 
-    public void saveJson(string dirPath) { // internal format
+    public void saveJson(string dirPath)
+    { // interní formát format
         try
         {
             string json = JsonConvert.SerializeObject(this);
-            File.WriteAllText(dirPath + "/"+this.misionName+".json", json);
+            File.WriteAllText(dirPath + "/" + this.misionName + ".json", json);
             TextToSpeechSyntetizer textToSpeechSyntetizer = GameObject.FindObjectOfType<TextToSpeechSyntetizer>();
             textToSpeechSyntetizer.say("Saving successfull.");
         }
@@ -462,19 +478,19 @@ public class JsonFileTdo : System.Object
         }
     }
 
-    double calcDistance(Vector2d firstPos,Vector2d secondPos)
+    double calcDistance(Vector2d firstPos, Vector2d secondPos)
     {
         return Math.Abs(firstPos.x - secondPos.x) + Math.Abs(firstPos.y - secondPos.y);
     }
 
 
-    public void saveCsv(string dirPath) //lichi kompatible format
+    public void saveCsv(string dirPath) //lichi kompatibilní format
     {
         try
         {
             using (StreamWriter sw = new StreamWriter(dirPath + "/" + this.misionName + ".csv", false, Encoding.UTF8))
             {
-                // header
+                // hlavièka
                 CultureInfo culture = new CultureInfo("en-US");
                 sw.WriteLine("latitude,longitude,altitude(m),heading(deg),curvesize(m),rotationdir,gimbalmode,gimbalpitchangle,actiontype1,actionparam1,actiontype2,actionparam2,actiontype3,actionparam3,actiontype4,actionparam4,actiontype5,actionparam5,actiontype6,actionparam6,actiontype7,actionparam7,actiontype8,actionparam8,actiontype9,actionparam9,actiontype10,actionparam10,actiontype11,actionparam11,actiontype12,actionparam12,actiontype13,actionparam13,actiontype14,actionparam14,actiontype15,actionparam15,altitudemode,speed(m/s),poi_latitude,poi_longitude,poi_altitude(m),poi_altitudemode,photo_timeinterval,photo_distinterval");
 
@@ -492,12 +508,13 @@ public class JsonFileTdo : System.Object
 
                         Vector2d poiVector = Conversions.StringToLatLon(itrPoi.locationString);
 
-                        if (calcDistance(waypointVec, poiVector) < calcDistance(waypointVec, Conversions.StringToLatLon(poi.locationString))) {
+                        if (calcDistance(waypointVec, poiVector) < calcDistance(waypointVec, Conversions.StringToLatLon(poi.locationString)))
+                        {
                             poi = itrPoi;
                         }
                     }
 
-                    float poiX= poi==null?0: (float)Conversions.StringToLatLon(poi.locationString).x;
+                    float poiX = poi == null ? 0 : (float)Conversions.StringToLatLon(poi.locationString).x;
                     float poiY = poi == null ? 0 : (float)Conversions.StringToLatLon(poi.locationString).y;
                     float poiAlt = poi == null ? 0 : poi.relativeAltitude;
                     sw.WriteLine($"{waypointVec.x.ToString(culture)},{waypointVec.y.ToString(culture)},{waypoint.relativeAltitude.ToString(culture)},0,3,0,0,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,0,0,{poiX.ToString(culture)},{poiY.ToString(culture)},{poiAlt.ToString(culture)},0,-1,-1");
@@ -512,9 +529,9 @@ public class JsonFileTdo : System.Object
         }
     }
 
-    public void  loadCsv(string path,string name,MapData mapData)
+    public void loadCsv(string path, string name, MapData mapData)
     {
-        // clean up
+        // èistka
         _planedRoute.Clear();
         _objOfInterest.Clear();
         _otherObjects.Clear();
@@ -526,7 +543,7 @@ public class JsonFileTdo : System.Object
                 this.misionName = name;
                 string[] lines = File.ReadAllLines(path);
 
-                // Skip the header row (assuming the first row contains column names)
+                // první øádek je hlavièka
                 for (int i = 1; i < lines.Length; i++)
                 {
                     string[] values = lines[i].Split(',');
@@ -546,7 +563,7 @@ public class JsonFileTdo : System.Object
                     this._planedRoute.Add(waypoint);
 
                     // pokud není poi nastaveno - skip
-                    if (values[40]=="0"|| values[41]=="0")
+                    if (values[40] == "0" || values[41] == "0")
                     {
                         continue;
                     }
@@ -554,18 +571,18 @@ public class JsonFileTdo : System.Object
                     string poiLocationString = string.Format("{0}, {1}", values[40], values[41]);
                     float poiRelAlt = 0;
 
-                    if (float.TryParse(values[42], out float result2))                   
-                        poiRelAlt = result;                    
+                    if (float.TryParse(values[42], out float result2))
+                        poiRelAlt = result;
                     else
                         throw new Exception("converzion error");
-                    
+
                     //zkusíme dané poi najít - pokud existuje skip
                     bool founded = false;
                     foreach (var poi in _objOfInterest)
                     {
                         if (poi.locationString == poiLocationString)
                         {
-                            founded=true;
+                            founded = true;
                             break;
                         }
                     }
@@ -602,18 +619,18 @@ public class JsonFileTdo : System.Object
 [Serializable]
 public class Player : MapObject
 {
-    public Player(MapData mapData):base(mapData)
+    public Player(MapData mapData) : base(mapData)
     {
         type = ObjType.Player;
     }
 
-    public float heading=0;
+    public float heading = 0;
 }
 
 [Serializable]
 public class Waypoint : MapObject
 {
-    public Waypoint(MapData mapData, MapObject mapObject = null) : base(mapData,mapObject)
+    public Waypoint(MapData mapData, MapObject mapObject = null) : base(mapData, mapObject)
     {
         type = ObjType.Waypoint;
     }
@@ -623,11 +640,12 @@ public class Waypoint : MapObject
     public int pos = -1;
 
     [JsonIgnore]
-    public bool hasBeenVisited=false;
+    public bool hasBeenVisited = false;
     [JsonIgnore]
     public bool setAsTarget = false;
 
-    public void onDroneEnterColider() {
+    public void onDroneEnterColider()
+    {
         mapData.onWaypointCrossed(pos);
     }
 
@@ -644,7 +662,7 @@ public class Waypoint : MapObject
 [Serializable]
 public class ObjOfInterest : MapObject
 {
-    public ObjOfInterest(MapData mapData,MapObject mapObject = null):base(mapData,mapObject)
+    public ObjOfInterest(MapData mapData, MapObject mapObject = null) : base(mapData, mapObject)
     {
         type = ObjType.ObjOfInterest;
     }
@@ -655,7 +673,7 @@ public class DroneObject : MapObject
 {
     public DroneFlightData droneFlightData = null;
 
-    public DroneObject(MapData mapData):base(mapData)
+    public DroneObject(MapData mapData) : base(mapData)
     {
         type = ObjType.Drone;
     }
@@ -663,7 +681,7 @@ public class DroneObject : MapObject
 [Serializable]
 public class Barier : MapObject
 {
-    public bool isWarning=false;
+    public bool isWarning = false;
     public Barier(MapData mapData, MapObject mapObject = null) : base(mapData, mapObject)
     {
         type = ObjType.Barier;
@@ -685,18 +703,18 @@ public class Warning : Barier
     public Warning(MapData mapData, MapObject mapObject = null) : base(mapData, mapObject)
     {
         type = ObjType.Warning;
-        isWarning = true;   
+        isWarning = true;
     }
 }
 
-    [Serializable]
-public class MapObject: System.Object
+[Serializable]
+public class MapObject : System.Object
 {
 
     [Geocode]
-    public string locationString=""; // gps pozice
+    public string locationString = ""; // gps pozice
 
-    public string name=""; // zobrazovaný název
+    public string name = ""; // zobrazovaný název
 
     public float relativeAltitude = 0f; // výška nad zemí 
 
@@ -705,7 +723,7 @@ public class MapObject: System.Object
 
     public SerializableQuaternion rotation = Quaternion.identity;
     public SerializableVector3 scale = Vector3.one;
-     
+
     public enum ObjType
     {
         Waypoint,
@@ -719,22 +737,23 @@ public class MapObject: System.Object
     }
     public ObjType type = ObjType.Unspecified;
 
-    public MapObject(MapData mapData, MapObject mapObject = null ) 
+    public MapObject(MapData mapData, MapObject mapObject = null)
     {
-        if (mapObject != null) { 
+        if (mapObject != null)
+        {
             locationString = mapObject.locationString;
             name = mapObject.name;
             relativeAltitude = mapObject.relativeAltitude;
             type = mapObject.type;
-            rotation=mapObject.rotation;
+            rotation = mapObject.rotation;
             scale = mapObject.scale;
         }
         this.mapData = mapData;
     }
-
 }
 
-[System.Serializable]
+// seriozavetelný formát pro vector3
+[Serializable]
 public class SerializableVector3
 {
     public float x;
@@ -783,7 +802,8 @@ public class SerializableVector3
     }
 }
 
-[System.Serializable]
+// seriovatelný formát pro quaternion
+[Serializable]
 public class SerializableQuaternion
 {
     public float x;

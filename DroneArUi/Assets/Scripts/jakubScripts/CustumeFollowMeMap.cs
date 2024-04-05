@@ -1,16 +1,21 @@
-// author jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// fallow me script pro minimapu
+/// </summary>
 
 using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.Utilities.Solvers;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class CustumeFollowMeMap :  RadialView
+public class CustumeFollowMeMap : RadialView
 {
 
-    public Transform transformMap=null;
+    public Transform transformMap = null;
     public Transform mainCameraTransform = null;
     public FollowMeToggle followMeTogle = null;
     void Update()
@@ -21,13 +26,13 @@ public class CustumeFollowMeMap :  RadialView
         transformMap.position = goalPosition;
 
         goalRotation.x = 0;
-        //goalRotation.y = (float)(Math.Round(goalRotation.y / 0.2f)) *0.2f;
         goalRotation.z = 0;
         transformMap.rotation = goalRotation;
 
     }
-    public void onAchorClick() {
+    public void onAchorClick()
+    {
         followMeTogle.ToggleFollowMeBehavior();
-       
-    }    
+
+    }
 }

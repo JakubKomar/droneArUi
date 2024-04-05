@@ -1,8 +1,13 @@
-// autor: jakub komárek
-using Mapbox.Examples;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// logika pro spawner prefabù, které se následnì zanáši do mapy
+/// </summary>
 using Microsoft.MixedReality.Toolkit.UI;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -18,10 +23,10 @@ public class newItemDocItem : MonoBehaviour
     [SerializeField]
     public MapObject.ObjType type;
 
-    private GameObject movebleGameObject=null;
+    private GameObject movebleGameObject = null;
 
     [SerializeField]
-    public string description="";
+    public string description = "";
     void Start()
     {
         // nastavení popisku
@@ -41,7 +46,6 @@ public class newItemDocItem : MonoBehaviour
             return;
         }
 
-        // add liseners for grap and release
         ObjectManipulator manipulator = movebleGameObject.GetComponent<ObjectManipulator>();
 
         if (manipulator != null)
@@ -64,7 +68,7 @@ public class newItemDocItem : MonoBehaviour
 
     private void onManipulationEnd(ManipulationEventData eventData)
     {
-        
+
         if (spawnOnMap == null)
         {
             Debug.LogError("dock:" + description + " dont have abstract map");
@@ -76,10 +80,5 @@ public class newItemDocItem : MonoBehaviour
         // pøesun objekt spátky do doku
         movebleGameObject.transform.localScale = Vector3.one;
         movebleGameObject.transform.localPosition = Vector3.zero;
-    }
-
-
-    void Update()
-    {
     }
 }

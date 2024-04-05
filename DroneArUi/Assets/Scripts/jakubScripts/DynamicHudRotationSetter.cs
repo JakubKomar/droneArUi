@@ -1,26 +1,28 @@
-// jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// nastavuje pozici a rotaci dynamického hudu- již se nepoužívá
+/// </summary>
 
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 
 public class DynamicHudRotationSetter : Singleton<DynamicHudRotationSetter>
 {
-    // Start is called before the first frame update
-
     public GameObject droneWordScale;
     [SerializeField]
     private GameObject hudChild;
 
-    private float droneDistance=0;
+    private float droneDistance = 0;
 
     [SerializeField]
     private float minDistanceLimit = 15;
 
-    Drone drone;
     [SerializeField]
     TextMeshProUGUI distance;
     [SerializeField]
@@ -33,7 +35,6 @@ public class DynamicHudRotationSetter : Singleton<DynamicHudRotationSetter>
         droneManager = DroneManager.Instance;
     }
 
-    // Update is called once per frame
     void Update()
     {
 
@@ -59,14 +60,13 @@ public class DynamicHudRotationSetter : Singleton<DynamicHudRotationSetter>
             // Nastavení rotace game objektu s canvasem
             transform.rotation = targetRotation;
 
-            distance.text = "D:"+ math.round(droneDistance).ToString();
-            alt.text = string.Format("A:{0:0.0}m", drone.FlightData.Altitude); 
+            distance.text = "D:" + math.round(droneDistance).ToString();
+            alt.text = string.Format("A:{0:0.0}m", drone.FlightData.Altitude);
             hudChild.gameObject.SetActive(true);
         }
         else
         {
             hudChild.gameObject.SetActive(false);
         }
-
     }
 }

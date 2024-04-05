@@ -1,10 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// pøepínaè fpv módu
+/// </summary>
+
 using UnityEngine;
 
 public class FPVcontroler : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
     private GameObject miniPlayer;
     [SerializeField]
@@ -13,16 +20,6 @@ public class FPVcontroler : MonoBehaviour
     [SerializeField]
     bool fpvMod=false;
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void onFpvToggle()
     {

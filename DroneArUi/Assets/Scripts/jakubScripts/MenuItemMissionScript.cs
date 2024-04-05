@@ -1,31 +1,34 @@
-// author jakub komárek
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// Skript pro každou položku ve selektoru misí
+/// </summary>
+/// 
 using TMPro;
 using UnityEngine;
 using System.IO;
-using static MissionSelector;
-using System;
-
 public class MenuItemMissionScript : MonoBehaviour
 {
-    // Start is called before the first frame update
+
     public MissionSelector.menuItemTDO menuItemTdo;
 
     [SerializeField]
     TextMeshPro label;
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if(menuItemTdo != null)
+        if (menuItemTdo != null)
         {
             label.text = menuItemTdo.name;
-        }   
+        }
     }
     public void onDeletePressed()
     {
@@ -36,7 +39,6 @@ public class MenuItemMissionScript : MonoBehaviour
 
         if (File.Exists(menuItemTdo.path))
         {
-            // Delete the file
             File.Delete(menuItemTdo.path);
             Debug.Log("File deleted: " + menuItemTdo.path);
         }
@@ -56,6 +58,6 @@ public class MenuItemMissionScript : MonoBehaviour
         }
 
         menuItemTdo.missionSelector.onLoaded(menuItemTdo);
-        
+
     }
 }

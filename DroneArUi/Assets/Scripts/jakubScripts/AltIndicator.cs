@@ -8,12 +8,8 @@
 /// Logika páskového indikátoru výšky, stará se o vytvoøení a následou èinost widgetu
 /// </summary>
 
-
-using Mapbox.Directions;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class AltIndicator : MonoBehaviour

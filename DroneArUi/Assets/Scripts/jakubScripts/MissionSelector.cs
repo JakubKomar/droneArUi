@@ -1,18 +1,23 @@
-// author: jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// Logika pro výbìr mise z uložených souborù
+/// </summary>
 
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Microsoft.MixedReality.Toolkit.Utilities;
-using static MissionSelector;
 
 public class MissionSelector : MonoBehaviour
 {
-    // Start is called before the first frame update
     string pathToDir = "";
 
-    List<menuItemTDO> saveFiles=new List<menuItemTDO>();
+    List<menuItemTDO> saveFiles = new List<menuItemTDO>();
 
     List<GameObject> menuItems = new List<GameObject>();
 
@@ -27,7 +32,7 @@ public class MissionSelector : MonoBehaviour
     [SerializeField]
     int listLen = 6;
 
-    private int curentPageNum=0;
+    private int curentPageNum = 0;
     private int maxPageNum = 0;
 
     void Start()
@@ -48,7 +53,7 @@ public class MissionSelector : MonoBehaviour
         mapdata.sevedFile.AddListener(refreshMissionList);
         onClose();
     }
- 
+
 
     public void refreshMissionList()
     {
@@ -74,7 +79,7 @@ public class MissionSelector : MonoBehaviour
             if (Path.GetExtension(file).Equals(".json"))
             {
                 // Pøidejte cestu k JSON souboru do pole
-                saveFiles.Add( new menuItemTDO(Path.GetFileName(file) ,file, ".json",this));
+                saveFiles.Add(new menuItemTDO(Path.GetFileName(file), file, ".json", this));
             }
         }
         foreach (string file in files)
@@ -83,12 +88,12 @@ public class MissionSelector : MonoBehaviour
             if (Path.GetExtension(file).Equals(".csv"))
             {
                 // Pøidejte cestu k JSON souboru do pole
-                saveFiles.Add(new menuItemTDO(Path.GetFileName(file), file, ".csv",this));
+                saveFiles.Add(new menuItemTDO(Path.GetFileName(file), file, ".csv", this));
 
             }
         }
         maxPageNum = saveFiles.Count / listLen;
-        if(saveFiles.Count% listLen != 0)
+        if (saveFiles.Count % listLen != 0)
         {
             maxPageNum++;
         }
@@ -96,7 +101,8 @@ public class MissionSelector : MonoBehaviour
         pageShow(curentPageNum);
     }
 
-    void pageShow(int page) { 
+    void pageShow(int page)
+    {
 
         foreach (var obj in menuItems)
         {
@@ -104,8 +110,9 @@ public class MissionSelector : MonoBehaviour
         }
         menuItems.Clear();
 
-        if (page >= maxPageNum) { 
-            page = maxPageNum-1;
+        if (page >= maxPageNum)
+        {
+            page = maxPageNum - 1;
         }
         if (page < 0)
         {
@@ -117,20 +124,21 @@ public class MissionSelector : MonoBehaviour
         int beginIndex = page * listLen;
 
         int counter = 0;
-        for(int i = beginIndex; i < saveFiles.Count; i++) {
+        for (int i = beginIndex; i < saveFiles.Count; i++)
+        {
             if (counter >= listLen)
                 break;
 
             GameObject gameObject = Instantiate(_menuItemPrefab);
             MenuItemMissionScript scriptComponent = gameObject.GetComponent<MenuItemMissionScript>();
-            if(scriptComponent != null)
+            if (scriptComponent != null)
             {
                 scriptComponent.menuItemTdo = saveFiles[i];
             }
 
             gameObject.transform.parent = contentConteiner.transform;
             gameObject.transform.localScale = Vector3.one;
-            gameObject.transform.localRotation = new Quaternion(0,0,0,1);
+            gameObject.transform.localRotation = new Quaternion(0, 0, 0, 1);
             gameObject.transform.localPosition = new Vector3(0, -0.01f, 0);
             menuItems.Add(gameObject);
             counter++;
@@ -155,31 +163,35 @@ public class MissionSelector : MonoBehaviour
         {
             mapdata.loadMision(menuItemTDO.path);
         }
-        else if (menuItemTDO.format == ".csv") {
-            mapdata.loadCsvMision(menuItemTDO.path,menuItemTDO.name);
+        else if (menuItemTDO.format == ".csv")
+        {
+            mapdata.loadCsvMision(menuItemTDO.path, menuItemTDO.name);
         }
-        else {
+        else
+        {
             Debug.LogError(menuItemTDO.format);
         }
         onClose();
 
     }
 
-    public void onOpen() {
+    public void onOpen()
+    {
         refreshMissionList();
         this.gameObject.SetActive(true);
     }
 
-    public void onClose() {
+    public void onClose()
+    {
         this.gameObject.SetActive(false);
     }
-    public  void onUp()
+    public void onUp()
     {
         pageShow(curentPageNum - 1);
     }
     public void onDown()
     {
-        pageShow(curentPageNum +1);
+        pageShow(curentPageNum + 1);
     }
 
     public void onNew()
@@ -188,7 +200,6 @@ public class MissionSelector : MonoBehaviour
         onClose();
     }
 
-    // Update is called once per frame
     void Update()
     {
         contentConteiner.UpdateCollection();
@@ -199,9 +210,9 @@ public class MissionSelector : MonoBehaviour
         public string name;
         public string path;
         public string format;
-        public MissionSelector missionSelector=null;
+        public MissionSelector missionSelector = null;
         public menuItemTDO() { }
-        public menuItemTDO(string name, string path, string format, MissionSelector missionSelector=null)
+        public menuItemTDO(string name, string path, string format, MissionSelector missionSelector = null)
         {
             this.name = name;
             this.path = path;
@@ -209,5 +220,4 @@ public class MissionSelector : MonoBehaviour
             this.missionSelector = missionSelector;
         }
     }
-
 }

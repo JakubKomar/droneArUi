@@ -1,24 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// logika hudu, který je umístìn na dronu ve svìtì
+/// </summary>
 using TMPro;
 using UnityEngine;
 
-public class DroneWordscaleHud :MonoBehaviour
+public class DroneWordscaleHud : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     private float droneDistance = 0;
 
     [SerializeField]
     private float minDistanceLimit = 15;
 
     [SerializeField]
-    public bool disableDrone=true;
+    public bool disableDrone = true;
 
     [SerializeField]
     public bool disableHud = false;
-
-    Drone drone;
 
     [SerializeField]
     TextMeshProUGUI distance;
@@ -36,10 +39,9 @@ public class DroneWordscaleHud :MonoBehaviour
     void Start()
     {
         droneManager = DroneManager.Instance;
-        player= Camera.main.transform;
+        player = Camera.main.transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Drone drone = droneManager.ControlledDrone;
@@ -57,7 +59,7 @@ public class DroneWordscaleHud :MonoBehaviour
             }*/
             float scale = droneDistance * 0.001f;
             hudChild.gameObject.transform.localScale = new Vector3(scale, scale, scale);
-        
+
 
 
             Vector3 direction = (player.position - this.transform.position).normalized;

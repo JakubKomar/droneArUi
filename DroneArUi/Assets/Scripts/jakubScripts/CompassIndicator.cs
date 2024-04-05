@@ -1,16 +1,18 @@
-// jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// logika pro vytvoøení a update kompasu spolu s ikonami v nìm
+/// </summary>
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ProBuilder.Shapes;
-using static UnityEngine.GraphicsBuffer;
 
 public class CompassIndicator : Singleton<CompassIndicator>
 {
-
-    // Start is called before the first frame update
 
     [SerializeField]
     private GameObject largeStupnice = null;
@@ -65,7 +67,7 @@ public class CompassIndicator : Singleton<CompassIndicator>
             largeStupniceList.Add(stupnice);
             LargeStupnice script = stupnice.GetComponent<LargeStupnice>();
 
-          
+
 
             int azimut = i % 360;
             if (azimut < 0)
@@ -150,7 +152,7 @@ public class CompassIndicator : Singleton<CompassIndicator>
     {
         heading = staticHudUp.playerHading;
 
-        tape.transform.localPosition= new Vector3((canvasWidth / visibleCount) * (-heading),0,-1);
+        tape.transform.localPosition = new Vector3((canvasWidth / visibleCount) * (-heading), 0, -1);
 
         int index = min;
         foreach (var obj in smallStupniceList)
@@ -165,14 +167,14 @@ public class CompassIndicator : Singleton<CompassIndicator>
                 obj.SetActive(true);
             }
 
-            index+=10;
+            index += 10;
 
         }
 
         index = min;
         foreach (var obj in largeStupniceList)
         {
-            if (Mathf.Abs(index - heading) > visibleCount / 2 )
+            if (Mathf.Abs(index - heading) > visibleCount / 2)
             {
                 obj.SetActive(false);
             }
@@ -189,14 +191,14 @@ public class CompassIndicator : Singleton<CompassIndicator>
         setIconPos(activeWaypoint, waypointIcon);
     }
 
-    void setIconPos( GameObject trackedObject, GameObject icon)
+    void setIconPos(GameObject trackedObject, GameObject icon)
     {
         if (trackedObject != null)
         {
             float az = calcAzimut(playerCamera.transform, trackedObject.transform);
 
             // pokouším se iconu umístit na rùzná místa na pásce - páska je orotovaná zhruba 2.5x aby byla vidìt vždy celá
-            if(Mathf.Abs(az - heading) > visibleCount / 2)
+            if (Mathf.Abs(az - heading) > visibleCount / 2)
             {
                 az = (az + 360);
 
@@ -212,9 +214,9 @@ public class CompassIndicator : Singleton<CompassIndicator>
                         icon.SetActive(false);
                         return;
                     }
-                }       
+                }
             }
-           
+
 
 
             icon.transform.localPosition = new Vector3((canvasWidth / visibleCount) * az, 15, -1);

@@ -7,8 +7,7 @@
 /// <summary>
 /// setter pro malou stupnici indikátoru výšky
 /// </summary>
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class SmallStupnice : MonoBehaviour

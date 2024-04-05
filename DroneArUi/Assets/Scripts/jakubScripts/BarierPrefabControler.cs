@@ -1,5 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// logika baréry - detekuje pøítomnost drona a reportujej ji dále
+/// </summary>
 using UnityEngine;
 
 public class BarierPrefabControler : MapGameObjectData

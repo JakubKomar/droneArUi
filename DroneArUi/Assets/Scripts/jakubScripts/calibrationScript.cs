@@ -1,4 +1,12 @@
-// autor: jakub komárek
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// zajistuje kalibraci svìta kolem hráèe
+/// </summary>
 
 using Mapbox.Unity.Map;
 using UnityEngine;
@@ -6,11 +14,10 @@ using UnityEngine.Events;
 
 public class calibrationScript : Singleton<calibrationScript>
 {
-    // Start is called before the first frame update
     public AbstractMap wordScaleMap = null;
     public AbstractMap miniMap = null;
 
-    public Transform playerCamera =null;
+    public Transform playerCamera = null;
     public DroneManager droneManager = null;
     public Mapbox.Utils.Vector2d playerPosition;
 
@@ -25,17 +32,13 @@ public class calibrationScript : Singleton<calibrationScript>
     GameObject manipulatorPrefab = null;
     [SerializeField]
     CalibrationGround ground;
-    void Start()
-    {
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        playerGps= wordScaleMap.WorldToGeoPosition(playerCamera.position);
+        playerGps = wordScaleMap.WorldToGeoPosition(playerCamera.position);
 
         float playerRottation = playerCamera.rotation.eulerAngles.y;
-        playerHading= playerRottation- wordScaleMap.transform.rotation.eulerAngles.y;
+        playerHading = playerRottation - wordScaleMap.transform.rotation.eulerAngles.y;
     }
 
     public void onCalibration()
@@ -49,7 +52,7 @@ public class calibrationScript : Singleton<calibrationScript>
             Debug.LogWarning("Nelze provést calibraci bez pøipojeného  drona");
             latitude = 49.22732;
             longitude = 16.59683;
-            compas =250;
+            compas = 250;
         }
         else
         {
@@ -67,13 +70,13 @@ public class calibrationScript : Singleton<calibrationScript>
         //Debug.Log(playeryRottation);
 
         Mapbox.Utils.Vector2d actualCenter;
-       
-        actualCenter.x= latitude;
-        actualCenter.y= longitude;
+
+        actualCenter.x = latitude;
+        actualCenter.y = longitude;
         playerPosition = actualCenter;
 
         wordScaleMap.UpdateMap(actualCenter);
-        
+
         //reset soft calibrace
         this.transform.localScale = Vector3.one;
         this.transform.localRotation = Quaternion.identity;
@@ -85,8 +88,8 @@ public class calibrationScript : Singleton<calibrationScript>
         wordScaleMap.transform.localPosition = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 1.8f, playerCamera.transform.position.z);
         wordScaleMap.transform.localScale = Vector3.one;
 
-        manipulatorPrefab.transform.localRotation =Quaternion.identity;
-        manipulatorPrefab.transform.localPosition = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y -0.8f, playerCamera.transform.position.z); ;
+        manipulatorPrefab.transform.localRotation = Quaternion.identity;
+        manipulatorPrefab.transform.localPosition = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 0.8f, playerCamera.transform.position.z); ;
 
 
 
@@ -101,7 +104,7 @@ public class calibrationScript : Singleton<calibrationScript>
 
     public void setHomeLocation(string localizationString)
     {
-        Mapbox.Utils.Vector2d actualCenter= Mapbox.Unity.Utilities.Conversions.StringToLatLon(localizationString);
+        Mapbox.Utils.Vector2d actualCenter = Mapbox.Unity.Utilities.Conversions.StringToLatLon(localizationString);
 
         playerPosition = actualCenter;
 
@@ -118,7 +121,7 @@ public class calibrationScript : Singleton<calibrationScript>
         //vc.Modeling.LineOptions.SetLineWidth(1);
 
         manipulatorPrefab.SetActive(true);
-        manipulatorPrefab.transform.rotation = Quaternion.Euler( 0, playerCamera.transform.rotation.y, 0);
+        manipulatorPrefab.transform.rotation = Quaternion.Euler(0, playerCamera.transform.rotation.y, 0);
         manipulatorPrefab.transform.position = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y, playerCamera.transform.position.z); ; //new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y, playerCamera.transform.position.z); ;
         ground.setCalibration(true);
 

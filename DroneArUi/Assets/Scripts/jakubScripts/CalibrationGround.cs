@@ -1,10 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// nastavuje podložku pro výškovou kalibraci
+/// </summary>
 using UnityEngine;
 
 public class CalibrationGround : Singleton<CalibrationGround>
 {
-    // Start is called before the first frame update
     [SerializeField]
     GameObject groundObj;
     [SerializeField]
@@ -16,8 +22,7 @@ public class CalibrationGround : Singleton<CalibrationGround>
         groundObj.SetActive(false);
     }
 
-    // Update is called once per frame
-    bool inCalibration=false;
+    bool inCalibration = false;
     void Update()
     {
 
@@ -34,7 +39,7 @@ public class CalibrationGround : Singleton<CalibrationGround>
 
     public void setCalibration(bool state)
     {
-        inCalibration=state;
+        inCalibration = state;
 
         if (inCalibration)
         {

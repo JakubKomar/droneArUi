@@ -1,21 +1,27 @@
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// zajištuje pravido 1:1 u vygenerovaných bariér nad silnicemi, nsatavuje šíøku bariéry dle letové výšky
+/// </summary>
+
 using Mapbox.Unity.Map;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapBarierControler : Singleton<MapBarierControler>
 {
-    // Start is called before the first frame update
+    [SerializeField]
+    public bool dynamicBarierEnable = false;
 
     [SerializeField]
-    public bool dynamicBarierEnable=false;
+    List<AbstractMap> abstractMaps = new List<AbstractMap>();
 
     [SerializeField]
-    List<AbstractMap> abstractMaps= new List<AbstractMap>();
-
-    [SerializeField]
-    float testAlt =0;
+    float testAlt = 0;
     [SerializeField]
     float startWidth = 3;
 
@@ -29,12 +35,12 @@ public class MapBarierControler : Singleton<MapBarierControler>
 
 
     private float timer = 0f;
-    private float interval = 0.5f; // Interval in seconds
+    private float interval = 0.5f;
     void Update()
     {
         timer += Time.deltaTime;
 
-        // Check if the timer has reached the interval
+
         if (timer >= interval)
         {
             float newBarierWidth;
@@ -56,7 +62,7 @@ public class MapBarierControler : Singleton<MapBarierControler>
                 newBarierWidth = startWidth;
             }
 
-            if(newBarierWidth == barierWidth)
+            if (newBarierWidth == barierWidth)
             {
                 return;
             }
@@ -79,11 +85,8 @@ public class MapBarierControler : Singleton<MapBarierControler>
 
             }
 
-            // Reset the timer
+
             timer = 0f;
         }
-
-    
-       
     }
 }

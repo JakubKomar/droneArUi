@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// ovladaè k minimapì - nastavuje domovskou pozici, zomm a umožnuje pohyb po mapì
+/// </summary>
 using UnityEngine;
-using Mapbox;
 using Mapbox.Unity.Map;
 using Microsoft.MixedReality.Toolkit.UI;
 using Unity.Mathematics;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem.LowLevel;
-using UnityEngine.UIElements;
-using Mapbox.Utils;
-using Mapbox.Map;
+
 
 public class MapControler : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         setCurentCenter();
@@ -26,17 +27,18 @@ public class MapControler : MonoBehaviour
     {
         isLoaded = false;
     }
-    private void onMapLoaded() {
-        isLoaded=true;
+    private void onMapLoaded()
+    {
+        isLoaded = true;
     }
 
 
-    public void setCurentCenter() {
+    public void setCurentCenter()
+    {
         initCenter = abstractMap.CenterLatitudeLongitude;
     }
-    // Update is called once per frame
 
-    bool isLoaded=true;
+    bool isLoaded = true;
     void Update()
     {
         if (isLoaded) // dopozicování minimapy do úrovnì stolu
@@ -52,9 +54,8 @@ public class MapControler : MonoBehaviour
     private Mapbox.Utils.Vector2d initCenter;
     public AbstractMap abstractMap = null;
     public Transform mapTransform = null;
-    public Transform tableTransform=null;
+    public Transform tableTransform = null;
 
-    //private float mapInitY = -0.51f;
     private float sliderVal = 0.5f;
     private float zoom = 19f;
 
@@ -71,10 +72,11 @@ public class MapControler : MonoBehaviour
         }
         catch { }
 
-       
+
     }
 
-    private float getStepSize() {
+    private float getStepSize()
+    {
         return moveStepSize / mapTransform.localScale.x;
     }
 
@@ -115,7 +117,6 @@ public class MapControler : MonoBehaviour
 
     public void reloadMap()
     {
-        //Debug.Log("dawdaw");
         abstractMap.UpdateMap(14);
         abstractMap.UpdateMap(zoom);
     }
@@ -127,10 +128,10 @@ public class MapControler : MonoBehaviour
             default:
             case 0:
                 abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxSatelliteStreet);
-                break; 
+                break;
             case 1:
                 abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxStreets);
-                break; 
+                break;
             case 2:
                 abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxDark);
                 break;
