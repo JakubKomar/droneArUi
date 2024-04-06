@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 -0.5 17 17"
+   version="1.1"
+   class="si-glyph si-glyph-helicopter-pad"
+   id="svg144"
+   sodipodi:docname="helicopter-pad-svgrepo-com.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview146"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="1.2525"
+     inkscape:cx="400"
+     inkscape:cy="400"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g140" />
+  <title
+     id="title132">773</title>
+  <defs
+     id="defs134" />
+  <g
+     stroke="none"
+     stroke-width="1"
+     fill="none"
+     fill-rule="evenodd"
+     id="g142"
+     transform="matrix(1.0636228,0,0,1.0636228,0,-0.55849925)">
+    <g
+       fill="#434343"
+       id="g140">
+      <path
+         d="m 8,0.055 c -4.418,0 -8,3.566 -8,7.968 0,4.4 3.582,7.968 8,7.968 4.418,0 8,-3.567 8,-7.968 C 16,3.621 12.418,0.055 8,0.055 Z m 0.004,15.057 c -3.934,0 -7.121,-3.181 -7.121,-7.105 0,-3.924 3.188,-7.105 7.121,-7.105 3.933,0 7.121,3.181 7.121,7.105 0,3.924 -3.187,7.105 -7.121,7.105 z"
+         class="si-glyph-fill"
+         id="path136"
+         style="fill-opacity:1;fill:#2c96ff" />
+      <path
+         d="m 8.018,2.08 c -3.264,0 -5.91,2.654 -5.91,5.927 0,3.273 2.646,5.927 5.91,5.927 3.264,0 5.911,-2.654 5.911,-5.927 0,-3.273 -2.648,-5.927 -5.911,-5.927 z m 2.059,8.039 H 8.937 V 9.062 H 7.062 v 1.057 H 5.944 V 5.961 H 7.062 V 7.875 H 8.937 V 5.961 h 1.14 z"
+         class="si-glyph-fill"
+         id="path138"
+         style="fill-opacity:1;fill:#2c96ff" />
+    </g>
+  </g>
+  <metadata
+     id="metadata423">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>773</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>
