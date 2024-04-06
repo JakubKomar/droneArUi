@@ -1,5 +1,2 @@
-# Ui for controling drone for hololens 2
+# Hololens 2 - Interface for drone 
 
-#### droneArUi - main project
-#### experimental - experiments whith visualisation
-#### oldBuildNewNetSocket - old visualisation whith integration of new net manger socket for connection to server

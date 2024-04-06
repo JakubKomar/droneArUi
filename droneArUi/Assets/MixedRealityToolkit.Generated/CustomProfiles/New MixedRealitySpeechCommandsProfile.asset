@@ -53,63 +53,56 @@ MonoBehaviour:
       axisConstraint: 0
   - localizationKey: 
     keyword: Calibrate
-    keyCode: 263
+    keyCode: 288
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
     keyword: Skip
-    keyCode: 256
+    keyCode: 287
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
     keyword: Reset
-    keyCode: 257
+    keyCode: 286
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
     keyword: Toggle Hud
-    keyCode: 264
+    keyCode: 290
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
     keyword: Connection
-    keyCode: 105
+    keyCode: 292
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
     keyword: Debug
-    keyCode: 111
+    keyCode: 293
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
     keyword: Map
-    keyCode: 258
-    action:
-      id: 0
-      description: None
-      axisConstraint: 0
-  - localizationKey: 
-    keyword: Toggle Fpv
-    keyCode: 259
+    keyCode: 291
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
     keyword: Soft calibration
-    keyCode: 262
+    keyCode: 289
     action:
       id: 0
       description: None
