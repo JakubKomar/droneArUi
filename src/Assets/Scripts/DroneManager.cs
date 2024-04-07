@@ -88,6 +88,8 @@ public class DroneManager : Singleton<DroneManager>
             var mapboxLatLong = Map.CenterLatitudeLongitude;
             flightData.Longitude = mapboxLatLong.y;
             flightData.Latitude = mapboxLatLong.x;
+            flightData.InvalidGps = true;
+
         }
 
 
@@ -108,15 +110,13 @@ public class DroneManager : Singleton<DroneManager>
     {
         DroneFlightData flightData = new DroneFlightData(flyData);
 
-        if (double.IsNaN(flightData.Latitude) || double.IsNaN(flightData.Longitude))
+        if (double.IsNaN(flightData.Latitude) || double.IsNaN(flightData.Longitude) || (flightData.Latitude== 49.22727 && flightData.Longitude== 16.59721)) 
         {
             var mapboxLatLong = Map.CenterLatitudeLongitude;
             flightData.Longitude = mapboxLatLong.y;
             flightData.Latitude = mapboxLatLong.x;
+            flightData.InvalidGps = true;
         }
-
-        //flightData.Latitude = 49.19003762516931;
-        //flightData.Longitude=14.699571367309487;
 
 
         foreach (Drone drone in Drones)
@@ -174,6 +174,7 @@ public class DroneFlightData
     public double VelocityX;
     public double VelocityY;
     public double VelocityZ;
+    public bool InvalidGps=false;
 
     public GimbalOrientation gimbalOrientation;
     public DroneFlightData()

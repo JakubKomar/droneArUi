@@ -24,18 +24,11 @@ public class Drone {
         get; set;
     }
 
-    private Vector3 CorrectionOffset {
-        get; set;
-    }
-
-    public double RotationOffset { 
-        get; set;
-    }
     public DateTime lastUpdate;
 
     private readonly IEnumerable<string> DronesWithZeroAltitude = new List<string> { "DJI-Mavic2", "DJI-MAVIC_PRO", "DJI-MAVIC_MINI" };
 
-    public void ClearPositionOffset() => CorrectionOffset = Vector3.zero;
+    public bool usedForCalculation=false;
 
     public float RelativeAltitude {
         get
@@ -48,13 +41,14 @@ public class Drone {
     public Drone(DroneFlightData flightData, bool isControlled=false, float rotationOffset=0) {
         FlightData = flightData;
         IsControlled = isControlled;
-        RotationOffset = rotationOffset;
         lastUpdate= DateTime.Now;
+        usedForCalculation = false;
     }
 
     public void UpdateDroneFlightData(DroneFlightData flightData) {
         FlightData = flightData ;
         lastUpdate = DateTime.Now;
+        usedForCalculation = false;
     }
 
 

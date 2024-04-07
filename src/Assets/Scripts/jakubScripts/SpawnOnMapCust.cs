@@ -528,8 +528,13 @@ public class SpawnOnMap : MonoBehaviour
                 calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
             }
 
-
-            gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
+            if(mapCustumeObject.mapObject.type==MapObject.ObjType.Drone && !isMinimap)
+            {
+                DronePositionCalculator dronePositionCalculator = gameObject.GetComponent<DronePositionCalculator>();
+                dronePositionCalculator.gpsPosition = transform.InverseTransformPoint(new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z));
+            }
+            else
+                gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
 
         }
 

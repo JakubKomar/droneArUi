@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4452040727291970588}
   - component: {fileID: 2248610439068535291}
   - component: {fileID: 2041877608656507350}
+  - component: {fileID: 7269701626626180937}
   m_Layer: 10
   m_Name: dronePrefabWordScale
   m_TagString: drone
@@ -90,6 +91,18 @@ MonoBehaviour:
   alt: {fileID: 0}
   hudChild: {fileID: 5651164703010907522}
   droneObject: {fileID: 2258815611638292524}
+--- !u!114 &7269701626626180937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1839187062704024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0331345fe12f7842997fc32e86b0516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &54283363409495814
 GameObject:
   m_ObjectHideFlags: 0
