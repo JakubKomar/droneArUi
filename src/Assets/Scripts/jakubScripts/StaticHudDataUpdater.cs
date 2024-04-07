@@ -49,6 +49,14 @@ public class StaticHudDataUpdater : MonoBehaviour
 
     [SerializeField]
     flyModEnum droneMod = flyModEnum.position;
+
+    [SerializeField]
+    GameObject droneLostIcon=null;
+    [SerializeField]
+    GameObject gpsLostIcon = null;
+    [SerializeField]
+    GameObject altWarningIcon = null;
+
     void Start()
     {
         droneManager = DroneManager.Instance;
@@ -75,11 +83,20 @@ public class StaticHudDataUpdater : MonoBehaviour
         if (time != null)
             time.text = DateTime.Now.ToString("HH:mm");
 
+
         if (myDrone == null)
         {
             //batteryLevel = 99;
+            if (droneLostIcon != null)
+                droneLostIcon.SetActive(true);
             return;
         }
+        if (droneLostIcon != null)
+            droneLostIcon.SetActive(false);
+        if(altWarningIcon!=null)
+            altWarningIcon.SetActive(myDrone.FlightData.Altitude > 100);
+        if (gpsLostIcon != null)
+            gpsLostIcon.SetActive(myDrone.FlightData.InvalidGps);
 
         if (altitute != null)
         {

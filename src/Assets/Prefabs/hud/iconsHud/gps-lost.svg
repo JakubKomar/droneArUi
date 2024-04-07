@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+
+<svg
+   width="800px"
+   height="800px"
+   viewBox="0 0 24 24"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="gps-lost.svg"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     id="namedview8"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.62625"
+     inkscape:cx="15.968064"
+     inkscape:cy="431.13772"
+     inkscape:window-width="2560"
+     inkscape:window-height="1369"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg6" />
+  <path
+     d="M 24,11.502712 H 20.634783 A 8.6473043,8.6304187 0 0 0 12.521739,3.405511 V 0.04686483 H 11.478261 V 3.405511 A 8.6473043,8.6304187 0 0 0 3.3652174,11.502712 H 0 v 0.994576 h 3.3631304 a 8.6473043,8.6304187 0 0 0 8.1151306,8.144066 V 24 h 1.043478 v -3.358646 a 8.6473043,8.6304187 0 0 0 8.113044,-8.097201 H 24 Z M 12,19.625949 A 7.6173913,7.6025168 0 1 1 19.617391,12.023432 7.6257391,7.6108483 0 0 1 12,19.625949 Z m 4.695652,-7.602517 A 4.6956522,4.686483 0 1 1 12,7.3369494 4.701913,4.6927316 0 0 1 16.695652,12.023432 Z"
+     id="path2"
+     style="stroke-width:1.04246;fill:#ffb200;fill-opacity:1" />
+  <path
+     fill="none"
+     d="M0 0h24v24H0z"
+     id="path4" />
+  <path
+     style="fill:#ff4800;stroke:#ff0002;stroke-width:2.18182;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:7.7;stroke-dasharray:none;stroke-opacity:1"
+     d="M 1.09091,22.955957 22.909093,1.1377748"
+     id="path904" />
+  <path
+     style="fill:#ff4800;stroke:#ff0002;stroke-width:2.18182;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:7.7;stroke-dasharray:none;stroke-opacity:1"
+     d="M 22.909093,22.955957 1.09091,1.1377748"
+     id="path906" />
+</svg>

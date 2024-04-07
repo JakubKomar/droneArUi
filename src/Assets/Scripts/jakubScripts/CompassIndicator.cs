@@ -185,8 +185,15 @@ public class CompassIndicator : Singleton<CompassIndicator>
 
             index += 45;
         }
-
-        setIconPos(drone, droneIcon);
+        if (droneManager.ControlledDrone!=null)
+        {
+            setIconPos(drone, droneIcon);
+        }
+        else
+        {
+            droneIcon.SetActive(false);
+        }
+    
         setIconPos(landingPad, landingPadIcon);
         setIconPos(activeWaypoint, waypointIcon);
     }

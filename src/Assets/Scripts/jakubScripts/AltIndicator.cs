@@ -9,7 +9,7 @@
 /// </summary>
 
 using System.Collections.Generic;
-
+using TMPro;
 using UnityEngine;
 
 public class AltIndicator : MonoBehaviour
@@ -45,6 +45,9 @@ public class AltIndicator : MonoBehaviour
     float lastAltWarning = 0;
     [SerializeField]
     private GameObject altWarnIcon;
+
+    [SerializeField]
+    private TextMeshProUGUI altText;
     void Start()
     {
         droneManager = FindObjectOfType<DroneManager>();
@@ -96,14 +99,20 @@ public class AltIndicator : MonoBehaviour
             alt = (float)myDrone.FlightData.Altitude;
         }
 
-        if (alt > 100)
+
+        if (altWarnIcon != null)
         {
-            altWarnIcon.SetActive(true);
+            altWarnIcon.SetActive(alt > 100);
+
         }
-        else
+        if(altText != null)
         {
-            altWarnIcon.SetActive(false);
+            if(alt > 100)
+                altText.color = new Color32(255, 0, 0, 255); 
+            else
+                altText.color = new Color32(0, 255, 0, 255);
         }
+
 
         if (alt > 100 && Mathf.Abs(Time.time - lastAltWarning) > 15f)
         {
