@@ -105,7 +105,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gpsWeight: 0
   imuWeight: 1
-  imuGpsMixRate: 0.04
+  imuGpsMixRate: 0.01
+  imuAltMixRate: 0.07
   gpsPosition: {x: 0, y: 0, z: 0}
   imuPosition: {x: 0, y: 0, z: 0}
   aceleration: {x: 0, y: 0, z: 0}
@@ -16147,7 +16148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   altitute: {fileID: 3816332420868449052}
-  speed: {fileID: 0}
+  speed: {fileID: 4863383583010802253}
   rotation: {fileID: 0}
   battery: {fileID: 2319632728391621387}
   cameraAngl: {fileID: 0}
@@ -20190,7 +20191,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2804588333760070277
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24172,7 +24173,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3791150917757439176
 RectTransform:
   m_ObjectHideFlags: 0

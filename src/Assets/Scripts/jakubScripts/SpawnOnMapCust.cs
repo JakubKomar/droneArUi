@@ -544,13 +544,10 @@ public class SpawnOnMap : MonoBehaviour
                 Vector3 droneTransform = _map.GeoToWorldPosition(new Vector2d(droneManager.ControlledDrone.FlightData.Latitude, droneManager.ControlledDrone.FlightData.Longitude), true); // spoèti pozici pro drona
                 calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
 
-
-                if (droneGpsEmpty==null)
-                    droneGpsEmpty = new GameObject();
                 Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z); // kvùli transformaci je aplikována na prázdný objekt
-                gpsPos -= this.transform.position;
+                Vector3 localPos = gpsPos- this.transform.position;
                 DronePositionCalculator dronePositionCalculator = gameObject.GetComponent<DronePositionCalculator>();
-                dronePositionCalculator.gpsPosition = gpsPos;
+                dronePositionCalculator.gpsPosition = localPos;
                 // dronePositionCalculator.gpsPosition = this.transform.TransformPoint(droneGpsEmpty.transform.position ); //iverzní transformace vùèi této mapì
 
             }

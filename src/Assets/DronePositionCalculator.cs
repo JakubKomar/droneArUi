@@ -21,6 +21,9 @@ public class DronePositionCalculator : MonoBehaviour
     [SerializeField]
     float imuGpsMixRate = 0.01f;
 
+    [SerializeField]
+    float imuAltMixRate = 0.07f;
+
     float lastUpdate = 0f;
 
     // GPS belive pozice
@@ -36,6 +39,8 @@ public class DronePositionCalculator : MonoBehaviour
     public Vector3 aceleration = Vector3.zero;
 
     private DroneManager droneManager;
+    [SerializeField]
+    bool testFakePosition = false;
     void Start()
     {
         droneManager=DroneManager.Instance;
@@ -62,7 +67,7 @@ public class DronePositionCalculator : MonoBehaviour
 
             Vector3 posGpsforCal = gpsPosition;
 
-            if (droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
+            if (droneManager.ControlledDrone.FlightData.InvalidGps &&!testFakePosition) // pokud dron nemá validní gps pozici vychází podle imu
             {
                 posGpsforCal.x=imuPosition.x;
                 posGpsforCal.z=imuPosition.z;
@@ -86,7 +91,7 @@ public class DronePositionCalculator : MonoBehaviour
         Vector3 actualPosition;
         Vector3 corectionPosition; 
 
-        if (droneManager.ControlledDrone.FlightData.InvalidGps) // pokud je navalidni gps koriguje se pouze výška
+        if (droneManager.ControlledDrone.FlightData.InvalidGps && !testFakePosition) // pokud je navalidni gps koriguje se pouze výška
         {
             corectionPosition = imuPosition;
             corectionPosition.y=gpsPosition.y;
@@ -94,12 +99,14 @@ public class DronePositionCalculator : MonoBehaviour
         else
             corectionPosition= gpsPosition;
 
-        // pro zajištìní konvergence se pozice imu dopøesnuje podle gps a to v pomìru daném paremetrem
-        actualPosition = corectionPosition * imuGpsMixRate + imuPosition * (1f- imuGpsMixRate);
+        // pro zajištìní konvergence se pozice imu dopøesnuje podle gps a to v pomìru daném paremetry, výška je potøeba dopøesòovat agresivnìji než pozice
+        actualPosition.x = corectionPosition.x * imuGpsMixRate + imuPosition.x * (1f - imuGpsMixRate);
+        actualPosition.z = corectionPosition.z * imuGpsMixRate + imuPosition.z * (1f - imuGpsMixRate);
+        actualPosition.y = corectionPosition.y * imuAltMixRate + imuPosition.y * (1f - imuAltMixRate);
         // vectory jsou u dji pøeházené oproti unity
         aceleration = new Vector3((float)droneManager.ControlledDrone.FlightData.VelocityY, -(float)droneManager.ControlledDrone.FlightData.VelocityZ, (float)droneManager.ControlledDrone.FlightData.VelocityX);
         
-        imuPosition = actualPosition + aceleration* lastUpdate; // nová pozice je poèítána dle pøedchozí + pøíbytek dle rychlosti a èasu podle pøechozího updatu
+        imuPosition = actualPosition + aceleration * lastUpdate; // nová pozice je poèítána dle pøedchozí + pøíbytek dle rychlosti a èasu podle pøechozího updatu
     }
     void onCalibration()
     {

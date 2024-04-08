@@ -100,14 +100,17 @@ public class StaticHudDataUpdater : MonoBehaviour
 
         if (altitute != null)
         {
-            altitute.text = Math.Round((Decimal)myDrone.FlightData.Altitude, 1, MidpointRounding.AwayFromZero).ToString();
+            if(myDrone.FlightData.Altitude<100)
+                altitute.text = myDrone.FlightData.Altitude.ToString("F1") + "m"; 
+            else
+                altitute.text = myDrone.FlightData.Altitude.ToString("F0") + "m";
         }
 
         if (speed != null)
         {
             double newSpeed = Math.Abs(myDrone.FlightData.VelocityX) + Math.Abs(myDrone.FlightData.VelocityY) + Math.Abs(myDrone.FlightData.VelocityZ);
             newSpeed = newSpeed * 3.6; // to km/h
-            speed.text = Math.Round((Decimal)newSpeed, 0, MidpointRounding.AwayFromZero).ToString();
+            speed.text = $"S:{newSpeed:0.0##}km/h";
         }
 
         //simulace spotøeby baterie
