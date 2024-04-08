@@ -102,8 +102,11 @@ public class DronePositionCalculator : MonoBehaviour
         imuPosition = actualPosition + aceleration* lastUpdate; // nová pozice je poèítána dle pøedchozí + pøíbytek dle rychlosti a èasu podle pøechozího updatu
     }
     void onCalibration()
-    {       
+    {
         // pøi kalibraci je nutné imu pozici pøepsat 
-        imuPosition = gpsPosition;
+        if (droneManager.ControlledDrone.FlightData == null || droneManager.ControlledDrone.FlightData.InvalidGps)
+            imuPosition = Vector3.zero;
+        else
+            imuPosition = gpsPosition;
     }
 }

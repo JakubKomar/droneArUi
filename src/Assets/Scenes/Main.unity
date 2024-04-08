@@ -3705,6 +3705,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Map: {fileID: 114478717238887276}
+  testLongitude: 16.59721
+  testLanditude: 49.22727
 --- !u!1 &139051431
 GameObject:
   m_ObjectHideFlags: 0
@@ -49891,6 +49893,7 @@ MonoBehaviour:
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 1
   lineRenderer: {fileID: 114478716810624010}
+  droneGpsEmpty: {fileID: 0}
 --- !u!120 &114478716810624010
 LineRenderer:
   serializedVersion: 2
@@ -50281,6 +50284,7 @@ MonoBehaviour:
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 0
   lineRenderer: {fileID: 114478717238887278}
+  droneGpsEmpty: {fileID: 0}
 --- !u!120 &114478717238887278
 LineRenderer:
   serializedVersion: 2

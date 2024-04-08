@@ -51,22 +51,14 @@ public class DroneWordscaleHud : MonoBehaviour
         {
             droneDistance = Vector3.Distance(this.transform.position, player.position);
 
-            // objekt je moc blízko, vypneme sledování
-            if (droneDistance < minDistanceLimit)
-            {
-                hudChild.gameObject.SetActive(false);
-                return;
-            }
+
             float scale = droneDistance * 0.001f;
             hudChild.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
 
 
-            Vector3 direction = (player.position - this.transform.position).normalized;
-
-            // Získej rotaci, která smìøuje k hráèi
-            Quaternion rotation = Quaternion.LookRotation(direction);
-            hudChild.transform.rotation = rotation;
+           // Získej rotaci, která smìøuje k hráèi
+            hudChild.gameObject.transform.LookAt(player.position);
 
 
             distance.text = "D:" + Mathf.Round(droneDistance).ToString();

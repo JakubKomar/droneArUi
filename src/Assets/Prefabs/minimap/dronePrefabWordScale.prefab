@@ -105,7 +105,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gpsWeight: 0
   imuWeight: 1
-  imuGpsMixRate: 0.01
+  imuGpsMixRate: 0.04
   gpsPosition: {x: 0, y: 0, z: 0}
   imuPosition: {x: 0, y: 0, z: 0}
   aceleration: {x: 0, y: 0, z: 0}

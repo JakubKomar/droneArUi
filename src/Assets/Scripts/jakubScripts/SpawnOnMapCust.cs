@@ -75,6 +75,8 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     private LineRenderer lineRenderer = null;
 
+    [SerializeField]
+    private GameObject droneGpsEmpty = null;
     ~SpawnOnMap()
     {
     }
@@ -495,8 +497,12 @@ public class SpawnOnMap : MonoBehaviour
             // logika výpoètu pozice
             Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
 
-            gameObject.transform.localPosition = Vector3.zero;
-            gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
+            if (mapCustumeObject.mapObject.type == MapObject.ObjType.Drone && !isMinimap) { }
+            else
+            {
+                gameObject.transform.localPosition = Vector3.zero;
+                gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
+            }
 
 
             if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
@@ -530,8 +536,23 @@ public class SpawnOnMap : MonoBehaviour
 
             if(mapCustumeObject.mapObject.type==MapObject.ObjType.Drone && !isMinimap)
             {
+               
+
+                DroneManager droneManager =DroneManager.Instance;
+                if (droneManager.ControlledDrone == null || droneManager.ControlledDrone.FlightData == null)
+                    return;
+                Vector3 droneTransform = _map.GeoToWorldPosition(new Vector2d(droneManager.ControlledDrone.FlightData.Latitude, droneManager.ControlledDrone.FlightData.Longitude), true); // spoèti pozici pro drona
+                calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
+
+
+                if (droneGpsEmpty==null)
+                    droneGpsEmpty = new GameObject();
+                Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z); // kvùli transformaci je aplikována na prázdný objekt
+                gpsPos -= this.transform.position;
                 DronePositionCalculator dronePositionCalculator = gameObject.GetComponent<DronePositionCalculator>();
-                dronePositionCalculator.gpsPosition = transform.InverseTransformPoint(new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z));
+                dronePositionCalculator.gpsPosition = gpsPos;
+                // dronePositionCalculator.gpsPosition = this.transform.TransformPoint(droneGpsEmpty.transform.position ); //iverzní transformace vùèi této mapì
+
             }
             else
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);

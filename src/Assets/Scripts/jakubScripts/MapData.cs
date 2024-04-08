@@ -104,6 +104,7 @@ public class MapData : Singleton<MapData>
                 droneObj.droneFlightData = droneManger.ControlledDrone.FlightData;
             }
 
+
             droneObj.locationString = string.Format("{0}, {1}", droneManger.ControlledDrone.FlightData.Latitude.ToString(CultureInfo.InvariantCulture),
                 droneManger.ControlledDrone.FlightData.Longitude.ToString(CultureInfo.InvariantCulture));
 

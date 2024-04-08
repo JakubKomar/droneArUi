@@ -18,6 +18,10 @@ public class DroneManager : Singleton<DroneManager>
     public Drone ControlledDrone=null;
     public AbstractMap Map;
     public static bool RunningInUnityEditor = Application.isEditor;
+    [SerializeField]
+    private double testLongitude = 16.59721;
+    [SerializeField]
+    private double testLanditude = 49.22727;
 
     private void Update()
     {
@@ -88,6 +92,8 @@ public class DroneManager : Singleton<DroneManager>
             var mapboxLatLong = Map.CenterLatitudeLongitude;
             flightData.Longitude = mapboxLatLong.y;
             flightData.Latitude = mapboxLatLong.x;
+            flightData.Longitude = testLongitude;
+            flightData.Latitude = testLanditude;
             flightData.InvalidGps = true;
 
         }
@@ -115,6 +121,8 @@ public class DroneManager : Singleton<DroneManager>
             var mapboxLatLong = Map.CenterLatitudeLongitude;
             flightData.Longitude = mapboxLatLong.y;
             flightData.Latitude = mapboxLatLong.x;
+            flightData.Longitude = testLongitude;
+            flightData.Latitude = testLanditude;
             flightData.InvalidGps = true;
         }
 
