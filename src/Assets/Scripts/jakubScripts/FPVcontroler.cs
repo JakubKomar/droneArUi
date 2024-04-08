@@ -24,7 +24,9 @@ public class FPVcontroler : MonoBehaviour
     public void onFpvToggle()
     {
         fpvMod = !fpvMod;
-        miniPlayer.SetActive(!fpvMod);
-        fpvPlayer.SetActive(fpvMod);
+        if(miniPlayer!=null)
+            miniPlayer.SetActive(!fpvMod);
+        if (fpvPlayer != null)
+            fpvPlayer.SetActive(fpvMod);
     }
 }

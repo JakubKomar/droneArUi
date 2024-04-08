@@ -76,7 +76,11 @@ public class RTMPstreamPlayer : MonoBehaviour
 
         OnDroneConnected(newDronId);
     }
+    private void OnDisable()
+    {
+        mediaPlayer.Stop();
 
+    }
     void OnDestroy()
 	{
 		//Dispose of mediaPlayer, or it will stay in nemory and keep playing audio
@@ -122,10 +126,11 @@ public class RTMPstreamPlayer : MonoBehaviour
 		{
 			return;
 		}
+        if (path != connectedUrl)
+            Debug.Log("VLC opened:" + path);
 
+        connectedUrl = path;
 
-		connectedUrl = path;
-        Debug.Log("VLC opened:" + path);
 
         if (mediaPlayer.Media != null)
             mediaPlayer.Media.Dispose();

@@ -5237,8 +5237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06da521c12cbaf45abbfe8906aa5a04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniPlayer: {fileID: 271360448}
-  fpvPlayer: {fileID: 1330880245}
+  miniPlayer: {fileID: 0}
+  fpvPlayer: {fileID: 1420864318}
   fpvMod: 0
 --- !u!114 &217248864
 MonoBehaviour:
@@ -5254,7 +5254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFocusRequired: 0
   keywords:
-  - keyword: Toggle Fpv
+  - keyword: Toggle FPV
     response:
       m_PersistentCalls:
         m_Calls:
@@ -30524,7 +30524,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1330880246
 RectTransform:
   m_ObjectHideFlags: 0
@@ -30578,7 +30578,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: c85245febd328e84d91c03e7c8155a00, type: 3}
+  m_Texture: {fileID: 2800000, guid: a0a6d73da7febaf43b4d313a4ef151f4, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
