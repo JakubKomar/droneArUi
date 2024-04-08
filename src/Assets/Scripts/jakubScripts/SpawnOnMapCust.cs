@@ -75,11 +75,6 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     private LineRenderer lineRenderer = null;
 
-    [SerializeField]
-    private GameObject droneGpsEmpty = null;
-    ~SpawnOnMap()
-    {
-    }
     void Start()
     {
         mapData = FindObjectOfType<MapData>();
@@ -174,6 +169,7 @@ public class SpawnOnMap : MonoBehaviour
         mapData.addObject(mapObject);
     }
 
+    //tato funkce definuje kam semá waypoint pøidat
     private void createWaypoint(MapObject mapObject, GameObject gameObject)
     {
         MapObjectData nearestWp1 = null;
@@ -306,7 +302,7 @@ public class SpawnOnMap : MonoBehaviour
         GameObject gameObject = mapCustumeObject.spawnetGameObject;
 
 
-        // pokud objekt nemá v mapì fyzickou reprezataci, udìlej novou
+        // pokud objekt nemá v mapì fyzickou reprezataci, udìlej novou a nastav jí vlastnosti dle typu objektu - voláno pouze jednou
         if (gameObject == null)
         {
             switch (mapCustumeObject.mapObject.type)
@@ -383,12 +379,14 @@ public class SpawnOnMap : MonoBehaviour
                 return;
 
 
-            gameObject.transform.parent = this.transform;
+            gameObject.transform.parent = this.transform; // jako rodiè je nastavena mapa
+
+
             mapCustumeObject.spawnetGameObject = gameObject;
             mapCustumeObject.manipulator = gameObject.GetComponent<ObjectManipulator>();
             mapCustumeObject.isInMinimap = isMinimap;
 
-            if (mapCustumeObject.manipulator != null)
+            if (mapCustumeObject.manipulator != null) // nastavení bindù pro manipulaci s objektem
             {
                 ObjectManipulator objectManipulator = mapCustumeObject.manipulator;
                 objectManipulator.AllowFarManipulation = !isMinimap;
@@ -400,7 +398,7 @@ public class SpawnOnMap : MonoBehaviour
 
 
                 mapCustumeObject.boundsControl = gameObject.GetComponent<BoundsControl>();
-                if (mapCustumeObject.boundsControl != null)
+                if (mapCustumeObject.boundsControl != null) // tyto manipulátory jsou pro zóny
                 {
                     BoundsControl boundsControl = mapCustumeObject.boundsControl;
 
@@ -415,43 +413,47 @@ public class SpawnOnMap : MonoBehaviour
             }
 
 
-            MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>();
+            MapGameObjectData mapGameObjectData = gameObject.GetComponent<MapGameObjectData>(); // zpìtný odkaz v prefabu
             if (mapGameObjectData != null)
             {
                 mapGameObjectData.mapObjectData = mapCustumeObject;
             }
-
-        }
+        } // konec vytváøecího bloku
 
         // propsání zmìn po a pøi manipulaci
         if (mapCustumeObject.underManipulation || mapCustumeObject.manipulationDirtyFlag) // z objektem bylo manipulováno - zmìny je nutné propsat
         {
             if ((!mapCustumeObject.underManipulation) && (isMinimap))
             {
+                // pokud byl objekt pøetažen mimo boundingbox minimapy, uživatel ho chtìl smazat
                 if (!boxCollider.bounds.Contains(gameObject.transform.position))
                 {
                     removalList.Add(mapCustumeObject.mapObject);
                 }
             }
 
+
+            // zpìtný pøevod na gps souøadnice
             Vector2d vector2d = _map.WorldToGeoPosition(gameObject.transform.position);
 
             CultureInfo culture = new CultureInfo("en-US");
+            //propis do sdílených dat
             mapCustumeObject.mapObject.locationString = string.Format("{0}, {1}", vector2d.x.ToString(culture), vector2d.y.ToString(culture)); // .ToString(culture) protože podìlanej c#
 
 
             float sceneHeight;//výška k zemi ve scénì
             float deltaHeight;
 
-            if (isMinimap)
+            if (isMinimap) // rozvìtvení dle manipulace skze minimapu nebo ve wordscale
             {
                 var newTransformation = _map.GeoToWorldPosition(vector2d, true);
 
+                // bariéry mají nastavenou výšku tak aby spodní hrana byla na zemi
                 if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
                 {
                     mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(mapCustumeObject.spawnetGameObject.transform.localScale.y * 0.5f);
                 }
-                else
+                else // u ostatních urèuje výšku uživatel
                 {
                     sceneHeight = newTransformation.y;//výška k zemi ve scénì
                     deltaHeight = gameObject.transform.position.y - sceneHeight;
@@ -475,36 +477,41 @@ public class SpawnOnMap : MonoBehaviour
                     mapCustumeObject.mapObject.relativeAltitude = deltaHeight;
                 }
             }
+
+            // pokud je výška negativní, klipne se do nuly
             if (mapCustumeObject.mapObject.relativeAltitude < 0)
                 mapCustumeObject.mapObject.relativeAltitude = 0;
 
+
             if (isMinimap)
             {
+                // uložení scalu - význam pouze pro bariéry
                 mapCustumeObject.mapObject.scale = gameObject.transform.localScale / _barierMinimapScale;
             }
             else
                 mapCustumeObject.mapObject.scale = gameObject.transform.localScale;
-
+            //uložení rotace - význam pouze pro bariéry
             mapCustumeObject.mapObject.rotation = gameObject.transform.localRotation;
 
-
+            // pokud již z objektem není manipulováno, oèistí se
             if (mapCustumeObject.manipulationDirtyFlag)
                 mapCustumeObject.manipulationDirtyFlag = false; // zmìny po manipulaci propsány
         }
 
+        // pokud se z objektem nemanipuluje, nastavujem pozici dle zdílených dat
         if (!mapCustumeObject.underManipulation)
         {
             // logika výpoètu pozice
             Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
 
-            if (mapCustumeObject.mapObject.type == MapObject.ObjType.Drone && !isMinimap) { }
+            if (mapCustumeObject.mapObject.type == MapObject.ObjType.Drone && !isMinimap) { } // dron má ve wordscalu vlstní vykreslovací logiku - nedìlám nic
             else
             {
                 gameObject.transform.localPosition = Vector3.zero;
-                gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true);
+                gameObject.transform.position = _map.GeoToWorldPosition(vector2D, true); // pozice nastavena dle gps souøadnic do výšky 0m nad terénem
             }
 
-
+            // bariéry mají vlstní blok pro nastavení mìøítka objektu
             if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
             {
                 if (isMinimap)
@@ -518,12 +525,13 @@ public class SpawnOnMap : MonoBehaviour
             }
             else
             {
+                // ostatní objekty mají mìøítko pevné dle nastavení konstanty
                 gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                 gameObject.transform.rotation = _map.transform.rotation;
             }
 
-
-            float calcHeight;
+            //zde se nastaví výška objektu
+            float calcHeight; 
             if (isMinimap)
             {   // aproximaèní rovnice pro minimapu
                 //mapCustumeObject.mapObject.relativeAltitude = 100;
@@ -534,29 +542,30 @@ public class SpawnOnMap : MonoBehaviour
                 calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
             }
 
-            if(mapCustumeObject.mapObject.type==MapObject.ObjType.Drone && !isMinimap)
+            if(mapCustumeObject.mapObject.type==MapObject.ObjType.Drone && !isMinimap) // dron ve wordscalu potøebuje znát gps pozici dle gps pro dopøesnìní
             {
-               
-
                 DroneManager droneManager =DroneManager.Instance;
-                if (droneManager.ControlledDrone == null || droneManager.ControlledDrone.FlightData == null)
+                if (droneManager.ControlledDrone == null || droneManager.ControlledDrone.FlightData == null) // pokud nemám letová data nedìlám nic
                     return;
+
+                // pozice je spoètena pouze na neèisto
                 Vector3 droneTransform = _map.GeoToWorldPosition(new Vector2d(droneManager.ControlledDrone.FlightData.Latitude, droneManager.ControlledDrone.FlightData.Longitude), true); // spoèti pozici pro drona
+                // výška odvozena z letových dat
                 calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
 
-                Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z); // kvùli transformaci je aplikována na prázdný objekt
+                Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z); 
+                // spoètení lokální pozice - skript pracuje pouze s lokálními pozicemi
                 Vector3 localPos = gpsPos- this.transform.position;
+
                 DronePositionCalculator dronePositionCalculator = gameObject.GetComponent<DronePositionCalculator>();
                 dronePositionCalculator.gpsPosition = localPos;
-                // dronePositionCalculator.gpsPosition = this.transform.TransformPoint(droneGpsEmpty.transform.position ); //iverzní transformace vùèi této mapì
-
             }
-            else
+            else // pro ostatní objekty pozici propisuji rovnou
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
 
         }
 
-        // vykresluj v minimapì pouze objekty v bounding boxu
+        // vykresluj v minimapì pouze objekty v bounding boxu - ostaní skryj
         if (boxCollider == null || boxCollider.bounds.Contains(gameObject.transform.position) || mapCustumeObject.underManipulation)
         {
             gameObject.SetActive(true);
@@ -565,7 +574,7 @@ public class SpawnOnMap : MonoBehaviour
             gameObject.SetActive(false);
 
         LabelTextSetter labelTextSetter = gameObject.GetComponent<LabelTextSetter>();
-        //dodateèné zmìny pro urèité typy
+        //dodateèné zmìny pro urèité typy objektù
         switch (mapCustumeObject.mapObject.type)
         {
             case MapObject.ObjType.Player:
@@ -706,7 +715,6 @@ public class SpawnOnMap : MonoBehaviour
             this.manipulationDirtyFlag = true;
             //Debug.Log("manipulataion ends");
         }
-
     }
 }
 
