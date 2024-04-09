@@ -54931,6 +54931,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2729768983016691983, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 72034451}
+    - target: {fileID: 2729768983016691983, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: clear
+      objectReference: {fileID: 0}
     - target: {fileID: 3179064939966121918, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
       propertyPath: m_text
       value: Say "Select"
@@ -54987,6 +54995,12 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 5267083579722929094, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 1950672107635686490, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 0}
+    - targetCorrespondingSourceObject: {fileID: 3544137459590061388, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}
       insertIndex: -1
       addedObject: {fileID: 0}
     - targetCorrespondingSourceObject: {fileID: 559392112168864323, guid: 7527de7f1a0a644479570cead2fd3a19, type: 3}

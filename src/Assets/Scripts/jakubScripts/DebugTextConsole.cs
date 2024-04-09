@@ -53,4 +53,9 @@ public class DebugTextConsole : MonoBehaviour
             return text.Substring(0, maxDelka-3) + "..."; // Jinak zkrátíme text a pøidáme "..."
         }
     }
+
+    public void clear()
+    {
+        textMesh.text= "";
+    }
 }
