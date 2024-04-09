@@ -8,6 +8,7 @@
 /// setter pro malou stupnici indikátoru výšky
 /// </summary>
 
+using Unity.VectorGraphics;
 using UnityEngine;
 
 public class SmallStupnice : MonoBehaviour
@@ -19,7 +20,7 @@ public class SmallStupnice : MonoBehaviour
     [SerializeField]
     private Material greenMaterial;
     [SerializeField]
-    private Renderer square;
+    private SVGImage square;
 
     void Update()
     {

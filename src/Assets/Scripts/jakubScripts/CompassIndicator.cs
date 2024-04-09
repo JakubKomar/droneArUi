@@ -152,43 +152,14 @@ public class CompassIndicator : Singleton<CompassIndicator>
     {
         float newHeading = staticHudUp.playerHading;
         newHeading = Mathf.Round(newHeading);
+
         if (heading == newHeading)
             return;
 
         heading= newHeading;
         tape.transform.localPosition = new Vector3((canvasWidth / visibleCount) * (-heading), 0, -1);
 
-        int index = min;
-        foreach (var obj in smallStupniceList)
-        {
-
-            if (index % 45 == 0 || Mathf.Abs(index - heading) > visibleCount / 2)
-            {
-                obj.SetActive(false);
-            }
-            else
-            {
-                obj.SetActive(true);
-            }
-
-            index += 10;
-
-        }
-
-        index = min;
-        foreach (var obj in largeStupniceList)
-        {
-            if (Mathf.Abs(index - heading) > visibleCount / 2)
-            {
-                obj.SetActive(false);
-            }
-            else
-            {
-                obj.SetActive(true);
-            }
-
-            index += 45;
-        }
+       
         if (droneManager.ControlledDrone!=null)
         {
             setIconPos(drone, droneIcon);
@@ -227,8 +198,6 @@ public class CompassIndicator : Singleton<CompassIndicator>
                     }
                 }
             }
-
-
 
             icon.transform.localPosition = new Vector3((canvasWidth / visibleCount) * az, 15, -1);
             icon.SetActive(true);

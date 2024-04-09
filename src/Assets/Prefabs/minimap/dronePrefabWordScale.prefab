@@ -88,6 +88,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minDistanceLimit: 1
   disableHud: 0
+  forceActiveHud: 0
   distance: {fileID: 869203692390410802}
   alt: {fileID: 0}
   hudChild: {fileID: 5651164703010907522}
@@ -8801,7 +8802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -58.79993, y: 200.66002}
+  m_AnchoredPosition: {x: -56, y: 209}
   m_SizeDelta: {x: 200, y: 97}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8268088870344726337
@@ -8866,7 +8867,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 1
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -8895,7 +8896,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 42.080627}
+  m_margin: {x: 0, y: 0, z: 35.804764, w: 42.080627}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -19736,6 +19737,7 @@ GameObject:
   - component: {fileID: 8182524009491152186}
   - component: {fileID: 8200597593040823397}
   - component: {fileID: 8052458465986403936}
+  - component: {fileID: 7734145816986007500}
   m_Layer: 5
   m_Name: AltIndicator
   m_TagString: Untagged
@@ -19751,7 +19753,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7525092956618679856}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3.35864}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.018, y: 0.018, z: 0.018}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -19763,7 +19765,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 8.83, y: -0.02}
-  m_SizeDelta: {x: 82.2, y: 545.3}
+  m_SizeDelta: {x: 140.16, y: 558.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5845360824157316550
 Canvas:
@@ -19849,6 +19851,20 @@ MonoBehaviour:
   testAlt: 0
   altWarnIcon: {fileID: 5777481531726436626}
   altText: {fileID: 3816332420868449052}
+--- !u!114 &7734145816986007500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7525092956618679856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3312d7739989d2b4e91e6319e9a96d76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding: {x: -67.92, y: 0, z: -100.5, w: 0}
+  m_Softness: {x: 0, y: 0}
 --- !u!1 &7525451327735065290
 GameObject:
   m_ObjectHideFlags: 0

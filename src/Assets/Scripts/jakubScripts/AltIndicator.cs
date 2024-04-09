@@ -99,9 +99,9 @@ public class AltIndicator : MonoBehaviour
         {
             newAlt = (float)myDrone.FlightData.Altitude;
         }
-        newAlt=Mathf.Round(newAlt*10)/10;
+        newAlt = Mathf.Round(newAlt * 10) / 10;
 
-        if (alt== newAlt)
+        if (alt == newAlt)
         {
             return;
         }
@@ -111,10 +111,10 @@ public class AltIndicator : MonoBehaviour
             altWarnIcon.SetActive(alt > 100);
 
         }
-        if(altText != null)
+        if (altText != null)
         {
-            if(alt > 100)
-                altText.color = new Color32(255, 0, 0, 255); 
+            if (alt > 100)
+                altText.color = new Color32(255, 0, 0, 255);
             else
                 altText.color = new Color32(0, 255, 0, 255);
         }
@@ -128,37 +128,5 @@ public class AltIndicator : MonoBehaviour
         }
 
         tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 0);
-
-        int index = min;
-        foreach (var obj in smallStupniceList)
-        {
-
-            if (index % 10 == 0 || Mathf.Abs(index - alt) > visibleCount / 2)
-            {
-                obj.SetActive(false);
-            }
-            else
-            {
-                obj.SetActive(true);
-            }
-
-            index++;
-
-        }
-
-        index = min;
-        foreach (var obj in largeStupniceList)
-        {
-            if (Mathf.Abs(index - alt) > visibleCount / 2 || Mathf.Abs(index - alt) < 2)
-            {
-                obj.SetActive(false);
-            }
-            else
-            {
-                obj.SetActive(true);
-            }
-
-            index += 10;
-        }
     }
 }
