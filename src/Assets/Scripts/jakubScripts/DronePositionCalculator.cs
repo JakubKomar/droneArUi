@@ -13,13 +13,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DronePositionCalculator : MonoBehaviour
-{   
+{
     [SerializeField]
-    float gpsWeight = 0.0f;
+    GameObject testImuGm;
     [SerializeField]
-    float imuWeight =1;
+    GameObject testGpsGm;
+
+
     [SerializeField]
-    float imuGpsMixRate = 0.01f;
+    public float gpsWeight = 0.0f;
+    [SerializeField]
+    public float imuWeight =1;
+    [SerializeField]
+    public float imuGpsMixRate = 0.01f;
 
     [SerializeField]
     float imuAltMixRate = 0.07f;
@@ -47,6 +53,11 @@ public class DronePositionCalculator : MonoBehaviour
 
         calibrationScript cls = calibrationScript.Instance;
         cls.calibrationEvent.AddListener(onCalibration);
+
+        if(testGpsGm)
+        testGpsGm.transform.parent = this.transform.parent;
+        if(testImuGm)
+        testImuGm.transform.parent = this.transform.parent;
     }
 
     void Update()
@@ -78,11 +89,16 @@ public class DronePositionCalculator : MonoBehaviour
                 imuPosition = gpsPosition;
             }
 
-            this.transform.localPosition = gpsPosition * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
+            this.transform.localPosition = posGpsforCal * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
             
 
             droneManager.ControlledDrone.usedForCalculation = true; //data již byly užity pro update
             lastUpdate = 0;
+
+            if(testGpsGm)
+            testGpsGm.transform.localPosition = posGpsforCal;
+            if(testImuGm)
+            testImuGm.transform.localPosition=  imuPosition;
         }
     }
 
@@ -115,5 +131,25 @@ public class DronePositionCalculator : MonoBehaviour
             imuPosition = Vector3.zero;
         else
             imuPosition = gpsPosition;
+    }
+
+    public void setMixRate(float imuMixRate)
+    {
+        if (imuAltMixRate > 1)
+        {
+            Debug.LogError("mixrate invalid");
+            return;
+        }
+        gpsWeight = 1f - imuMixRate;
+        imuWeight = imuMixRate;
+    }
+    public void setCorrectionRate(float corr)
+    {
+        if (corr > 1)
+        {
+            Debug.LogError("correction invalid");
+            return;
+        }
+        imuGpsMixRate =corr;
     }
 }

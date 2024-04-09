@@ -110,7 +110,7 @@ public class StaticHudDataUpdater : MonoBehaviour
         {
             double newSpeed = Math.Abs(myDrone.FlightData.VelocityX) + Math.Abs(myDrone.FlightData.VelocityY) + Math.Abs(myDrone.FlightData.VelocityZ);
             newSpeed = newSpeed * 3.6; // to km/h
-            speed.text = newSpeed.ToString("F1")+"km/h";
+            speed.text ="S:"+ newSpeed.ToString("F1")+"km/h";
         }
 
         //simulace spotøeby baterie

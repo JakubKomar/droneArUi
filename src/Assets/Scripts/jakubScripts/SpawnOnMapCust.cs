@@ -553,12 +553,13 @@ public class SpawnOnMap : MonoBehaviour
                 // výška odvozena z letových dat
                 calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
 
-                Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z); 
+                Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z);
                 // spoètení lokální pozice - skript pracuje pouze s lokálními pozicemi
-                Vector3 localPos = gpsPos- this.transform.position;
+
+
 
                 DronePositionCalculator dronePositionCalculator = gameObject.GetComponent<DronePositionCalculator>();
-                dronePositionCalculator.gpsPosition = localPos;
+                dronePositionCalculator.gpsPosition = _map.transform.InverseTransformPoint(gpsPos);
             }
             else // pro ostatní objekty pozici propisuji rovnou
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);

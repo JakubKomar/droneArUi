@@ -23,6 +23,7 @@ public class DroneManager : Singleton<DroneManager>
     [SerializeField]
     private double testLanditude = 49.22727;
 
+    public bool disableGps=false;
     private void Update()
     {
         // pokud nejsou přijata data o dronu do 15s maže se
@@ -112,11 +113,16 @@ public class DroneManager : Singleton<DroneManager>
         AddDrone(flightData);
     }
 
+    public void toggleDisableGps()
+    {
+        disableGps = !disableGps;
+    }
+
     public void HandleReceivedDroneData(DroneFlightDataNew flyData)
     {
         DroneFlightData flightData = new DroneFlightData(flyData);
 
-        if (double.IsNaN(flightData.Latitude) || double.IsNaN(flightData.Longitude) || (flightData.Latitude== 49.22727 && flightData.Longitude== 16.59721)) 
+        if (double.IsNaN(flightData.Latitude) || double.IsNaN(flightData.Longitude) || (flightData.Latitude== 49.22727 && flightData.Longitude== 16.59721)||disableGps) 
         {
             var mapboxLatLong = Map.CenterLatitudeLongitude;
             flightData.Longitude = mapboxLatLong.y;
