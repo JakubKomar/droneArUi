@@ -87,12 +87,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minDistanceLimit: 1
-  disableDrone: 1
   disableHud: 0
   distance: {fileID: 869203692390410802}
   alt: {fileID: 0}
   hudChild: {fileID: 5651164703010907522}
-  droneObject: {fileID: 2258815611638292524}
 --- !u!114 &7269701626626180937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107,14 +105,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   testImuGm: {fileID: 7557303933316865316}
   testGpsGm: {fileID: 8070382553787616122}
-  gpsWeight: 0.25
-  imuWeight: 0.75
-  imuGpsMixRate: 0.02
+  dronePrefab: {fileID: 2258815611638292524}
+  gpsWeight: 0
+  imuWeight: 1
+  imuGpsMixRate: 0.01
   imuAltMixRate: 0.07
   gpsPosition: {x: 0, y: 0, z: 0}
   imuPosition: {x: 0, y: 0, z: 0}
   aceleration: {x: 0, y: 0, z: 0}
-  testFakePosition: 0
+  debugMode: 0
 --- !u!1 &54283363409495814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1046,7 +1045,7 @@ RectTransform:
   m_GameObject: {fileID: 367011302721857387}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 5.942282}
-  m_LocalScale: {x: 0.013, y: 0.013, z: 0}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5377280377240986311}
@@ -1054,7 +1053,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 20.02, y: 4.97}
+  m_AnchoredPosition: {x: 20.02, y: 2.01}
   m_SizeDelta: {x: 600, y: 400}
   m_Pivot: {x: 0, y: 0}
 --- !u!223 &3215868375034365119
@@ -14776,7 +14775,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7.01, y: 0.06}
+  m_AnchoredPosition: {x: 7.01, y: -3.21}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7996489128296885989
@@ -14842,7 +14841,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: -11.93
   m_wordSpacing: 0
@@ -17540,7 +17539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: -0.75}
+  m_AnchoredPosition: {x: 12.19, y: -2.66}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1517898911277445058
@@ -17606,7 +17605,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 1
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 512
+  m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: -11.93
   m_wordSpacing: 0

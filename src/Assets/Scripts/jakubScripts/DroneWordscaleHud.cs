@@ -17,8 +17,6 @@ public class DroneWordscaleHud : MonoBehaviour
     [SerializeField]
     private float minDistanceLimit = 0;
 
-    [SerializeField]
-    public bool disableDrone = true;
 
     [SerializeField]
     public bool disableHud = false;
@@ -34,8 +32,6 @@ public class DroneWordscaleHud : MonoBehaviour
     [SerializeField]
     private GameObject hudChild;
 
-    [SerializeField]
-    GameObject droneObject;
     void Start()
     {
         droneManager = DroneManager.Instance;
@@ -70,6 +66,5 @@ public class DroneWordscaleHud : MonoBehaviour
             hudChild.gameObject.SetActive(false);
         }
 
-        droneObject.SetActive(!disableDrone && drone != null);
     }
 }

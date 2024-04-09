@@ -108,8 +108,15 @@ MonoBehaviour:
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: Toggle FPV
+    keyword: Toggle camera
     keyCode: 284
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: Calibration
+    keyCode: 0
     action:
       id: 0
       description: None

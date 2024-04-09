@@ -18,6 +18,8 @@ public class DronePositionCalculator : MonoBehaviour
     GameObject testImuGm;
     [SerializeField]
     GameObject testGpsGm;
+    [SerializeField]
+    GameObject dronePrefab;
 
 
     [SerializeField]
@@ -45,8 +47,14 @@ public class DronePositionCalculator : MonoBehaviour
     public Vector3 aceleration = Vector3.zero;
 
     private DroneManager droneManager;
+
     [SerializeField]
-    bool testFakePosition = false;
+    public bool debugMode = false;
+
+    DronePositionCalculator()
+    {
+        debugMode = false;
+    }
     void Start()
     {
         droneManager=DroneManager.Instance;
@@ -54,14 +62,24 @@ public class DronePositionCalculator : MonoBehaviour
         calibrationScript cls = calibrationScript.Instance;
         cls.calibrationEvent.AddListener(onCalibration);
 
-        if(testGpsGm)
-        testGpsGm.transform.parent = this.transform.parent;
-        if(testImuGm)
-        testImuGm.transform.parent = this.transform.parent;
+
+        if (testGpsGm)
+            testGpsGm.transform.parent = this.transform.parent;
+        if (testImuGm)
+            testImuGm.transform.parent = this.transform.parent;
+
+
     }
 
     void Update()
     {
+        if (testGpsGm)
+            testGpsGm.SetActive(debugMode);
+        if (testImuGm)
+            testImuGm.SetActive(debugMode);
+        if (dronePrefab)
+            dronePrefab.SetActive(debugMode);
+
         if (droneManager.ControlledDrone == null ) // bez letových dat nemohu dìlat nic
         {
             lastUpdate = 0;
@@ -78,7 +96,7 @@ public class DronePositionCalculator : MonoBehaviour
 
             Vector3 posGpsforCal = gpsPosition;
 
-            if (droneManager.ControlledDrone.FlightData.InvalidGps &&!testFakePosition) // pokud dron nemá validní gps pozici vychází podle imu
+            if (droneManager.ControlledDrone.FlightData.InvalidGps ) // pokud dron nemá validní gps pozici vychází podle imu
             {
                 posGpsforCal.x=imuPosition.x;
                 posGpsforCal.z=imuPosition.z;
@@ -107,7 +125,7 @@ public class DronePositionCalculator : MonoBehaviour
         Vector3 actualPosition;
         Vector3 corectionPosition; 
 
-        if (droneManager.ControlledDrone.FlightData.InvalidGps && !testFakePosition) // pokud je navalidni gps koriguje se pouze výška
+        if (droneManager.ControlledDrone.FlightData.InvalidGps ) // pokud je navalidni gps koriguje se pouze výška
         {
             corectionPosition = imuPosition;
             corectionPosition.y=gpsPosition.y;

@@ -14,9 +14,9 @@ public class ToggleWordscaleDrone : MonoBehaviour
 {
     public void onToggleWordScaleDrone()
     {
-        DroneWordscaleHud[] droneWordscaleHuds = FindObjectsOfType<DroneWordscaleHud>();
+        DronePositionCalculator[] droneWordscaleHuds = FindObjectsOfType<DronePositionCalculator>();
 
-        foreach(DroneWordscaleHud droneWordscaleHud in droneWordscaleHuds) { droneWordscaleHud.disableDrone = !droneWordscaleHud.disableDrone; }
+        foreach(DronePositionCalculator droneWordscaleHud in droneWordscaleHuds) { droneWordscaleHud.debugMode = !droneWordscaleHud.debugMode; }
     }
 
     public void onToggleWordScaleDroneHud()
