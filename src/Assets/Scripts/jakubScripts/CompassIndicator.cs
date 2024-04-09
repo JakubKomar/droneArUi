@@ -150,8 +150,12 @@ public class CompassIndicator : Singleton<CompassIndicator>
     // Update is called once per frame
     void Update()
     {
-        heading = staticHudUp.playerHading;
+        float newHeading = staticHudUp.playerHading;
+        newHeading = Mathf.Round(newHeading);
+        if (heading == newHeading)
+            return;
 
+        heading= newHeading;
         tape.transform.localPosition = new Vector3((canvasWidth / visibleCount) * (-heading), 0, -1);
 
         int index = min;

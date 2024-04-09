@@ -10,6 +10,7 @@
 
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class AltIndicator : MonoBehaviour
@@ -36,7 +37,7 @@ public class AltIndicator : MonoBehaviour
 
     private float alt = 23;
     [SerializeField]
-    private float testAlt = 23;
+    private float testAlt = 0;
 
     private List<GameObject> largeStupniceList = new List<GameObject>();
     private List<GameObject> smallStupniceList = new List<GameObject>();
@@ -89,17 +90,22 @@ public class AltIndicator : MonoBehaviour
     void Update()
     {
         Drone myDrone = droneManager.ControlledDrone;
-
+        float newAlt;
         if (myDrone == null)
         {
-            alt = testAlt;
+            newAlt = testAlt;
         }
         else
         {
-            alt = (float)myDrone.FlightData.Altitude;
+            newAlt = (float)myDrone.FlightData.Altitude;
         }
+        newAlt=Mathf.Round(newAlt*10)/10;
 
-
+        if (alt== newAlt)
+        {
+            return;
+        }
+        alt = newAlt;
         if (altWarnIcon != null)
         {
             altWarnIcon.SetActive(alt > 100);

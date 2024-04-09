@@ -22,6 +22,10 @@ public class DroneWordscaleHud : MonoBehaviour
     public bool disableHud = false;
 
     [SerializeField]
+    bool forceActiveHud = false;
+
+
+    [SerializeField]
     TextMeshProUGUI distance;
     [SerializeField]
     TextMeshProUGUI alt;
@@ -43,12 +47,13 @@ public class DroneWordscaleHud : MonoBehaviour
         Drone drone = droneManager.ControlledDrone;
 
 
-        if (!disableHud && drone != null )
+        if (!disableHud && drone != null || forceActiveHud)
         {
             droneDistance = Vector3.Distance(this.transform.position, player.position);
 
 
-            float scale = droneDistance * 0.001f;
+            float scale = droneDistance;
+            scale=Mathf.Round(scale*100)* 0.00001f;
             hudChild.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
 
