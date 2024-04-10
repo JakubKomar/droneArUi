@@ -9,6 +9,8 @@
 /// </summary>
 
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 
@@ -39,7 +41,13 @@ public class DebugTextConsole : MonoBehaviour
 
         textMesh.text += String.Format("{0,4}", lineCount) +" |"+typ+": "+ message + "\n";
         lineCount++;
-        
+
+        string [] split=textMesh.text.Split('\n');
+        if(split.Length > 28) {
+            textMesh.text = string.Join('\n', split[(split.Length-28)..(split.Length - 1)]);
+            textMesh.text += "\n";
+        }
+       
     }
 
     string ZkratitText(string text, int maxDelka)
