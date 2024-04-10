@@ -66,6 +66,15 @@ public class DronePositionCalculator : MonoBehaviour
 
     }
 
+    private void OnDestroy()
+    {
+        if (testImuGm)        
+            Destroy(testImuGm);
+        
+        if(testGpsGm)
+            Destroy(testGpsGm);
+    }
+
     void calcGps()
     {
         if (droneManager.ControlledDrone == null || droneManager.ControlledDrone.FlightData == null) // pokud nemám letová data nedìlám nic
