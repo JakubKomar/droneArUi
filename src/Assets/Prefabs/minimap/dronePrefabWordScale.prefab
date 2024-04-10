@@ -92,6 +92,7 @@ MonoBehaviour:
   distance: {fileID: 869203692390410802}
   alt: {fileID: 0}
   hudChild: {fileID: 5651164703010907522}
+  vlc: {fileID: 367011302721857387}
 --- !u!114 &7269701626626180937
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,7 +111,7 @@ MonoBehaviour:
   gpsWeight: 0
   imuWeight: 1
   imuGpsMixRate: 0.01
-  imuAltMixRate: 0.07
+  imuAltMixRate: 0.05
   gpsPosition: {x: 0, y: 0, z: 0}
   imuPosition: {x: 0, y: 0, z: 0}
   aceleration: {x: 0, y: 0, z: 0}
@@ -1036,7 +1037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7869687277127616115
 RectTransform:
   m_ObjectHideFlags: 0

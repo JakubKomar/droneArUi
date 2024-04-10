@@ -533,8 +533,7 @@ public class SpawnOnMap : MonoBehaviour
             //zde se nastaví výška objektu
             float calcHeight; 
             if (isMinimap)
-            {   // aproximaèní rovnice pro minimapu
-                //mapCustumeObject.mapObject.relativeAltitude = 100;
+            {  
                 calcHeight = calcScenePosition(gameObject.transform.position.y, mapCustumeObject.mapObject.relativeAltitude);
             }
             else

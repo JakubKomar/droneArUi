@@ -36,16 +36,25 @@ public class DroneWordscaleHud : MonoBehaviour
     [SerializeField]
     private GameObject hudChild;
 
+    private ToggleWordscaleDrone toggleWordscaleDrone;
+    [SerializeField]
+    private GameObject vlc;
+
     void Start()
     {
         droneManager = DroneManager.Instance;
         player = Camera.main.transform;
+        toggleWordscaleDrone = ToggleWordscaleDrone.Instance;
     }
 
     void Update()
     {
         Drone drone = droneManager.ControlledDrone;
 
+        disableHud = !toggleWordscaleDrone.droneWordscaleHud;
+
+
+        vlc.SetActive(toggleWordscaleDrone.droneWordscaleCamera);
 
         if (!disableHud && drone != null || forceActiveHud)
         {

@@ -10,19 +10,22 @@
 
 using UnityEngine;
 
-public class ToggleWordscaleDrone : MonoBehaviour
+public class ToggleWordscaleDrone : Singleton<ToggleWordscaleDrone>
 {
+    public bool droneWordscaleHud = true;
+    public bool droneWordscaleCamera = true;
+    public bool droneWordscaleDebug = false;
     public void onToggleWordScaleDrone()
     {
-        DronePositionCalculator[] droneWordscaleHuds = FindObjectsOfType<DronePositionCalculator>();
-
-        foreach(DronePositionCalculator droneWordscaleHud in droneWordscaleHuds) { droneWordscaleHud.debugMode = !droneWordscaleHud.debugMode; }
+        droneWordscaleDebug = !droneWordscaleDebug;
     }
 
     public void onToggleWordScaleDroneHud()
     {
-        DroneWordscaleHud[] droneWordscaleHuds = FindObjectsOfType<DroneWordscaleHud>();
-
-        foreach (DroneWordscaleHud droneWordscaleHud in droneWordscaleHuds) { droneWordscaleHud.disableHud = !droneWordscaleHud.disableHud; }
+        droneWordscaleHud = !droneWordscaleHud;
+    }
+    public void onToggleWordScaleHudCamera()
+    {
+        droneWordscaleCamera = !droneWordscaleCamera;
     }
 }

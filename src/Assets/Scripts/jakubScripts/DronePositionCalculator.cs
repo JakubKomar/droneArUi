@@ -51,6 +51,8 @@ public class DronePositionCalculator : MonoBehaviour
     [SerializeField]
     public bool debugMode = false;
 
+    private ToggleWordscaleDrone toggleWordscaleDrone;
+
     DronePositionCalculator()
     {
         debugMode = false;
@@ -68,11 +70,14 @@ public class DronePositionCalculator : MonoBehaviour
         if (testImuGm)
             testImuGm.transform.parent = this.transform.parent;
 
+        toggleWordscaleDrone=ToggleWordscaleDrone.Instance;
 
     }
 
     void Update()
     {
+        debugMode = !toggleWordscaleDrone.droneWordscaleDebug;
+
         if (testGpsGm)
             testGpsGm.SetActive(debugMode);
         if (testImuGm)
