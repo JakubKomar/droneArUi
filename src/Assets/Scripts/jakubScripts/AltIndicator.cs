@@ -127,6 +127,6 @@ public class AltIndicator : MonoBehaviour
             textToSpeechSyntetizer.say("Altitude limit execeded.");
         }
 
-        tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 0);
+        tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 1);
     }
 }

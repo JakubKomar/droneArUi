@@ -24,6 +24,9 @@ public class DroneManager : Singleton<DroneManager>
     private double testLanditude = 49.22727;
 
     public bool disableGps=false;
+
+    [SerializeField]
+    private bool fakeGps = false;
     private void Update()
     {
         // pokud nejsou přijata data o dronu do 15s maže se
@@ -129,7 +132,7 @@ public class DroneManager : Singleton<DroneManager>
             flightData.Latitude = mapboxLatLong.x;
             flightData.Longitude = testLongitude;
             flightData.Latitude = testLanditude;
-            flightData.InvalidGps = true;
+            flightData.InvalidGps = !fakeGps;
         }
 
 

@@ -543,22 +543,7 @@ public class SpawnOnMap : MonoBehaviour
 
             if(mapCustumeObject.mapObject.type==MapObject.ObjType.Drone && !isMinimap) // dron ve wordscalu potøebuje znát gps pozici dle gps pro dopøesnìní
             {
-                DroneManager droneManager =DroneManager.Instance;
-                if (droneManager.ControlledDrone == null || droneManager.ControlledDrone.FlightData == null) // pokud nemám letová data nedìlám nic
-                    return;
-
-                // pozice je spoètena pouze na neèisto
-                Vector3 droneTransform = _map.GeoToWorldPosition(new Vector2d(droneManager.ControlledDrone.FlightData.Latitude, droneManager.ControlledDrone.FlightData.Longitude), true); // spoèti pozici pro drona
-                // výška odvozena z letových dat
-                calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
-
-                Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z);
-                // spoètení lokální pozice - skript pracuje pouze s lokálními pozicemi
-
-
-
-                DronePositionCalculator dronePositionCalculator = gameObject.GetComponent<DronePositionCalculator>();
-                dronePositionCalculator.gpsPosition = _map.transform.InverseTransformPoint(gpsPos);
+                return;
             }
             else // pro ostatní objekty pozici propisuji rovnou
                 gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
@@ -611,17 +596,6 @@ public class SpawnOnMap : MonoBehaviour
                 {
                     labelTextSetter.Set(new Dictionary<String, object> { { "name", ("(" + Math.Round(mapCustumeObject.mapObject.relativeAltitude).ToString() + "m)") }, });
                 }
-                if (!isMinimap)
-                {
-                    CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
-                    if (compasIndicator != null)
-                        compasIndicator.drone = gameObject;
-
-                    DynamicHudRotationSetter dynamicHudRotationSetter = FindObjectOfType<DynamicHudRotationSetter>();
-                    if (dynamicHudRotationSetter != null)
-                        dynamicHudRotationSetter.droneWordScale = gameObject;
-                }
-
                 break;
             case MapObject.ObjType.Waypoint:
                 if (mapCustumeObject.mapObject is Waypoint) // pøetypování

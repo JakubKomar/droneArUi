@@ -8,8 +8,8 @@
 ///  tento skript vypoèítává pozici drona dle letových dat, kombinuje data z gps, imu a predikuje následující pohyb dronu, pokud nemá aktuální data
 /// </summary>
 
-using System.Collections;
-using System.Collections.Generic;
+using Mapbox.Unity.Map;
+using Mapbox.Utils;
 using UnityEngine;
 
 public class DronePositionCalculator : MonoBehaviour
@@ -22,11 +22,8 @@ public class DronePositionCalculator : MonoBehaviour
     GameObject dronePrefab;
 
 
-    [SerializeField]
     public float gpsWeight = 0.0f;
-    [SerializeField]
     public float imuWeight =1;
-    [SerializeField]
     public float imuGpsMixRate = 0.01f;
 
     [SerializeField]
@@ -35,24 +32,19 @@ public class DronePositionCalculator : MonoBehaviour
     float lastUpdate = 0f;
 
     // GPS belive pozice
-    //[HideInInspector]
-    public Vector3 gpsPosition = Vector3.zero;
+    private Vector3 gpsPosition = Vector3.zero;
 
     // imu belive pozice
-    //[HideInInspector]
-    public Vector3 imuPosition = Vector3.zero;
+    private Vector3 imuPosition = Vector3.zero;
 
     // poslední data o akceleraci
-    //[HideInInspector]
-    public Vector3 aceleration = Vector3.zero;
+    private Vector3 aceleration = Vector3.zero;
 
     private DroneManager droneManager;
-
-    [SerializeField]
     public bool debugMode = false;
 
     private ToggleWordscaleDrone toggleWordscaleDrone;
-
+    private AbstractMap map;
     DronePositionCalculator()
     {
         debugMode = false;
@@ -63,7 +55,7 @@ public class DronePositionCalculator : MonoBehaviour
 
         calibrationScript cls = calibrationScript.Instance;
         cls.calibrationEvent.AddListener(onCalibration);
-
+        map = this.transform.parent.GetComponent<AbstractMap>();
 
         if (testGpsGm)
             testGpsGm.transform.parent = this.transform.parent;
@@ -72,6 +64,22 @@ public class DronePositionCalculator : MonoBehaviour
 
         toggleWordscaleDrone=ToggleWordscaleDrone.Instance;
 
+    }
+
+    void calcGps()
+    {
+        if (droneManager.ControlledDrone == null || droneManager.ControlledDrone.FlightData == null) // pokud nemám letová data nedìlám nic
+            return;
+
+        // pozice je spoètena pouze na neèisto
+        Vector3 droneTransform = map.GeoToWorldPosition(new Vector2d(droneManager.ControlledDrone.FlightData.Latitude, droneManager.ControlledDrone.FlightData.Longitude), true); // spoèti pozici pro drona
+                                                                                                                                                                                   // výška odvozena z letových dat
+        float calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
+
+        Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z);
+
+        // spoètení lokální pozice - skript pracuje pouze s lokálními pozicemi
+        gpsPosition= map.transform.InverseTransformPoint(gpsPos);
     }
 
     void Update()
@@ -97,53 +105,73 @@ public class DronePositionCalculator : MonoBehaviour
         else
         {
             lastUpdate += Time.deltaTime;
+            calcGps();
             ImuCalcPosition();
 
             Vector3 posGpsforCal = gpsPosition;
 
-            if (droneManager.ControlledDrone.FlightData.InvalidGps ) // pokud dron nemá validní gps pozici vychází podle imu
+            if (gpsWeight == 0)
             {
-                posGpsforCal.x=imuPosition.x;
-                posGpsforCal.z=imuPosition.z;
-            }
-            if (lastUpdate > 1.2) // pokud update byl proveden pozdìji než do 1.2 sekundy, pozice se bere z gps
-            {
-                this.transform.localPosition = gpsPosition;
-                imuPosition = gpsPosition;
-            }
+                this.transform.localPosition = imuPosition;
 
-            this.transform.localPosition = posGpsforCal * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
-            
+                if (debugMode|| droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
+                {
+                    posGpsforCal.x = imuPosition.x;
+                    posGpsforCal.z = imuPosition.z;
+                }
+            }
+            else
+            {
+                if (droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
+                {
+                    posGpsforCal.x = imuPosition.x;
+                    posGpsforCal.z = imuPosition.z;
+                }
+                this.transform.localPosition = posGpsforCal * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
+            }
 
             droneManager.ControlledDrone.usedForCalculation = true; //data již byly užity pro update
             lastUpdate = 0;
 
+            CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
+            if (compasIndicator != null)
+                compasIndicator.drone = gameObject;
+
+            DynamicHudRotationSetter dynamicHudRotationSetter = FindObjectOfType<DynamicHudRotationSetter>();
+            if (dynamicHudRotationSetter != null)
+                dynamicHudRotationSetter.droneWordScale = gameObject;
+
+            if (!debugMode) {
+                return;            
+            }
             if(testGpsGm)
-            testGpsGm.transform.localPosition = posGpsforCal;
+                testGpsGm.transform.localPosition = posGpsforCal;
             if(testImuGm)
-            testImuGm.transform.localPosition=  imuPosition;
+                testImuGm.transform.localPosition=  imuPosition;
         }
     }
 
     void ImuCalcPosition()
     {
         Vector3 actualPosition;
-        Vector3 corectionPosition; 
+        Vector3 corectionPosition= gpsPosition; 
 
         if (droneManager.ControlledDrone.FlightData.InvalidGps ) // pokud je navalidni gps koriguje se pouze výška
         {
             corectionPosition = imuPosition;
             corectionPosition.y=gpsPosition.y;
         }
-        else
-            corectionPosition= gpsPosition;
 
         // pro zajištìní konvergence se pozice imu dopøesnuje podle gps a to v pomìru daném paremetry, výška je potøeba dopøesòovat agresivnìji než pozice
+
         actualPosition.x = corectionPosition.x * imuGpsMixRate + imuPosition.x * (1f - imuGpsMixRate);
         actualPosition.z = corectionPosition.z * imuGpsMixRate + imuPosition.z * (1f - imuGpsMixRate);
         actualPosition.y = corectionPosition.y * imuAltMixRate + imuPosition.y * (1f - imuAltMixRate);
+
         // vectory jsou u dji pøeházené oproti unity
-        aceleration = new Vector3((float)droneManager.ControlledDrone.FlightData.VelocityY, -(float)droneManager.ControlledDrone.FlightData.VelocityZ, (float)droneManager.ControlledDrone.FlightData.VelocityX);
+        aceleration.x = (float)droneManager.ControlledDrone.FlightData.VelocityY;
+        aceleration.y = -(float)droneManager.ControlledDrone.FlightData.VelocityZ;
+        aceleration.z =(float)droneManager.ControlledDrone.FlightData.VelocityX;
         
         imuPosition = actualPosition + aceleration * lastUpdate; // nová pozice je poèítána dle pøedchozí + pøíbytek dle rychlosti a èasu podle pøechozího updatu
     }

@@ -7,6 +7,7 @@
 /// <summary>
 /// logika hudu, který je umístìn na dronu ve svìtì
 /// </summary>
+using Mapbox.Unity.Map;
 using TMPro;
 using UnityEngine;
 
@@ -32,7 +33,6 @@ public class DroneWordscaleHud : MonoBehaviour
 
     private DroneManager droneManager;
 
-    private Transform player;
     [SerializeField]
     private GameObject hudChild;
 
@@ -40,11 +40,12 @@ public class DroneWordscaleHud : MonoBehaviour
     [SerializeField]
     private GameObject vlc;
 
+
     void Start()
     {
         droneManager = DroneManager.Instance;
-        player = Camera.main.transform;
         toggleWordscaleDrone = ToggleWordscaleDrone.Instance;
+
     }
 
     void Update()
@@ -58,17 +59,17 @@ public class DroneWordscaleHud : MonoBehaviour
 
         if (!disableHud && drone != null || forceActiveHud)
         {
-            droneDistance = Vector3.Distance(this.transform.position, player.position);
+            droneDistance = Vector3.Distance(this.transform.position, Camera.main.transform.position);
 
 
-            float scale = droneDistance;
-            scale=Mathf.Round(scale*100)* 0.00001f;
+            float scale = droneDistance*0.001f; ;
+            /*scale=Mathf.Round(scale*100)* 0.00001f;*/
             hudChild.gameObject.transform.localScale = new Vector3(scale, scale, scale);
 
 
 
            // Získej rotaci, která smìøuje k hráèi
-            hudChild.gameObject.transform.LookAt(player.position);
+            hudChild.gameObject.transform.LookAt(Camera.main.transform);
 
 
             distance.text = "D:" + Mathf.Round(droneDistance).ToString()+"m";
