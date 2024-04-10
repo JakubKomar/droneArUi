@@ -1,3 +1,14 @@
+/// <author>
+/// Jakub Komarek
+/// </author>
+/// <date>
+/// 05.04.2024
+/// </date>
+/// <summary>
+/// setter pro ladìní parametrù sledování drona
+/// </summary>
+
+
 using Microsoft.MixedReality.Toolkit.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,7 +17,6 @@ using UnityEngine;
 
 public class DebugSliders : MonoBehaviour
 {
-    // Start is called before the first frame update
     [SerializeField]
     TextMeshProUGUI m_TextMeshPro;
     void Start()
@@ -14,7 +24,6 @@ public class DebugSliders : MonoBehaviour
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         DronePositionCalculator scriptInstance = FindObjectOfType<DronePositionCalculator>();
