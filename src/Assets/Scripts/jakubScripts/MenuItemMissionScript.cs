@@ -18,10 +18,6 @@ public class MenuItemMissionScript : MonoBehaviour
 
     [SerializeField]
     TextMeshPro label;
-    void Start()
-    {
-
-    }
 
     void Update()
     {

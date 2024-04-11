@@ -5,7 +5,7 @@
 /// 05.04.2024
 /// </date>
 /// <summary>
-/// Stará se o správu waypoint prefabu, nastavuje materiály dle stavu waypointu, kontroluje kontakt s drone a reporutuje ho do hlavní struktury shared dat.
+/// Stará se o správu waypoint prefabu, nastavuje materiály dle stavu waypointu, kontroluje kontakt s drone a reporutuje ho do hlavní struktury shared dat. - nahrazeno optimalizací
 /// </summary>
 using UnityEngine;
 

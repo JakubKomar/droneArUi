@@ -5,7 +5,7 @@
 /// 05.04.2024
 /// </date>
 /// <summary>
-/// obsluhuje kruhový indikátor rychlosti
+/// obsluhuje kruhový indikátor rychlosti - již se nepoužívá
 /// </summary>
 using UnityEngine;
 

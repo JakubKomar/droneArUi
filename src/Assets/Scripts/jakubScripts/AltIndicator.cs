@@ -105,7 +105,9 @@ public class AltIndicator : MonoBehaviour
         {
             return;
         }
+
         alt = newAlt;
+        // pokud je výška vìtší jak 100, zobraz varování a pøehraj varování každých 15s
         if (altWarnIcon != null)
         {
             altWarnIcon.SetActive(alt > 100);

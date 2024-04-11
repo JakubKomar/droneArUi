@@ -8,8 +8,6 @@
 /// scaluje texturu podle lokálního mìøídka
 /// </summary>
 
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TextureScaler : MonoBehaviour

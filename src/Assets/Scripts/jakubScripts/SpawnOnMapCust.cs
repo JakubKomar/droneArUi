@@ -393,9 +393,6 @@ public class SpawnOnMap : MonoBehaviour
                 objectManipulator.OnManipulationStarted.AddListener(mapCustumeObject.onManipultaionStart);
                 objectManipulator.OnManipulationEnded.AddListener(mapCustumeObject.onManipulationEnd);
 
-                //objectManipulator.OnHoverEntered.AddListener(mapCustumeObject.onHoverStart);
-                //objectManipulator.OnHoverExited.AddListener(mapCustumeObject.onHoverEnd);
-
 
                 mapCustumeObject.boundsControl = gameObject.GetComponent<BoundsControl>();
                 if (mapCustumeObject.boundsControl != null) // tyto manipulátory jsou pro zóny
@@ -504,7 +501,7 @@ public class SpawnOnMap : MonoBehaviour
             // logika výpoètu pozice
             Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
 
-            if (mapCustumeObject.mapObject.type == MapObject.ObjType.Drone && !isMinimap) { } // dron má ve wordscalu vlstní vykreslovací logiku - nedìlám nic
+            if (mapCustumeObject.mapObject.type == MapObject.ObjType.Drone && !isMinimap) { return; } // dron má ve wordscalu vlastní vykreslovací logiku - nedìlám nic
             else
             {
                 gameObject.transform.localPosition = Vector3.zero;
@@ -540,13 +537,8 @@ public class SpawnOnMap : MonoBehaviour
             {   // výška nepotøebuje pøepoèet
                 calcHeight = gameObject.transform.position.y + mapCustumeObject.mapObject.relativeAltitude;
             }
-
-            if(mapCustumeObject.mapObject.type==MapObject.ObjType.Drone && !isMinimap) // dron ve wordscalu potøebuje znát gps pozici dle gps pro dopøesnìní
-            {
-                return;
-            }
-            else // pro ostatní objekty pozici propisuji rovnou
-                gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
+            //  propsání pozice
+            gameObject.transform.position = new Vector3(gameObject.transform.position.x, calcHeight, gameObject.transform.position.z);
 
         }
 
@@ -659,16 +651,6 @@ public class SpawnOnMap : MonoBehaviour
         {
             manipulationDirtyFlag = true;
             underManipulation = false;
-        }
-
-        public void onHoverStart(ManipulationEventData eventData)
-        {
-            Debug.Log("hover start");
-        }
-
-        public void onHoverEnd(ManipulationEventData eventData)
-        {
-            Debug.Log("hover end");
         }
         public void onManipultaionStart(ManipulationEventData eventData)
         {

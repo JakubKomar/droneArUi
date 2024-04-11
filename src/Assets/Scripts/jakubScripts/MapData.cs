@@ -65,9 +65,6 @@ public class MapData : Singleton<MapData>
     public bool droneInBarier = false;
     public bool droneInWarningBarier = false;
 
-    private void Awake()
-    {
-    }
     void Start()
     {
         droneObj = new DroneObject(this);

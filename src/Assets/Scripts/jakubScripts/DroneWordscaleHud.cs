@@ -7,7 +7,6 @@
 /// <summary>
 /// logika hudu, který je umístìn na dronu ve svìtì
 /// </summary>
-using Mapbox.Unity.Map;
 using TMPro;
 using UnityEngine;
 

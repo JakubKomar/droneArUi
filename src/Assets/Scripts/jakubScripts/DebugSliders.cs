@@ -10,8 +10,7 @@
 
 
 using Microsoft.MixedReality.Toolkit.UI;
-using System.Collections;
-using System.Collections.Generic;
+
 using TMPro;
 using UnityEngine;
 
@@ -19,11 +18,6 @@ public class DebugSliders : MonoBehaviour
 {
     [SerializeField]
     TextMeshProUGUI m_TextMeshPro;
-    void Start()
-    {
-        
-    }
-
     void Update()
     {
         DronePositionCalculator scriptInstance = FindObjectOfType<DronePositionCalculator>();
