@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 5223020106997526966}
   m_Layer: 0
   m_Name: BarierWordScale
-  m_TagString: Untagged
+  m_TagString: barrierWS
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

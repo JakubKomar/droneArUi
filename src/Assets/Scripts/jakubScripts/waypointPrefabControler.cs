@@ -20,9 +20,9 @@ public class waypointPrefabControler : MapGameObjectData
 
     public string objectTagToDetect = "drone"; // Tag objektù, které chceme detekovat
 
-    public float checkInterval = 0.2f; // Interval kontrol pro detekci
+    //public float checkInterval = 0.2f; // Interval kontrol pro detekci
 
-    private float timeSinceLastCheck = 0.05f;
+    //private float timeSinceLastCheck = 0.05f;
 
     public Material materialCrossed;
     public Material materialNotCrossed;
@@ -33,7 +33,7 @@ public class waypointPrefabControler : MapGameObjectData
 
     void Update()
     {
-        bool checkForBounds = this.mapObjectData != null && this.mapObjectData.mapObject != null && (!this.mapObjectData.isInMinimap);
+        /*bool checkForBounds = this.mapObjectData != null && this.mapObjectData.mapObject != null && (!this.mapObjectData.isInMinimap);
         if (checkForBounds && timeSinceLastCheck >= checkInterval)
         {
             timeSinceLastCheck = 0f;
@@ -46,7 +46,7 @@ public class waypointPrefabControler : MapGameObjectData
         {
             // update každých 0.2s
             timeSinceLastCheck += Time.deltaTime;
-        }
+        }*/
 
         MeshRenderer renderer = spere.GetComponent<MeshRenderer>();
 

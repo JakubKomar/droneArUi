@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - drone
+  - barrierWS
+  - warningWS
+  - waypointWS
   layers:
   - Default
   - TransparentFX
