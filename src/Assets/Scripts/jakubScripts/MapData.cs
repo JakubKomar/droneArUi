@@ -19,6 +19,7 @@ using System.Text;
 
 using Mapbox.Utils;
 using UnityEngine.Events;
+using static MapObject;
 
 public class MapData : Singleton<MapData>
 {
@@ -284,8 +285,34 @@ public class MapData : Singleton<MapData>
                 JsonFileTdo jsonFileTdo = JsonConvert.DeserializeObject<JsonFileTdo>(jsonContent);
 
                 _planedRoute = jsonFileTdo._planedRoute;
+                foreach(Waypoint wp in _planedRoute)
+                {
+                    wp.mapData = this;
+                }
                 _objOfInterest = jsonFileTdo._objOfInterest;
-                _otherObjects = jsonFileTdo._otherObjects;
+                foreach (MapObject mp in _objOfInterest)
+                {
+                    mp.mapData = this;
+                }
+                
+                foreach(MapObject mp in jsonFileTdo._otherObjects)
+                {
+                    if (mp.type == ObjType.Barier)
+                    {
+                        Barier barier = new Barier(this, mp);
+                        _otherObjects.Add(barier);
+                    }
+                    else if (mp.type == ObjType.Warning)
+                    {
+                        Warning warning = new Warning(this, mp);
+                        _otherObjects.Add(warning);
+                    }
+                    else
+                    {                       
+                        mp.mapData = this;
+                        _otherObjects.Add(mp);
+                    }
+                }
                 _planedRouteCurrentWaypoint = 0;
 
 
