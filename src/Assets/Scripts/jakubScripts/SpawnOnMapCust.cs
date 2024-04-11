@@ -120,16 +120,16 @@ public class SpawnOnMap : MonoBehaviour
     {
         while (true)
         {
-            renderObjects();
+            yield return renderObjects();
             mapData.spawnedObjectDeletion(removalList);
             removalList.Clear();
 
-            yield return new WaitForSeconds(0.3f);
+            yield return null;
         }
     }
 
 
-    private void renderObjects()
+    private IEnumerator renderObjects()
     {
         foreach (var mapGameObject in allMapObjects)
         {
@@ -141,6 +141,7 @@ public class SpawnOnMap : MonoBehaviour
             {
                 Debug.LogException(e);
             }
+            yield return null;
         }
 
         foreach (var mapGameObject in planedRoute)
@@ -153,11 +154,13 @@ public class SpawnOnMap : MonoBehaviour
             {
                 Debug.LogException(e);
             }
+            yield return null;
         }
         if (lineRenderer != null)
         {
             updateLineRenderer();
         }
+        yield return null;
     }
 
 
@@ -285,7 +288,8 @@ public class SpawnOnMap : MonoBehaviour
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
     public void reCreateGameObjects()
     {
-        if(!isMinimap)
+        StopAllCoroutines();
+        if (!isMinimap)
         {
             DroneBoundsDetectors boundsDetector = FindAnyObjectByType<DroneBoundsDetectors>();
             if (boundsDetector != null)
@@ -320,7 +324,7 @@ public class SpawnOnMap : MonoBehaviour
             updateLineRenderer();
         }
 
-        renderObjects();
+        StartCoroutine(UpdatePositionsAsync());
         // objekty jsou rozmístìné, zahaj detekci kolizí
         if (!isMinimap)
         {

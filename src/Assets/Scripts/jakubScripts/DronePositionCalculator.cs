@@ -10,6 +10,7 @@
 
 using Mapbox.Unity.Map;
 using Mapbox.Utils;
+using System.Collections;
 using UnityEngine;
 
 public class DronePositionCalculator : MonoBehaviour
@@ -45,15 +46,30 @@ public class DronePositionCalculator : MonoBehaviour
     [SerializeField]
     private Vector3 aceleration = Vector3.zero;
 
+    [SerializeField]
+    private Vector3 posGpsforCal = Vector3.zero;
+
     private DroneManager droneManager;
-    public bool debugMode = false;
+    
+    private bool _debugMode;
+    public bool debugMode
+    {
+        get { return _debugMode; }
+        set
+        {
+            if (_debugMode == value) { return; }
+            _debugMode = value;
+            if (testGpsGm)
+                testGpsGm.SetActive(_debugMode);
+            if (testImuGm)
+                testImuGm.SetActive(_debugMode);
+            if (dronePrefab)
+                dronePrefab.SetActive(_debugMode);
+        }
+    }
 
     private ToggleWordscaleDrone toggleWordscaleDrone;
     private AbstractMap map;
-    DronePositionCalculator()
-    {
-        debugMode = false;
-    }
     void Start()
     {
         droneManager=DroneManager.Instance;
@@ -67,7 +83,19 @@ public class DronePositionCalculator : MonoBehaviour
         if (testImuGm)
             testImuGm.transform.parent = this.transform.parent;
 
-        toggleWordscaleDrone=ToggleWordscaleDrone.Instance;
+        debugMode = false;
+        if (testGpsGm)
+            testGpsGm.SetActive(false);
+        if (testImuGm)
+            testImuGm.SetActive(false);
+        if (dronePrefab)
+            dronePrefab.SetActive(false);
+
+        toggleWordscaleDrone =ToggleWordscaleDrone.Instance;
+
+        CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
+        if (compasIndicator != null)
+            compasIndicator.drone = gameObject;
 
     }
 
@@ -101,62 +129,24 @@ public class DronePositionCalculator : MonoBehaviour
     {
         debugMode = !toggleWordscaleDrone.droneWordscaleDebug;
 
-        if (testGpsGm)
-            testGpsGm.SetActive(debugMode);
-        if (testImuGm)
-            testImuGm.SetActive(debugMode);
-        if (dronePrefab)
-            dronePrefab.SetActive(debugMode);
-
         if (droneManager.ControlledDrone == null ) // bez letových dat nemohu dìlat nic
         {
             lastUpdate = 0;
         }
-        else if (droneManager.ControlledDrone != null && droneManager.ControlledDrone.usedForCalculation) // pokud nemáme data pozice se predikuje dle pøedchozích dat
+        else if (droneManager.ControlledDrone.usedForCalculation) // pokud nemáme data pozice se predikuje dle pøedchozích dat
         {
             lastUpdate += Time.deltaTime;
             this.transform.localPosition = this.transform.localPosition + aceleration * Time.deltaTime; // predikce dle pøedchozí velocity
-            height = this.transform.localPosition.y - this.baseHeight; 
+            height = this.transform.localPosition.y - this.baseHeight; // predikce výšky 
         }
         else
         {
             lastUpdate += Time.deltaTime;
-            calcGps();
-            ImuCalcPosition();
-
-            Vector3 posGpsforCal = gpsPosition;
-
-            if (gpsWeight == 0)
-            {
-                this.transform.localPosition = imuPosition;
-
-                if (debugMode|| droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
-                {
-                    posGpsforCal.x = imuPosition.x;
-                    posGpsforCal.z = imuPosition.z;
-                }
-            }
-            else
-            {
-                if (droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
-                {
-                    posGpsforCal.x = imuPosition.x;
-                    posGpsforCal.z = imuPosition.z;
-                }
-                this.transform.localPosition = posGpsforCal * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
-            }
-
             droneManager.ControlledDrone.usedForCalculation = true; //data již byly užity pro update
+
+            StartCoroutine(calcNewPos()); // multi frame calculation
+
             lastUpdate = 0;
-
-            CompassIndicator compasIndicator = FindObjectOfType<CompassIndicator>();
-            if (compasIndicator != null)
-                compasIndicator.drone = gameObject;
-
-            DynamicHudRotationSetter dynamicHudRotationSetter = FindObjectOfType<DynamicHudRotationSetter>();
-            if (dynamicHudRotationSetter != null)
-                dynamicHudRotationSetter.droneWordScale = gameObject;
-
             if (!debugMode) {
                 return;            
             }
@@ -165,6 +155,42 @@ public class DronePositionCalculator : MonoBehaviour
             if(testImuGm)
                 testImuGm.transform.localPosition=  imuPosition;
         }
+    }
+
+    IEnumerator calcNewPos()
+    {
+        calcGps();
+        yield return null;
+        ImuCalcPosition();
+        yield return null;
+        MixPositions();
+        yield return null;
+    }
+
+    void MixPositions()
+    {
+        posGpsforCal = gpsPosition;
+
+        if (gpsWeight == 0)
+        {
+            this.transform.localPosition = imuPosition;
+
+            if (debugMode || droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
+            {
+                posGpsforCal.x = imuPosition.x;
+                posGpsforCal.z = imuPosition.z;
+            }
+        }
+        else
+        {
+            if (droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
+            {
+                posGpsforCal.x = imuPosition.x;
+                posGpsforCal.z = imuPosition.z;
+            }
+            this.transform.localPosition = posGpsforCal * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
+        }
+
     }
 
     void ImuCalcPosition()
