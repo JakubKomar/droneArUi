@@ -365,8 +365,8 @@ GameObject:
   - component: {fileID: 7164923683756638045}
   - component: {fileID: 8224417227253286090}
   m_Layer: 0
-  m_Name: WayPointPrefabNew
-  m_TagString: Untagged
+  m_Name: WayPointWordScale
+  m_TagString: waypointWS
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -17672,7 +17672,6 @@ MonoBehaviour:
       m_Calls: []
   manipulatorPrefab: {fileID: 1629825553}
   ground: {fileID: 1122285250}
-  testCompas: 0
 --- !u!4 &568251513
 Transform:
   m_ObjectHideFlags: 0
@@ -65454,7 +65453,7 @@ MonoBehaviour:
   _spawnScale: 1.3
   _barierMinimapScale: 50
   _defaultPrefab: {fileID: 0}
-  _waypointPrefab: {fileID: 7312719393256005487, guid: e5477d8c93582774aa3e97b46cc16973, type: 3}
+  _waypointPrefab: {fileID: 7312719393256005487, guid: cc60fe82a1b1dd84f893b7d4cb657243, type: 3}
   _homeLocationPrefab: {fileID: 1839187062704024, guid: 63ff004b2bbf3d143bb2d8ff7f58d9b8, type: 3}
   _playerPrefab: {fileID: 0}
   _poiPrefab: {fileID: 7312719393256005487, guid: d6d3721f1165eb54b946b434b08d025d, type: 3}
