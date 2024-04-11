@@ -32,12 +32,15 @@ public class DronePositionCalculator : MonoBehaviour
     float lastUpdate = 0f;
 
     // GPS belive pozice
+    [SerializeField]
     private Vector3 gpsPosition = Vector3.zero;
 
     // imu belive pozice
+    [SerializeField]
     private Vector3 imuPosition = Vector3.zero;
 
     // poslední data o akceleraci
+    [SerializeField]
     private Vector3 aceleration = Vector3.zero;
 
     private DroneManager droneManager;

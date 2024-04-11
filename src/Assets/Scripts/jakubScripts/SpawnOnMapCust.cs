@@ -81,10 +81,16 @@ public class SpawnOnMap : MonoBehaviour
         mapData.spawnOnMapScripts.Add(this);
 
         reCreateGameObjects();
-
     }
 
     private void Update()
+    {
+        renderObjects();
+        mapData.spawnedObjectDeletion(removalList);
+        removalList.Clear();
+    }
+
+    private void renderObjects()
     {
         foreach (var mapGameObject in allMapObjects)
         {
@@ -113,10 +119,6 @@ public class SpawnOnMap : MonoBehaviour
         {
             updateLineRenderer();
         }
-
-        mapData.spawnedObjectDeletion(removalList);
-        removalList.Clear();
-
     }
 
 
@@ -244,6 +246,12 @@ public class SpawnOnMap : MonoBehaviour
     // v hlavním sdíleném modulu se zmìnily objekty - je nutné je pøetvoøit
     public void reCreateGameObjects()
     {
+        if(!isMinimap)
+        {
+            DroneBoundsDetectors boundsDetector = FindAnyObjectByType<DroneBoundsDetectors>();
+            if (boundsDetector != null)
+                boundsDetector.setIngoreColizions(true);
+        }
         // smazání starých objektù
         foreach (var obj in allMapObjects)
         {
@@ -273,6 +281,14 @@ public class SpawnOnMap : MonoBehaviour
             updateLineRenderer();
         }
 
+        renderObjects();
+        // objekty jsou rozmístìné, zahaj detekci kolizí
+        if (!isMinimap)
+        {
+            DroneBoundsDetectors boundsDetector = FindAnyObjectByType<DroneBoundsDetectors>();
+            if (boundsDetector != null)
+                boundsDetector.setIngoreColizions(false);
+        }
     }
 
     void updateLineRenderer()
@@ -499,7 +515,15 @@ public class SpawnOnMap : MonoBehaviour
         if (!mapCustumeObject.underManipulation)
         {
             // logika výpoètu pozice
-            Vector2d vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
+            Vector2d vector2D;
+            try
+            {
+                vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
+            }catch (Exception e)
+            {
+                Debug.Log(e);   
+                return;
+            }
 
             if (mapCustumeObject.mapObject.type == MapObject.ObjType.Drone && !isMinimap) { return; } // dron má ve wordscalu vlastní vykreslovací logiku - nedìlám nic
             else

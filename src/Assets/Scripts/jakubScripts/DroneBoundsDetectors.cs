@@ -9,22 +9,25 @@
 /// </summary>
 
 using UnityEngine;
-
+using System.Collections;
 public class DroneBoundsDetectors : MonoBehaviour
 {
     MapData mapData;
+    private bool ingoreColizions = true;
     private void Start()
     {
-        mapData= MapData.Instance;
+        mapData = MapData.Instance;
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (ingoreColizions)
+            return;
         if (other.CompareTag("barrierWS"))
         {
-            mapData.droneEnterBarier(true);
+            mapData.droneEnterBarier(false);
         }else if (other.CompareTag("warningWS"))
         {
-            mapData.droneEnterBarier(false);
+            mapData.droneEnterBarier(true);
         }
         else if (other.CompareTag("waypointWS"))
         {
@@ -39,13 +42,35 @@ public class DroneBoundsDetectors : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
+        if (ingoreColizions)
+            return;
         if (other.CompareTag("barrierWS"))
-        {
-            mapData.droneLeaveBarier(true);
-        }
-        else if (other.CompareTag("warningWS"))
         {
             mapData.droneLeaveBarier(false);
         }
+        else if (other.CompareTag("warningWS"))
+        {
+            mapData.droneLeaveBarier(true);
+        }
+    }
+
+    
+    public void setIngoreColizions(bool val)
+    {
+        if (val == false)
+        {
+            StartCoroutine(PerformActionAfterDelay());
+        }
+        else
+        {
+            ingoreColizions = val;
+        }
+    }
+
+    // vyèkej na romístìní všech objektù a pak zaèni detekovat kolize
+    IEnumerator PerformActionAfterDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        this.ingoreColizions = false;
     }
 }
