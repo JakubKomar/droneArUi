@@ -5,13 +5,13 @@
 /// 05.04.2024
 /// </date>
 /// <summary>
-/// logika baréry - detekuje pøítomnost drona a reportujej ji dále
+/// logika baréry - detekuje pøítomnost drona a reportuj ji dále, již nepoužíváno
 /// </summary>
 using UnityEngine;
 
 public class BarierPrefabControler : MapGameObjectData
 {
-    private Collider targetCollider; // Collider, ve kterém budeme kontrolovat
+   /* private Collider targetCollider; // Collider, ve kterém budeme kontrolovat
 
     public string objectTagToDetect = "drone"; // Tag objektù, které chceme detekovat
 
@@ -19,7 +19,7 @@ public class BarierPrefabControler : MapGameObjectData
 
     private float timeSinceLastCheck = 0.05f;
 
-    /*void Start()
+    void Start()
      {
          targetCollider = this.gameObject.GetComponent<Collider>();
      }
@@ -40,7 +40,7 @@ public class BarierPrefabControler : MapGameObjectData
              timeSinceLastCheck += Time.deltaTime;
          }
 
-     }*/
+     }
 
     private bool reported=false;
 
@@ -56,7 +56,6 @@ public class BarierPrefabControler : MapGameObjectData
             {
                 droneFound=true;
             }
-
         }
 
         if(droneFound&& !reported)
@@ -79,5 +78,5 @@ public class BarierPrefabControler : MapGameObjectData
                 reported = false;
             }
         }
-    }
+    }*/
 }

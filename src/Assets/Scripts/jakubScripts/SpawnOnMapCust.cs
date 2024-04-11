@@ -18,6 +18,7 @@ using Mapbox.Examples;
 using System.Globalization;
 using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
+using System.Collections;
 
 public class SpawnOnMap : MonoBehaviour
 {
@@ -75,20 +76,58 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     private LineRenderer lineRenderer = null;
 
-    void Start()
+    private Coroutine updateCoroutine=null;
+
+
+    private void Awake()
     {
         mapData = FindObjectOfType<MapData>();
         mapData.spawnOnMapScripts.Add(this);
 
         reCreateGameObjects();
+        if (updateCoroutine == null)
+        {
+            updateCoroutine = StartCoroutine(UpdatePositionsAsync());
+        }
+
+        // objekt pro drona se vytvoøí pouze jednou a pak si žije vlastním životem - nespravuju ho
+        if (!isMinimap)
+        {
+            GameObject gameObject = Instantiate(_dronePrefab);
+            gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+            gameObject.transform.parent = transform;
+        }
     }
 
-    private void Update()
+    void OnEnable()
     {
-        renderObjects();
-        mapData.spawnedObjectDeletion(removalList);
-        removalList.Clear();
+        if (updateCoroutine == null)
+        {
+            updateCoroutine = StartCoroutine(UpdatePositionsAsync());
+        }
     }
+
+    void OnDisable()
+    {
+        if (updateCoroutine != null)
+        {
+            StopCoroutine(updateCoroutine);
+            updateCoroutine = null;
+        }
+    }
+
+    IEnumerator UpdatePositionsAsync()
+    {
+        while (true)
+        {
+            renderObjects();
+            mapData.spawnedObjectDeletion(removalList);
+            removalList.Clear();
+
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
+
 
     private void renderObjects()
     {
@@ -205,7 +244,7 @@ public class SpawnOnMap : MonoBehaviour
             index++;
         }
 
-        if (nearestWpIndex1 < 0) // pokud není žádný nejbližší vlož nakone
+        if (nearestWpIndex1 < 0) // pokud není žádný nejbližší vlož nakonec
         {
             mapData.addObject(mapObject);
         }
@@ -345,11 +384,12 @@ public class SpawnOnMap : MonoBehaviour
                     }
                     break;
                 case MapObject.ObjType.Drone:
-                    if (_dronePrefab != null)
+                    if (_dronePrefab != null && isMinimap)
                     {
                         gameObject = Instantiate(_dronePrefab);
                         gameObject.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
                     }
+                    else { return; }// ve wordscalu se o dron nestarám
                     break;
                 case MapObject.ObjType.Waypoint:
                     if (_waypointPrefab == null)

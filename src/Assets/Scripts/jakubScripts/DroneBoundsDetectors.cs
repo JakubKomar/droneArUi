@@ -13,14 +13,72 @@ using System.Collections;
 public class DroneBoundsDetectors : MonoBehaviour
 {
     MapData mapData;
-    private bool ingoreColizions = true;
+    private bool ignoreCollisions = true;
+    private Collider targetCollider; // Collider, ve kterém budeme kontrolovat
     private void Start()
     {
         mapData = MapData.Instance;
+        
+        targetCollider = this.gameObject.GetComponent<Collider>();
+        StartCoroutine(PerformActionAfterDelay());
+
     }
+
+   /* void Update()
+    {
+        CheckForObject();
+    }
+    
+    
+    bool droneFoundWarnRp = false;
+    bool droneFoundBarRp = false;
+    
+    private void CheckForObject()
+    {
+        if (ignoreCollisions)
+            return;
+        // Kontrola, zda se objekt daného typu nachází v colideru
+        Collider[] colliders = Physics.OverlapBox(targetCollider.bounds.center, targetCollider.bounds.extents, Quaternion.identity);
+
+        bool droneFoundWarn = false;
+        bool droneFoundBar = false;
+
+        foreach (Collider col in colliders)
+        {
+            if (col.CompareTag("barrierWS"))
+            {
+                mapData.droneEnterBarier(false);
+                droneFoundBarRp=true;
+            }
+            else if (col.CompareTag("warningWS"))
+            {
+                mapData.droneEnterBarier(true);
+                droneFoundWarnRp=true;
+            }
+            else if (col.CompareTag("waypointWS"))
+            {
+                MapGameObjectData mapGameObjectData = col.gameObject.GetComponent<MapGameObjectData>();
+                if (mapGameObjectData && mapGameObjectData.mapObjectData != null && mapGameObjectData.mapObjectData.mapObject != null)
+                {
+                    Waypoint waypoint = (Waypoint)mapGameObjectData.mapObjectData.mapObject;
+                    if (waypoint != null)
+                        waypoint.onDroneEnterColider();
+                }
+            }
+        }
+
+        if (!droneFoundWarn)
+        {
+            mapData.droneLeaveBarier(true);
+        }
+        if (!droneFoundBar)
+        {
+            mapData.droneLeaveBarier(false);
+        }
+    }*/
     private void OnTriggerEnter(Collider other)
     {
-        if (ingoreColizions)
+        if (ignoreCollisions)
             return;
         if (other.CompareTag("barrierWS"))
         {
@@ -42,7 +100,7 @@ public class DroneBoundsDetectors : MonoBehaviour
     }
     public void OnTriggerExit(Collider other)
     {
-        if (ingoreColizions)
+        if (ignoreCollisions)
             return;
         if (other.CompareTag("barrierWS"))
         {
@@ -54,7 +112,10 @@ public class DroneBoundsDetectors : MonoBehaviour
         }
     }
 
-    
+    private void OnEnable()
+    {
+        StartCoroutine(PerformActionAfterDelay());
+    }
     public void setIngoreColizions(bool val)
     {
         if (val == false)
@@ -63,7 +124,7 @@ public class DroneBoundsDetectors : MonoBehaviour
         }
         else
         {
-            ingoreColizions = val;
+            ignoreCollisions = val;
         }
     }
 
@@ -71,6 +132,6 @@ public class DroneBoundsDetectors : MonoBehaviour
     IEnumerator PerformActionAfterDelay()
     {
         yield return new WaitForSeconds(0.4f);
-        this.ingoreColizions = false;
+        this.ignoreCollisions = false;
     }
 }

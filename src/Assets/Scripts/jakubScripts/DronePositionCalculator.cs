@@ -109,10 +109,10 @@ public class DronePositionCalculator : MonoBehaviour
         {
             lastUpdate = 0;
         }
-        else if (droneManager.ControlledDrone == null && droneManager.ControlledDrone.usedForCalculation) // pokud nemáme data pozice se predikuje dle pøedchozích dat
+        else if (droneManager.ControlledDrone != null && droneManager.ControlledDrone.usedForCalculation) // pokud nemáme data pozice se predikuje dle pøedchozích dat
         {
             lastUpdate += Time.deltaTime;
-            this.transform.localPosition = aceleration * Time.deltaTime; // predikce dle pøedchozí velocity
+            this.transform.localPosition = this.transform.localPosition + aceleration * Time.deltaTime; // predikce dle pøedchozí velocity
         }
         else
         {

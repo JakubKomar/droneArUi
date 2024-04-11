@@ -70,9 +70,6 @@ public class calibrationScript : Singleton<calibrationScript>
         onCalibration( latitude,  longitude, compas);
 
     }
-    [SerializeField]
-    private float testCompas = 0f;
-    
     //test budova
     public void testCalibration1()
     {
