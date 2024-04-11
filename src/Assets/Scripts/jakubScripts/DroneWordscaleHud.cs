@@ -8,6 +8,7 @@
 /// logika hudu, který je umístìn na dronu ve svìtì
 /// </summary>
 using TMPro;
+using System;
 using UnityEngine;
 
 public class DroneWordscaleHud : MonoBehaviour
@@ -27,8 +28,6 @@ public class DroneWordscaleHud : MonoBehaviour
 
     [SerializeField]
     TextMeshProUGUI distance;
-    [SerializeField]
-    TextMeshProUGUI alt;
 
     private DroneManager droneManager;
 
@@ -39,6 +38,12 @@ public class DroneWordscaleHud : MonoBehaviour
     [SerializeField]
     private GameObject vlc;
 
+    [SerializeField]
+    GameObject gpsLostIcon = null;
+    [SerializeField]
+    GameObject altWarningIcon = null;
+    [SerializeField]
+    TMP_Text speed = null;
 
     void Start()
     {
@@ -72,7 +77,21 @@ public class DroneWordscaleHud : MonoBehaviour
 
 
             distance.text = "D:" + Mathf.Round(droneDistance).ToString()+"m";
-            //alt.text = string.Format("A:{0:0.0}m", drone.FlightData.Altitude);
+
+            if (altWarningIcon != null)
+                altWarningIcon.SetActive(drone.FlightData.Altitude > 100);
+            if (gpsLostIcon != null)
+                gpsLostIcon.SetActive(drone.FlightData.InvalidGps);
+
+
+            if (speed != null)
+            {
+                double newSpeed = Math.Abs(drone.FlightData.VelocityX) + Math.Abs(drone.FlightData.VelocityY) + Math.Abs(drone.FlightData.VelocityZ);
+                newSpeed = newSpeed * 3.6; // to km/h
+                speed.text = "S:" + newSpeed.ToString("F1") + "km/h";
+            }
+
+
             hudChild.gameObject.SetActive(true);
         }
         else

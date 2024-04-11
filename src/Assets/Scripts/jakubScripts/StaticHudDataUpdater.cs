@@ -18,11 +18,6 @@ public class StaticHudDataUpdater : MonoBehaviour
     private DroneManager droneManager;
 
     [SerializeField]
-    TMP_Text altitute = null;
-    [SerializeField]
-    TMP_Text speed = null;
-
-    [SerializeField]
     TMP_Text rotation = null;
 
     [SerializeField]
@@ -98,20 +93,6 @@ public class StaticHudDataUpdater : MonoBehaviour
         if (gpsLostIcon != null)
             gpsLostIcon.SetActive(myDrone.FlightData.InvalidGps);
 
-        if (altitute != null)
-        {
-            if(myDrone.FlightData.Altitude<100)
-                altitute.text = myDrone.FlightData.Altitude.ToString("F1"); 
-            else
-                altitute.text = myDrone.FlightData.Altitude.ToString("F0");
-        }
-
-        if (speed != null)
-        {
-            double newSpeed = Math.Abs(myDrone.FlightData.VelocityX) + Math.Abs(myDrone.FlightData.VelocityY) + Math.Abs(myDrone.FlightData.VelocityZ);
-            newSpeed = newSpeed * 3.6; // to km/h
-            speed.text ="S:"+ newSpeed.ToString("F1")+"km/h";
-        }
 
         //simulace spotøeby baterie
         if (Time.time - batterySimulationTimeStamp > batteryPercetInterval)

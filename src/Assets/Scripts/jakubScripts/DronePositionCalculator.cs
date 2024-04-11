@@ -25,6 +25,8 @@ public class DronePositionCalculator : MonoBehaviour
     public float gpsWeight = 0.0f;
     public float imuWeight =1;
     public float imuGpsMixRate = 0.01f;
+    public float height = 0;
+    private float baseHeight = 0;
 
     [SerializeField]
     float imuAltMixRate = 0.07f;
@@ -85,9 +87,10 @@ public class DronePositionCalculator : MonoBehaviour
 
         // pozice je spoètena pouze na neèisto
         Vector3 droneTransform = map.GeoToWorldPosition(new Vector2d(droneManager.ControlledDrone.FlightData.Latitude, droneManager.ControlledDrone.FlightData.Longitude), true); // spoèti pozici pro drona
-                                                                                                                                                                                   // výška odvozena z letových dat
+        baseHeight = droneTransform.y;
+        height = (float)(droneManager.ControlledDrone.FlightData.Altitude);
         float calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
-
+        
         Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z);
 
         // spoètení lokální pozice - skript pracuje pouze s lokálními pozicemi
@@ -113,6 +116,7 @@ public class DronePositionCalculator : MonoBehaviour
         {
             lastUpdate += Time.deltaTime;
             this.transform.localPosition = this.transform.localPosition + aceleration * Time.deltaTime; // predikce dle pøedchozí velocity
+            height = this.transform.localPosition.y - this.baseHeight; 
         }
         else
         {

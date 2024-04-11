@@ -35,13 +35,10 @@ public class AltIndicator : MonoBehaviour
     private float canvasWidth;
     private float canvasHeight;
 
-    private float alt = 23;
-    [SerializeField]
-    private float testAlt = 0;
+    private float alt = 0;
 
     private List<GameObject> largeStupniceList = new List<GameObject>();
     private List<GameObject> smallStupniceList = new List<GameObject>();
-    private DroneManager droneManager;
 
     float lastAltWarning = 0;
     [SerializeField]
@@ -49,9 +46,11 @@ public class AltIndicator : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI altText;
+
+    [SerializeField]
+    private DronePositionCalculator dronePositionCalculator;
     void Start()
     {
-        droneManager = FindObjectOfType<DroneManager>();
 
         canvasWidth = this.GetComponent<RectTransform>().rect.width;
         canvasHeight = this.GetComponent<RectTransform>().rect.height;
@@ -82,23 +81,13 @@ public class AltIndicator : MonoBehaviour
             stupnice.transform.localScale = Vector3.one;
             stupnice.transform.localRotation = Quaternion.identity;
             stupnice.transform.localPosition = new Vector3(28f, (canvasHeight / visibleCount) * i, -1);
-
-
         }
     }
 
     void Update()
     {
-        Drone myDrone = droneManager.ControlledDrone;
-        float newAlt;
-        if (myDrone == null)
-        {
-            newAlt = testAlt;
-        }
-        else
-        {
-            newAlt = (float)myDrone.FlightData.Altitude;
-        }
+        float newAlt = dronePositionCalculator.height; 
+    
         newAlt = Mathf.Round(newAlt * 10) / 10;
 
         if (alt == newAlt)
@@ -107,6 +96,9 @@ public class AltIndicator : MonoBehaviour
         }
 
         alt = newAlt;
+
+
+
         // pokud je výška vìtší jak 100, zobraz varování a pøehraj varování každých 15s
         if (altWarnIcon != null)
         {
@@ -116,9 +108,15 @@ public class AltIndicator : MonoBehaviour
         if (altText != null)
         {
             if (alt > 100)
+            {
                 altText.color = new Color32(255, 0, 0, 255);
+                altText.text = newAlt.ToString("F1");
+            }
             else
+            {
                 altText.color = new Color32(0, 255, 0, 255);
+                altText.text = newAlt.ToString("F0");
+            }
         }
 
 
@@ -129,6 +127,6 @@ public class AltIndicator : MonoBehaviour
             textToSpeechSyntetizer.say("Altitude limit execeded.");
         }
 
-        tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 1);
+        tape.transform.localPosition = new Vector3(0, -(canvasHeight / visibleCount) * alt, 2);
     }
 }

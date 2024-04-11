@@ -17752,13 +17752,45 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
-  - keyword: Test one
+  - keyword: Experiment one
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 568251512}
+          m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
+          m_MethodName: testCalibration1
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Experiment two
     response:
       m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 568251512}
           m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
           m_MethodName: testCalibration2
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Experiment three
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 568251512}
+          m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
+          m_MethodName: testCalibration3
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -64715,7 +64747,7 @@ MonoBehaviour:
           propertyDescription: Number. Height of building or part of building.
           minimumHeight: 0
           maximumHeight: 1
-          extrusionScaleFactor: 1.85
+          extrusionScaleFactor: 1.7
         colliderOptions:
           colliderType: 0
         materialOptions:
