@@ -66,8 +66,36 @@ public class calibrationScript : Singleton<calibrationScript>
 
             compas = droneManager.ControlledDrone.FlightData.Compass;
         }
-        float playeryRottation = playerCamera.rotation.eulerAngles.y;
         //Debug.Log(playeryRottation);
+        onCalibration( latitude,  longitude, compas);
+
+    }
+    [SerializeField]
+    private float testCompas = 0f;
+    
+    //test budova
+    public void testCalibration1()
+    {
+        onCalibration(49.22743894929612, 16.597058259073513, 248);
+    }
+
+    //test filmari
+    public void testCalibration3()
+    {
+
+        onCalibration(49.22719967189906, 16.59721665902667, 347);
+    }
+
+    //test solary
+    public void testCalibration2()
+    {
+        onCalibration(49.22733586222895, 16.597170390922592, 262);
+    }
+
+
+    private void onCalibration(double latitude, double longitude,double compas)
+    {
+        float playerRottation = playerCamera.rotation.eulerAngles.y;
 
         Mapbox.Utils.Vector2d actualCenter;
 
@@ -83,7 +111,7 @@ public class calibrationScript : Singleton<calibrationScript>
         this.transform.position = Vector3.zero;
 
         // nastavení pozice dle hráèe a drona
-        Quaternion targetRotation = Quaternion.Euler(0, playeryRottation - ((float)compas), 0);
+        Quaternion targetRotation = Quaternion.Euler(0, playerRottation - ((float)compas), 0);
         wordScaleMap.transform.localRotation = targetRotation;
         wordScaleMap.transform.localPosition = new Vector3(playerCamera.transform.position.x, playerCamera.transform.position.y - 1.8f, playerCamera.transform.position.z);
         wordScaleMap.transform.localScale = Vector3.one;
@@ -99,7 +127,6 @@ public class calibrationScript : Singleton<calibrationScript>
         calibrationEvent.Invoke();
         TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
         textToSpeechSyntetizer.say("Calibration finished.");
-
     }
 
     public void setHomeLocation(string localizationString)
