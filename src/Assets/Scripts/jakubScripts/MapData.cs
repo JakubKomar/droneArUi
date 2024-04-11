@@ -294,8 +294,8 @@ public class MapData : Singleton<MapData>
                 {
                     mp.mapData = this;
                 }
-                
-                foreach(MapObject mp in jsonFileTdo._otherObjects)
+                _otherObjects.Clear();
+                foreach (MapObject mp in jsonFileTdo._otherObjects)
                 {
                     if (mp.type == ObjType.Barier)
                     {
