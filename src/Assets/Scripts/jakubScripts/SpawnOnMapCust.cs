@@ -556,6 +556,8 @@ public class SpawnOnMap : MonoBehaviour
         {
             // logika výpoètu pozice
             Vector2d vector2D;
+            if (mapCustumeObject.mapObject.locationString == "") // pozice zatím nebyla nastavena
+                return;
             try
             {
                 vector2D = Conversions.StringToLatLon(mapCustumeObject.mapObject.locationString);
