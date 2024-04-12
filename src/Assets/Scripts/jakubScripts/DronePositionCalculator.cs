@@ -117,7 +117,7 @@ public class DronePositionCalculator : MonoBehaviour
         Vector3 droneTransform = map.GeoToWorldPosition(new Vector2d(droneManager.ControlledDrone.FlightData.Latitude, droneManager.ControlledDrone.FlightData.Longitude), true); // spoèti pozici pro drona
         baseHeight = droneTransform.y;
         height = (float)(droneManager.ControlledDrone.FlightData.Altitude);
-        float calcHeight = droneTransform.y + (float)(droneManager.ControlledDrone.FlightData.Altitude); //výška je brána z letových dat
+        float calcHeight = baseHeight + height; //výška je brána z letových dat
         
         Vector3 gpsPos = new Vector3(droneTransform.x, calcHeight, droneTransform.z);
 
@@ -136,45 +136,57 @@ public class DronePositionCalculator : MonoBehaviour
         else if (droneManager.ControlledDrone.usedForCalculation) // pokud nemáme data pozice se predikuje dle pøedchozích dat
         {
             lastUpdate += Time.deltaTime;
-            this.transform.localPosition = this.transform.localPosition + aceleration * Time.deltaTime; // predikce dle pøedchozí velocity
-            height = this.transform.localPosition.y - this.baseHeight; // predikce výšky 
+            Vector3 newPos = this.transform.localPosition + aceleration * Time.deltaTime; // predikce dle pøedchozí velocity
+            if (newPos.y < 0) //pokud je výška záporná jedná se o chybu - typicky pøi pøistání
+                newPos.y = 0;
+            this.transform.localPosition = newPos; // predikce dle pøedchozí velocity
+           
         }
         else
         {
             lastUpdate += Time.deltaTime;
             droneManager.ControlledDrone.usedForCalculation = true; //data již byly užity pro update
-
-            StartCoroutine(calcNewPos()); // multi frame calculation
-
-            lastUpdate = 0;
-            if (!debugMode) {
-                return;            
-            }
-            if(testGpsGm)
-                testGpsGm.transform.localPosition = posGpsforCal;
-            if(testImuGm)
-                testImuGm.transform.localPosition=  imuPosition;
+            calcNewPosSingleFrame();
         }
+
+        height = this.transform.localPosition.y; // predikce výšky 
+
+        if (!debugMode)
+        {
+            return;
+        }
+        if (testGpsGm)
+            testGpsGm.transform.localPosition = posGpsforCal;
+        if (testImuGm)
+            testImuGm.transform.localPosition = imuPosition;
     }
 
-    IEnumerator calcNewPos()
+    // více snímkový výpoèet nepoužitelný
+    IEnumerator calcNewPosMultiFrame()
     {
         calcGps();
         yield return null;
         ImuCalcPosition();
+        lastUpdate = 0;
         yield return null;
         MixPositions();
-        yield return null;
+    }
+
+    void calcNewPosSingleFrame()
+    {
+        calcGps();
+        ImuCalcPosition();
+        MixPositions();
+        lastUpdate = 0;
     }
 
     void MixPositions()
     {
         posGpsforCal = gpsPosition;
-
+        Vector3 newPos;
         if (gpsWeight == 0)
         {
-            this.transform.localPosition = imuPosition;
-
+            newPos = imuPosition; // zmixování obou pozic
             if (debugMode || droneManager.ControlledDrone.FlightData.InvalidGps) // pokud dron nemá validní gps pozici vychází podle imu
             {
                 posGpsforCal.x = imuPosition.x;
@@ -188,9 +200,13 @@ public class DronePositionCalculator : MonoBehaviour
                 posGpsforCal.x = imuPosition.x;
                 posGpsforCal.z = imuPosition.z;
             }
-            this.transform.localPosition = posGpsforCal * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
-        }
+            newPos = posGpsforCal * gpsWeight + imuPosition * imuWeight; // zmixování obou pozic
 
+
+        }
+        if (newPos.y < 0) //pokud je výška záporná jedná se o chybu - typicky pøi pøistání
+            newPos.y = 0;
+        this.transform.localPosition = newPos;
     }
 
     void ImuCalcPosition()

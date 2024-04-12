@@ -35,7 +35,7 @@ public class AltIndicator : MonoBehaviour
     private float canvasWidth;
     private float canvasHeight;
 
-    private float alt = 0;
+    private float alt = 1;
 
     private List<GameObject> largeStupniceList = new List<GameObject>();
     private List<GameObject> smallStupniceList = new List<GameObject>();
@@ -110,12 +110,12 @@ public class AltIndicator : MonoBehaviour
             if (alt > 100)
             {
                 altText.color = new Color32(255, 0, 0, 255);
-                altText.text = newAlt.ToString("F1");
+                altText.text = newAlt.ToString("F0");
             }
             else
             {
                 altText.color = new Color32(0, 255, 0, 255);
-                altText.text = newAlt.ToString("F0");
+                altText.text = newAlt.ToString("F1");
             }
         }
 
