@@ -9,6 +9,7 @@
 /// </summary>
 
 using Mapbox.Unity.Map;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -49,48 +50,65 @@ public class calibrationScript : Singleton<calibrationScript>
 
         if (droneManager.ControlledDrone == null)
         {
-            Debug.LogWarning("Nelze provést calibraci bez pøipojeného  drona");
-            latitude = 49.22732;
-            longitude = 16.59683;
-            compas = 250;
+            TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();
+            textToSpeechSyntetizer.say("Calibration failed, no drone is connected.");
+            Debug.LogWarning("Calibration failed, no drone is connected.");
+            return;
         }
         else
         {
             latitude = droneManager.ControlledDrone.FlightData.Latitude;
             longitude = droneManager.ControlledDrone.FlightData.Longitude;
-
-            //test purpeses
-            //latitude = 49.226978092949324;
-            //longitude = 16.59519006457966;
-
-
+            if(droneManager.ControlledDrone.FlightData.InvalidGps)
+                Debug.LogWarning("Calibration warn, gps is invalid");
             compas = droneManager.ControlledDrone.FlightData.Compass;
         }
         //Debug.Log(playeryRottation);
-        onCalibration( latitude,  longitude, compas);
-
+        onCalibration(latitude, longitude, compas);
     }
-    //test budova
-    public void testCalibration1()
+
+    [Serializable]
+    public struct CalStruct
     {
-        onCalibration(49.22743894929612, 16.597058259073513, 248);
+        public double latitude;
+        public double longitude;
+        public double compas;
     }
-
-    //test filmari
-    public void testCalibration3()
+    public CalStruct testCal;
+    public void testCalibration(int id=0)
     {
-
-        onCalibration(49.22719967189906, 16.59721665902667, 347);
+        switch (id)
+        {
+            case 0:
+                onCalibration(testCal.latitude, testCal.longitude, testCal.compas);
+                break;
+            case 1:
+                onCalibration(49.22743894929612, 16.597058259073513, 248);
+                break;
+            case 2:
+                onCalibration(49.22733586222895, 16.597170390922592, 262);
+                break;
+            case 3:
+                onCalibration(49.22719967189906, 16.59721665902667, 347);
+                break;
+            case 4:
+                onCalibration(49.189486423425919, 14.699869836179291, 198);
+                break;
+            case 5:
+                onCalibration(49.189456646017483, 14.700085909954502, 14.700085909954502);
+                break;
+            case 6:
+                onCalibration(49.189338759184452, 14.700612745402859, 288);
+                break;
+            case 7:
+                onCalibration(49.189235, 14.699818717921637, 288);
+                break;
+            default:
+                Debug.LogError("Test calibration whith id:" + id.ToString() + " not found");
+                break;
+        }
     }
-
-    //test solary
-    public void testCalibration2()
-    {
-        onCalibration(49.22733586222895, 16.597170390922592, 262);
-    }
-
-
-    private void onCalibration(double latitude, double longitude,double compas)
+    void onCalibration(double latitude, double longitude,double compas)
     {
         float playerRottation = playerCamera.rotation.eulerAngles.y;
 

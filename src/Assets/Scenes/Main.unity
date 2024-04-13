@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -17756,6 +17756,10 @@ MonoBehaviour:
       m_Calls: []
   manipulatorPrefab: {fileID: 1629825553}
   ground: {fileID: 1122285250}
+  testCal:
+    latitude: 49.18924469213369
+    longitude: 14.699759709321492
+    compas: 0
 --- !u!4 &568251513
 Transform:
   m_ObjectHideFlags: 0
@@ -17842,12 +17846,12 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 568251512}
           m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
-          m_MethodName: testCalibration1
-          m_Mode: 1
+          m_MethodName: testCalibration
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 1
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -17858,12 +17862,12 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 568251512}
           m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
-          m_MethodName: testCalibration2
-          m_Mode: 1
+          m_MethodName: testCalibration
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 2
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -17874,12 +17878,76 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 568251512}
           m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
-          m_MethodName: testCalibration3
-          m_Mode: 1
+          m_MethodName: testCalibration
+          m_Mode: 3
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Experiment four
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 568251512}
+          m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
+          m_MethodName: testCalibration
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 4
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Experiment five
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 568251512}
+          m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
+          m_MethodName: testCalibration
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 5
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Experiment six
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 568251512}
+          m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
+          m_MethodName: testCalibration
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 6
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - keyword: Experiment seven
+    response:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 568251512}
+          m_TargetAssemblyTypeName: calibrationScript, Assembly-CSharp
+          m_MethodName: testCalibration
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 7
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
@@ -64987,8 +65055,8 @@ MonoBehaviour:
           Modified: 
           UserName: 
       rasterOptions:
-        useRetina: 1
-        useCompression: 0
+        useRetina: 0
+        useCompression: 1
         useMipMap: 1
   _terrain:
     _layerProperty:
@@ -65648,17 +65716,17 @@ MonoBehaviour:
   _initializeOnStart: 1
   _imagery:
     _layerProperty:
-      sourceType: 7
+      sourceType: 0
       sourceOptions:
         isActive: 1
         layerSource:
           Name: Satellite Streets
-          Id: mapbox.satellite
+          Id: mapbox://styles/mapbox/streets-v10
           Modified: 
           UserName: 
       rasterOptions:
-        useRetina: 1
-        useCompression: 0
+        useRetina: 0
+        useCompression: 1
         useMipMap: 1
   _terrain:
     _layerProperty:
@@ -65691,7 +65759,6 @@ MonoBehaviour:
       tileJsonData:
         tileJSONLoaded: 0
         LayerDisplayNames:
-        - 
         - admin
         - aeroway
         - airport_label
@@ -65708,9 +65775,9 @@ MonoBehaviour:
         - transit_stop_label
         - water
         - waterway
-      _sourceType: -1
+      _sourceType: 3
       sourceOptions:
-        isActive: 1
+        isActive: 0
         layerSource:
           Name: Mapbox Terrain
           Id: mapbox.3d-buildings,mapbox.mapbox-streets-v8
@@ -65782,7 +65849,7 @@ MonoBehaviour:
           isEnabled: 0
           entityPerCoroutine: 0
         honorBuildingIdSetting: 1
-        buildingsWithUniqueIds: 1
+        buildingsWithUniqueIds: 0
         moveFeaturePositionTo: 0
         MeshModifiers: []
         GoModifiers: []
@@ -65791,7 +65858,7 @@ MonoBehaviour:
         selectedTypes: 
       - coreOptions:
           sourceId: 
-          isActive: 1
+          isActive: 0
           sublayerName: RedBarier-roads
           geometryType: 1
           layerName: road
