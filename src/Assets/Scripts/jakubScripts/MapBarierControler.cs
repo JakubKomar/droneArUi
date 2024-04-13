@@ -8,10 +8,17 @@
 /// zajištuje pravido 1:1 u vygenerovaných bariér nad silnicemi, nsatavuje šíøku bariéry dle letové výšky
 /// </summary>
 
-using Mapbox.Unity.Map;
-using System.Collections.Generic;
 using UnityEngine;
-
+using Mapbox.Utils;
+using Mapbox.Unity.Map;
+using Mapbox.Unity.Utilities;
+using System.Collections.Generic;
+using System;
+using Mapbox.Examples;
+using System.Globalization;
+using Microsoft.MixedReality.Toolkit.UI;
+using Microsoft.MixedReality.Toolkit.UI.BoundsControl;
+using System.Collections;
 public class MapBarierControler : Singleton<MapBarierControler>
 {
     [SerializeField]
@@ -28,12 +35,12 @@ public class MapBarierControler : Singleton<MapBarierControler>
     float barierWidth = 3;
 
     DroneManager droneManager = null;
-    void Start()
+    void Awake()
     {
         droneManager = DroneManager.Instance;
+        StartCoroutine(UpdateAsync());
     }
-
-
+    /*
     private float timer = 0f;
     private float interval = 0.5f;
     void Update()
@@ -91,6 +98,63 @@ public class MapBarierControler : Singleton<MapBarierControler>
 
 
             timer = 0f;
+        }
+    }*/
+    private IEnumerator barierResize()
+    {   
+        float newBarierWidth;
+        if (dynamicBarierEnable)
+        {
+            float droneAlt;
+            if (droneManager.ControlledDrone != null)
+            {
+                droneAlt = (float)droneManager.ControlledDrone.FlightData.Altitude;
+            }
+            else
+            {
+                droneAlt = testAlt;
+            }
+            newBarierWidth = Mathf.Round(startWidth + droneAlt);
+        }
+        else
+        {
+            newBarierWidth = startWidth;
+        }
+
+        if (newBarierWidth == barierWidth)
+        {
+            yield break;
+        }
+        yield return null;
+        foreach (AbstractMap map in abstractMaps)
+        {
+            if (map == null) { continue; }
+            VectorSubLayerProperties vc = map.VectorData.FindFeatureSubLayerWithName("RedBarier-roads");
+            if (vc == null)
+            {
+                Debug.LogWarning("MapBarierControler vc == null");
+                continue;
+            }
+            if (vc.Modeling == null || vc.Modeling.LineOptions == null)
+            {
+                Debug.LogWarning("MapBarierControler vc.Modeling == null || vc.Modeling.LineOptions == null");
+                continue;
+            }
+            try
+            {
+                vc.Modeling.LineOptions.SetLineWidth(newBarierWidth);
+            }
+            catch { Debug.LogWarning("MapBarierControler SetLineWidth"); }
+            yield return new WaitForSeconds(0.25f);
+        }
+    }
+
+    private IEnumerator UpdateAsync()
+    {
+        while (true)
+        {
+            yield return barierResize();
+            yield return new WaitForSeconds(0.25f);
         }
     }
 }

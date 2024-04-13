@@ -65014,7 +65014,7 @@ MonoBehaviour:
         layerId: 0
       sideWallOptions:
         isActive: 0
-        wallHeight: 10
+        wallHeight: 0.0001
         wallMaterial: {fileID: 0}
   _vectorData:
     _layerProperty:
@@ -66216,7 +66216,6 @@ GameObject:
   - component: {fileID: 919132148953412636}
   - component: {fileID: 919132148953412637}
   - component: {fileID: 919132148953412638}
-  - component: {fileID: 919132148953412639}
   m_Layer: 0
   m_Name: Minimap
   m_TagString: Untagged
@@ -66271,7 +66270,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919132148953412632}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2e4b968495fcd0142b0b4b87ba65f54c, type: 3}
   m_Name: 
@@ -66359,36 +66358,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 811744641}
---- !u!114 &919132148953412639
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919132148953412632}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4684083f6dff4a1d8a790bccc354fcf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  updateLinkedTransform: 0
-  moveLerpTime: 0.1
-  rotateLerpTime: 0.1
-  scaleLerpTime: 0
-  maintainScaleOnInitialization: 1
-  smoothing: 1
-  lifetime: 0
-  referenceDirection: 1
-  minDistance: 1
-  maxDistance: 2
-  minViewDegrees: 0
-  maxViewDegrees: 30
-  aspectV: 1
-  ignoreAngleClamp: 0
-  ignoreDistanceClamp: 0
-  useFixedVerticalPosition: 0
-  fixedVerticalPosition: -0.4
-  orientToReferenceDirection: 0
 --- !u!114 &932493269674624475
 MonoBehaviour:
   m_ObjectHideFlags: 0
