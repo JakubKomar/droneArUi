@@ -123,17 +123,37 @@ public class MapControler : MonoBehaviour
 
     public void changeMapImage(int index)
     {
+        VectorSubLayerProperties vc = null;
         switch (index)
         {
             default:
             case 0:
                 abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxSatelliteStreet);
+
+                vc = abstractMap.VectorData.FindFeatureSubLayerWithName("Buildings-side");
+                vc.Texturing.SetStyleType(StyleTypes.Realistic);
+
+                vc = abstractMap.VectorData.FindFeatureSubLayerWithName("Buildings-roof");
+                vc.Texturing.SetStyleType(StyleTypes.Satellite);
                 break;
             case 1:
                 abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxStreets);
+
+                vc = abstractMap.VectorData.FindFeatureSubLayerWithName("Buildings-side");
+                vc.Texturing.SetStyleType(StyleTypes.Light);
+
+                vc = abstractMap.VectorData.FindFeatureSubLayerWithName("Buildings-roof");
+                vc.Texturing.SetStyleType(StyleTypes.Light);
+
                 break;
             case 2:
                 abstractMap.ImageLayer.SetLayerSource(ImagerySourceType.MapboxDark);
+
+                vc = abstractMap.VectorData.FindFeatureSubLayerWithName("Buildings-side");
+                vc.Texturing.SetStyleType(StyleTypes.Dark);
+
+                vc = abstractMap.VectorData.FindFeatureSubLayerWithName("Buildings-roof");
+                vc.Texturing.SetStyleType(StyleTypes.Dark);
                 break;
         }
     }
