@@ -38,7 +38,7 @@ public class MissionSelector : MonoBehaviour
     void Start()
     {
         pathToDir = Path.Combine(Application.persistentDataPath, "misions/");
-        Debug.Log(pathToDir);
+        Debug.Log("Save files location path:\""+pathToDir+"\"");
         refreshMissionList();
 
         if (contentConteiner == null)

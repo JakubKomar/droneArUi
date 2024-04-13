@@ -144,7 +144,7 @@ public class MapBarierControler : Singleton<MapBarierControler>
             {
                 vc.Modeling.LineOptions.SetLineWidth(newBarierWidth);
             }
-            catch { Debug.LogWarning("MapBarierControler SetLineWidth"); }
+            catch { }
             yield return new WaitForSeconds(0.25f);
         }
     }
