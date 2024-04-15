@@ -35728,8 +35728,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.35, y: 0.41570383, z: 0.58479524}
-  m_Center: {x: 0, y: 0.14214787, z: 0}
+  m_Size: {x: 0.35, y: 0.5739962, z: 0.58479524}
+  m_Center: {x: 0, y: 0.2212945, z: 0}
 --- !u!1 &1279739245
 GameObject:
   m_ObjectHideFlags: 0
@@ -65615,6 +65615,7 @@ MonoBehaviour:
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 1
   lineRenderer: {fileID: 114478716810624010}
+  heightMinimapAproximateConstant: 0.5
 --- !u!120 &114478716810624010
 LineRenderer:
   serializedVersion: 2
@@ -65819,12 +65820,12 @@ MonoBehaviour:
         - transit_stop_label
         - water
         - waterway
-      _sourceType: 3
+      _sourceType: -2
       sourceOptions:
-        isActive: 0
+        isActive: 1
         layerSource:
           Name: Mapbox Terrain
-          Id: mapbox.3d-buildings,mapbox.mapbox-streets-v8
+          Id: mapbox.mapbox-streets-v8
           Modified: 
           UserName: 
       useOptimizedStyle: 0
@@ -66005,6 +66006,7 @@ MonoBehaviour:
   prefabPointOfInterest: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b, type: 3}
   isMinimap: 0
   lineRenderer: {fileID: 114478717238887278}
+  heightMinimapAproximateConstant: 0.4
 --- !u!120 &114478717238887278
 LineRenderer:
   serializedVersion: 2

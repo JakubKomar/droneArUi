@@ -508,7 +508,7 @@ public class SpawnOnMap : MonoBehaviour
                 // bariéry mají nastavenou výšku tak aby spodní hrana byla na zemi
                 if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
                 {
-                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(mapCustumeObject.spawnetGameObject.transform.localScale.y * 0.5f);
+                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(mapCustumeObject.spawnetGameObject.GetComponentInChildren<Renderer>().bounds.size.y*0.5f);
                 }
                 else // u ostatních urèuje výšku uživatel
                 {
@@ -683,17 +683,18 @@ public class SpawnOnMap : MonoBehaviour
 
     const float tiltScaleUnity = 0.115f;
     const float defalutZoomLevel = 19;
-    const float aproximateConstant = 0.25f;
+    [SerializeField]
+    private float heightMinimapAproximateConstant = 0.5f;
 
     private float calcScenePosition(float groundYpos, float relativeAlt)
     {
-        return groundYpos + (relativeAlt / defalutZoomLevel) * tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant;
+        return groundYpos + (relativeAlt / defalutZoomLevel) * tiltScaleUnity * _map.transform.lossyScale.y * heightMinimapAproximateConstant;
 
     }
 
     private float calcAbsoluteHeight(float deltaHeight)
     {
-        return (deltaHeight * defalutZoomLevel) / (tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant);
+        return (deltaHeight * defalutZoomLevel) / (tiltScaleUnity * _map.transform.lossyScale.y * heightMinimapAproximateConstant);
     }
 
 
