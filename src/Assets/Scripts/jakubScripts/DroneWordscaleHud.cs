@@ -61,7 +61,7 @@ public class DroneWordscaleHud : MonoBehaviour
 
         vlc.SetActive(toggleWordscaleDrone.droneWordscaleCamera);
 
-        if (!disableHud && drone != null || forceActiveHud)
+        if (!disableHud && drone != null )
         {
             droneDistance = Vector3.Distance(this.transform.position, Camera.main.transform.position);
 
@@ -96,7 +96,7 @@ public class DroneWordscaleHud : MonoBehaviour
         }
         else
         {
-            hudChild.gameObject.SetActive(false);
+            hudChild.gameObject.SetActive(forceActiveHud);
         }
 
     }

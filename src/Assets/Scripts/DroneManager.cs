@@ -9,6 +9,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mapbox.Unity.Map;
+using Microsoft.MixedReality.Toolkit.UI;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DroneManager : Singleton<DroneManager>
@@ -27,6 +30,7 @@ public class DroneManager : Singleton<DroneManager>
 
     [SerializeField]
     private bool fakeGps = false;
+
     private void Update()
     {
         // pokud nejsou přijata data o dronu do 15s maže se
@@ -174,6 +178,21 @@ public class DroneManager : Singleton<DroneManager>
                 textToSpeechSyntetizer.say("Drone connected.");
             }
         }
+    }
+    public float altLimit = 100; // výškový limit, po kterém začne alarm
+    [SerializeField]
+    private TextMeshProUGUI altlimIndTxt;
+    public void setAltLimitBySlitder(SliderEventData ev)
+    {
+        altLimit = (float)ev.NewValue * 100f;
+        if (altlimIndTxt)
+            altlimIndTxt.text = "ALT. LiM:" + Math.Round(altLimit).ToString() + "m";
+
+    }
+    private void Start()
+    {
+        if (altlimIndTxt)
+            altlimIndTxt.text = "ALT. LiM:" + Math.Round(altLimit).ToString() + "m";
     }
 }
 

@@ -15,7 +15,7 @@ $dockerTelemetryDirPath = "$scriptDirectory\dronServer\compose_files\"
 Start-Process -FilePath $videoServerPath
 
 # Spuštění monitorovací aplikace
-Start-Process -FilePath $monitorPath
+#Start-Process -FilePath $monitorPath
 
 # Spuštění Dockeru
 Start-Process -FilePath $dockerPath
