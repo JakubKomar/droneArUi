@@ -95,7 +95,7 @@ MonoBehaviour:
   hudChild: {fileID: 5651164703010907522}
   vlc: {fileID: 367011302721857387}
   gpsLostIcon: {fileID: 5683163696144248346}
-  altWarningIcon: {fileID: 7498241997552718930}
+  altWarningIcon: {fileID: 0}
   speed: {fileID: 4863383583010802253}
 --- !u!114 &7269701626626180937
 MonoBehaviour:
@@ -120,7 +120,7 @@ MonoBehaviour:
   gpsPosition: {x: 0, y: 0, z: 0}
   imuPosition: {x: 0, y: 0, z: 0}
   aceleration: {x: 0, y: 0, z: 0}
-  debugMode: 0
+  posGpsforCal: {x: 0, y: 0, z: 0}
 --- !u!114 &1745298660335901337
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19607,7 +19607,6 @@ MonoBehaviour:
   min: 0
   max: 151
   visibleCount: 50
-  testAlt: 0
   altWarnIcon: {fileID: 7498241997552718930}
   altText: {fileID: 3816332420868449052}
   dronePositionCalculator: {fileID: 7269701626626180937}

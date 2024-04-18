@@ -235,6 +235,7 @@ public class DronePositionCalculator : MonoBehaviour
     }
     void onCalibration()
     {
+        calcGps();
         // pøi kalibraci je nutné imu pozici pøepsat 
         if (droneManager.ControlledDrone == null || droneManager.ControlledDrone.FlightData == null || droneManager.ControlledDrone.FlightData.InvalidGps)
             imuPosition = Vector3.zero;

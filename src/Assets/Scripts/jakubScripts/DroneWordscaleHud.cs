@@ -41,8 +41,6 @@ public class DroneWordscaleHud : MonoBehaviour
     [SerializeField]
     GameObject gpsLostIcon = null;
     [SerializeField]
-    GameObject altWarningIcon = null;
-    [SerializeField]
     TMP_Text speed = null;
 
     void Start()
@@ -77,9 +75,6 @@ public class DroneWordscaleHud : MonoBehaviour
 
 
             distance.text = "D:" + Mathf.Round(droneDistance).ToString()+"m";
-
-            if (altWarningIcon != null)
-                altWarningIcon.SetActive(drone.FlightData.Altitude > 100);
             if (gpsLostIcon != null)
                 gpsLostIcon.SetActive(drone.FlightData.InvalidGps);
 
