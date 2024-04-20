@@ -8,7 +8,7 @@ Tento nástroj si klade za cíl usnadnit plánovací rutinu obvyklých misí a p
 #### Popis aplikace:
 Aplikace je typu klient-server a je napsána v herním enginu Unity s využitím knihoven VLC knihovna - https://github.com/videolan/vlc-unity}{github.com/videolan/vlc-unity, Mapbox - https://www.mapbox.com/unity}{mapbox.com/unity a ProBuilder - https://unity.com/features/probuilder. Veškerá logika je psána v jazyce C\#. Program potřebuje ke korektnímu fungování internetové připojení pro stažení aktuálních geografických dat z OpenStreet map (Mapbox), dle aktuální pozice operátora. Aplikace má globální pole působnosti a lze ji tedy plně užít kdekoliv. 
 
-Aplikace dále vyžaduje zdroj telemetrických dat dronu a záznam kamery dronu. Ty zajišťuje telemetrický sever\footnote{Telemetrický server - https://github.com/robofit/drone\_server}{github.com/robofit/drone\_server a RTMP video server - https://www.monaserver.ovh/. Díky serverovému řešení je možné připojit do tohoto ekosystému další kompatibilní aplikace, jako je například monitorovací aplikace v notebooku. Zdrojem dat pro tyto servery je upravená aplikace DJI SDK poskytující letová data - https://github.com/robofit/drone\_dji\_streamer}{github.com/robofit/drone\_dji\_streamer, která periodicky zasílá požadovaná data na příslušné služby. Jednotlivé komponenty systému jsou propojeny Wi-Fi Hotspotem. 
+Aplikace dále vyžaduje zdroj telemetrických dat dronu a záznam kamery dronu. Ty zajišťuje telemetrický sever\footnote{Telemetrický server a RTMP video server. Díky serverovému řešení je možné připojit do tohoto ekosystému další kompatibilní aplikace, jako je například monitorovací aplikace v notebooku. Zdrojem dat pro tyto servery je upravená aplikace DJI SDK poskytující letová data, která periodicky zasílá požadovaná data na příslušné služby. Jednotlivé komponenty systému jsou propojeny Wi-Fi Hotspotem. 
 
 Rozhraní implementované aplikace se skládá ze dvou hlavních částí. První je HUD widget, který zobrazuje letové a systémové veličiny spolu se záznamem z kamery. Tato část má za úkol snížit psychickou námahu pilota.  Druhou částí programu jsou objekty mise rozmístěné v prostoru okolo operátora, se kterými je manipulováno skrze 3D mini-mapu. Tato část má usnadnit programování a inspekci mise.
 
@@ -50,4 +50,10 @@ https://github.com/mertusta1996/Mapbox-Hololens-2-Unity-UWP-
 https://sketchfab.com/3d-models/dji-mavic-3-c5a5abae1dea468ab73b1bdc7d616fa6#download
 - zdroj 2D svg ikon
 https://www.svgrepo.com/
+
+#### Pužité knihovny
+ - VLC knihovna - https://github.com/videolan/vlc-unity
+ - Mapbox - https://www.mapbox.com/unity}
+ - ProBuilder - https://unity.com/features/probuilder
+ - SVG unity
 
