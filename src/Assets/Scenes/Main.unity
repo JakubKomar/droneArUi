@@ -67194,7 +67194,7 @@ MonoBehaviour:
   _initializeOnStart: 1
   _imagery:
     _layerProperty:
-      sourceType: 0
+      sourceType: 7
       sourceOptions:
         isActive: 1
         layerSource:
