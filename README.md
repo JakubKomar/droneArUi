@@ -27,8 +27,8 @@ Rozhraní implementované aplikace se skládá ze dvou hlavních částí. Prvn�
 
 #### Navázání spojení v Hololens:
 1. V hololens 2 řekněte povel "connection", měl by se vám zobrazit panel s ipadresamy... Zadejteje a zmáčkněte tlačítko connect. Konzole lze vyvolat povelem "debug", pro ladící výpisy.
-2. Úspěšné spojení by mělo být oznámeno hláškou "Connection established" a pokud je dron připojen icona přeškrtlého drona by měla zmizet.
-3. Dronu je dobré zkalibrovat kompas a před spojením s ním chvilinku povílítnout a udělat jedno dvě kolečka pro ustálení GPS.
+2. Úspěšné spojení by mělo být oznámeno hláškou "Connection established" a pokud je dron připojen, ikona přeškrtlého drona by měla zmizet.
+3. Dronu je dobré zkalibrovat kompas a před spojením s ním chvilinku létat a udělat jedno dvě kolečka pro ustálení GPS.
 4. Proveďte kalibraci tak, že si nad drona stoupnete a koukáte se ve stejném směru jako dron. Řeknete povel (calibrate/calibration). Úspěšná kalibrace bude oznámena.
 5. Vše by mělo být připraveno, případné ověření/dokalibrování lze provést povelem "soft calibration".
 
