@@ -13,4 +13,19 @@ Aplikace dále vyžaduje zdroj telemetrických dat dronu a záznam kamery dronu.
 Rozhraní implementované aplikace se skládá ze dvou hlavních částí. První je HUD widget, který zobrazuje letové a systémové veličiny spolu se záznamem z kamery. Tato část má za úkol snížit psychickou námahu pilota.  Druhou částí programu jsou objekty mise rozmístěné v prostoru okolo operátora, se kterými je manipulováno skrze 3D mini-mapu. Tato část má usnadnit programování a inspekci mise.
 
 #### Návod na zprovoznění:
+1. Stáhněte a nainstalujte telemetrický server a RTMP video server
+https://github.com/robofit/drone\_server}{github.com/robofit/drone\_server
+https://www.monaserver.ovh/
+2. zkontrolujete firewallová pravidla
+3. do telefonu si nainstalujte aplikaci, která zasílá data na jednotlivé servery
+github.com/robofit/drone\_dji\_streamer
+pokud nebude fungovat využijte aplikaci přiloženou ve složco externals
+5. Spojení lze ověřit přes aplikaci DroCo
+https://github.com/robofit/drone_vstool
 
+#### Navázání spojení v Hololens:
+1. V hololens 2 řekněte povel "connection", měl by se vám zobrazit panel s ipadresamy... Zadejteje a zmáčkněte tlačítko connect. Konzole lze vyvolat povelem "debug", pro ladící výpisy.
+2. Úspěšné spojení by mělo být oznámeno hláškou "Connection established" a pokud je dron připojen icona přeškrtlého drona by měla zmizet.
+3. Dronu je dobré zkalibrovat kompas a před spojením s ním chvilinku povílítnout a udělat jedno dvě kolečka pro ustálení GPS.
+4. Proveďte kalibraci tak, že si nad drona stoupnete a koukáte se ve stejném směru jako dron. Řeknete povel (calibrate/calibration). Úspěšná kalibrace bude oznámena.
+5. Vše by mělo být připraveno, případné ověření/dokalibrování lze provést povelem "soft-calibration".
