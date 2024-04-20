@@ -14,18 +14,40 @@ Rozhraní implementované aplikace se skládá ze dvou hlavních částí. Prvn�
 
 #### Návod na zprovoznění:
 1. Stáhněte a nainstalujte telemetrický server a RTMP video server
-https://github.com/robofit/drone\_server}{github.com/robofit/drone\_server
-https://www.monaserver.ovh/
+ - https://github.com/robofit/drone\_server}{github.com/robofit/drone\_server
+ - https://www.monaserver.ovh/
 2. zkontrolujete firewallová pravidla
 3. do telefonu si nainstalujte aplikaci, která zasílá data na jednotlivé servery
-github.com/robofit/drone\_dji\_streamer
-pokud nebude fungovat využijte aplikaci přiloženou ve složco externals
+ - github.com/robofit/drone\_dji\_streamer
+pokud nebude fungovat využijte aplikaci přiloženou ve složce externals
+ - aplikace má tendenci padat pokud nemá spojení se servrem, zadejte ip adresu ještě před připojením vysílače
 5. Spojení lze ověřit přes aplikaci DroCo
-https://github.com/robofit/drone_vstool
+ - https://github.com/robofit/drone_vstool
 
 #### Navázání spojení v Hololens:
 1. V hololens 2 řekněte povel "connection", měl by se vám zobrazit panel s ipadresamy... Zadejteje a zmáčkněte tlačítko connect. Konzole lze vyvolat povelem "debug", pro ladící výpisy.
 2. Úspěšné spojení by mělo být oznámeno hláškou "Connection established" a pokud je dron připojen icona přeškrtlého drona by měla zmizet.
 3. Dronu je dobré zkalibrovat kompas a před spojením s ním chvilinku povílítnout a udělat jedno dvě kolečka pro ustálení GPS.
 4. Proveďte kalibraci tak, že si nad drona stoupnete a koukáte se ve stejném směru jako dron. Řeknete povel (calibrate/calibration). Úspěšná kalibrace bude oznámena.
-5. Vše by mělo být připraveno, případné ověření/dokalibrování lze provést povelem "soft-calibration".
+5. Vše by mělo být připraveno, případné ověření/dokalibrování lze provést povelem "soft calibration".
+
+#### Hlasové povely:
+ - "Calibration/calibrate" - dle GPS dat dronu a kompasu je proveda word-scale calibrace hráče
+ - "Soft calibration" - zobrazí se budovy okolo hráče a šipky pro manuální korekci, ukončete opakováním povelu.
+ - "Toggle camera" - zapnutí/vypnutí fpv módu
+ - "Map" přivolá mapu
+ - "Toggle map" zapne vypne mapu
+ - "Debug" přivolá debugovací konzoly
+ - "Connection" přivolá panel připojení
+ - "Skip" přeskoč waypoint
+ - "Reset" zresetuj trasu
+ - "Toggle profiler" ukaž analýzu výkonosti
+
+#### Použité zdroje v programu:
+ - upravená knihovna mapbox pro hololens
+https://github.com/mertusta1996/Mapbox-Hololens-2-Unity-UWP-
+ - model dronu
+https://sketchfab.com/3d-models/dji-mavic-3-c5a5abae1dea468ab73b1bdc7d616fa6#download
+- zdroj 2D svg ikon
+https://www.svgrepo.com/
+
