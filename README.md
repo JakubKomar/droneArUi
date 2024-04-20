@@ -6,7 +6,7 @@ Tento nástroj si klade za cíl usnadnit plánovací rutinu obvyklých misí a p
 [![Demo video](https://img.youtube.com/vi/PgQNG-16zcc/0.jpg)](https://www.youtube.com/watch?v=PgQNG-16zcc)
 
 #### Popis aplikace:
-Aplikace je typu klient-server a je napsána v herním enginu Unity s využitím knihoven VLC knihovna - https://github.com/videolan/vlc-unity}{github.com/videolan/vlc-unity, Mapbox - https://www.mapbox.com/unity}{mapbox.com/unity a ProBuilder - https://unity.com/features/probuilder. Veškerá logika je psána v jazyce C\#. Program potřebuje ke korektnímu fungování internetové připojení pro stažení aktuálních geografických dat z OpenStreet map (Mapbox), dle aktuální pozice operátora. Aplikace má globální pole působnosti a lze ji tedy plně užít kdekoliv. 
+Aplikace je typu klient-server a je napsána v herním enginu Unity s využitím knihoven VLC, Mapbox a ProBuilder. Veškerá logika je psána v jazyce C\#. Program potřebuje ke korektnímu fungování internetové připojení pro stažení aktuálních geografických dat z OpenStreet map (Mapbox), dle aktuální pozice operátora. Aplikace má globální pole působnosti a lze ji tedy plně užít kdekoliv. 
 
 Aplikace dále vyžaduje zdroj telemetrických dat dronu a záznam kamery dronu. Ty zajišťuje telemetrický sever\footnote{Telemetrický server a RTMP video server. Díky serverovému řešení je možné připojit do tohoto ekosystému další kompatibilní aplikace, jako je například monitorovací aplikace v notebooku. Zdrojem dat pro tyto servery je upravená aplikace DJI SDK poskytující letová data, která periodicky zasílá požadovaná data na příslušné služby. Jednotlivé komponenty systému jsou propojeny Wi-Fi Hotspotem. 
 
