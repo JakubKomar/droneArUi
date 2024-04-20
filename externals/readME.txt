@@ -1,1 +1,0 @@
-tato složka obsahuje externí nástroje a produkty které jsou potřeba pro provoz aplikace
