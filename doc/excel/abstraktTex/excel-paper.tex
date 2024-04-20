@@ -1,0 +1,106 @@
+%\documentclass{ExcelAtFIT}
+\documentclass[czech]{ExcelAtFIT} % when writing in CZECH
+%\documentclass[slovak]{ExcelAtFIT} % when writing in SLOVAK
+\usepackage[inkscapelatex=false]{svg}
+
+%--------------------------------------------------------
+%--------------------------------------------------------
+%	REVIEW vs. FINAL VERSION
+%--------------------------------------------------------
+
+%   LEAVE this line commented out for the REVIEW VERSIONS
+%   UNCOMMENT this line to get the FINAL VERSION
+\ExcelFinalCopy
+
+
+%--------------------------------------------------------
+%--------------------------------------------------------
+%	PDF CUSTOMIZATION
+%--------------------------------------------------------
+
+\hypersetup{
+	pdftitle={Vizualizační nástroj pro pilota dronu v brýlích HoloLens 2},
+	pdfauthor={Jakub Komárek},
+	pdfkeywords={AR, Drone, Unity}
+}
+
+\lstset{ 
+	backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+	basicstyle=\footnotesize\tt,        % the size of the fonts that are used for the code
+}
+
+%--------------------------------------------------------
+%--------------------------------------------------------
+%	ARTICLE INFORMATION
+%--------------------------------------------------------
+
+\ExcelYear{2024}
+
+\PaperTitle{Vizualizační~nástroj~pro~pilota~dronu~v~brýlích~HoloLens~2}
+
+\Authors{Jakub Komárek*}
+\affiliation{*%
+  \href{mailto:xkomar33@vut.cz}{xkomar33@vut.cz},
+  \textit{Fakulta informačních technologií, Vysoké učení technické v Brně}}
+
+\Abstract{
+Cílem práce je tvorba moderního nástroje pro usnadnění obsluhy dronu. Nástroj, který autor vytvořil, si klade za cíl usnadnit plánovací rutinu obvyklých misí a pomoci při jejím bezpečném plnění. Nástroj byl vytvořen také s ohledem na legislativní omezení provozu dronů a přispívá k jejich korektnímu dodržování. 
+Problematika je řešena za pomocí klient-server aplikace v prostředí rozšířené reality v brýlích HoloLens 2. Pro pomoc při pilotáži autor implementoval průhledové rozhraní/HUD, z angl. head-up display, který se pohybuje spolu s dronem a okolo něho zobrazuje užitečná data -- výškoměr, rychloměr a záznam z kamery.
+Snadnější plánování misí přináší implementovaná 3D mini-mapa, která je kopií a zmenšeninou reálného světa. V této mapě pak pilot plánuje mise, vidí pozici drona v reálném čase a veškeré informace z mapy se navíc zobrazují i v okolí pilota v~reálném světě pomocí rozšířené reality.
+}
+\begin{document}
+\startdocument
+
+\section{Úvod}
+Drony jsou stále častěji využívány pro operace v~oblas-tech, které jsou v blízkosti zástavby, nebezpečných překážek a obyvatelstva. Pilotáž je proto  v těchto podmínkách nelehký úkol. S použitím konvenčních prostředků musí pilot souběžně sledovat jak ovládaný dron, tak obrazovku ovladače (pro kontrolu letových dat či záznamu z kamery), což je v těchto obtížných oblastech mentálně náročné a může navíc vytvářet nebezpečné situace.
+
+Při rozsáhlejších operacích navíc není v lidských silách dron řídit ručně po celou dobu úkolu, a~proto se drony velmi často programují pro automatické vykonání mise pod dohledem pilota. S tím se pojí další rizika a~problémy. Inspekce fasád či střech budov představují praktický příklad výše zmíněného. U úkolu tohoto typu je často nutné velmi pečlivě programovat misi dronu, aby při jejím provádění nedošlo k havárii. Prostředky umožňující kontrolu programu jsou však omezené. 
+
+Současné nástroje (např. UgCS\footnote{UgCS -- \href{https://www.sphengineering.com/flight-planning/ugcs}{sphengineering.com/flight-planning/ugcs}.}) sice umožňují takové mise programovat, ale nedisponují žádnou možností, jak ověřit proveditelnost mise a zkontrolovat ji přímo v místě provádění. Programovací nástroje často nedisponují přesnými 3D modely budov, nezohledňují možnou zeleň v okolí stavby, či možné neočekávané překážky, typu pouliční lampy nebo stave-bní jeřáby, které by mohly překážet při provádění mise.
+
+Tato práce se věnuje řešení zmíněných problémů a~to experimentální metodou vizualizace letových dat dronu v prostředí rozšířené reality, která má za úkol poskytnout prostředky pro zvýšení bezpečnosti, usnadnění pilotáže a zpříjemnění používání dronů. 
+
+Práce rovněž adresuje problematiku autonomních režimů pilotáže dronu tím, že se snaží  ulehčit programování, vyhodnocení proveditelnosti a samotné vykonání misí dronů. 
+
+Toto dílo navazuje na závěrečné práce \cite{VáclavíkMarek2021Vnpp} a \cite{KyjacMartin2022Vnpp}.
+
+
+\section{Implementovaná aplikace}
+Aplikace je typu klient-server a je napsána v herním enginu Unity s využitím knihoven VLC\footnote{VLC knihovna -- \href{https://github.com/videolan/vlc-unity}{github.com/videolan/vlc-unity}.}, Mapbox\footnote{Mapbox knihovna -- \href{https://www.mapbox.com/unity}{mapbox.com/unity}.} a~ProBuilder\footnote{ProBuilder knihovna -- \href{https://unity.com/features/probuilder}{unity.com/features/probuilder}.}. Veškerá logika je psána v jazyce C\#. Program potřebuje ke korektnímu fungování internetové připojení pro stažení aktuálních geografických dat z OpenStreet map (Mapbox), dle aktuální pozice operátora. Aplikace má globální pole působnosti a lze ji tedy plně užít kdekoliv. 
+
+Aplikace dále vyžaduje zdroj telemetrických dat dronu a záznam kamery dronu. Ty zajišťuje telemetrický sever\footnote{Telemetrický server --  \href{https://github.com/robofit/drone\_server}{github.com/robofit/drone\_server}.} a~RTMP video server. Díky serverovému řešení je možné připojit do tohoto ekosystému další kompatibilní aplikace, jako je například monitorovací aplikace v~notebooku. Zdrojem dat pro tyto servery je upravená aplikace DJI SDK\footnote{Upravená aplikace DJI SDK poskytující letová data -- \href{https://github.com/robofit/drone\_dji\_streamer}{github.com/robofit/drone\_dji\_streamer}.}, která periodicky zasílá požadovaná data na příslušné služby. Jednotlivé komponenty systému jsou propojeny Wi-Fi Hotspotem. 
+
+Rozhraní implementované aplikace se skládá ze dvou hlavních částí. První je HUD widget, který zobrazuje letové a systémové veličiny spolu se záznamem z~kame-ry (inspirováno \cite{hedayati2018improving, konstantoudakis2022drone}). Tato část má za úkol snížit psychickou námahu pilota.  Druhou částí programu jsou objekty mise rozmístěné v prostoru okolo operátora (inspirováno \cite{zollmann2014flyar}), se kterými je manipulováno skrze 3D mini-mapu (inspirováno \cite{li2015flying,liu2018usability}). Tato část má usnadnit programování a inspekci mise.
+
+\subsection{Komentář k plakátu}
+Na propagačním obrázku  \fbox{0} lze vidět celý systém z pohledu třetí osoby. Před pilotem se nachází 3D mini-mapa, která slouží pro úpravy mise a celkový přehled o jejím provádění. Dále se v zorném poli pilota nachází průhledový HUD displej, který sleduje drona. V prostoru jsou  dále rozmístěny objekty mise.
+
+\subsubsection*{Plánování misí -- 3D mini-mapa}
+Detailní pohled na 3D mini-mapu je na obrázku \fbox{1}. Textura zemského povrchu a střech domů je načtena ze  satelitních snímků. Boky budov jsou generovány synteticky. Mapa obsahuje vizualizaci výškového pře-výšení. Editace prvků mise probíhá za pomocí intuitivního \uv{drag and drop} mechanismu (přetáhnutí rukou). Prvky jsou v reálném čase přenášeny do \uv{Word-scale} vizualizace. Díky 3D pohledu lze snadno plánovat i vertikální mise dronu.
+
+\subsubsection*{Objekty mise -- Word-scale vizualizace}
+Entity mise autor omezil na čtyři typy. \textbf{Waypointy} (modré koule) označují naplánovanou trasu, spojnice mezi nimi pak reprezentuje letovou dráhu dronu. \textbf{Body zájmu} (fialové koule) označují místa, které bude dron natáčet při průletu naplánovanou dráhou. \textbf{Bariéry} a \textbf{varování} jsou zóny, ve kterých by se dron neměl nacházet. Pokud se v těchto zónách dron ocitne, bude spuštěn poplach ve formě vizuálního indikátoru, po kterém následuje varovná zpráva pomocí syntetizátoru  hlasu. Obdobné chování bude provedeno v případě výpadku signálu nebo překročení výškového limitu. Bariéru lze zahlédnout na obrázku \fbox{0} a naplánovanou trasu, s~viditelnou kolizí na obrázku \fbox{2}.
+
+\subsubsection*{Sledování dronu -- HUD displej}
+Detailní pohled na HUD widget, který dron následuje je na obrázku \fbox{3}. Widget nalevo obsahuje  páskový indikátor výšky, na středu zaměřovací kosočtverec a~napravo přenos z kamery. Kompas, který se nachází nahoře, je statický (uživatel ho vidí na stejném místě) a~pomáhá uživateli snadno lokalizovat dron a klíčové prvky mise.
+
+Pro zaměřování dronu nešla použít GPS pozice kvůli nepřesnosti a pozdnímu času odezvy. Z tohoto důvodu byla použita data z jednotky IMU, která udávají rychlost ve třech osách dronu. Pro výpočet pozice bylo nutné řešit  diferenciální rovnici pro pohyb objektu, kterou autor aproximoval Eulerovou metodou, viz rovnice \eqref{eq:euler_method}.  Vzhledem k velké délce kroku a~nepřesno-sti senzorů se v pozici dronu po krátké době objeví chyba. Tato chyba je redukovaná postupnou konvergencí k GPS pozici. Řešení může pracovat i~bez signálu GPS (například v budovách).
+\begin{equation}
+x(t_0+h)=x(t_0)+hv(t_0)
+\label{eq:euler_method}
+\end{equation}
+\captionsetup{labelformat=empty}
+\textbf{Rovnice 1:} Rovnice popisující výpočet pozice za pomocí IMU jednotky, kde $x(t_0)$ je aktuální pozice dronu (vektor o velikosti 3), $h$ je délka kroku (průměrně 0.25\,s), $v$ je vektor rychlosti. Po výpočtu vyjde nová pozice $x(t_0+h)$.
+
+\section{Závěr}
+Článek popisuje experimentální rozhraní v rozšířené realitě pro pilota dronu. Rozhraní usnadňuje pilotáž dronu tím, že se pilot může plně soustředit na plnění mise a sledování drona na obloze, kde zároveň vidí všechny potřebné informace.\,Oproti existujícím řešením nástroj umožňuje vidět naprogramované mise přímo v~reálném prostředí, díky čemuž je možné misi na místě provádění zkontrolovat a případně modifikovat.
+
+
+\section*{Poděkování}
+Děkuji panu Ing. Danielu Bambuškovi za odborné konzultace a pomoc při tvorbě práce.
+
+\phantomsection
+\bibliographystyle{unsrt}
+\bibliography{bibliography}
+
+\end{document}
