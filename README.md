@@ -16,13 +16,13 @@ Rozhraní implementované aplikace se skládá ze dvou hlavních částí. Prvn�
 1. Stáhněte a nainstalujte telemetrický server a RTMP video server
  - https://github.com/robofit/drone\_server}{github.com/robofit/drone\_server
  - https://www.monaserver.ovh/
-2. zkontrolujete firewallová pravidla
+ - zkontrolujete firewallová pravidla
 3. do telefonu si nainstalujte aplikaci, která zasílá data na jednotlivé servery
  - [github.com/robofit/drone\_dji\_streamer](https://github.com/robofit/drone_dji_streamer)
  - pokud nebude fungovat (velmi pravděpodobně), použijte mnou zkompilovanou aplikaci v releases
  - aplikace má tendenci padat pokud nemá spojení se servrem, zadejte ip adresu ještě před připojením vysílače
  - aplikace padá i v případě že se zakne gymbal, zkrátka vše musí perfektně fungovat jinak aplikace spadne
-5. Spojení lze ověřit přes aplikaci DroCo
+4. Spojení lze ověřit přes aplikaci DroCo
  - https://github.com/robofit/drone_vstool
 
 #### Navázání spojení v Hololens:
