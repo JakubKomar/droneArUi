@@ -49,9 +49,14 @@ public class AltIndicator : MonoBehaviour
 
     [SerializeField]
     private DronePositionCalculator dronePositionCalculator;
+
+    private float altLimit = 100f;
+
+    private DroneManager droneManager;
+
     void Start()
     {
-
+        droneManager = DroneManager.Instance;
         canvasWidth = this.GetComponent<RectTransform>().rect.width;
         canvasHeight = this.GetComponent<RectTransform>().rect.height;
         tape = this.transform.Find("Tape");
@@ -60,7 +65,8 @@ public class AltIndicator : MonoBehaviour
             GameObject stupnice = Instantiate(largeStupnice);
             largeStupniceList.Add(stupnice);
             LargeStupnice script = stupnice.GetComponent<LargeStupnice>();
-            script.red = i > 100;
+            script.red = i > altLimit;
+            ;
             script.text = i.ToString();
             stupnice.transform.parent = tape;
 
@@ -77,11 +83,31 @@ public class AltIndicator : MonoBehaviour
             stupnice.transform.parent = tape;
 
             SmallStupnice script = stupnice.GetComponent<SmallStupnice>();
-            script.red = i > 100;
+            script.red = i > altLimit;
             stupnice.transform.localScale = Vector3.one;
             stupnice.transform.localRotation = Quaternion.identity;
             stupnice.transform.localPosition = new Vector3(28f, (canvasHeight / visibleCount) * i, -1);
         }
+    }
+
+    void setAltLimit(float newAltLimit)
+    {
+        altLimit = newAltLimit;
+        int index = 0;
+        foreach (var kvp in largeStupniceList)
+        {
+            LargeStupnice script = kvp.GetComponent<LargeStupnice>();
+            script.red= index > altLimit;
+            index += 10;
+        }
+        index = 0;
+        foreach (var kvp in smallStupniceList)
+        {
+            SmallStupnice script = kvp.GetComponent<SmallStupnice>();
+            script.red = index > altLimit;
+            index += 1;
+        }
+       
     }
 
     void Update()
@@ -90,24 +116,26 @@ public class AltIndicator : MonoBehaviour
     
         newAlt = Mathf.Round(newAlt * 10) / 10;
 
-        if (alt == newAlt)
+        float newAltLimit = droneManager.altLimit;
+
+        if (newAltLimit != altLimit)
         {
-            return;
+            setAltLimit(newAltLimit);
         }
+        else if (alt == newAlt)
+            return;
 
         alt = newAlt;
-
-
 
         // pokud je výška vìtší jak 100, zobraz varování a pøehraj varování každých 15s
         if (altWarnIcon != null)
         {
-            altWarnIcon.SetActive(alt > 100);
+            altWarnIcon.SetActive(alt > altLimit);
 
         }
         if (altText != null)
         {
-            if (alt > 100)
+            if (alt > altLimit)
             {
                 altText.color = new Color32(255, 0, 0, 255);
                 altText.text = newAlt.ToString("F0");
@@ -117,10 +145,14 @@ public class AltIndicator : MonoBehaviour
                 altText.color = new Color32(0, 255, 0, 255);
                 altText.text = newAlt.ToString("F1");
             }
+            if (alt > 100)
+                altText.text = newAlt.ToString("F0");
+            else
+                altText.text = newAlt.ToString("F1");
         }
 
 
-        if (alt > 100 && Mathf.Abs(Time.time - lastAltWarning) > 15f)
+        if (alt > altLimit && Mathf.Abs(Time.time - lastAltWarning) > 15f)
         {
             lastAltWarning = Time.time;
             TextToSpeechSyntetizer textToSpeechSyntetizer = FindObjectOfType<TextToSpeechSyntetizer>();

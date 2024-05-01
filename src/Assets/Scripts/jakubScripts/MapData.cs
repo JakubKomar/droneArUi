@@ -542,7 +542,7 @@ public class JsonFileTdo : System.Object
                     float poiX = poi == null ? 0 : (float)Conversions.StringToLatLon(poi.locationString).x;
                     float poiY = poi == null ? 0 : (float)Conversions.StringToLatLon(poi.locationString).y;
                     float poiAlt = poi == null ? 0 : poi.relativeAltitude;
-                    sw.WriteLine($"{waypointVec.x.ToString(culture)},{waypointVec.y.ToString(culture)},{waypoint.relativeAltitude.ToString(culture)},0,3,0,0,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,0,0,{poiX.ToString(culture)},{poiY.ToString(culture)},{poiAlt.ToString(culture)},0,-1,-1");
+                    sw.WriteLine($"{waypointVec.x.ToString(culture)},{waypointVec.y.ToString(culture)},{waypoint.relativeAltitude.ToString(culture)},0,1,0,0,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,-1,0,0,0,{poiX.ToString(culture)},{poiY.ToString(culture)},{poiAlt.ToString(culture)},0,-1,-1");
                 }
             }
         }

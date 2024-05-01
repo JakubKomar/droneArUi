@@ -505,34 +505,22 @@ public class SpawnOnMap : MonoBehaviour
             {
                 var newTransformation = _map.GeoToWorldPosition(vector2d, true);
 
-                // bariéry mají nastavenou výšku tak aby spodní hrana byla na zemi
-                if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
-                {
-                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(mapCustumeObject.spawnetGameObject.transform.localScale.y * 0.5f);
-                }
-                else // u ostatních urèuje výšku uživatel
-                {
-                    sceneHeight = newTransformation.y;//výška k zemi ve scénì
-                    deltaHeight = gameObject.transform.position.y - sceneHeight;
-                    mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(deltaHeight);
-                }
+
+                sceneHeight = newTransformation.y;//výška k zemi ve scénì
+                deltaHeight = gameObject.transform.position.y - sceneHeight;
+                mapCustumeObject.mapObject.relativeAltitude = calcAbsoluteHeight(deltaHeight);
+                
             }
             else
             {
                 var newTransformation = _map.GeoToWorldPosition(vector2d, true);
 
 
-                if (mapCustumeObject.mapObject.type == MapObject.ObjType.Barier || mapCustumeObject.mapObject.type == MapObject.ObjType.Warning)
-                {
-                    mapCustumeObject.mapObject.relativeAltitude = mapCustumeObject.spawnetGameObject.transform.localScale.y / 2;
 
-                }
-                else
-                {
-                    sceneHeight = newTransformation.y;//výška k zemi ve scénì
-                    deltaHeight = gameObject.transform.position.y - sceneHeight;
-                    mapCustumeObject.mapObject.relativeAltitude = deltaHeight;
-                }
+                sceneHeight = newTransformation.y;//výška k zemi ve scénì
+                deltaHeight = gameObject.transform.position.y - sceneHeight;
+                mapCustumeObject.mapObject.relativeAltitude = deltaHeight;
+                
             }
 
             // pokud je výška negativní, klipne se do nuly
@@ -683,17 +671,18 @@ public class SpawnOnMap : MonoBehaviour
 
     const float tiltScaleUnity = 0.115f;
     const float defalutZoomLevel = 19;
-    const float aproximateConstant = 0.25f;
+    [SerializeField]
+    private float heightMinimapAproximateConstant = 0.5f;
 
     private float calcScenePosition(float groundYpos, float relativeAlt)
     {
-        return groundYpos + (relativeAlt / defalutZoomLevel) * tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant;
+        return groundYpos + (relativeAlt / defalutZoomLevel) * tiltScaleUnity * _map.transform.lossyScale.y * heightMinimapAproximateConstant;
 
     }
 
     private float calcAbsoluteHeight(float deltaHeight)
     {
-        return (deltaHeight * defalutZoomLevel) / (tiltScaleUnity * _map.transform.lossyScale.y * aproximateConstant);
+        return (deltaHeight * defalutZoomLevel) / (tiltScaleUnity * _map.transform.lossyScale.y * heightMinimapAproximateConstant);
     }
 
 
