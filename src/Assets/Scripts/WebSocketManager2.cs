@@ -1,5 +1,5 @@
-﻿// implemented by Jakub Komárek
-
+﻿// integroval Jakub Komárek
+// převzato z https://github.com/robofit/drone_vstool/blob/DroCoV2/DroCo/Assets/Scripts/Managers/WebSocketManager.cs
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿// převzato z https://github.com/robofit/drone_vstool
+using System;
 
 [Serializable]
 public class MyRect

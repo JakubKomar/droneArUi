@@ -1,4 +1,6 @@
-﻿using System;
+﻿// převzato z https://github.com/robofit/drone_vstool
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
