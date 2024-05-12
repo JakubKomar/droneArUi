@@ -1,11 +1,12 @@
 /// <author>
 /// Jakub Komarek
+/// VLC 
 /// </author>
 /// <date>
 /// 05.04.2024
 /// </date>
 /// <summary>
-/// upravenı vlc skript, kterı pøehrává rtmp streamy, stream je nakonfigurován pro nízkou latenci, zastavuje pøehrávání pokud je deaktivován kvùli optimalizaci
+/// upravenÃ½ vlc example skript (skript byl souÄÃ¡stÃ­ knihovny VLC), kterÃ½ pÃ¸ehrÃ¡vÃ¡ rtmp streamy, stream je nakonfigurovÃ¡n pro nÃ­zkou latenci, zastavuje pÃ¸ehrÃ¡vÃ¡nÃ­ pokud je deaktivovÃ¡n kvÃ¹li optimalizaci
 /// </summary>
 
 using UnityEngine;
@@ -187,7 +188,7 @@ public class RTMPstreamPlayer : MonoBehaviour
 		}
 
 		Core.Initialize(Application.dataPath); //Load VLC dlls
-		//parametry pro nízkou latenci
+		//parametry pro nÃ­zkou latenci
 		libVLC = new LibVLC(enableDebugLogs: true, "--clock-synchro=1", "--low-delay", "--no-osd", "--network-caching=0", "--no-audio"); //You can customize LibVLC with advanced CLI options here https://wiki.videolan.org/VLC_command-line_help/
 															
 		//Setup Error Logging
